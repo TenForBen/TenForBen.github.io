@@ -1,0 +1,37 @@
+allusers={
+	"userslist":[{
+	"id" : 1,
+	"name" : "Radhika",
+	"Age": 25,
+	"username" : "rs15165",
+	"password" : "eedd@1234"
+	},
+	{
+	"id" : 2,
+	"name" : "Sibin",
+	"Age": 27,
+	"username": "ss25735",
+	"password" : "xest"
+	},
+	{
+	"id" : 3,
+	"name" : "Sahil",
+	"Age": 20,
+	"username" : "ss25896",
+	"password" : "aug@2018"
+	},
+	{
+	"id": 4,
+	"name" : "Shilpa",
+	"Age": 21,
+	"username": "sk24789",
+	"password": "sep@2018"
+	}
+	,{
+	"id": 5,
+	"name" : "davor",
+	"Age": 21,
+	"username": "dl00000",
+	"password": "liverpool"
+	}]
+}

@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="main.css">
+<script src="allusers.json"></script>
+<script src="Check login.js"></script>
+
+<script src="jquery-3.2.1.js"></script>
 
 <style>
 	
@@ -17,14 +22,11 @@ body{
 	background-color: black;
 	color:salmon;
 }
-h1{
-	background-color: blue;
-	color:yellow;
-}
+
 </style>
 
 <body>
-<marquee><h1> Teetham thinno </h1></marquee>
+<marquee><h1> <span id="user2"> </span> Teetham thinno </h1></marquee>
 <h2> Convert the following two functions written in simple Javascript to ES6. Try and
 use as many features of ES6 as you can.</h2>
 <button onclick="starter()"> Login Starter</button>
