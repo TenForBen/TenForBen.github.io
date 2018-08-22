@@ -26,7 +26,9 @@ let result=(userid,password, allusers)=>
 				passwordcorrect= true
 				var UserNma=allusers.userslist[currentuser].name
 				$("#user")[0].innerText=allusers.userslist[currentuser].name
+				$("#bottomMQ")[0].innerText=allusers.userslist[currentuser].name
 				//$('span')[1].innerText=allusers.userslist[currentuser].name
+					
 				break
 
 			}
@@ -46,6 +48,7 @@ let result=(userid,password, allusers)=>
 	{
 		//alert(`You are logged in, Welcome ${userid}`)
 		$('#WelcomeText')[0].style.visibility="visible"
+		$('#nosuser2')[0].style.display="block"
 
 	}
 	else if(userfound==true && passwordcorrect==false)
