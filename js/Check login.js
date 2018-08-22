@@ -1,11 +1,13 @@
 function starter()
 {
-
-	var userid= prompt("Enter the username")
-	var password= prompt("Enter the password")
+//var userid= prompt("Enter the username")
+	var userid=$("#txtUserName")[0].value
+	//var password= prompt("Enter the password")
+	var password=$("#txtPassword")[0].value
 	var userfound= false
-	var passwordcorrect= false
+	var passwordcorrect= false	
 	result(userid, password, allusers);
+
 
 }
 
@@ -23,8 +25,8 @@ let result=(userid,password, allusers)=>
 				userfound= true
 				passwordcorrect= true
 				var UserNma=allusers.userslist[currentuser].name
-				$('span')[0].innerText=allusers.userslist[currentuser].name
-				$('span')[1].innerText=allusers.userslist[currentuser].name
+				$("#user")[0].innerText=allusers.userslist[currentuser].name
+				//$('span')[1].innerText=allusers.userslist[currentuser].name
 				break
 
 			}
@@ -42,16 +44,17 @@ let result=(userid,password, allusers)=>
 	}//end of loop
 	if (userfound== true && passwordcorrect==true)
 	{
-		alert(`You are logged in, Welcome ${userid}`)
+		//alert(`You are logged in, Welcome ${userid}`)
+		$('#WelcomeText')[0].style.visibility="visible"
 
 	}
 	else if(userfound==true && passwordcorrect==false)
 	{
-		alert(`You are unable to login ${userid}, please provide correct password`)
+		$("#CPwdError")[0].innerText=`You are unable to login with ${userid}, please provide correct password`
 	}
 	else 
 	{
-		alert('Invalid Userid, Please provide valid Userid')
+		$("#CPwdError")[0].innerText ='Invalid Userid, Please provide valid Userid'
 	}
 
 	}

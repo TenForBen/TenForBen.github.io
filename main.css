@@ -2,12 +2,3 @@ h1{
 	background-color: blue;
 	color:yellow;
 }
-
-#astro{
-
-	height:400px;
-	width:500px;
-	border:5px solid beige;
-	float:right;
-	padding:2px;
-}

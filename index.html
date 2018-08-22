@@ -2,41 +2,68 @@
 <html>
 <head>
 <link rel="stylesheet" href="main.css">
-<script src="allusers.json"></script>
-<script src="Check login.js"></script>
+<script src="js/allusers.json"></script>
+<script src="js/Check login.js"></script>
 
 <script src="jquery-3.2.1.js"></script>
+<link rel="stylesheet" type="text/css" href="BootMeister/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="FW flcss.css">
+    <script src="js/louder.js"></script>
+    <script type="text/javascript" src="js/FW formlog.js"></script>
 
 <style>
-	
-	div{
-	
+
+
+
+#astro{
+
 	height:400px;
-	width:400px;
-	background-color: green;
-	color:yellow;
+	width:500px;
+	border:5px solid beige;
+	float:right;
+	padding:2px;
+	display:none;
 }
+#WelcomeText{
+	
+	visibility: hidden; 
+}
+#nosuser2{
 
-body{
-
-	background-color: black;
-	color:salmon;
+	display:none;
 }
 
 </style>
 
-<body>
-<title> StenoGraphz</title>
-<marquee><h1> <span id="user2"> </span> 3 dazs of work </h1></marquee>
-<h2> Convert the following two functions written in simple Javascript to ES6. Try and
-use as many features of ES6 as you can.</h2>
+<body id="Ramon" onload="vaishakh()">
+<title> Arsenal World</title>
+<marquee id="nosuser2"><h1> <span > </span> Resilence </h1></marquee>
+
 <button onclick="starter()"> Login Starter</button>
-<div>
-<p>HI  <span id="user"> </span>
+<div id="WelcomeText">
+<p >HI  <span id="user"> </span>
 
 </p>
-Welcome to the ES6
+Welcome to the Arsenal World
 </div>
+<form name="frmRegister" method="post"  id="natasha" onsubmit=""> 
+
+ 	<fieldset>
+	  	<div id="HeaderError" >Your Entry must be at least 6 characters long.  Please try again.</div>
+	 	 <div>    <label for="txtUserName" class="brenner">Username:</label> 
+	 	<input type="text" name="txtUserName" id="txtUserName" size="12" /><span id="UsernameError" class="message"></span>  </div>
+	 	 <div>    <label for="txtPassword" class="brenner">Password: </label>  
+	 	   <input type="password" name="txtPassword" id="txtPassword" size="12" />  <span    id="PwdError" class="message"></span> </div> 
+	 	 <div>   
+	      <span    id="CPwdError"   class="message"></span> </div>
+	 	  <div >  
+	 	    <input type="button" value="Log in" id="psycho" class="btn btn-success btn-lg" onclick="starter()">
+	 	     &nbsp&nbsp </div>
+
+	 	     </form>
+    </fieldset>
+</form>
 
 <img src="img/KnowledgeMoneyBalance.jpeg" alt="anda omelette" id="astro">
 
