@@ -5,7 +5,7 @@
 <script src="js/allusers.json"></script>
 <script src="js/Check login.js"></script>
 
-<script src="jquery-3.2.1.js"></script>
+<script src="js/jquery-3.2.1.js"></script>
 <link rel="stylesheet" type="text/css" href="BootMeister/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="FW flcss.css">
@@ -13,9 +13,6 @@
     <script type="text/javascript" src="js/FW formlog.js"></script>
 
 <style>
-
-
-
 #astro{
 
 	height:400px;
@@ -33,6 +30,9 @@
 
 	display:none;
 }
+#LoginB1{
+	display:none;
+}
 
 </style>
 
@@ -40,7 +40,7 @@
 <title> Arsenal World</title>
 
 
-<button onclick="starter()"> Login Starter</button>
+<button onclick="starter()" id="LoginB1" > Login Starter</button>
 <div id="WelcomeText">
 <p >HI  <span id="user"> </span>
 
@@ -69,6 +69,8 @@ Welcome to the Arsenal World
 <marquee id="nosuser2">
 <h1> Hi <span <span id="bottomMQ"> </span> Welcome to Arsenal World </h1>
 </marquee>
+
+<a href="Movies/MovieHome.html" class="btn btn-danger btn-lg" id="MoviesB"> Movies HOME</a>
 
 
 </body>
