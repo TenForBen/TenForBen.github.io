@@ -5,7 +5,13 @@
 <link rel="stylesheet" href="../main.css">
 <script src="../js/allusers.json"></script>
 <script src="../js/Check login.js"></script>
-<script src="../js/fpl.json"></script>
+<script>
+	function MatrixerPage(){
+
+		window.open("https://www.w3schools.com/css/css3_2dtransforms.asp", "_self", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+ 
+	}
+</script>
 <script src="../js/jquery-3.2.1.js"></script>
 <link rel="stylesheet" type="text/css" href="../BootMeister/css/bootstrap.min.css">
 
@@ -35,23 +41,76 @@ background-color: green;
     -webkit-transform: rotate(20deg); /* Safari */
     transform: rotate(20deg); /* Standard syntax */
 }
+#skeweror{
+    -ms-transform: skew(20deg,10deg); /* IE 9 */
+    -webkit-transform: skew(20deg,10deg); /* Safari */
+    transform: skew(-2deg,1deg); /* Standard syntax */
+
+}
+#Scalor{
+	-ms-transform: scale(2,3); /* IE 9 */
+    -webkit-transform: scale(2,3); /* Safari */
+    transform: scale(1.5,1); /* Standard syntax */
+    margin-left:233px;
+}
+#Matrixer{
+-ms-transform: matrix(1, -0.3, 0, 1, 0, 0); /* IE 9 */
+    -webkit-transform: matrix(1, -0.3, 0, 1, 0, 0); /* Safari */
+    transform: matrix(1, 0, 0, 1, 100, 20);
+     /* Standard syntax */
+     width:420px;
+
+}
 </style>
 
 <body id="Ramon" onload="vaishakh()">
+
 <title> 2D and 3D transformation of CSS </title>
 
-<div class="transform" id="translater">
-	-ms-transform: translate(50px,100px); /* IE 9 */<br>
-    -webkit-transform: translate(50px,100px); /* Safari */<br>
-    transform: translate(250px,100px); /* Standard syntax */<br>
+		<div class="transform" >
+			Normal box
+
+		</div>
+
+		<title> 2D and 3D transformation of CSS </title>
+
+		<div class="transform" id="translater">
+			-ms-transform: translate(50px,100px); /* IE 9 */<br>
+		    -webkit-transform: translate(50px,100px); /* Safari */<br>
+		    transform: translate(250px,100px); /* Standard syntax */<br>
 
 
-</div>
+		</div>
 
-<div class="transform" id="rotator">
-	
-This div element is rotated clockwise 20 degrees.
-</div>
+		<div class="transform" id="rotator">
+			
+		This div element is rotated  clockwise 20 degrees.<br><br><br><br>
+		 -ms-transform: rotate(20deg); /* IE 9 */
+		    -webkit-transform: rotate(20deg); /* Safari */
+		    transform: rotate(20deg); /* Standard syntax */
+		</div>
+
+		<div class="transform" id="skeweror">
+			
+This div element is skewed 10 degrees along the Y-axis.
+		</div>
+
+		<div class="transform" id="Scalor">
+			
+		This div element is two times of its original width, and three times of its original height.
+		-ms-transform: scale(2,3); /* IE 9 */<br>
+    -webkit-transform: scale(2,3); /* Safari */<br>
+    transform: scale(2,1); /* Standard syntax */<br>
+    margin-left:233px;
+		</div>
+
+		<div class="transform" id="Matrixer" onclick="MatrixerPage()">
+			Matrix
+			The parameters are as follow: 
+			matrix(scaleX(),skewY(),skewX(),scaleY(),translateX(),translateY())
+			https://www.w3schools.com/css/css3_2dtransforms.asp
+
+		</div>
 
 
 
