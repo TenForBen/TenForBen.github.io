@@ -13,125 +13,124 @@
     <script type="text/javascript" src="../js/FW formlog.js"></script>
 
 <style>
-body{
-	background-color: #9942ae
-}
-#baksa{
-background-image:  url('../img/teetam.jpg');
-width:30vw;
+            #stupidity
+            {
+                display:none;
+            }
 
-height:39vh;
-position: relative;
-top: 100px;
-margin:10px;
-padding: 5px;
-border:2px white solid;
-background-repeat: no-repeat;
-    background-position:-59px -157px;
-background-size: 129%;
-}
-
-#naksa{
-
-    background-image: url(../img/teetam.jpg);
-    width: 30vw;
-    height: 39vh;
-    position: relative;
-    top: 100px;
-    margin: 10px;
-    padding: 5px;
-    border: 2px white solid;
-    background-repeat: no-repeat;
-    background-position: -116px -165px;
-    background-size: 162%;
-}
-#hum{
-
-	margin: 1vw;
-    padding: 1vw;
-    border: 2px red solid;
-    width: 95vw;
-    height: 99vh;
-
-    
-}
-#secondVideo{
-
-	   margin: 1vw;
-    padding: 1vw;
-    border: 2px red solid;
-    width: 95vw;
-    height: 99vh;
-
-    
-    
-}
-#stupidity{
-	display:none;
-}
-
-@media screen and (min-width: 680px)
- {
-        body 
+             body 
+            {
+               background-color: #994;
+               margin: 1vw;
+                padding: 1vw;
+            }
+            .Youtube_Video{
+                margin: .21vw;
+                padding: .1vw;
+                border: .4vw red solid;
+               width: 40vw;
+                height: 40vh;
+            }
+        @media screen and (max-width: 980px) 
         {
-            background-color: red;
-            background-image: red;
+            body 
+            {
+               background-color: #9942ae;
+            }
+            #baksa
+            {
+                    background-image:  url('../img/teetam.jpg');
+                    width:30vw;
 
-        }
-        #hum
-        {
+                    height:39vh;
+                    position: relative;
+                    top: 100px;
+                    margin:10px;
+                    padding: 5px;
+                    border:2px white solid;
+                    background-repeat: no-repeat;
+                        background-position:-59px -157px;
+                    background-size: 129%;
+            }
 
-            margin: 2vw;
-            padding: 1vw;
-            border: 2vw white solid;
-            width: 95vw;
-            height: 99vh;
+            #naksa
+            {
 
+                background-image: url(../img/teetam.jpg);
+                width: 30vw;
+                height: 39vh;
+                position: relative;
+                top: 100px;
+                margin: 10px;
+                padding: 5px;
+                border: 2px white solid;
+                background-repeat: no-repeat;
+                background-position: -116px -165px;
+                background-size: 162%;
+            }
+            #hum{
+
+                margin: 1vw;
+                padding: 1vw;
+                border: 2px red solid;
+                width: 60vw;
+                height: 40vh;
+
+                
+            }
+            .Youtube_Video{
+                margin: 2vw;
+                padding: 1vw;
+                border: .4vw red solid;
+               width: 70vw;
+                height: 40vh;
+            }
+            #secondVideo
+            {
+                margin: 1vw;
+                padding: 1vw;
+                border: 2px red solid;
+                width: 95vw;
+                height: 99vh;  
+            }
             
         }
-         #secondVideo
-    {
 
-        margin: 2vw;
-        padding: 1vw;
-        border: 2vw white solid;
-        width: 95vw;
-        height: 99vh;
-        
-        
-    }
-}
 
-@media screen and (min-width: 480px)
- {
-        body {
-            background-color: black;
-            background-image: red;
+        @media screen and (max-width: 680px)
+         {
+                body 
+                {
+                    background-color: red;
+                    
 
+                }
+                .Youtube_Video
+                {
+                        margin: 2vw;
+                        padding: 1vw;
+                        border: 1vw white solid;
+                       width: 90vw;
+                        height: 60vh;
+                }   
         }
-        #hum
-        {
 
-            margin: 2vw;
-            padding: 1vw;
-            border: 2vw yellow solid;
-            width: 85vw;
-            height: 70vh;
+        @media screen and (max-width:480px)
+         {
+                body {
+                    background-color: black;
+                    
 
-            
+                }
+               .Youtube_Video
+               {
+                    margin: 2vw;
+                    padding: 2vw;
+                    border: 2vw yellow solid;
+                   width: 90vw;
+                    height: 94vh;
+                }
         }
-        #secondVideo
-        {
-
-            margin: 2vw;
-            padding: 1vw;
-            border: 1vw yellow solid;
-            width: 85vw;
-            height: 70vh;
-            
-            
-        }
-}
 </style>
 
 <body id="Ramon" onload="">
@@ -141,9 +140,9 @@ background-size: 129%;
 
 <div id="hsum">
 
-<iframe width="800" height="615" src="https://www.youtube.com/embed/hCebE--ZvsU" id="hum" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="800" height="615" src="https://www.youtube.com/embed/hCebE--ZvsU" class="Youtube_Video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-<iframe width="800" height="615" src="https://www.youtube.com/embed/2YQ5jBSuwFE" id="secondVideo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="800" height="615" src="https://www.youtube.com/embed/2YQ5jBSuwFE" class="Youtube_Video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 
 </div>
