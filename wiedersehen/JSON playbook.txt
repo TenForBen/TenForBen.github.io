@@ -1,0 +1,87 @@
+{"hardwareType":{"hardwareUID":"vodafone_sim_only","manufacturer":"Vodafone","model":"V-Sim","firmware":["testFirmware1","testFirmware2","99","0.1"]},"hardwareUid":"vodafone_sim_only","companionApp":null,"pricePlans":null,"name":"V SIM","status":"ACTIVE","statusTimestamp":"2018-02-16T07:06:57.303Z","customName":"jim strugress","privacyPolicyUrl":"https://v-pre.vodafone.com/help-and-support","termsAndConditionsUrl":"https://www.vodafone.co.uk/vsim","activeTransaction":null,"actionList":["SMS_MO","THRESHOLD_LIMIT_100","TERMINATE_CONTRACT","FORCE_DEACTIVATION","THRESHOLD_LIMIT_75","REVOKE_CANCELLATION","REGISTER_PP","UNLOCK_IMEI","SIM_ACCEPTED","DEREGISTER","SUSPEND_SUBSCRIPTION","RENEW_SUBSCRIPTION","CANCEL_SUBSCRIPTION","CHANGE_IMAGE","CHANGE_NAME"],"subscriptionStartTimestamp":"2018-02-16T08:04:12.012Z","subscriptionEndTimestamp":"2018-03-16T23:59:59.059Z","hardwareTypeSpecificInfo":{"whitelistedDeviceType":"none","device_types":{"pet_tracker":"pet_tracker","video_camera":"video_camera","car_tracker":"car_tracker","photo_camera":"photo_camera","general_tracker":"general_tracker","bike_tracker":"bike_tracker","luggage_tracker":"luggage_tracker","Other_device":"Other_device","child_tracker":"child_tracker","home_alarm_system":"home_alarm_system","fitness_tracker":"fitness_tracker","doorbel_camera":"doorbel_camera"},"sim_details":{"imei":null}},"userCancelTimestamp":null,"erCancelTimestamp":null,"links":{"self":{"href":"https://apistagingref.developer.vodafone.com/v1/iot-devices/89882390000017672513"},"image":{"href":"https://apistagingref.developer.vodafone.com/v1/iot-images/59e4aba2dc0e8200013c1302"},"customImage":{"href":"https://apistagingref.developer.vodafone.com/v1/iot-images/5a868a1636d1a00001b0bcd9"}}}##
+
+
+Url:ec2-34-240-15-214.eu-west-1.compute.amazonaws.com (ec2-34-240-15-214.eu-west-1.compute.amazonaws.com)
+ciot
+te0sie8johnethieHej2Ireir2chahFa
+.//*[@class="account-nav"]
+
+
+
+1519039638093
+
+var firstName = document.getElementById("firstname").value;
+                var lastName = document.getElementById("lastname").value;
+                var rollNum = document.getElementById("rollnum").value;
+                var subject = document.getElementById("subject").value;
+
+
+				
+	Change name
+
+					{
+	  "action": "CHANGE_NAME",
+	  "payload": {
+	"customName": "Scot Peterson"
+	}
+	}
+
+Change Image
+
+{
+  "action": "CHANGE_IMAGE",
+  "payload": {
+"customImage": "5a8fa95b36d1a00001b0bceb"
+}
+}
+
+600428233  MSISDN
+segunda 
+995914784090317
+
+V-auto device image "59c39087dc0e8200013c12d0"
+Angry emoticon
+
+{
+    "id": "5a8fbd2c3cdea2000125340d",
+    "size": 5.247,
+    "mimeType": "image/png",
+    "md5Hash": "733b842f6725dd603ee73e06467122c3",
+    "uploadDate": 1519369516453,
+    "height": 64,
+    "width": 64
+}
+
+Shocked Emoticon
+
+{
+    "id": "5a8fca2b3cdea2000125340e",
+    "size": 7.248,
+    "mimeType": "image/png",
+    "md5Hash": "291a235024573c0f1e19b92acd078525",
+    "uploadDate": 1519372843603,
+    "height": 64,
+    "width": 64
+}
+normal smile emoticon
+{
+    "id": "5a94fd743cdea20001253414",
+    "size": 4.867,
+    "mimeType": "image/png",
+    "md5Hash": "05d1dfb9266dcc0f9bff36e0f48cde54",
+    "uploadDate": 1519713652870,
+    "height": 64,
+    "width": 64
+}
+
+
+WTC image#
+{
+    "id": "5a93c4783cdea20001253410",
+    "size": 181.014,
+    "mimeType": "image/jpeg",
+    "md5Hash": "6aa52cc305fb55cab561a682128a55b4",
+    "uploadDate": 1519633528315,
+    "height": 1067,
+    "width": 800
+}
