@@ -1,0 +1,39 @@
+@media screen and (max-width: 480px) 
+        {
+            body 
+            {
+              color:pink; 
+              background-color: black;
+            }
+            
+            #naksa
+            {
+
+                background-image: url(../img/teetam.jpg);
+                width: 30vw;
+                height: 39vh;
+                position: relative;
+                top: 100px;
+                margin: 10px;
+                padding: 5px;
+                border: 2px white solid;
+                background-repeat: no-repeat;
+                background-position: -116px -165px;
+                background-size: 162%;
+            }
+            #hum
+            {
+                margin: 1vw;
+                padding: 1vw;
+                border: 2px red solid;
+                width: 60vw;
+                height: 40vh;
+            }
+            #fc
+            {
+                width:80vw;
+
+            }
+           
+            
+        }
