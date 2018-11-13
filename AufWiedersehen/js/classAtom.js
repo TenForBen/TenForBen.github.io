@@ -246,8 +246,8 @@ function boat()
     }
     function loader() {
         //document.getElementById('Tbag').style.display=='none';
-		$("body").css("background-color","beige");
-		document.getElementById("regtable").style.backgroundColor="white";
+		//$("body").css("background-color","beige");
+		//document.getElementById("regtable").style.backgroundColor="white";
         if (localStorage.studentsRecord) {
             studentsArray = JSON.parse(localStorage.studentsRecord);
             for (var i = 0; i < studentsArray.length; i++) {

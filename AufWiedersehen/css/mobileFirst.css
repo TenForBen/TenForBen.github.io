@@ -2,8 +2,11 @@
         {
             body 
             {
-              color:pink; 
+              color:yellow; 
               background-color: black;
+              margin:2vw;
+              padding: 1vw;
+
             }
             
             #naksa
@@ -29,10 +32,14 @@
                 width: 60vw;
                 height: 40vh;
             }
-            #fc
+            .clr
             {
                 width:80vw;
 
+            }
+            #OsterSunds
+            {
+                    width:50vw;
             }
            
             
