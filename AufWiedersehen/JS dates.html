@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<style>
+
+body{
+background-color:black;
+color:salmon;
+}
+
+section > div
+{
+height:50px;
+width:55px;
+background-color:red;
+float:left;
+margin:3px;
+cursor:pointer;
+
+}
+.mtn{
+	display: block;
+	margin:2px;
+	padding:2px;
+	height:150px,
+	width:100px;
+}
+
+#mviList{
+	display: block;
+}
+
+</style>
+
+<body>
+
+<h2>JavaScript Dates</h2>
+
+			<p>100000000000 milliseconds from Jan 1, 1970, is approximately Mar 3, 1973:</p>
+
+
+						<label for="rollnum">JS Date</label>
+                        <input type="text" placeholder="enter JS date" id="rollnum">
+						<p id="demo"></p>
+						<button id="submi" onclick="onPressed()">Register</button>
+						
+			<section>
+			
+			</section>
+			<br>	
+			<br>
+			<p id="mviList">
+
+				<img src="img\moviesThumbNail\Aravindante_Athidhikal_film_poster.jpg" class="mtn">
+			</p>	
+
+<script>
+
+function onPressed()
+{
+var anchorage=document.getElementById("rollnum").value;
+anchorage=Number(anchorage);
+var d = new Date(anchorage);
+document.getElementById("demo").innerHTML = d;
+}
+
+//1519362692124
+var imageID="5a8fa95b36d1a00001b0bceb";
+var bassh={
+    "id":"589b291af4428a0007ae7f31",
+    "name":"SmartlifeApp_updated",
+    "clientId":
+    [
+        "1.0"
+    ],
+    "androidUrl":"https://play.google.com/store?hl=pt_PT",
+    "iosUrl":"https://itunes.apple.com/pt/app/apple-store/id375380948?mt=8",
+    "iosAppUrl":"javascript:alert(1)",
+    "icon":
+    {
+        "id":"589b2919f4428a00070a8bec",
+        "size":38.912,
+        "mimeType":"image/png",
+        "md5Hash":"e1c6aafb269d03ab1947fb420f1953c5",
+        "uploadDate":1486563609788,
+        "height":1024,
+        "width":1024
+    },
+    "subsequentAndroidUrl":null,
+    "subsequentIOSUrl":null,
+    "androidAppUrl":null
+};
+
+
+</script>
+
+
+</body>
+<script src="js/ES6.js"></script>
+</html>

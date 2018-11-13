@@ -1,0 +1,53 @@
+h1{
+color:blue;
+background-color:yellow;
+font-family:forte;
+display:none;
+
+}
+.JSDatePage{
+	padding:5px 8px;
+	border: 1px solid black;
+	margin:2px 0px;
+	background-color:crimson;
+	color:lightsalmon;
+    position:relative;
+    top:4px;
+
+	
+}
+#monreal{
+	width:580px;
+	margin-top:20px;
+	margin-left:23px;
+	border:2px solid black;
+	padding:10px;
+}
+
+.clr{
+	display:block;
+	margin:10px;
+	
+}
+#bag{
+display:block;
+font-weight:700;
+font-size:20px;
+}
+
+#Tbag{
+display:block;
+<!-- font-weight:700;
+font-size:20px; -->
+height:300px;
+width:455px;
+margin:10px;
+border:solid 5px maroon;
+padding:3px;
+display:none;
+
+}
+
+div{
+	display:none;
+}
