@@ -28,13 +28,26 @@
 
     }
 
+        $(document).ready(function()
+            {
+                $("h2").click(function()
+                {
+                    $("h2").toggleClass("FIrstToggler");
+                });
+            });
+
 </script>
 <style>
-            @font-face 
-            {
-                font-family: Weiss;
-                src: url(Weiss.TTF);
-            }
+    
+     @font-face 
+        {
+            font-family: Weiss;
+            src: url(Weiss.TTF);
+        }
+        .FIrstToggler{
+            background-image:url('lines.png');
+            color:red;
+        }
         #stupidity
         {
             display:none;
@@ -89,6 +102,7 @@
             body 
             {
                background-color: #9942ae;
+
             }
             #baksa
             {
@@ -218,12 +232,13 @@
         }
 </style>
 
+
 <body id="Ramon" onload="">
 <title> Fatalism </title>
 <h1 id="stu">I Lived In The Garden Of Mektoub!!
 By
 R.V.C. Bodley</h1>
-<h2 id="bitch">M.E.K.T.O.U.B</h2>
+<h2 id="bitch" class="">M.E.K.T.O.U.B</h2>
 <select id="mySelect" onchange="RVC()">
   <option value="volvo">Black and White</option>
   <option value="saab">Linux</option>
