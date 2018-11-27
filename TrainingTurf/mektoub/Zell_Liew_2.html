@@ -12,12 +12,29 @@
 
     <script src="../../js/louder.js"></script>
     <script type="text/javascript" src="../../js/FW formlog.js"></script>
+    <script type="text/javascript">
+        
+         function acton()
+            {
+
+                    document.getElementById("Ramon").style.color = document.getElementById("fc").value;
+                    document.getElementById("Ramon").style.fontFamily = document.getElementById("ff").value;
+                    document.getElementById("Ramon").style.backgroundColor = document.getElementById("bg").value;
+
+            }
+
+    </script>
 
 <style>
 
         #stupidity
         {
             display:none;
+        }
+        .clr{
+            display: block;
+            margin:10vw;
+            padding: 1vw;
         }
 
         .pics
@@ -169,8 +186,13 @@
 <h1 id="stu">The secreT of
 speedy learning</h1>
 
+    <input type="text" placeholder=" font color" id="fc" class="clr">
+    <input type="text" placeholder=" font Family" id="ff" class="clr">
+    <input type="text" placeholder=" Bg color" id="bg" class="clr">
 
+    <button onclick='acton()' id="OsterSunds" class="JSDatePage"> OsterSunds </button>
 <div id="">
+
 The web development world evolves super quickly
 today. New techniques and frameworks seem to
 come at you from every corner. One issue that bothers
@@ -329,7 +351,7 @@ your energy into doing real work, rather than making
 comparisons. Lastly, keep learning.
 </div>
 
-    
+   
 
 
 </body>
