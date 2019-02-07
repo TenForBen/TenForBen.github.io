@@ -1,0 +1,47 @@
+1) Convert the following two functions written in simple Javascript to ES6. Try and
+use as many features of ES6 as you can.
+
+I have created json file which has Id & password for four different users.
+JS part-Used Arrow funcion and template literals.
+
+Bubble sort:
+
+Used Arrow function, Template literals, T and defaut input values assigned.
+
+
+2. part1 (Season number and Episode Number as Input)
+
+Used Arrow Function and default value assigned which is lastest season & 
+episode number.
+Used For In loop for iterating though all episodes and If condition will compare the given input 
+and the data in JSON file.
+
+If given input matches the episode & Season number in JSON file, It will console the details of that particuar episodes.
+If invalid inout is given, Alert is generated to notify users to enter valid data.
+
+If input field is empty, it will take given default value as input.
+
+
+2. Part 2 (Episode Id given as input)
+
+Used Arrow Function and default value assigned.
+Used For In loop for iterating though all episodes and If condition will compare the given input 
+and the data in JSON file.
+
+If given input matches the episode Id in JSON file, It will console the details of that particuar episodes.
+If invalid inout is given, Alert is generated to notify users to enter valid data.
+
+If input field is empty, it will take given default value as input.
+
+
+2. Part 3 (Episode name given as input)
+
+Used Arrow Function and default value assigned.
+Used For In loop for iterating though all episodes and If condition will compare the given input 
+and the data in JSON file.
+
+If given input matches the episode name in JSON file, It will console the details of that particuar episodes.
+If invalid inout is given, Alert is generated to notify users to enter valid data.
+
+If input field is empty, it will take given default value as input.
+
