@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="">
+<script src="JSONx/wet365.json"></script>
+
+<script src="../js/jquery-3.2.1.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../BootMeister/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+	#apdi
+	{
+		display:block;
+		margin: 30px;
+
+	}
+	h1
+	{
+		width: 80vw;
+		margin:0 auto;	
+
+	}
+
+	body{
+		margin: 1vw;
+
+	}
+	@media screen and (max-width: 481px) 
+    {
+	    body {
+	        padding:2vw;
+			margin: 3vw;
+			background-color: black;
+			color: yellow;
+	        
+
+	    }
+	    h1
+		{
+			width: 80vw;
+			margin:10px 30vw;	
+
+		}
+		.bo{
+			margin-top: 5vh;
+			margin-right: 2vw;
+			color:red;
+			margin-bottom: 4vh;
+		}
+		.boer{
+			color:black;
+		}
+	    #lp
+			{
+				height:50vh;
+				width:80vw;
+				border:5px solid beige;
+				float:right;
+				padding:2vw;
+				margin: 3vw;
+				
+				
+
+			}
+		#seal
+			{
+				
+			}
+
+    }
+
+
+</style>
+<body>
+
+<h1> BBT </h1>
+
+
+Episode number and season number 
+<br>
+<input id="s" type="text" class="bo" placeholder="season number">
+<input id="e" type="text" class="bo" placeholder="episode number" >
+<br>
+<button id="seal" class="btn btn-danger" onclick="sindhu()"> BBT</button>
+<textarea id="apdi" class="boer" rows="2" cols="50">
+	
+
+
+</textarea>
+ 
+</body>
+</head>
+</html>

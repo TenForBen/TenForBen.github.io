@@ -1,0 +1,46 @@
+var ref=
+{	
+  "id": 1,
+  "url": "http:\/\/www.bet365.com",
+  "name": "The Big Bet Theory",
+  "type": "Risky Business",
+  "language": "English",
+  "genres": [
+	"Gambling"
+  ],
+  "Tag":[
+			{
+				"id":1,
+				"Bets":
+				[
+					{
+						"Bet":1,
+						"wager":100,
+						"Result":"W",
+						"Reward":4.50,
+						"Remark":"Put the money on the end result"	
+						
+					  
+					},
+					{
+						"Bet":2,
+						"wager":50,
+						"Result":"L",
+						"Reward":0,
+						"Remark":"Put the money on Under 5.5 goals"	 
+					},
+					{
+						"Bet":3,
+						"wager":10,
+						"Result":"L",
+						"Reward":0,
+						"Remark":"Put the money on Draw result"	 
+					}
+				
+				]
+  
+			}
+		]
+
+
+}
