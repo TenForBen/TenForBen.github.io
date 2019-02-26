@@ -1,46 +1,263 @@
 var ref=
-{	
-  "id": 1,
-  "url": "http:\/\/www.bet365.com",
-  "name": "The Big Bet Theory",
-  "type": "Risky Business",
-  "language": "English",
-  "genres": [
-	"Gambling"
-  ],
-  "Tag":[
-			{
-				"id":1,
-				"Bets":
-				[
-					{
-						"Bet":1,
-						"wager":100,
-						"Result":"W",
-						"Reward":4.50,
-						"Remark":"Put the money on the end result"	
-						
-					  
-					},
-					{
-						"Bet":2,
-						"wager":50,
-						"Result":"L",
-						"Reward":0,
-						"Remark":"Put the money on Under 5.5 goals"	 
-					},
-					{
-						"Bet":3,
-						"wager":10,
-						"Result":"L",
-						"Reward":0,
-						"Remark":"Put the money on Draw result"	 
-					}
-				
-				]
-  
-			}
-		]
+{
+	"id": 1,
+	"url": "http:\/\/www.bet365.com",
+	"name": "The Big Bet Theory",
+	"type": "Risky Business",
+	"language": "English",
+	"genres": [
+		"Gambling"
+	],
+	"Tag": [
+		{
+			"id": 1,
+			"Date": "4th-Feb",
+			"Bets": [{
+					"Bet": 1,
+					"wager": 100,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 4.50,
+					"Remark": "Put the money on the end result"
+
+
+				},
+				{
+					"Bet": 2,
+					"wager": 50,
+					"Result": "L",
+					"odds": " ",
+					"Reward": 0,
+					"Remark": "Put the money on Under 5.5 goals"
+				},
+				{
+					"Bet": 3,
+					"wager": 10,
+					"Result": "L",
+					"odds": " ",
+					"Reward": 0,
+					"Remark": "Put the money on Draw result"
+				}
+
+			]
+
+		},
+		{
+			"id": 19,
+			"Date": "22nd-Feb",
+			"Bets": [{
+					"Bet": 1,
+					"wager": 50,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 25,
+					"Remark": "Central coast vs Brisbane under 8.5 goals"
+
+
+				},
+				{
+					"Bet": 2,
+					"wager": 50,
+					"Result": "L",
+					"odds": 1.40,
+					"Reward": 0,
+					"Remark": "Ten minute goals under .5 -40 min to 49.59 mins"
+				},
+				{
+					"Bet": 3,
+					"wager": 50,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 5,
+					"Remark": "Mohammedan Dhaka vs sheikh Jamal under 3.5 goals"
+				},
+				{
+					"Bet": 4,
+					"wager": 100,
+					"Result": "L",
+					"odds": " ",
+					"Reward": 0,
+					"Remark": "Ratchaburi vs trat under 4.5 goals"
+				},
+				{
+					"Bet": 5,
+					"wager": 50,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 55,
+					"Remark": "ATK vs Mumbai city FC under 4.5 goal"
+				},
+				{
+					"Bet": 6,
+					"wager": 50,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 20,
+					"Remark": "Aalen vs sonnenhof under 3.5 goals"
+				},
+				{
+					"Bet": 7,
+					"wager": 50,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 22.22,
+					"Remark": "Westham vs Fulham under 4.5 goals"
+				},
+				{
+					"Bet": 8,
+					"wager": 50,
+					"Result": "L",
+					"odds": " ",
+					"Reward": 0,
+					"Remark": "Westham vs Fulham calum chambers booking"
+				}
+
+			]
+
+		},
+		{
+			"id": 18,
+			"Date": "21st-Feb",
+			"Bets": [{
+					"Bet": 1,
+					"wager": 100,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 12.50,
+					"Remark": "No 3rd goal seattle sounders vs Nacional URU"
+
+
+				},
+				{
+					"Bet": 2,
+					"wager": 20,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 22.4,
+					"Remark": " U . 5 goals at halftime for Vietnam u22 vs Thailand u22"
+				},
+				{
+					"Bet": 3,
+					"wager": 20,
+					"Result": "L",
+					"odds": "2.75",
+					"Reward": 0,
+					"Remark": "U3.5 goals for Ararat yeravan II vs FC lokomotiv"
+				},
+				{
+					"Bet": 4,
+					"wager": 50,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 15,
+					"Remark": "Elche vs FC ufa under 2.5 goals "
+				},
+				{
+					"Bet": 5,
+					"wager": 50,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 15,
+					"Remark": "FC MUron vs URAL  under 7.5 goals."
+				},
+				{
+					"Bet": 6,
+					"wager": 50,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 65,
+					"Remark": "U3.5 goals for Ararat yeravan II vs FC lokomotiv"
+				},
+				{
+					"Bet": 7,
+					"wager": 65,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 40,
+					"Remark": "Anzhi vs spartak Nalchik under 5.5 goals"
+				},
+				{
+					"Bet": 8,
+					"wager": 50,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 36.36,
+					"Remark": "Arsenal vs Bate Borisov under 4.5 goals"
+				},
+				{
+					"Bet": 7,
+					"wager": 20,
+					"Result": "L",
+					"odds": "1.90",
+					"Reward": 0,
+					"Remark": "Over 2.5 cards Arsenal vs Bate"
+				}
+
+
+
+			]
+
+		},
+		{
+			"id": 20,
+			"Date": "23rd-Feb",
+			"Bets": [
+				{
+					"Bet": 1,
+					"wager": 50,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 10,
+					"Remark": "Minerva vs Neroca First half result draw"
+
+				},
+				{
+					"Bet": 2,
+					"wager": 50,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 28.5,
+					"Remark": "Nofel sporting vs brothers union match goals less than 3.5"
+				},
+				{
+					"Bet": 3,
+					"wager": 50,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 18.18,
+					"Remark": "SIvasspor vs Antalyaspor-match goals less than 4.5 "
+				},
+				{
+					"Bet": 4,
+					"wager": 50,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 14.28,
+					"Remark": "Sportfreunde Lotte vs Karlsruher under .5 goals"
+
+				},
+				{
+					"Bet": 5,
+					"wager": 50,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 12.5,
+					"Remark": "Chennaiyin vs jamshedpur U-1.25 goals.. result 0-0"
+				},
+				{
+					"Bet": 6,
+					"wager": 50,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 26.66,
+					"Remark": "Burnely vs Tottenham half time Draw result"
+
+				}
+
+			]
+		}
+	]
+
 
 
 }
