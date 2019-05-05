@@ -1,7 +1,6 @@
 function SRD(wk,j)
 {
-	
-    	let counter=0;
+    let counter=0;
    for (let list in wk.Tag )
     {
 	    if(wk.Tag[list].id==j)
@@ -35,10 +34,9 @@ function SRD(wk,j)
 }
 function furious()
 {
-
 	var j=$("#s")[0].value
 	SRD(ref,j)
-
-
 }
+
+
 

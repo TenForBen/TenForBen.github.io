@@ -1,0 +1,2190 @@
+var FootballArea={
+    "count": 273,
+    "filters": {},
+    "areas": [
+        {
+            "id": 2000,
+            "name": "Afghanistan",
+            "countryCode": "AFG",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2001,
+            "name": "Africa",
+            "countryCode": "AFR",
+            "ensignUrl": null,
+            "parentAreaId": 2267,
+            "parentArea": "World"
+        },
+        {
+            "id": 2002,
+            "name": "Albania",
+            "countryCode": "ALB",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2003,
+            "name": "Alderney",
+            "countryCode": "ALD",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2004,
+            "name": "Algeria",
+            "countryCode": "ALG",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2005,
+            "name": "American Samoa",
+            "countryCode": "ASM",
+            "ensignUrl": null,
+            "parentAreaId": 2175,
+            "parentArea": "Oceania"
+        },
+        {
+            "id": 2006,
+            "name": "Andorra",
+            "countryCode": "AND",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2007,
+            "name": "Angola",
+            "countryCode": "ANG",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2008,
+            "name": "Anguilla",
+            "countryCode": "AIA",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2009,
+            "name": "Antigua and Barbuda",
+            "countryCode": "ATG",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2010,
+            "name": "Arameans Suryoye",
+            "countryCode": "ARS",
+            "ensignUrl": null,
+            "parentAreaId": 2267,
+            "parentArea": "World"
+        },
+        {
+            "id": 2011,
+            "name": "Argentina",
+            "countryCode": "ARG",
+            "ensignUrl": null,
+            "parentAreaId": 2220,
+            "parentArea": "South America"
+        },
+        {
+            "id": 2012,
+            "name": "Armenia",
+            "countryCode": "ARM",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2013,
+            "name": "Aruba",
+            "countryCode": "ABW",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2014,
+            "name": "Asia",
+            "countryCode": "ASI",
+            "ensignUrl": null,
+            "parentAreaId": 2267,
+            "parentArea": "World"
+        },
+        {
+            "id": 2015,
+            "name": "Australia",
+            "countryCode": "AUS",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2016,
+            "name": "Austria",
+            "countryCode": "AUT",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_Austria.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2017,
+            "name": "Azerbaijan",
+            "countryCode": "AZE",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2018,
+            "name": "Bahamas",
+            "countryCode": "BHS",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2019,
+            "name": "Bahrain",
+            "countryCode": "BHR",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2020,
+            "name": "Bangladesh",
+            "countryCode": "BAN",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2021,
+            "name": "Barbados",
+            "countryCode": "BRB",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2022,
+            "name": "Belarus",
+            "countryCode": "BLR",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2023,
+            "name": "Belgium",
+            "countryCode": "BEL",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Belgium.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2024,
+            "name": "Belize",
+            "countryCode": "BLZ",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2025,
+            "name": "Benin",
+            "countryCode": "BEN",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2026,
+            "name": "Bermuda",
+            "countryCode": "BMU",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2027,
+            "name": "Bhutan",
+            "countryCode": "BHU",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2028,
+            "name": "Bolivia",
+            "countryCode": "BOL",
+            "ensignUrl": null,
+            "parentAreaId": 2220,
+            "parentArea": "South America"
+        },
+        {
+            "id": 2029,
+            "name": "Bonaire",
+            "countryCode": "BON",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2030,
+            "name": "Bosnia and Herzegovina",
+            "countryCode": "BIH",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Flag_of_Bosnia_and_Herzegovina.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2031,
+            "name": "Botswana",
+            "countryCode": "BOT",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2032,
+            "name": "Brazil",
+            "countryCode": "BRA",
+            "ensignUrl": null,
+            "parentAreaId": 2220,
+            "parentArea": "South America"
+        },
+        {
+            "id": 2033,
+            "name": "British Virgin Islands",
+            "countryCode": "BVI",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2034,
+            "name": "Brunei Darussalam",
+            "countryCode": "BRU",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2035,
+            "name": "Bulgaria",
+            "countryCode": "BGR",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Bulgaria.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2036,
+            "name": "Burkina Faso",
+            "countryCode": "BFA",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2037,
+            "name": "Burundi",
+            "countryCode": "BDI",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2038,
+            "name": "Cambodia",
+            "countryCode": "CAM",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2039,
+            "name": "Cameroon",
+            "countryCode": "CMR",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2040,
+            "name": "Canada",
+            "countryCode": "CAN",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2041,
+            "name": "Cape Verde Islands",
+            "countryCode": "CPV",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2042,
+            "name": "Cayman Islands",
+            "countryCode": "CYM",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2043,
+            "name": "Central African Republic",
+            "countryCode": "CTA",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2044,
+            "name": "Chad",
+            "countryCode": "CHA",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2045,
+            "name": "Chile",
+            "countryCode": "CHL",
+            "ensignUrl": null,
+            "parentAreaId": 2220,
+            "parentArea": "South America"
+        },
+        {
+            "id": 2046,
+            "name": "China PR",
+            "countryCode": "CHN",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2047,
+            "name": "Chinese Taipei",
+            "countryCode": "TPE",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2048,
+            "name": "CIS",
+            "countryCode": "CIS",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2049,
+            "name": "Colombia",
+            "countryCode": "COL",
+            "ensignUrl": null,
+            "parentAreaId": 2220,
+            "parentArea": "South America"
+        },
+        {
+            "id": 2050,
+            "name": "Comoros",
+            "countryCode": "CMO",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2051,
+            "name": "Congo",
+            "countryCode": "CGO",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2052,
+            "name": "Congo DR",
+            "countryCode": "COD",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2053,
+            "name": "Cook Islands",
+            "countryCode": "COK",
+            "ensignUrl": null,
+            "parentAreaId": 2175,
+            "parentArea": "Oceania"
+        },
+        {
+            "id": 2054,
+            "name": "Corsica",
+            "countryCode": "COR",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2055,
+            "name": "Costa Rica",
+            "countryCode": "CRI",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2056,
+            "name": "Côte d’Ivoire",
+            "countryCode": "CIV",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2057,
+            "name": "Crimea",
+            "countryCode": "ARC",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2058,
+            "name": "Croatia",
+            "countryCode": "HRV",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Flag_of_Croatia.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2059,
+            "name": "Cuba",
+            "countryCode": "CUB",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2060,
+            "name": "Curaçao",
+            "countryCode": "ANT",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2061,
+            "name": "Cyprus",
+            "countryCode": "CYP",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2062,
+            "name": "Czech Republic",
+            "countryCode": "CZE",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_Czech_Republic.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2063,
+            "name": "Czechoslovakia",
+            "countryCode": "CZS",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_Czech_Republic.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2064,
+            "name": "Darfur",
+            "countryCode": "DAR",
+            "ensignUrl": null,
+            "parentAreaId": 2267,
+            "parentArea": "World"
+        },
+        {
+            "id": 2065,
+            "name": "Denmark",
+            "countryCode": "DNK",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Flag_of_Denmark.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2066,
+            "name": "Djibouti",
+            "countryCode": "DJI",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2067,
+            "name": "Dominica",
+            "countryCode": "DMA",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2068,
+            "name": "Dominican Republic",
+            "countryCode": "DOM",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2069,
+            "name": "Ecuador",
+            "countryCode": "ECU",
+            "ensignUrl": null,
+            "parentAreaId": 2220,
+            "parentArea": "South America"
+        },
+        {
+            "id": 2070,
+            "name": "Egypt",
+            "countryCode": "EGY",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2071,
+            "name": "El Salvador",
+            "countryCode": "SLV",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2072,
+            "name": "England",
+            "countryCode": "ENG",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2073,
+            "name": "Equatorial Guinea",
+            "countryCode": "EQG",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2074,
+            "name": "Eritrea",
+            "countryCode": "ERI",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2075,
+            "name": "Estonia",
+            "countryCode": "EST",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Flag_of_Estonia.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2076,
+            "name": "Ethiopia",
+            "countryCode": "ETH",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2077,
+            "name": "Europe",
+            "countryCode": "EUR",
+            "ensignUrl": null,
+            "parentAreaId": 2267,
+            "parentArea": "World"
+        },
+        {
+            "id": 2078,
+            "name": "Faroe Islands",
+            "countryCode": "FRO",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2079,
+            "name": "Fiji",
+            "countryCode": "FJI",
+            "ensignUrl": null,
+            "parentAreaId": 2175,
+            "parentArea": "Oceania"
+        },
+        {
+            "id": 2080,
+            "name": "Finland",
+            "countryCode": "FIN",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Finland.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2081,
+            "name": "France",
+            "countryCode": "FRA",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2082,
+            "name": "French Guiana",
+            "countryCode": "FGU",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2083,
+            "name": "FYR Macedonia",
+            "countryCode": "MKD",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2084,
+            "name": "Gabon",
+            "countryCode": "GAB",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2085,
+            "name": "Gambia",
+            "countryCode": "GAM",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2086,
+            "name": "GDR",
+            "countryCode": "GDR",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2087,
+            "name": "Georgia",
+            "countryCode": "GEO",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2088,
+            "name": "Germany",
+            "countryCode": "DEU",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2089,
+            "name": "Ghana",
+            "countryCode": "GHA",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2090,
+            "name": "Gibraltar",
+            "countryCode": "GIB",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2091,
+            "name": "Gozo",
+            "countryCode": "GOZ",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2092,
+            "name": "Great Britain",
+            "countryCode": "GBR",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2093,
+            "name": "Greece",
+            "countryCode": "GRC",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Greece.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2094,
+            "name": "Greenland",
+            "countryCode": "GEE",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2095,
+            "name": "Grenada",
+            "countryCode": "GRD",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2096,
+            "name": "Guadeloupe",
+            "countryCode": "GDL",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2097,
+            "name": "Guam",
+            "countryCode": "GUM",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2098,
+            "name": "Guatemala",
+            "countryCode": "GTM",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2099,
+            "name": "Guernsey",
+            "countryCode": "GGY",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2100,
+            "name": "Guinea",
+            "countryCode": "GUI",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2101,
+            "name": "Guinea-Bissau",
+            "countryCode": "GNB",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2102,
+            "name": "Guyana",
+            "countryCode": "GUY",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2103,
+            "name": "Haiti",
+            "countryCode": "HTI",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2104,
+            "name": "Honduras",
+            "countryCode": "HND",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2105,
+            "name": "Hong Kong",
+            "countryCode": "HKG",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2106,
+            "name": "Hungary",
+            "countryCode": "HUN",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2107,
+            "name": "Iceland",
+            "countryCode": "ISL",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Iceland.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2108,
+            "name": "India",
+            "countryCode": "IND",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2109,
+            "name": "Indonesia",
+            "countryCode": "IDN",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2110,
+            "name": "Iran",
+            "countryCode": "IRN",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2111,
+            "name": "Iraq",
+            "countryCode": "IRQ",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2112,
+            "name": "Isle of Man",
+            "countryCode": "IOM",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2113,
+            "name": "Israel",
+            "countryCode": "ISR",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2114,
+            "name": "Italy",
+            "countryCode": "ITA",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/en/0/03/Flag_of_Italy.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2115,
+            "name": "Jamaica",
+            "countryCode": "JAM",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2116,
+            "name": "Japan",
+            "countryCode": "JPN",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2117,
+            "name": "Jersey",
+            "countryCode": "JER",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2118,
+            "name": "Jordan",
+            "countryCode": "JOR",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2119,
+            "name": "Kazakhstan",
+            "countryCode": "KAZ",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2120,
+            "name": "Kenya",
+            "countryCode": "KEN",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2121,
+            "name": "Kiribati",
+            "countryCode": "KIR",
+            "ensignUrl": null,
+            "parentAreaId": 2175,
+            "parentArea": "Oceania"
+        },
+        {
+            "id": 2122,
+            "name": "Korea DPR",
+            "countryCode": "PRK",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2123,
+            "name": "Korea Republic",
+            "countryCode": "KOR",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2124,
+            "name": "Kosovo",
+            "countryCode": "KSV",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2125,
+            "name": "Kurdistan",
+            "countryCode": "KUR",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2126,
+            "name": "Kuwait",
+            "countryCode": "KUW",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2127,
+            "name": "Kyrgyzstan",
+            "countryCode": "KGZ",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2128,
+            "name": "Laos",
+            "countryCode": "LAO",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2129,
+            "name": "Latvia",
+            "countryCode": "LVA",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/8/84/Flag_of_Latvia.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2130,
+            "name": "Lebanon",
+            "countryCode": "LIB",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2131,
+            "name": "Lesotho",
+            "countryCode": "LES",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2132,
+            "name": "Liberia",
+            "countryCode": "LBR",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2133,
+            "name": "Libya",
+            "countryCode": "LBY",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2134,
+            "name": "Liechtenstein",
+            "countryCode": "LIE",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2135,
+            "name": "Lithuania",
+            "countryCode": "LTU",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Lithuania.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2136,
+            "name": "Luxembourg",
+            "countryCode": "LUX",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2137,
+            "name": "Macao",
+            "countryCode": "MAC",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2138,
+            "name": "Madagascar",
+            "countryCode": "MAD",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2139,
+            "name": "Malawi",
+            "countryCode": "MWI",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2140,
+            "name": "Malaysia",
+            "countryCode": "MAS",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2141,
+            "name": "Maldives",
+            "countryCode": "MDV",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2142,
+            "name": "Mali",
+            "countryCode": "MLI",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2143,
+            "name": "Malta",
+            "countryCode": "MLT",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Malta.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2144,
+            "name": "Marshall Islands",
+            "countryCode": "MSI",
+            "ensignUrl": null,
+            "parentAreaId": 2175,
+            "parentArea": "Oceania"
+        },
+        {
+            "id": 2145,
+            "name": "Martinique",
+            "countryCode": "MTQ",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2146,
+            "name": "Mauritania",
+            "countryCode": "MTN",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2147,
+            "name": "Mauritius",
+            "countryCode": "MRI",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2148,
+            "name": "Mayotte",
+            "countryCode": "MYT",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2149,
+            "name": "Mexico",
+            "countryCode": "MEX",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2150,
+            "name": "Micronesia",
+            "countryCode": "MIC",
+            "ensignUrl": null,
+            "parentAreaId": 2175,
+            "parentArea": "Oceania"
+        },
+        {
+            "id": 2151,
+            "name": "Moldova",
+            "countryCode": "MHL",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2152,
+            "name": "Monaco",
+            "countryCode": "MCO",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2153,
+            "name": "Mongolia",
+            "countryCode": "MGL",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2154,
+            "name": "Montenegro",
+            "countryCode": "MNE",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2155,
+            "name": "Montserrat",
+            "countryCode": "MSR",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2156,
+            "name": "Morocco",
+            "countryCode": "MAR",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2157,
+            "name": "Mozambique",
+            "countryCode": "MOZ",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2158,
+            "name": "Myanmar",
+            "countryCode": "MYA",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2159,
+            "name": "N/C America",
+            "countryCode": "NCA",
+            "ensignUrl": null,
+            "parentAreaId": 2267,
+            "parentArea": "World"
+        },
+        {
+            "id": 2160,
+            "name": "Namibia",
+            "countryCode": "NAM",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2161,
+            "name": "Nauru",
+            "countryCode": "NAU",
+            "ensignUrl": null,
+            "parentAreaId": 2175,
+            "parentArea": "Oceania"
+        },
+        {
+            "id": 2162,
+            "name": "Nepal",
+            "countryCode": "NEP",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2163,
+            "name": "Netherlands",
+            "countryCode": "NLD",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2164,
+            "name": "New Caledonia",
+            "countryCode": "NCL",
+            "ensignUrl": null,
+            "parentAreaId": 2175,
+            "parentArea": "Oceania"
+        },
+        {
+            "id": 2165,
+            "name": "New Zealand",
+            "countryCode": "NZL",
+            "ensignUrl": null,
+            "parentAreaId": 2175,
+            "parentArea": "Oceania"
+        },
+        {
+            "id": 2166,
+            "name": "NF-Board",
+            "countryCode": "NFB",
+            "ensignUrl": null,
+            "parentAreaId": 2267,
+            "parentArea": "World"
+        },
+        {
+            "id": 2167,
+            "name": "Nicaragua",
+            "countryCode": "NIC",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2168,
+            "name": "Niger",
+            "countryCode": "NIG",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2169,
+            "name": "Nigeria",
+            "countryCode": "NGA",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2170,
+            "name": "Niue",
+            "countryCode": "NIU",
+            "ensignUrl": null,
+            "parentAreaId": 2175,
+            "parentArea": "Oceania"
+        },
+        {
+            "id": 2171,
+            "name": "Northern Ireland",
+            "countryCode": "NIR",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2172,
+            "name": "Northern Mariana Islands",
+            "countryCode": "NMI",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2173,
+            "name": "Norway",
+            "countryCode": "NOR",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Norway.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2174,
+            "name": "Occitania",
+            "countryCode": "OCC",
+            "ensignUrl": null,
+            "parentAreaId": 2267,
+            "parentArea": "World"
+        },
+        {
+            "id": 2175,
+            "name": "Oceania",
+            "countryCode": "OCE",
+            "ensignUrl": null,
+            "parentAreaId": 2267,
+            "parentArea": "World"
+        },
+        {
+            "id": 2176,
+            "name": "Oman",
+            "countryCode": "OMA",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2177,
+            "name": "Padania",
+            "countryCode": "PAD",
+            "ensignUrl": null,
+            "parentAreaId": 2267,
+            "parentArea": "World"
+        },
+        {
+            "id": 2178,
+            "name": "Pakistan",
+            "countryCode": "PAK",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2179,
+            "name": "Palau",
+            "countryCode": "PLA",
+            "ensignUrl": null,
+            "parentAreaId": 2175,
+            "parentArea": "Oceania"
+        },
+        {
+            "id": 2180,
+            "name": "Palestine",
+            "countryCode": "PAL",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2181,
+            "name": "Panama",
+            "countryCode": "PAN",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2182,
+            "name": "Papua New Guinea",
+            "countryCode": "PNG",
+            "ensignUrl": null,
+            "parentAreaId": 2175,
+            "parentArea": "Oceania"
+        },
+        {
+            "id": 2183,
+            "name": "Paraguay",
+            "countryCode": "PRY",
+            "ensignUrl": null,
+            "parentAreaId": 2220,
+            "parentArea": "South America"
+        },
+        {
+            "id": 2184,
+            "name": "Peru",
+            "countryCode": "PER",
+            "ensignUrl": null,
+            "parentAreaId": 2220,
+            "parentArea": "South America"
+        },
+        {
+            "id": 2185,
+            "name": "Philippines",
+            "countryCode": "PHI",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2186,
+            "name": "Poland",
+            "countryCode": "POL",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/en/1/12/Flag_of_Poland.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2187,
+            "name": "Portugal",
+            "countryCode": "PRT",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2188,
+            "name": "Provence",
+            "countryCode": "PRO",
+            "ensignUrl": null,
+            "parentAreaId": 2267,
+            "parentArea": "World"
+        },
+        {
+            "id": 2189,
+            "name": "Puerto Rico",
+            "countryCode": "PRI",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2190,
+            "name": "Qatar",
+            "countryCode": "QAT",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2191,
+            "name": "Raetia",
+            "countryCode": "RAE",
+            "ensignUrl": null,
+            "parentAreaId": 2267,
+            "parentArea": "World"
+        },
+        {
+            "id": 2192,
+            "name": "Republic of Ireland",
+            "countryCode": "IRL",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/4/45/Flag_of_Ireland.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2193,
+            "name": "Reunion",
+            "countryCode": "REU",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2194,
+            "name": "Romania",
+            "countryCode": "ROU",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Romania.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2195,
+            "name": "Russia",
+            "countryCode": "RUS",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/en/f/f3/Flag_of_Russia.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2196,
+            "name": "Rwanda",
+            "countryCode": "RWA",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2197,
+            "name": "Saint Martin",
+            "countryCode": "SMT",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2198,
+            "name": "Saint Pierre and Miquelon",
+            "countryCode": "SPM",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2199,
+            "name": "Samoa",
+            "countryCode": "WSM",
+            "ensignUrl": null,
+            "parentAreaId": 2175,
+            "parentArea": "Oceania"
+        },
+        {
+            "id": 2200,
+            "name": "San Marino",
+            "countryCode": "SMR",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2201,
+            "name": "São Tomé e Príncipe",
+            "countryCode": "STP",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2202,
+            "name": "Sápmi",
+            "countryCode": "SAP",
+            "ensignUrl": null,
+            "parentAreaId": 2267,
+            "parentArea": "World"
+        },
+        {
+            "id": 2203,
+            "name": "Saudi Arabia",
+            "countryCode": "KSA",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2204,
+            "name": "Scotland",
+            "countryCode": "SCO",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/1/10/Flag_of_Scotland.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2205,
+            "name": "Senegal",
+            "countryCode": "SEN",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2206,
+            "name": "Serbia",
+            "countryCode": "SER",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2207,
+            "name": "Serbia and Montenegro",
+            "countryCode": "SCG",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2208,
+            "name": "Seychelles",
+            "countryCode": "SEY",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2209,
+            "name": "Shetland",
+            "countryCode": "SHE",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Flag_of_Shetland.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2210,
+            "name": "Sierra Leone",
+            "countryCode": "SLE",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2211,
+            "name": "Singapore",
+            "countryCode": "SIN",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2212,
+            "name": "Sint Eustatius",
+            "countryCode": "SEU",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2213,
+            "name": "Sint Maarten",
+            "countryCode": "SMA",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2214,
+            "name": "Slovakia",
+            "countryCode": "SVK",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2215,
+            "name": "Slovenia",
+            "countryCode": "SVN",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2216,
+            "name": "Solomon Islands",
+            "countryCode": "SLB",
+            "ensignUrl": null,
+            "parentAreaId": 2175,
+            "parentArea": "Oceania"
+        },
+        {
+            "id": 2217,
+            "name": "Somalia",
+            "countryCode": "SOM",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2218,
+            "name": "Somaliland",
+            "countryCode": "SOL",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2219,
+            "name": "South Africa",
+            "countryCode": "RSA",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2220,
+            "name": "South America",
+            "countryCode": "SAM",
+            "ensignUrl": null,
+            "parentAreaId": 2267,
+            "parentArea": "World"
+        },
+        {
+            "id": 2221,
+            "name": "South Sudan",
+            "countryCode": "SSD",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2222,
+            "name": "Southern Cameroon",
+            "countryCode": "SCM",
+            "ensignUrl": null,
+            "parentAreaId": 2267,
+            "parentArea": "World"
+        },
+        {
+            "id": 2223,
+            "name": "Soviet Union",
+            "countryCode": "SOV",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2224,
+            "name": "Spain",
+            "countryCode": "ESP",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/en/9/9a/Flag_of_Spain.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2225,
+            "name": "Sri Lanka",
+            "countryCode": "SRI",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2226,
+            "name": "St. Helena",
+            "countryCode": "STH",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2227,
+            "name": "St. Kitts and Nevis",
+            "countryCode": "SKN",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2228,
+            "name": "St. Lucia",
+            "countryCode": "STL",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2229,
+            "name": "St. Vincent and the Grenadines",
+            "countryCode": "SVG",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2230,
+            "name": "Sudan",
+            "countryCode": "SUD",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2231,
+            "name": "Suriname",
+            "countryCode": "SUR",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2232,
+            "name": "Swaziland",
+            "countryCode": "SWZ",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2233,
+            "name": "Sweden",
+            "countryCode": "SWE",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/en/4/4c/Flag_of_Sweden.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2234,
+            "name": "Switzerland",
+            "countryCode": "CHE",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/0/08/Flag_of_Switzerland_%28Pantone%29.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2235,
+            "name": "Syria",
+            "countryCode": "SYR",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2236,
+            "name": "Tahiti",
+            "countryCode": "TAH",
+            "ensignUrl": null,
+            "parentAreaId": 2175,
+            "parentArea": "Oceania"
+        },
+        {
+            "id": 2237,
+            "name": "Tajikistan",
+            "countryCode": "TJK",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2238,
+            "name": "Tamil Eelam",
+            "countryCode": "TEL",
+            "ensignUrl": null,
+            "parentAreaId": 2267,
+            "parentArea": "World"
+        },
+        {
+            "id": 2239,
+            "name": "Tanzania",
+            "countryCode": "TAN",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2240,
+            "name": "Thailand",
+            "countryCode": "THA",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2241,
+            "name": "Timor-Leste",
+            "countryCode": "EAT",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2242,
+            "name": "Togo",
+            "countryCode": "TOG",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2243,
+            "name": "Tonga",
+            "countryCode": "TON",
+            "ensignUrl": null,
+            "parentAreaId": 2175,
+            "parentArea": "Oceania"
+        },
+        {
+            "id": 2244,
+            "name": "TR Northern Cyprus",
+            "countryCode": "NCY",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2245,
+            "name": "Trinidad and Tobago",
+            "countryCode": "TTO",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2246,
+            "name": "Tunisia",
+            "countryCode": "TUN",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2247,
+            "name": "Turkey",
+            "countryCode": "TUR",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2248,
+            "name": "Turkmenistan",
+            "countryCode": "TKM",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2249,
+            "name": "Turks and Caicos Islands",
+            "countryCode": "TCA",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2250,
+            "name": "Tuvalu",
+            "countryCode": "TVL",
+            "ensignUrl": null,
+            "parentAreaId": 2175,
+            "parentArea": "Oceania"
+        },
+        {
+            "id": 2251,
+            "name": "Two Sicilies",
+            "countryCode": "TSI",
+            "ensignUrl": null,
+            "parentAreaId": 2267,
+            "parentArea": "World"
+        },
+        {
+            "id": 2252,
+            "name": "Uganda",
+            "countryCode": "UGA",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2253,
+            "name": "Ukraine",
+            "countryCode": "UKR",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2254,
+            "name": "United Arab Emirates",
+            "countryCode": "UAE",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2255,
+            "name": "United Kingdom",
+            "countryCode": "UK",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2256,
+            "name": "United States",
+            "countryCode": "USA",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2257,
+            "name": "Uruguay",
+            "countryCode": "URY",
+            "ensignUrl": null,
+            "parentAreaId": 2220,
+            "parentArea": "South America"
+        },
+        {
+            "id": 2258,
+            "name": "US Virgin Islands",
+            "countryCode": "USV",
+            "ensignUrl": null,
+            "parentAreaId": 2159,
+            "parentArea": "N/C America"
+        },
+        {
+            "id": 2259,
+            "name": "Uzbekistan",
+            "countryCode": "UZB",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2260,
+            "name": "Vanuatu",
+            "countryCode": "VUT",
+            "ensignUrl": null,
+            "parentAreaId": 2175,
+            "parentArea": "Oceania"
+        },
+        {
+            "id": 2261,
+            "name": "Vatican City",
+            "countryCode": "VAC",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2262,
+            "name": "Venezuela",
+            "countryCode": "VEN",
+            "ensignUrl": null,
+            "parentAreaId": 2220,
+            "parentArea": "South America"
+        },
+        {
+            "id": 2263,
+            "name": "Vietnam",
+            "countryCode": "VIE",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2264,
+            "name": "Wales",
+            "countryCode": "WAL",
+            "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Flag_of_Wales_%281959%E2%80%93present%29.svg",
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2265,
+            "name": "West Indies",
+            "countryCode": "WIN",
+            "ensignUrl": null,
+            "parentAreaId": 2267,
+            "parentArea": "World"
+        },
+        {
+            "id": 2266,
+            "name": "Western Sahara",
+            "countryCode": "WSR",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2267,
+            "name": "World",
+            "countryCode": "INT",
+            "ensignUrl": null,
+            "parentAreaId": null,
+            "parentArea": null
+        },
+        {
+            "id": 2268,
+            "name": "Yemen",
+            "countryCode": "YEM",
+            "ensignUrl": null,
+            "parentAreaId": 2014,
+            "parentArea": "Asia"
+        },
+        {
+            "id": 2269,
+            "name": "Yugoslavia",
+            "countryCode": "YUG",
+            "ensignUrl": null,
+            "parentAreaId": 2077,
+            "parentArea": "Europe"
+        },
+        {
+            "id": 2270,
+            "name": "Zambia",
+            "countryCode": "ZAM",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2271,
+            "name": "Zanzibar",
+            "countryCode": "ZAN",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        },
+        {
+            "id": 2272,
+            "name": "Zimbabwe",
+            "countryCode": "ZIM",
+            "ensignUrl": null,
+            "parentAreaId": 2001,
+            "parentArea": "Africa"
+        }
+    ]
+}

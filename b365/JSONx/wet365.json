@@ -12,6 +12,7 @@ var ref=
 		{
 			"id": 1,
 			"Date": "4th-Feb",
+			
 			"Bets": [{
 					"Bet": 1,
 					"wager": 100,
@@ -255,6 +256,127 @@ var ref=
 				}
 
 			]
+		}
+	,{
+			"id": 27,
+			"Date": "2nd-March",
+			"Bets": [{
+					"Bet": 1,
+					"wager": 100,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 36.36,
+					"Remark": "Vissel kobe vs sagan tosu alternative goals under 2.5"
+
+
+				},
+				{
+					"Bet": 2,
+					"wager": 50,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 14,
+					"Remark": "Ural vs zenit st petersburg alternative goals under 2.5"
+				},
+				{
+					"Bet": 3,
+					"wager": 50,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 20,
+					"Remark": "Ten minutes goals challenge - 60-70 minutes under 0.5 MELBOURNE VICTORY vs Newcastle jets"
+				},
+				{
+					"Bet": 4,
+					"wager": 100,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 28.57,
+					"Remark": "MELBOURNE VICTORY vs Newcastle jets under 3.5 goals"
+				},
+				{
+					"Bet": 5,
+					"wager": 50,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 11.11,
+					"Remark": "ozone fc vs blasters reserves under 3.5 goal"
+				},
+				{
+					"Bet": 6,
+					"wager": 50,
+					"Result": "L",
+					"odds": " 1.28",
+					"Reward": 0,
+					"Remark": "ShenZen vs Hebei alternativ goals under first half under 1.5 goals"
+				},
+				{
+					"Bet": 7,
+					"wager": 151,
+					"Result": "L",
+					"odds": " 1.20",
+					"Reward": 0,
+					"Remark": "Pune vs Mumbai ISL alternativ goals under FT under 2.5 goals"
+				},
+				{
+					"Bet": 8,
+					"wager": 200,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 28.570,
+					"Remark": "Brighton vs Huddersfield under 2.5 FT goals"
+				},
+				{
+					"Bet": 9,
+					"wager": 100,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 25,
+					"Remark": "Nurenburg vs leipzig under 2.5 FT goals"
+				},{
+					"Bet": 10,
+					"wager": 100,
+					"Result": "L",
+					"odds": " 1.11",
+					"Reward": 0,
+					"Remark": "Reims vs Amiens  alternativ goals under first half under 1.5 goals"
+				},
+				{
+					"Bet": 11,
+					"wager": 100,
+					"Result": "L",
+					"odds": " 1.16",
+					"Reward": 0,
+					"Remark": "Angers vs Monaco alternativ goals under first half under 1.5 goals"
+				},
+				{
+					"Bet": 12,
+					"wager": 100,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 44.44,
+					"Remark": "Excelsior vs PSV 10 min challenge 60-70 min  under .5 goals"
+				},
+				{
+					"Bet": 13,
+					"wager": 100,
+					"Result": "L",
+					"odds": " 1.25",
+					"Reward": 0,
+					"Remark": "Porto vs benifica 10 min challenge 50-60 min  under .5 goals"
+				},
+				{
+					"Bet": 14,
+					"wager": 100,
+					"Result": "W",
+					"odds": " ",
+					"Reward": 18.18,
+					"Remark": "Porto vs benifica AMG under 4.5 goals"
+				}
+				
+
+			]
+
 		}
 	]
 

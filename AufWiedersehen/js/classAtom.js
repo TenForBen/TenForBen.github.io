@@ -58,17 +58,18 @@ console.log(`${counter} steps successfull`)
 		
 }
 //for Successfull steps details
-var SuccessResponseDetails= wk =>{
+var SuccessResponseDetails= wk =>
+{
 	
-	let counter=0;
-	for (let list in wk.steps )
-{
-if(wk.steps[list].status=="SUCCESS")
-{
-console.log(wk.steps[list])
-counter=counter+1;
+    	let counter=0;
+    	for (let list in wk.steps )
+    {
+    if(wk.steps[list].status=="SUCCESS")
+    {
+    console.log(wk.steps[list])
+    counter=counter+1;
 
-}
+    }
 
 }
 console.log(`${counter} steps successfull`)
