@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="../main.css">
+<script src="../../js/allusers.json"></script>
+<script src="../../js/Check login.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="../../js/fpl.json"></script>
+<script src="../../js/jquery-3.2.1.js"></script>
+<link rel="stylesheet" type="text/css" href="../../BootMeister/css/bootstrap.min.css">
+
+    <script src="../../js/louder.js"></script>
+    <script type="text/javascript" src="../../js/FW formlog.js"></script>
+<script type="text/javascript">
+    
+    function RVC(){
+
+        var x = document.getElementById("mySelect").value;
+        if(x=="volvo")
+        {
+            $("body").css({"background-color": "black", "font-size": "100%","color":"white" });
+        }
+        else if(x=="audi")
+        {
+            $("body").css({"background-color": "white", "font-size": "100%","color":"black" });
+        }
+
+    }
+
+        $(document).ready(function()
+            {
+                $("h2").click(function()
+                {
+                    $("h2").toggleClass("FIrstToggler");
+                });
+            });
+
+        function hny()
+        {
+
+            $("#bitch")[0].innerText=$("#TA")[0].value;
+        }
+
+</script>
+<style>
+    
+     @font-face 
+        {
+            font-family: friends;
+            src: url(friends.TTF);
+        }
+        #TA
+        {
+            display: block;
+            width: 80vw;
+            height:40vh;
+            margin-left: 8%;
+
+        }
+        .FIrstToggler{
+            background-image:url('lines.png');
+            color:red;
+        }
+        #stupidity
+        {
+            display:none;
+        }
+
+        .pics
+            {
+                width:20vw;
+                height: 25vh;
+                border:.15vw solid beige;
+                margin:.21vw;
+                padding: .31vw;
+                float:right;
+
+            }
+        #NorthAfrica
+        {
+            width:50vw;
+            height: 40vh;
+
+        }
+
+         body 
+        {
+           background-color: #994;
+           margin: 1vw;
+            padding: 1vw;
+        }
+        #mySelect{
+            margin-left: 7.5vw;
+            margin-top: 2vw;
+            margin-bottom: .5vw;
+            padding: .11vw;
+            border: .4vw red solid;
+            width: 20vw;
+            height: 4vh;
+        }
+        #bitch
+        {   
+            width:80vw;
+            height: 75vh;
+            margin:0 auto;
+            background-color: #ffce00;
+            color:black;
+            padding:3vh 3vw;
+            font-family: friends;
+            font-size: 200%;
+
+
+
+        }
+        .dott
+        {
+                color: red;
+                font-size: 200%;
+                padding: 1px;
+        }
+        @media screen and (max-width: 980px) 
+        {
+            body 
+            {
+               background-color: #9942ae;
+
+            }
+            #baksa
+            {
+                    background-image:  url('../img/teetam.jpg');
+                    width:30vw;
+
+                    height:39vh;
+                    position: relative;
+                    top: 100px;
+                    margin:10px;
+                    padding: 5px;
+                    border:2px white solid;
+                    background-repeat: no-repeat;
+                        background-position:-59px -157px;
+                    background-size: 129%;
+            }
+
+            #naksa
+            {
+
+                background-image: url(../img/teetam.jpg);
+                width: 30vw;
+                height: 39vh;
+                position: relative;
+                top: 100px;
+                margin: 10px;
+                padding: 5px;
+                border: 2px white solid;
+                background-repeat: no-repeat;
+                background-position: -116px -165px;
+                background-size: 162%;
+            }
+            #hum{
+
+                margin: 1vw;
+                padding: 1vw;
+                border: 2px red solid;
+                width: 60vw;
+                height: 40vh;
+
+                
+            }
+            .Youtube_Video{
+                margin: 2vw;
+                padding: 1vw;
+                border: .4vw red solid;
+               width: 70vw;
+                height: 40vh;
+            }
+            #secondVideo
+            {
+                margin: 1vw;
+                padding: 1vw;
+                border: 2px red solid;
+                width: 95vw;
+                height: 99vh;  
+            }
+            .dot
+            {
+                font-size: 80%;
+            }
+            
+        }
+
+
+        @media screen and (max-width: 680px)
+         {
+                body 
+                {
+                    background-color: salmon;
+                    
+
+                }
+                .Youtube_Video
+                {
+                        margin: 2vw;
+                        padding: 1vw;
+                        border: 1vw white solid;
+                       width: 90vw;
+                        height: 60vh;
+                }   
+        }
+
+        @media screen and (max-width:480px)
+         {
+                body {
+                    background-color: black;
+                    color:yellow;
+                    
+
+                }
+                 #mySelect
+                    {
+
+                        margin: 1.5vw;
+                        padding: 1.1vw;
+                        border: .4vw red solid;
+                        width: 60vw;
+                        height: 05vh;
+                         color:black;
+                    }
+                .pics
+            {
+                width:90vw;
+                height: 48vh;
+                border:1.15vw solid beige;
+                margin:1.41vw;
+                padding: 1.41vw;
+                float:right;
+
+            }
+               #NorthAfrica
+                {
+                    width:170vw;
+                    height: 60vh;
+                    border: none;
+                    margin:.41vw;
+                    padding: .41vw;
+
+                }
+                #bitch
+                    {   
+                        width:100vw;
+                        height: 100vh;
+                        margin:0 auto;
+                        background-color: black;
+                        color:white;
+                        padding:38vh 25vw;
+                        font-family: Weiss;
+                        font-size: 150%;
+                        font-weight: bolder;s
+                    }
+
+                    #TA
+                    {
+                        margin-left: 2%;
+                        width: 90vw;
+                    }
+
+        }
+</style>
+
+
+<body id="Ramon" onload="">
+<title> Happy New Year!! </title>
+<h1 id="stu">TextArea Mann</h1>
+<h2 id="bitch" class="">
+M<span class="dott">.</span>
+E<span class="dott">.</span>
+K<span class="dott">.</span>
+T<span class="dott">.</span>
+O<span class="dott">.</span>
+U<span class="dott">.</span>
+B</h2>
+<select id="mySelect" onchange="RVC()">
+  <option value="volvo">Black and White</option>
+  <option value="saab">Linux</option>
+  <option value="opel">OpSo</option>
+  <option value="audi">Wiki</option>
+</select>
+
+<textarea id="TA">
+    
+
+</textarea>
+
+<button id="fontme" onclick="hny()"> Font Me </button>
+
+
+
+
+</body>
+</head>
+</html>
+
+
++
