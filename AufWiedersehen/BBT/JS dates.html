@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<style>
+
+        body{
+        background-color:black;
+        color:#febd69;
+        }
+
+        section > div
+        {
+        height:50px;
+        width:55px;
+        background-color:red;
+        float:left;
+        margin:3px;
+        cursor:pointer;
+
+        }
+        .mtn{
+        	display: block;
+        	margin:2px;
+        	padding:2px;
+        	height:150px,
+        	width:100px;
+        }
+
+        #mviList{
+        	display: block;
+        }
+
+</style>
+<title>Date.JS</title>
+
+<body>
+
+<h2>JavaScript Dates</h2>
+
+			<p>100000000000 milliseconds from Jan 1, 1970, is approximately Mar 3, 1973:</p>
+
+
+						<label for="rollnum">JS Date</label>
+                        <input type="text" placeholder="enter JS date" id="rollnum">
+						<p id="demo"></p>
+						<button id="submi" onclick="onPressed()">Register</button>
+						
+			<section>
+			
+			</section>
+			<br>	
+			<br>
+			
+
+
+<script>
+
+function onPressed()
+{
+var anchorage=document.getElementById("rollnum").value;
+anchorage=Number(anchorage);
+var d = new Date(anchorage);
+document.getElementById("demo").innerHTML = d;
+}
+
+
+
+
+</script>
+
+
+</body>
+<script src="js/ES6.js"></script>
+</html>
