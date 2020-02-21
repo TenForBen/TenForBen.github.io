@@ -1,0 +1,79 @@
+div#wale{
+	
+	max-width: 700px;
+	padding: 40px;
+	background-color: #ccc;
+	border-color: #000;
+	border-style: dotted;
+	display: none;
+
+
+
+
+}
+
+button#interesting{
+
+	background-color: #ff0;	
+	display: block;
+
+
+}
+
+div#payyoli{
+
+	color: #a00;
+	display: none;
+
+}
+
+#remo{
+
+	display: block;
+	background-color: #aa0;
+	font-size: 200%;
+	padding: 20px 380px 20px 1400px;
+	margin: 0px;
+	margin-left: 9px;
+	min-width: 500px;
+} 
+
+#Dsouza{
+
+	background-color: #c00;
+	width: 500px;
+	height: 500px;
+
+
+}
+
+#barfi{
+padding: 20px;
+
+}
+
+.haech{
+	display: none;
+
+}
+
+#dofOL{
+	display: none;
+}
+#hofOL{
+	display: none;
+}
+#mofOL{
+	display: none;
+}
+#sofOL{
+	display: none;
+}
+.FR{
+            float: right;
+        }
+
+        .FL{
+            float: left;
+        }
+
