@@ -19,6 +19,7 @@ public class JSExecutor {
 		for(int i=0;i<100;i++) {
 			changecolor("rgb(0,200,0)",ele, driver);
 			changecolor(bgcolor,ele,driver);
+			driver.quit();
 		}
 		clickele(ele, driver);
 		
