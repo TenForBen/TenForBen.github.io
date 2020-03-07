@@ -15,11 +15,11 @@ public class JSExecutor {
 		driver.get("https://tenforben.github.io/TrainingTurf/mektoub/quora/WhenYouHaveALemon.html");
 		WebElement ele= driver.findElement(By.id("LemonH1"));
 		String bgcolor= ele.getCssValue("backgroundColor");
-		
+		System.out.println(gettitle(driver));
 		for(int i=0;i<100;i++) {
 			changecolor("rgb(0,200,0)",ele, driver);
 			changecolor(bgcolor,ele,driver);
-			driver.quit();
+			
 		}
 		clickele(ele, driver);
 		
@@ -33,4 +33,11 @@ public static void changecolor (String color, WebElement ele,WebDriver driver) {
 	JavascriptExecutor js= ((JavascriptExecutor) driver);
 	js.executeScript("arguments[0].style.backgroundColor= '"+color+"'", ele);
 }
+public static String gettitle(WebDriver driver) {
+	JavascriptExecutor js= ((JavascriptExecutor) driver);
+	String title= js.executeScript("return document.title;").toString();
+	return title;
+	
+}
+
 }
