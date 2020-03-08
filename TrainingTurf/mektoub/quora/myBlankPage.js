@@ -16,3 +16,9 @@ function maxmillianAnna()
 
 }
 
+//feature a
+$(document).ready(function(){
+  $("#LemonH1").click(function(){
+    console.log("The paragraph was clicked.");
+  });
+});
