@@ -2,6 +2,8 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../js/jquery-3.2.1.js"></script>
+
 
 <script src="Seite/allusers.json"></script>
 <script src="Seite/Check login.js"></script>
@@ -132,11 +134,13 @@
 
 <h2>MovieLoginPage</h2>
 
-<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>    
+<p id="NF" ></p>
+<p id="demo" ></p>
 
 <div id="id01" class="modal">
   
-  <form class="modal-content animate" action="MovieHome.html"  onsubmit="return crpf()" method="post">
+  <form class="modal-content animate">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
       <img src="../img\icons\PacManGeist.png"" alt="Avatar" class="avatar">
@@ -149,7 +153,7 @@
       <label for="psw"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="psw" id="p" required>
         
-      <button type="submit" onclick="">Login</button>
+      <button onclick="starter()" >Login</button>
       <label>
         <input type="checkbox" checked="checked" name="remember"> Remember me
       </label>
