@@ -22,6 +22,7 @@ public class JSExecutor {
 			
 		}
 		clickele(ele, driver);
+		String url ="https://tenforben.github.io/Movies/HoMe.html";
 		
 		
 	}
