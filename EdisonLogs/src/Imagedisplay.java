@@ -31,17 +31,16 @@ public class Imagedisplay {
 		System.out.println("The result of boolean is" +result);
 		String imagename= driver.findElement(By.xpath("//div[@class='imgcontainer']//img")).getAttribute("src");
 		System.out.println(imagename);
-		String[] filename= imagename.split(".");
+		/* String[] filename= imagename.split(".");
 		int i;
 		for (i=0; i<= filename.length; i++)		
-		{
-			if (filename[i].contains("png"))
+		{  */
+			if (imagename.contains("png"))
 			{
 				System.out.println("The image is of .png format");
-				System.out.println("The result of splitting the imagename is" +filename[i]);
-				break;
-			}
-			
+				//System.out.println("The result of splitting the imagename is" +filename[i]);
+				//break;
+			}	
 			else
 			{
 					System.out.println("The image is not png format");
@@ -50,7 +49,7 @@ public class Imagedisplay {
 				
 		}	
 	}
-}
+
 /* public static void clickele(WebElement ele, WebDriver driver) {
 	JavascriptExecutor js= ((JavascriptExecutor) driver);
 	js.executeScript("arguments[0].click();", ele);
