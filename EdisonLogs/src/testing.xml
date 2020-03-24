@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name= "loginvalidation">
+<test name= "test1">
+
+							<parameter name= "url" value="https://tenforben.github.io/Movies/HoMe.html"/>
+							<parameter name= "username" value= "rads123"/>
+							<parameter name= "password" value= "test123"/>
+							
+							
+			                <classes>
+			                <class name= "com.parameters.parametertest" />
+			                </classes>
+</test>
+</suite>

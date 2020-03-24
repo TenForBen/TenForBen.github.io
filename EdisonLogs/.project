@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/com/testdata/testdatalogin.xlsx</name>
+			<type>1</type>
+			<location>H:/vsos/TenForBen.github.io/EdisonLogs/src/testdatalogin.xlsx</location>
+		</link>
+	</linkedResources>
 </projectDescription>
