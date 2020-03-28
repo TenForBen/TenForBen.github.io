@@ -20,19 +20,21 @@ public class registration {
 		
 		//get data from excel sheet
 		Xls_Reader reader= new Xls_Reader("/H:/vsos/TenForBen.github.io/EdisonLogs/src/testdatalogin.xlsx");
-		int rowcount= reader.getRowCount("testdata");
-		for (int rownum=2; rownum<=rowcount;rownum++) {		
+		int rowcount= reader.getRowCount("testdata"); // passing sheet name
+		reader.addColumn("testdata", "status"); 
 		
+		for (int rownum=2; rownum<=rowcount;rownum++) {		
 		String username= reader.getCellData("testdata", "username", rownum);
 		String password= reader.getCellData("testdata", "password", rownum);
 		//webelement
 		driver.findElement(By.id("u")).clear();
 		driver.findElement(By.id("u")).sendKeys(username);
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		driver.findElement(By.id("p")).clear();
 		driver.findElement(By.id("p")).sendKeys(password);
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		System.out.println("The login details " +username);
+		reader.setCellData("testdata", "status", rownum, "pass");
 		}
 	}
 
