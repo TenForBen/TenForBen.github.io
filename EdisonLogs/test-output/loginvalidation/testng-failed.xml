@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [loginvalidation]">
+  <test name="test1(failed)">
+    <classes>
+      <class name="com.parameters.testparameter">
+        <methods>
+          <include name="setup"/>
+        </methods>
+      </class> <!-- com.parameters.testparameter -->
+      <class name="com.parameters.registration">
+        <methods>
+          <include name="main"/>
+        </methods>
+      </class> <!-- com.parameters.registration -->
+    </classes>
+  </test> <!-- test1(failed) -->
+</suite> <!-- Failed suite [loginvalidation] -->

@@ -5,7 +5,8 @@
     <classes>
       <class name="com.parameters.datadrivenlogin">
         <methods>
-          <include name="login"/>
+          <include name="login" invocation-numbers="0 1 2 3"/>
+          <include name="setup"/>
         </methods>
       </class> <!-- com.parameters.datadrivenlogin -->
     </classes>

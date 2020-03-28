@@ -13,7 +13,7 @@ public class parametertest {
 
 	WebDriver driver;
 	
-	@BeforeMethod
+	@BeforeMethod   // Only one Test annotation will work for parameters, don't write before or after annotations
 	@Parameters({"url"})
 	public void setup(String url) {
 			System.setProperty("webdriver.chrome.driver","D:\\Selenium\\chromedriver.exe");
@@ -27,11 +27,12 @@ public class parametertest {
 	   @Test
 	   @Parameters({ "username", "password"})
 	   public void login( String username, String password) throws InterruptedException {
+		   System.out.println("inside Login ");
 		driver.findElement(By.id("u")).clear();
 		driver.findElement(By.xpath("//div[@class='container']//input[@id='u']")).sendKeys(username);
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		driver.findElement(By.id("p")).sendKeys(password);
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//button)[2]")).click();
 	   }
 	   

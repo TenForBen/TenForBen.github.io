@@ -1,5 +1,7 @@
 package com.test;
 
+import org.testng.annotations.Test;
+import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -33,12 +35,12 @@ public class testlogin {
 	}
 	  
 	    @Test(dataProvider= "getdata")
-	    public void login(String usernam, String passwor) throws InterruptedException {
+	    public void login(String username, String password) throws InterruptedException {
 		driver.findElement(By.id("u")).clear();
-		driver.findElement(By.id("u")).sendKeys(usernam);
+		driver.findElement(By.id("u")).sendKeys(username);
 		Thread.sleep(2000);
 		driver.findElement(By.id("p")).clear();
-		driver.findElement(By.id("p")).sendKeys(passwor);
+		driver.findElement(By.id("p")).sendKeys(password);
 		Thread.sleep(2000);
 		}
 	    
