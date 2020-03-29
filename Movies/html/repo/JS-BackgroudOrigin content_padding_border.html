@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<script src="louder.js"></script>
+<style> 
+#myDIV {
+    border: 10px solid black;
+    width: 1300px;
+    height: 1150px;
+    padding: 35px;
+    background: url('smiley.gif') no-repeat;
+}
+</style>
+</head>
+<body class="target" onload="vaishakh()">
+
+<p>Click the "Try it" button to set the background-origin property of the DIV element to "content-box":</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<div id="myDIV">
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+</div>
+
+<script>
+function myFunction() {
+    document.getElementById("myDIV").style.backgroundOrigin = "border-box";
+}
+</script>
+
+<a href="https://www.w3schools.com/cssref/css3_pr_background.asp" class="killer"> Backgroud W3Schools</a>
+</body>
+</html>
+
+

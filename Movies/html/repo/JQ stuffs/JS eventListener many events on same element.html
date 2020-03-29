@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>This example uses the addEventListener() method to add many events on the same button.</p>
+
+<button id="myBtn">Try it</button>
+
+<p id="demo"></p>
+
+<input type="text" name="" id="txtPassword" >
+
+<script>
+
+//var x = document.getElementById("myBtn");
+var x = document.getElementById("txtPassword");
+
+//x.addEventListener("mouseover", myFunction);
+x.addEventListener("blur", iwobi);
+//x.addEventListener("mouseout", myThirdFunction);
+
+function myFunction() {
+    document.getElementById("demo").innerHTML += "Moused over!<br>";
+}
+
+function mySecondFunction() {
+    //document.getElementById("demo").innerHTML += "Clicked!<br>";
+    //iwobi()
+}
+
+function myThirdFunction() {
+    document.getElementById("demo").innerHTML += "Moused out!<br>";
+}
+function iwobi(){
+
+	var x = document.getElementById("txtPassword");
+	x.style.backgroundColor="#9f0";
+}
+
+//x.addEventListener("blur",iwobi);
+	//document.getElementById("txtPassword").addEventListener("blur",iwobi);
+	//document.getElementById("txtPassword").style.backgroundColor="#900";
+ /*var iwobi=function()
+ {
+ 	var x = document.getElementById("txtPassword");
+	x.style.backgroundColor="#900";
+	/*var password1=x.value.length;
+	if (password1.length < 6) 
+	    {  
+	    	returnValue = false; 
+	    	// alert("Your password must be at least\n6 characters long.\n  Please try again.");  
+	    	document.getElementById('PwdError').innerHTML="Your password must be at least\n6 characters long.\n  Please try again.";
+	    	x.value = "";  
+	    	//document.frmRegister.txtPassword2.value = "";  
+	    	x.focus();
+	    }
+    
+}*/
+</script>
+
+</body>
+</html>

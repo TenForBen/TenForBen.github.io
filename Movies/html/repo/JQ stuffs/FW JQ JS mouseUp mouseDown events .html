@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FW Mouse Down JQ and JS</title>
+<script src="../angular.min.js" ></script>
+<script src="../Fibanacchi.js"></script>
+<script src="../louder.js"></script>
+<script src="../../JQ/jquery-3.2.1.js"></script>
+<script type="text/javascript"></script>
+
+</head>
+<body id="Ramon" onload="vaishakh()">
+
+<p id="myP" >
+Click the text! The mouseDown() function is triggered when the mouse button is pressed down over this paragraph, and sets the color of the text to red. The mouseUp() function is triggered when the mouse button is released, and sets the color of the text to green.
+</p>
+
+<script>
+function mouseDown() {
+    document.getElementById("myP").style.color = "red";
+}
+
+function mouseUp() {
+    document.getElementById("myP").style.color = "green";
+}
+function breadDevils(){
+	//onmousedown="mouseDown()" onmouseup="mouseUp()"
+	
+	
+}
+$(document).ready(function(){
+    $("html").dblclick(function(){
+        $(this).css("color","orange");
+        $("title").css("color","azure");
+    });
+});
+
+$(document).ready(function(){
+    $("#p1").hover(function()
+    {
+        //$("span")[0].text()="Entered";
+        //alert("You now Entereds p1!");
+        //document.getElementsByTagName('h2')[0].style.display="inline";
+        $('h2').css("display","block");
+        $('span').text("You now Entered p1!");
+        $('span').css("display","inline");
+        $('span').html("You now <b>Entered</b> p1!");
+    },
+    function()
+    {
+    	$('span').text("You now leave p1!");
+    	$('span').html("You now <b>leave</b> p1!");
+    	$('span').css("display","none");
+    	document.getElementsByTagName('h2')[0].style.display="inline";
+        //alert("Bye! You now leave p1!");
+        //$("span")[0].text="Bye! You now leave p1!";
+    }); 
+});
+
+
+/*$("li").click(function(){
+        $(this).css("color","yellow");
+    });*/
+</script>
+
+<hr>
+
+<h2 id="p1">Definition and Usage </h2><span> </span>
+<p>The onmousedown event occurs when a user presses a mouse button over an element.</p>
+<p><b>Tip:</b> The order of events related to the onmousedown event (for the left/middle mouse button):</p>
+<ol>
+  <li>onmousedown</li>
+  <li><a href="event_onmouseup.asp">onmouseup</a></li>
+  <li><a href="event_onclick.asp">onclick</a></li>
+</ol>
+<p>The order of events related to the onmousedown event (for the right mouse button):</p>
+<ol>
+  <li>onmousedown</li>
+  <li><a href="event_onmouseup.asp">onmouseup</a></li>
+  <li><a href="event_oncontextmenu.asp">oncontextmenu</a></li>
+</ol>
+<hr>
+
+
+</body>
+</html>

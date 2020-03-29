@@ -1,0 +1,214 @@
+p#Nsiblingwala{
+    display: none;
+    font-size: 200%;
+
+}
+
+p#Sion{
+	display: none;
+    background-color: #222;
+
+
+}
+p#remo{
+    font-size: 200%;
+     min-width: 100px;
+    background-color:#333;
+    display: inline;
+
+
+
+
+
+}
+
+ul#karabakh{
+	width: 500px;
+	background-color: #002;
+	padding: 0px;
+	margin: 0px;
+	color: #030;
+	list-style: square;
+	
+
+
+}
+
+ul#karabakh li a{
+	text-decoration: none;
+
+}
+div#missVaishu{
+	min-width: 1880px;
+
+}
+
+div#myDiv{
+    display: block;
+}
+.mystyle {
+    width: 100%;
+    padding: 25px;
+    background-color: coral;
+    color: white;
+    font-size: 300%;
+    box-sizing: border-box;
+}
+
+
+
+#ISC{
+            padding-top: 30px;
+            padding-bottom: 10px;
+
+        }
+        article{
+            
+        }
+        form{
+                color: red;
+
+
+
+            }
+
+        body#greengoblin{
+            color: #00ff00;
+
+        }
+        section#logo{
+            background-color: #444;
+            color: #fff;
+            width: 400px;
+            height:400px;
+            margin-left: 750px;
+            margin-top: 85px;
+            padding-bottom: 50px;
+            border-style: dotted;
+            border-color: red;
+            visibility: hidden;
+            overflow: scroll;
+
+        }
+        img {
+            border: 1px solid #ddd;
+            border-radius: 40px;
+            padding: 15px;
+            width: 650px;
+}
+
+        img#ISL{
+            border: 1px solid #ddd;
+            border-radius: 40px;
+            padding: 15px;
+            width: 850px;
+
+        }
+
+        fieldset.FR{
+            padding: 40px 20px;
+        }
+        fieldset.FR label{
+            font-size: 15px;
+        }
+
+        #logo2{
+                
+            visibility: hidden;
+            /*overflow: scroll;*/
+        }
+
+        #FIL{
+            display: none;
+        }
+
+        #jw10{
+            display: none;
+        }
+
+        #ISL{
+            display: none;
+        }
+        #ARM{
+            display: none;
+        }
+
+        p#demon{
+            color:red;
+            height: 1000px;
+            width: 1900px;
+        }
+
+        p#demo{
+            color: white;
+             display:none;   
+        }
+
+        a#CHEARS{
+            color:green;
+        }
+        p.benz{
+            height:100px;
+            width: 300px;
+            background-color: #111;
+        }
+        #LP{
+            height: 600px;
+            width:1290px;
+            border-style: dashed;
+            border-color: pink;
+            display:none;
+        }
+
+        #LY{
+            display: inline;
+            background-color: #888;
+            margin:0 400px 0 400px;
+        }
+        #sheril{
+            display:none;
+            color: white;
+        }
+        #zapa{
+            display:none;
+            background-color: black;
+
+            height: 50px;
+            width: 1000px;
+            background-image: url("Football.png");
+            background-repeat: repeat-x;
+        }
+
+        div.sidebar{
+            width: 400px;
+            background-color: #222;
+            float: left;
+            display: none;
+        }
+        div.content{
+            width: 600px;
+            float: left;
+            background-color: #555;
+            
+        }
+
+        .first{
+            
+            width: 50%;
+
+        }
+
+        .2nd{
+
+            
+            width: 50%;
+
+        }
+
+        .FR{
+            float: right;
+        }
+
+        .FL{
+            float: left;
+        }

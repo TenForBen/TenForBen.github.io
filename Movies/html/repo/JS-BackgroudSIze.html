@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="louder.js"></script>
+
+<style> 
+#myDIV {
+    border: 1px solid black;
+    width: 1300px;
+    height: 800px;
+    background: url('smiley.gif') no-repeat;
+}
+</style>
+</head>
+<body class="target" onload="vaishakh()">
+
+<p>Click the "Try it" button to enlarge the background-size of the DIV element:</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<div id="myDIV">
+  <h1>Hello</h1>
+</div>	
+
+<script>
+function myFunction() {
+    document.getElementById("myDIV").style.backgroundSize = "contain";
+}
+</script>
+<a href="https://www.w3schools.com/cssref/css3_pr_background.asp" class="killer" > Backgroud W3Schools</a>
+</body>
+</html>

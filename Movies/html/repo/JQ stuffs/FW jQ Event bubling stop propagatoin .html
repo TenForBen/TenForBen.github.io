@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FW JQ JS Toggler Bubbling stop Propagation</title>
+<script src="../angular.min.js" ></script>
+<script src="../Fibanacchi.js"></script>
+<script src="../louder.js"></script>
+<script src="../../JQ/jquery-3.2.1.js"></script>
+<style type="text/css">
+  span {
+    background-color:#afc;
+  }
+  .ghumar{
+    background-color:azure;
+  }  
+
+</style>
+<script>
+$(document).ready(function(){
+    $("#dikha").click(function(){
+        $("span").toggleClass("ghumar");
+    });
+});
+
+$(document).ready(function(){
+
+    document.getElementsByTagName('p')[0].style.fontFamily="calibri,serif";
+    $("p").css("color","#30d");
+
+    $("span").click(function(event){
+        event.stopPropagation();
+        alert("The span element was clicked.");
+        $("p").css("font-style","italic");
+    });
+    $("p").click(function(event){
+        alert("The p element was clicked.");
+    });
+    $("div").click(function(){
+
+        alert("The div element was clicked.");
+    });
+});
+</script>
+</head>
+<body id="Ramon" onload="vaishakh()">
+
+<div style="height:400px;width:800px;padding:10px;border:1px solid blue;background-color:lightblue;">
+This is a div element.
+<p id="myP" style="background-color:pink">This is a p element, in the div element. <br><span style=/* background-color:orange */ >This is a span element in the p and the div element.</span></p></div>
+
+<button id="dikha">Clickeshwar</button>
+<p><b>Note:</b> Click on each of the elements above. When clicking on the <b>div</b> element, it will alert that the div element was clicked. When clicking on the <b>p</b> element, it will return both the p and the div element, since the p element is inside the div element. 
+But when clicking on the <b>span</b> element, it will only return itself, and not the p and the div element (even though its inside these elements).  The event.stopPropagation() stops the click event from bubbling to the parent elements. 
+</p>
+
+<p><b>Tip:</b> Try to remove the event.stopPropagation() line, and click on the span element again (the click event will now bubble up to parent elements).</p>
+
+</body>
+</html>

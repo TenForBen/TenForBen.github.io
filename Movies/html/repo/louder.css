@@ -1,0 +1,42 @@
+body#navy{
+padding: 0;
+margin: 0;
+
+}
+#HowMany{
+	color: "black";
+}
+#FirstDivInfantry{
+	/*width: 1400px;*/
+	background-color: "coral";
+	height: 800px;
+	padding-left: 10px;
+}
+
+body#Fibo{
+	padding: 0;
+	background-color: "#4d4d4f";
+}
+.hacksaw{
+	width: 700px;
+}
+
+.navigation{
+
+	background-color: "coral";
+	min-height: 50px;
+	color: "white";
+
+	/*background-color: #4D4D4F;
+    background-image: url(../../img/opera_mobile/top-bg.png);
+    background-position: left bottom;
+    background-repeat: repeat-x;
+    color: white;
+    padding: 3px 0;
+    position: relative;*/
+
+}
+p{
+	margin: 0px;
+
+}

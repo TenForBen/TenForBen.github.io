@@ -1,0 +1,59 @@
+ body{
+	color:#f00;
+	background-color: black;
+
+}
+
+p.TEDx{
+	line-height: 50px;
+	width: 500px;
+	height: 500px;
+	background-color: #111;
+
+}
+
+
+ul{ 
+
+	list-style-type: none;
+	margin: 0;
+	padding:0;
+}
+
+
+ul#nav li{
+	background-color: #aaa;
+	float:left;
+}
+
+ul#nav li a{
+	display: block;
+	padding: 5px 10px;
+	color: #000;
+	text-decoration: none;
+	border:2px dotted black;
+
+}
+
+ul#nav li a:hover{
+	color: #fff;
+	background-color:orange;
+}	
+
+ul#nav li ul li{
+	float:none;
+	
+}
+
+
+ul#nav li ul {
+	display: none;
+	position: absolute;
+}
+ul#nav li:hover ul{
+	display:block;
+}
+
+
+
+

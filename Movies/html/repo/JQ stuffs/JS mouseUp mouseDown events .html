@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="myP" onmousedown="mouseDown()" onmouseup="mouseUp()">
+Click the text! The mouseDown() function is triggered when the mouse button is pressed down over this paragraph, and sets the color of the text to red. The mouseUp() function is triggered when the mouse button is released, and sets the color of the text to green.
+</p>
+
+<script>
+function mouseDown() {
+    document.getElementById("myP").style.color = "red";
+}
+
+function mouseUp() {
+    document.getElementById("myP").style.color = "green";
+}
+</script>
+
+<hr>
+
+<h2>Definition and Usage</h2>
+<p>The onmousedown event occurs when a user presses a mouse button over an element.</p>
+<p><b>Tip:</b> The order of events related to the onmousedown event (for the left/middle mouse button):</p>
+<ol>
+  <li>onmousedown</li>
+  <li><a href="event_onmouseup.asp">onmouseup</a></li>
+  <li><a href="event_onclick.asp">onclick</a></li>
+</ol>
+<p>The order of events related to the onmousedown event (for the right mouse button):</p>
+<ol>
+  <li>onmousedown</li>
+  <li><a href="event_onmouseup.asp">onmouseup</a></li>
+  <li><a href="event_oncontextmenu.asp">oncontextmenu</a></li>
+</ol>
+<hr>
+
+</body>
+</html>

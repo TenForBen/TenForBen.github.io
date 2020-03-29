@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#myDIV {
+    background-color: black;
+    border: 1px solid;
+    padding: 50px;
+    color: white;
+}
+</style>
+<title>FW JS JQ removeEventListener</title>
+<script src="../angular.min.js" ></script>
+<script src="../Fibanacchi.js"></script>
+<script src="../louder.js"></script>
+<script src="../../JQ/jquery-3.2.1.js"></script>
+<script type="text/javascript"></script>
+
+</head>
+<body id="Ramon" onload="vaishakh()">
+
+<div id="myDIV">This div element has an onmousemove event handler that displays a random number every time you move your mouse inside this orange field.
+  <p>Click the button to remove the DIV's event handler.</p>
+  <button onclick="removeHandler()" id="myBtn">Try it</button>
+</div>
+
+<p id="demo"></p>
+
+<script>
+document.getElementById("myDIV").addEventListener("mousemove", myFunction);
+
+function myFunction() {
+    //document.getElementById("demo").innerHTML = Math.random();
+    $("#demo").text(Math.random());
+    var tea=0;
+
+}
+
+function removeHandler() {
+	//if(tea==0)
+    document.getElementById("myDIV").removeEventListener("mousemove", myFunction);
+	
+    
+
+}
+</script>
+
+</body>
+</html>
+
+

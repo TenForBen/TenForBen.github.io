@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<body>
+<title>FW Fibo first Parth Sanjay Doppleganger</title>
+<div>
+	
+	<p id="bang">0</p>
+	<p id="sddse">1</p>
+	
+
+</div>
+
+
+<p>Can u see a pattern</p>
+
+
+
+<button id="chacko" onclick="dusra()">Try it</button>
+
+
+<script>
+
+document.body.style.color="#aac"
+
+function myFunction() {
+    var para = document.createElement("P");
+    var t = document.createTextNode("This is a paragraph.");
+    para.appendChild(t);
+    document.body.appendChild(para);
+
+
+}
+
+
+function dusra()
+{
+
+	//u can add the first two p tags of (0 and 1 ) of the div tag using createElement option
+
+	var Ptaglen=document.getElementsByTagName('div')[0].children.length;
+	var first=parseInt(document.getElementsByTagName('div')[0].children[Ptaglen-2].innerText);
+	var second=parseInt(document.getElementsByTagName('div')[0].children[Ptaglen-1].innerText);
+	var amos=document.createElement('p');
+	var sumo=parseInt(first+second);
+	amos.innerText=sumo;
+	document.getElementsByTagName('div')[0].appendChild(amos);
+	/*var amos=document.createElement('p');
+	amos.innerText="Mi AMo Mia amo";
+	var buthole=document.body.getElementsByTagName('p').length
+	if(buthole%3==0){
+		myFunction()
+		//break ozil;
+	}
+	document.getElementsByTagName('div')[0].appendChild(amos);
+	*/
+	
+
+
+}
+
+function fibs(){
+
+	var Ptaglen=document.getElementsByTagName('div')[0].children.length;
+
+
+	var first=document.getElementsByTagName('div')[0].children[Ptaglen-2].innerText;
+	var second=document.getElementsByTagName('div')[0].children[Ptaglen-1].innerText;
+	var amos=document.createElement('p');
+	var sumo=parseInt(first+second);
+	amos.innerText=sumo;
+	document.getElementsByTagName('div')[0].appendChild(amos);
+
+
+}
+
+
+
+</script>
+
+</body>
+</html>

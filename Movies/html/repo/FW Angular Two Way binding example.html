@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<script src="angular.min.js"></script>
+<script src="louder.js"></script>
+<body id="ATW" onload="vaishakh()">
+
+<div ng-app="myApp" ng-controller="myCtrl">
+Name: <input  type="password" ng-model="name">
+<h1>You entered: {{name}}</h1>
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.name = "John Doe";
+});
+</script>
+
+<p>Change the name inside the input field, and you will see the name in the header changes accordingly .
+
+
+if u don't include the type of the input element it will take it as text bhy derfault...</p>
+
+</body>
+</html>

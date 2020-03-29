@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<script src="angular.min.js"></script>
+<script src="louder.js"></script>
+
+<body id="AMC" onload="vaishakh()">
+
+
+<div ng-app="myApp" ng-controller="myCtrl">
+{{ firstName + " " + lastName }}
+</div>
+
+<script>
+var app = angular.module("myApp", []);
+app.controller("myCtrl", function($scope) {
+    $scope.firstName = "Johjn";
+    $scope.lastName = "Doe";
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+div {
+    background-color: black;
+    border: 1px solid;
+    padding: 50px;
+    color: white;
+    width: 800px;
+}
+</style>
+<title>FW JQ JS Bubbling and Capturingg</title>
+<script src="../angular.min.js" ></script>
+<script src="../Fibanacchi.js"></script>
+<script src="../louder.js"></script>
+<script src="../../JQ/jquery-3.2.1.js"></script>
+<script type="text/javascript"></script>
+</head>
+<body id="Ramon" onload="vaishakh()">
+
+<p>This example demonstrates the difference between bubbling and capturing when adding event listeners.</p>
+<button> For bubbling</button>
+<span id="spandax"></span>
+
+<div id="myDiv">
+  <p id="myP">Click this paragraph, I am Bubbling.</p>
+  <ol id="kerman">
+  	
+
+  </ol>
+</div><br>
+
+<div id="myDiv2">
+  <p id="myP2">Click this paragraph, I am Capturing.</p>
+  <ol id="azerikerman">
+  	
+
+  </ol>
+</div>
+
+<script>
+$(document).ready(function(){
+    $("button").click(function(){
+        var txt = "";
+        txt += "Width of div: " + $("#myDiv").width() + "</br>";
+        txt += "Height of div: " + $("#myDiv").height();
+        $("#spandax").html(txt);
+    });
+});
+document.getElementById("myP").addEventListener("click", function() {
+    //alert("You clicked the P element!");
+    var arg="You clicked the P element!";
+    DonDion(arg);
+},);
+
+document.getElementById("myDiv").addEventListener("click", function() {
+    //alert("You clicked the DIV element!");
+     var arg="You clicked the DIV element!";
+    DonDion(arg);
+}, );
+
+document.getElementById("myP2").addEventListener("click", function() {
+    var arg="You clicked the P element!";
+    DonDion2(arg);
+}, 1);
+
+document.getElementById("myDiv2").addEventListener("click", function() {
+    //alert("You clicked the DIV element!");
+    var arg="You clicked the DIV element!";
+    DonDion2(arg);
+}, 1);
+
+function DonDion(babu){
+  var woo=document.createElement('li');
+  woo.textContent=babu;
+  document.getElementById('kerman').appendChild(woo);
+
+}
+function DonDion2(babu){
+  var woo=document.createElement('li');
+  woo.textContent=babu;
+  document.getElementById('azerikerman').appendChild(woo);
+
+}
+
+
+</script>
+
+</body>
+</html>

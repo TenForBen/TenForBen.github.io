@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html >
+<script src="angular.min.js" ></script>
+
+<script src="louder.js"></script>
+<!--<script type="text/javascript">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	var myApp=angular.module("myModule",[]);
+
+//var myController=
+
+myApp.controller("myController",function($scope){
+
+	$scope.bokonkh="naveen";
+});
+</script>
+<body id="AFE" onload="vaishakh()" ng-controller="myController">
+
+<div >
+<p>My first expression 53 + 5 s: {{ 53 + 5 }}</p>
+
+<article >
+
+{{
+bokonkh
+}
+}
+	
+
+
+</article>
+</div>
+
+</body>-->
+<script>
+var app = angular.module("myApp", []);
+app.controller("myCtrl", function($scope) {
+    $scope.bokonkh = "John";
+    $scope.lastName = "Doe";
+});
+</script>
+<body ng-app="myApp" ng-controller="myCtrl">
+
+<div >
+{{ bokonkh }}
+</div>
+<p>My first expression 53 + 5 s: {{ 53 + 5 }}</p>
+
+
+</body>
+
+</html>
