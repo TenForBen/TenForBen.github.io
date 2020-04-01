@@ -5,13 +5,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class setup {
 	
-	public static  void start() {
-/*	System.setProperty("webdriver.chrome.driver","D:\\Selenium\\chromedriver.exe");
-	WebDriver driver= new ChromeDriver();
-	String url= "https://tenforben.github.io/Movies/HoMe.html";
-	driver.manage().deleteAllCookies();
-	driver.manage().window().maximize();
-	 System.out.println("The start rocess completed"); */
+	public static  void start(WebDriver driver, String ul)
+	{
+		 System.out.println("INSIDE START METHOD"); 
+		 driver.manage().deleteAllCookies();
+			driver.manage().window().maximize();
+			driver.get(ul);
+	
+	 System.out.println("The start process completed"); 
+	 
 	
 }
 }

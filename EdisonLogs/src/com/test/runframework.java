@@ -9,9 +9,6 @@ public class runframework extends methods
 {
 	 WebDriver driver;
 	  
-	
-	 
-	
 	public static void main(String[] args) {
 		//start();
 		System.setProperty("webdriver.chrome.driver","D:\\Selenium\\chromedriver.exe");
