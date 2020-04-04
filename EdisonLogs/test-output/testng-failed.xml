@@ -3,12 +3,19 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.parameters.datadrivenlogin">
+      <class name="validationofdifferenttestcases.frameworktest">
         <methods>
-          <include name="login" invocation-numbers="0 1 2 3"/>
+          <include name="minimun"/>
+          <include name="hyperlinks"/>
+          <include name="wrongpass"/>
+          <include name="webelements"/>
+          <include name="withoutpass"/>
+          <include name="quitbrowser"/>
+          <include name="emptyuser"/>
+          <include name="emptypage"/>
           <include name="setup"/>
         </methods>
-      </class> <!-- com.parameters.datadrivenlogin -->
+      </class> <!-- validationofdifferenttestcases.frameworktest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
