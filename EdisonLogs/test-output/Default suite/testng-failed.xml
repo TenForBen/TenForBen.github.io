@@ -3,19 +3,12 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="validationofdifferenttestcases.frameworktest">
+      <class name="validationofdifferenttestcases.EmptyUserCheck">
         <methods>
-          <include name="minimun"/>
-          <include name="hyperlinks"/>
-          <include name="wrongpass"/>
-          <include name="webelements"/>
-          <include name="withoutpass"/>
-          <include name="quitbrowser"/>
-          <include name="emptyuser"/>
-          <include name="emptypage"/>
+          <include name="FirstFieldValidation"/>
           <include name="setup"/>
         </methods>
-      </class> <!-- validationofdifferenttestcases.frameworktest -->
+      </class> <!-- validationofdifferenttestcases.EmptyUserCheck -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

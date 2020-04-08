@@ -6,9 +6,9 @@
      
       <class name="validationofdifferenttestcases.PwdFieldValidations"/>
       <class name="validationofdifferenttestcases.OhnePasswordField"/>
-     
+     <class name="validationofdifferenttestcases.UsernameLessThanSixChars"/>
       <class name="validationofdifferenttestcases.EmptyUserCheck"/>
       
     </classes>
-  </test> <!-- Test OhnePasswordField-->
+  </test> <!-- Test -->
 </suite> <!-- Suite -->

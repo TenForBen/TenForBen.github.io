@@ -26,7 +26,7 @@ public class frameworktest {
 	
 	public void hyperlinks(WebDriver driver) {
 		//System.setProperty("webdriver.chrome.driver","D:\\Selenium\\chromedriver.exe");
-	
+	System.out.println("hyperlinks started");
 		List <WebElement> anchor= driver.findElements(By.tagName("a"));
 		int a= anchor.size();
 		System.out.println("Number of anchor tag in this webpage is "+a);
@@ -77,8 +77,8 @@ public class frameworktest {
 	}
 
    
-    public void minimun() throws InterruptedException {
-	   WebDriver driver= new ChromeDriver();
+    public void minimun(WebDriver driver) throws InterruptedException {
+    	System.out.println("Test for username less than 6 chars");
 	WebElement Login= driver.findElement(By.id("zwei"));
 	 Login.click();
 	 WebElement username=driver.findElement(By.id("txtUserName"));
