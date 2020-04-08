@@ -22,13 +22,13 @@ function SnakeJS(parentElement, config){
 		gridHeight : 40,					// Height of the game grid
 		frameInterval : 150,				// Milliseconds between frames (@todo change to speed?)
 		pointSize : 16,						// Size of one grid point
-		backgroundColor : "white",			// Color of the background. CSS3 color values
-		snakeColor : "salmon",				// Color of the snake
+		backgroundColor : "black",			// Color of the background. CSS3 color values
+		snakeColor : "grey",				// Color of the snake
 		snakeEyeColor : "white",			// Color of the snake's eye
-		candyColor : "#b11c1c",				// Color of the candy
+		candyColor : "black",				// Color of the candy
 		shrinkingCandyColor : "#199C2C",	// Color of the special candy that shrinks
-		scoreBoardColor : "#c0c96b",		// Color of the score board
-		scoreTextColor : "#4b4312",			// Color of the score numbers on the score board
+		scoreBoardColor : "black",		// Color of the score board
+		scoreTextColor : "yellow",			// Color of the score numbers on the score board
 		collisionTolerance : 1				// Still frames before collision. More = easier
 	};
 
