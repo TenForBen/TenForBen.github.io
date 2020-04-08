@@ -8,29 +8,29 @@
 <script type="text/javascript">
 
 
-// If you are using jQuery, use < $(document).ready(function(){ ... }) > instead
-document.addEventListener("DOMContentLoaded", function(){
+	// If you are using jQuery, use < $(document).ready(function(){ ... }) > instead
+	document.addEventListener("DOMContentLoaded", function(){
 
-	// The DOM-element which will hold the playfield
-	// If you are using jQuery, you can use < var element = $("#parent"); > instead
-	var parentElement = document.getElementById("parent");
+		// The DOM-element which will hold the playfield
+		// If you are using jQuery, you can use < var element = $("#parent"); > instead
+		var parentElement = document.getElementById("parent");
 
-	// User defined settings overrides default settings.
-	// See snake-js.js for all available options.
-	var settings = {
-		    frameInterval : 120,
-		    backgroundColor : "#f3e698"
-	};
+		// User defined settings overrides default settings.
+		// See snake-js.js for all available options.
+		var settings = {
+			    frameInterval : 120,
+			    backgroundColor : "#f3e698"
+		};
 
-	// Create the game object. The settings object is NOT required.
-	// The parentElement however is required
-	var game = new SnakeJS(parentElement, settings);
+		// Create the game object. The settings object is NOT required.
+		// The parentElement however is required
+		var game = new SnakeJS(parentElement, settings);
 
-}, true);
+	}, true);
 
 </script>
 </head>
-<body>
+<body bgcolor="brown">
 
 <marquee><h1>BeLcoMe 2 ZeeBeen's Snake Game</h1></marquee>
 
