@@ -4,11 +4,15 @@
   <test thread-count="1" name="Test">
     <classes>
      
-      <class name="validationofdifferenttestcases.PwdFieldValidations"/>
-      <class name="validationofdifferenttestcases.OhnePasswordField"/>
-     <class name="validationofdifferenttestcases.UsernameLessThanSixChars"/>
+      
       <class name="validationofdifferenttestcases.EmptyUserCheck"/>
       
     </classes>
-  </test> <!-- Test -->
+  </test> <!-- Test
+  
+  <class name="validationofdifferenttestcases.PwdFieldValidations"/>
+      <class name="validationofdifferenttestcases.OhnePasswordField"/>
+     <class name="validationofdifferenttestcases.UsernameLessThanSixChars"/>
+     
+      -->
 </suite> <!-- Suite -->

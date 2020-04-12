@@ -3,25 +3,11 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
   <test name="Test(failed)">
     <classes>
-      <class name="com.parameters.datadrivenlogin">
+      <class name="validationofdifferenttestcases.EmptyUserCheck">
         <methods>
-          <include name="teardown"/>
-          <include name="login" invocation-numbers="0"/>
-          <include name="setup"/>
+          <include name="yumptyUserNameCHeck"/>
         </methods>
-      </class> <!-- com.parameters.datadrivenlogin -->
-      <class name="com.test.ValidateLogin">
-        <methods>
-          <include name="setup"/>
-          <include name="teardown"/>
-        </methods>
-      </class> <!-- com.test.ValidateLogin -->
-      <class name="com.test.testlogin">
-        <methods>
-          <include name="login" invocation-numbers="0 1 2 3"/>
-          <include name="Setup"/>
-        </methods>
-      </class> <!-- com.test.testlogin -->
+      </class> <!-- validationofdifferenttestcases.EmptyUserCheck -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

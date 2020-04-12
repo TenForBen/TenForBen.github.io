@@ -14,7 +14,7 @@ public class EmptyUserCheck  {
 	WebDriver driver;
 	String url;
 	
-	@BeforeTest
+	
 	public void setup() {
 		System.setProperty("webdriver.chrome.driver","D:\\Selenium\\chromedriver.exe");
 		WebDriver driver= new ChromeDriver();
@@ -26,23 +26,23 @@ public class EmptyUserCheck  {
 	}
 
 	@Test
-	public  void FirstFieldValidation() throws InterruptedException
+	public  void yumptyUserNameCHeck() throws InterruptedException
 	{
-		System.out.println("First field validation start running");
-		/* System.setProperty("webdriver.chrome.driver","D:\\Selenium\\chromedriver.exe");
+		System.out.println("yumptyUserNameCHeck started running");
+		System.setProperty("webdriver.chrome.driver","D:\\Selenium\\chromedriver.exe");
 		WebDriver driver= new ChromeDriver();
-		String url= "https://tenforben.github.io/Movies/HoMe.html"; */
+		String url= "https://tenforben.github.io/Movies/HoMe.html";
 		
 		/*setup.start(driver,url);
 		lesscharacterinusername testcase= new lesscharacterinusername();
 		testcase.minimun(driver, url);
 		testcase.quitbrowser(driver);*/
-		
-		//fwt.setup(driver,url);
-		//fwt.hyperlinks(driver);
-		//fwt.emptyuser(driver);
-		//Thread.sleep(2000);
-		//fwt.quitbrowser(driver);
+		frameworktest fwt = new frameworktest();
+		fwt.setup(driver,url);
+		fwt.hyperlinks(driver);
+		fwt.emptyuser(driver);
+		Thread.sleep(2000);
+		fwt.quitbrowser(driver);
 		
 	}
 
