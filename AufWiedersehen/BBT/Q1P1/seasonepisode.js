@@ -27,6 +27,7 @@ let output=(input1= 1, input2=7)=>		//Used Arrow Function and default value assi
 				var epiosodefound=1;
 
 				document.getElementById("apdi").value=tvshow._embedded.episodes[list].name
+				$("#groundBreaking")[0].src=tvshow._embedded.episodes[list].image.original
 			}
 		}
 	}
@@ -37,7 +38,7 @@ let output=(input1= 1, input2=7)=>		//Used Arrow Function and default value assi
 		//alert("Please enter a valid epiosode name")
 
 }
-if((seasonnumber.length==0)  | (episodenumber.length==0))	//If either of the inputs are blank or 0, it will take the assigned default values as inputs
+if((seasonnumber.length==0)||(episodenumber.length==0))	//If either of the inputs are blank or 0, it will take the assigned default values as inputs
 output();
 else
 output(seasonnumber, episodenumber);	//Else it will the search for the given inputs
