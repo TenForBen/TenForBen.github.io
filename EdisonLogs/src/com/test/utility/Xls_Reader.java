@@ -64,7 +64,7 @@ public class Xls_Reader {
 	 * @param rowNum
 	 * @return
 	 */
-	// returns the data from a cell
+	// returns the data from a cell for column name  and row number
 	public String getCellData(String sheetName, String colName, int rowNum) {
 		try {
 			if (rowNum <= 0)
@@ -141,7 +141,7 @@ public class Xls_Reader {
 	 * @param rowNum
 	 * @return
 	 */
-	// returns the data from a cell
+	// returns the data from a cell for column number and row number
 	public String getCellData(String sheetName, int colNum, int rowNum) {
 		try {
 			if (rowNum <= 0)
