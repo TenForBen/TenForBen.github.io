@@ -481,7 +481,21 @@ public class Xls_Reader {
 	//
 	//
 	// return true;
-	// }
+	// }\\
+	public int getLastRwoNum(String sheetName)
+	{
+		if (!isSheetExist(sheetName))
+			return -1;
+
+		sheet = workbook.getSheet(sheetName);
+		//column = sheet.getColumnStyle(0);
+		int s=sheet.getLastRowNum();
+
+		
+		
+		return s;
+	}
+	
 	public int getCellRowNum(String sheetName, String colName, String cellValue) {
 
 		for (int i = 2; i <= getRowCount(sheetName); i++) {

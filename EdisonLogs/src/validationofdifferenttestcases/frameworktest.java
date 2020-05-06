@@ -157,12 +157,17 @@ public class frameworktest {
 
        
        
-       public void quitbrowser(WebDriver driver) {
+       public void quitbrowser(WebDriver driver) 
+       {
     	  
    		driver.quit();
    		System.out.println("Program ends by closing the browser");
-   	}
+   		}
+       
+       
 }
+
+
 
 
 
