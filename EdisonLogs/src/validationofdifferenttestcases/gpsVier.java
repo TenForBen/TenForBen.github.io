@@ -15,9 +15,9 @@ import com.test.utility.Xls_Reader;
 
 import validationofdifferenttestcases.frameworktest;
 
-public class gpsDrei {
+public class gpsVier {
 
-	@Test
+
 	public  void gpsExcel()throws InterruptedException
 	
 	{
@@ -47,6 +47,23 @@ public class gpsDrei {
 		reader.setCellData("Sheet1", "Coordinates", LRs, searchResult);
 		System.out.println("coordinates updated in excel  ");		
 		fwt.quitbrowser(driver);
+		
+	}
+	@Test
+	public void iteraetor()
+	{
+		Xls_Reader reader= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\gps.xlsx");
+		//int rowcount= reader.getRowCount("testdata"); // passing sheet name
+		//reader.addColumn("testdata", "status"); //sunBath,20 min lunch, Mixy , mysteryDeutsch caller, 2'oclock strom. taxConsultant, band news., 10k steps, 5k run, near paralysys feel, new routes , naidu video call
+		int  LR =  reader.getLastRwoNum("Sheet1");
+		System.out.println("The last row by method  " + LR);
+		int LRs=LR+1;
+		System.out.println("The last row count is  " + LRs);
+		for( int i =1;i<=LRs;i++)
+		{
+			String place =reader.getCellData("Sheet1", "Places", i);	
+			System.out.println("Places  at position -"+ i +" is " + place);
+		}
 		
 	}
 
