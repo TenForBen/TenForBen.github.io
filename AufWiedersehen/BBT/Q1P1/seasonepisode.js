@@ -27,6 +27,7 @@ let output=(input1= 1, input2=7)=>		//Used Arrow Function and default value assi
 				var epiosodefound=1;
 
 				document.getElementById("apdi").value=tvshow._embedded.episodes[list].name
+				document.getElementById("premBabu").value=tvshow._embedded.episodes[list].summary
 				$("#groundBreaking")[0].src=tvshow._embedded.episodes[list].image.original
 			}
 		}

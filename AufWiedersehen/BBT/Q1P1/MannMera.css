@@ -1,0 +1,75 @@
+	#apdi
+	{
+		display:block;
+		margin: 30px;
+
+	}
+	#groundBreaking
+	{
+			padding:1vw;
+			margin: 1vw;
+			background-color: black;
+			color: yellow;
+			border-width:2vw;
+			border-color: yellow;
+			width: 30vw;
+			height:40vh;
+	}
+	h1
+	{
+		width: 80vw;
+		margin:0 auto;	
+
+	}
+
+	body{
+		margin: 1vw;
+
+	}
+	@media screen and (max-width: 481px) 
+    {
+	    body {
+	        padding:2vw;
+			margin: 3vw;
+			background-color: black;
+			color: yellow;
+			}
+	    h1
+		{
+			width: 80vw;
+			margin:10px 30vw;	
+
+		}
+		.bo{
+			margin-top: 5vh;
+			margin-right: 2vw;
+			color:red;
+			margin-bottom: 4vh;
+		}
+		.boer{
+			color:black;
+		}
+	    #lp
+			{
+				height:50vh;
+				width:80vw;
+				border:5px solid beige;
+				float:right;
+				padding:2vw;
+				margin: 3vw;
+			}
+		
+		#groundBreaking
+		 {
+		    padding: 1vw;
+		    margin: 1vw;
+		    background-color: black;
+		    color: yellow;
+		    border-width: 2vw;
+		    border-color: yellow;
+		    width: 70vw;
+		    height: 50vh;
+		 }
+
+
+    }
