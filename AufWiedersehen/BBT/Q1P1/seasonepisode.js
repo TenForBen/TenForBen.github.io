@@ -27,7 +27,11 @@ let output=(input1= 1, input2=7)=>		//Used Arrow Function and default value assi
 				var epiosodefound=1;
 
 				document.getElementById("apdi").value=tvshow._embedded.episodes[list].name
-				document.getElementById("premBabu").value=tvshow._embedded.episodes[list].summary
+				var telmpString=tvshow._embedded.episodes[list].summary
+				res=telmpString.split("<p>")
+				priya=res[1].split("</p>")
+
+				document.getElementById("premBabu").value=priya[0]
 				$("#groundBreaking")[0].src=tvshow._embedded.episodes[list].image.original
 			}
 		}
