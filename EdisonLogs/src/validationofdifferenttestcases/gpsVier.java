@@ -18,8 +18,9 @@ import com.test.utility.Xls_Reader;
 
 import validationofdifferenttestcases.frameworktest;
 
-public class gpsVier {
 
+public class gpsVier {
+	
 
 	public  String  gpsExcel(String place)throws InterruptedException
 	

@@ -1,4 +1,5 @@
-package validationofdifferenttestcases;
+package authorQuotes;
+
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -19,7 +20,7 @@ import validationofdifferenttestcases.frameworktest;
 public class gpsDrei {
 
 	@Test
-	public  void gpsExcel()throws InterruptedException
+	public  void autorQUotes()throws InterruptedException
 	
 	{
 		frameworktest fwt = new frameworktest();
@@ -44,6 +45,7 @@ public class gpsDrei {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		WebElement content= driver.findElement(By.xpath("//div[@class='quotes__body']//li[@class='quotes'][1]"));
 		content.click();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		/*driver.findElement(By.xpath("//*[@id=\"Rzn5id\"]/div/a[2]")).click(); 
 		System.out.println("Clicked on makeshift  link" );		
 		String searchResult= driver.findElement(By.xpath("//*[@id=\"rso\"]/div[1]/div[1]/div[1]/div[1]/div/div[2]/div/div/div/div[1]	")).getText() ;

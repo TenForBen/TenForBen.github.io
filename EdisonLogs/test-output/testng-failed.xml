@@ -3,11 +3,11 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="validationofdifferenttestcases.gpsVier">
+      <class name="validationofdifferenttestcases.gpsDrei">
         <methods>
-          <include name="iteraetor"/>
+          <include name="gpsExcel"/>
         </methods>
-      </class> <!-- validationofdifferenttestcases.gpsVier -->
+      </class> <!-- validationofdifferenttestcases.gpsDrei -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

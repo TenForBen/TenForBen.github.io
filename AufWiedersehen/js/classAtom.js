@@ -198,6 +198,29 @@ function boat()
 
     var studentsArray = [];
 
+    function brennan() {
+
+        var fn = document.getElementById("fc").value;
+        var ln = document.getElementById("ff").value;
+        var rn = document.getElementById("bg").value;
+        
+        // Array being created here
+        var d = new Date();
+        var jsdateNum=d.getTime();
+        var stuObj = { firstname: fn, lastname: ln, rollnum: rn ,jsd:jsdateNum};
+        studentsArray.push(stuObj);
+        localStorage.studentsRecord = JSON.stringify(studentsArray);
+        var sn=0;
+        var tn=0;
+        
+        prepareTableCell(fn, ln, rn,sn,tn);
+
+        //acton();
+
+        document.getElementById("fc").value = " ";
+        document.getElementById("ff").value = " ";
+        document.getElementById("bg").value = " ";
+    }
 
     function garyspeed() {
 
@@ -249,6 +272,18 @@ function boat()
         //document.getElementById('Tbag').style.display=='none';
 		//$("body").css("background-color","beige");
 		//document.getElementById("regtable").style.backgroundColor="white";
+        if (localStorage.studentsRecord) {
+            studentsArray = JSON.parse(localStorage.studentsRecord);
+            for (var i = 0; i < studentsArray.length; i++) {
+                prepareTableCell(studentsArray[i].firstname, studentsArray[i].lastname, studentsArray[i].rollnum,i+1,studentsArray[i].jsd);
+            }
+        }
+
+    }
+    function loader2() {
+        //document.getElementById('Tbag').style.display=='none';
+        //$("body").css("background-color","beige");
+        //document.getElementById("regtable").style.backgroundColor="white";
         if (localStorage.studentsRecord) {
             studentsArray = JSON.parse(localStorage.studentsRecord);
             for (var i = 0; i < studentsArray.length; i++) {

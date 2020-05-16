@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="71223" started-at="2020-05-07T20:26:42Z" finished-at="2020-05-07T20:27:53Z">
+  <suite name="Default suite" duration-ms="20007" started-at="2020-05-16T21:26:40Z" finished-at="2020-05-16T21:27:00Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="71223" started-at="2020-05-07T20:26:42Z" finished-at="2020-05-07T20:27:53Z">
-      <class name="validationofdifferenttestcases.gpsVier">
-        <test-method status="PASS" signature="iteraetor()[pri:0, instance:validationofdifferenttestcases.gpsVier@2a2d45ba]" name="iteraetor" duration-ms="71139" started-at="2020-05-07T22:26:42Z" finished-at="2020-05-07T22:27:53Z">
+    <test name="Default test" duration-ms="20007" started-at="2020-05-16T21:26:40Z" finished-at="2020-05-16T21:27:00Z">
+      <class name="authorQuotes.gpsDrei">
+        <test-method status="PASS" signature="autorQUotes()[pri:0, instance:authorQuotes.gpsDrei@2a2d45ba]" name="autorQUotes" duration-ms="19962" started-at="2020-05-16T23:26:40Z" finished-at="2020-05-16T23:27:00Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- iteraetor -->
-      </class> <!-- validationofdifferenttestcases.gpsVier -->
+        </test-method> <!-- autorQUotes -->
+      </class> <!-- authorQuotes.gpsDrei -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
