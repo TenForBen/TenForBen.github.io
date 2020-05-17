@@ -284,10 +284,11 @@ function boat()
         //document.getElementById('Tbag').style.display=='none';
         //$("body").css("background-color","beige");
         //document.getElementById("regtable").style.backgroundColor="white";
-        if (localStorage.studentsRecord) {
-            studentsArray = JSON.parse(localStorage.studentsRecord);
-            for (var i = 0; i < studentsArray.length; i++) {
-                prepareTableCell(studentsArray[i].firstname, studentsArray[i].lastname, studentsArray[i].rollnum,i+1,studentsArray[i].jsd);
+        if (worter) {
+            //wordsArray = JSON.parse(worter);
+            for (var i = 0; i < worter.length; i++) {
+                prepareTableCell(worter[i].firstname, worter[i].lastname, worter[i].rollnum,i+1,worter[i].jsd);
+               
             }
         }
 

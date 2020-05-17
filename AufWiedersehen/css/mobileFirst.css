@@ -1,3 +1,13 @@
+#ff{
+
+    width: 50vw;
+    height: 6vw;
+}
+#bg{
+
+    width: 50vw;
+    height: 6vw;
+}
 @media screen and (max-width: 480px) 
 {
             body 
@@ -40,6 +50,16 @@
             #OsterSunds
             {
                     width:50vw;
+            }
+            #ff{
+
+                width: 80vw;
+                height: 26vw;
+            }
+            #bg{
+
+                width: 80vw;
+                height: 26vw;
             }
                   
 }
