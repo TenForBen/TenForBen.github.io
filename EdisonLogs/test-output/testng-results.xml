@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="20007" started-at="2020-05-16T21:26:40Z" finished-at="2020-05-16T21:27:00Z">
+  <suite name="Default suite" duration-ms="76783" started-at="2020-05-21T15:10:35Z" finished-at="2020-05-21T15:11:52Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="20007" started-at="2020-05-16T21:26:40Z" finished-at="2020-05-16T21:27:00Z">
-      <class name="authorQuotes.gpsDrei">
-        <test-method status="PASS" signature="autorQUotes()[pri:0, instance:authorQuotes.gpsDrei@2a2d45ba]" name="autorQUotes" duration-ms="19962" started-at="2020-05-16T23:26:40Z" finished-at="2020-05-16T23:27:00Z">
+    <test name="Default test" duration-ms="76783" started-at="2020-05-21T15:10:35Z" finished-at="2020-05-21T15:11:52Z">
+      <class name="authorQuotes.operaSoccer">
+        <test-method status="PASS" signature="triggerere()[pri:0, instance:authorQuotes.operaSoccer@2a2d45ba]" name="triggerere" duration-ms="76748" started-at="2020-05-21T17:10:35Z" finished-at="2020-05-21T17:11:52Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- autorQUotes -->
-      </class> <!-- authorQuotes.gpsDrei -->
+        </test-method> <!-- triggerere -->
+      </class> <!-- authorQuotes.operaSoccer -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

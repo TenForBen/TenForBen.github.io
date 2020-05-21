@@ -17,7 +17,7 @@ import com.test.utility.Xls_Reader;
 
 import validationofdifferenttestcases.frameworktest;
 
-public class gpsDrei {
+public class autherQuotesv1 {
 
 	@Test
 	public  void autorQUotes()throws InterruptedException
@@ -43,16 +43,43 @@ public class gpsDrei {
 		String url ="https://www-5eb3b7359f390c51aeb5c034.recruit.eb7.io";
 		driver.get(url);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		WebElement content= driver.findElement(By.xpath("//div[@class='quotes__body']//li[@class='quotes'][1]"));
-		content.click();
+		
+		///	/p[contains(@class,'quotes__title')]
+		WebElement content= driver.findElement(By.xpath("//p[@class=\'quotes__title\']"));
+		if(!content.getTagName().contains("input"))
+			System.out.println("Its a non-editable paragraph");
+		
+		
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		WebElement addData=driver.findElement(By.id("show-modal"));
+		addData.click();
+		System.out.println("clicked on the button  " );
+		WebElement Author=driver.findElement(By.id("autorInput"));
+		Author.sendKeys("wentworths");
+		WebElement quoteInput=driver.findElement(By.id("quoteInput"));
+		quoteInput.sendKeys("seems to be like thasssts");
+		//$("#quoteInput").value="abraham lincoln was a great Man"
+		 List<WebElement> errorlist= driver.findElements(By.className("modal-footer"));
+		 errorlist.get(0).click();
+   		 int errnum= errorlist.size();
+   		 for(int i=0; i<=errnum;i++)
+   		 {
+   			 //errorlist.get(0).click();
+   			 //System.out.println("The total error text: " +errnum);
+   			// System.out.println("The error texts are: " +errortext);
+   		 }
+		
+		
+		
+		
+		
 		/*driver.findElement(By.xpath("//*[@id=\"Rzn5id\"]/div/a[2]")).click(); 
 		System.out.println("Clicked on makeshift  link" );		
 		String searchResult= driver.findElement(By.xpath("//*[@id=\"rso\"]/div[1]/div[1]/div[1]/div[1]/div/div[2]/div/div/div/div[1]	")).getText() ;
 		System.out.println("coordinates for "+ place  +  " are "+searchResult);
 		reader.setCellData("Sheet1", "Coordinates", LRs, searchResult);
 		System.out.println("coordinates updated in excel  ");		*/
-		//fwt.quitbrowser(driver);
+		fwt.quitbrowser(driver);
 		
 	}
 
