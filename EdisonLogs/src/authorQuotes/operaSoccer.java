@@ -93,7 +93,7 @@ public class operaSoccer {
 		
 	}
 	
-	public  void  bohraa(int place)throws InterruptedException
+	public  String  bohraa(int place)throws InterruptedException
 
 	{
 		frameworktest fwt = new frameworktest();
@@ -108,20 +108,37 @@ public class operaSoccer {
 		System.out.println("URL formed -" +uri);
 		driver.get(uri);
 		String HeadLine= driver.findElement(By.xpath("(//div[@class='clearfix'])[5]/h1")).getText() ;
-		System.out.println("HEADLINE IS - " +HeadLine );		
+		System.out.println("HEADLINE IS - " +HeadLine );
+		fwt.quitbrowser(driver);
+		return HeadLine;
 		/*driver.findElement(By.xpath("//*[@id=\"Rzn5id\"]/div/a[2]")).click(); 
 		System.out.println("Clicked on makeshift  link" );		
 		String searchResult= driver.findElement(By.xpath("//*[@id=\"rso\"]/div[1]/div[1]/div[1]/div[1]/div/div[2]/div/div/div/div[1]	")).getText() ;
 		System.out.println("coordinates updated in excel  ");		 */
-		fwt.quitbrowser(driver);
+	
 		//return searchResult;	
 		
 	}
 	@Test
-	public void triggerere() throws InterruptedException {
-		
-		for(int i=1099580;i<1099584;i++)
-			bohraa(i);
+	public void triggerere() throws InterruptedException
+	{
+		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\operaSoccer.xlsx");
+		int  LR =  r.getLastRwoNum("Sheet1");
+		System.out.println("The last row by method  " + LR);
+		int LRs=LR+2;
+		int starter=1099087;
+		System.out.println("New Row is at " + LRs);
+		int limiter= LRs+29;
+		for(int i=LRs;i<=limiter;i++)
+		{
+			String innsbruck = bohraa(starter);
+			r.setCellData("Sheet1", "NewsHeadline", i, innsbruck);
+			//newsId
+			String str1 = Integer.toString(starter);
+			r.setCellData("Sheet1", "newsId", i,str1);
+			starter=starter+1;
+			
+		}
 	}
 
 

@@ -2,12 +2,12 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="76783" started-at="2020-05-21T15:10:35Z" finished-at="2020-05-21T15:11:52Z">
+  <suite name="Default suite" duration-ms="532711" started-at="2020-05-21T21:18:49Z" finished-at="2020-05-21T21:27:42Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="76783" started-at="2020-05-21T15:10:35Z" finished-at="2020-05-21T15:11:52Z">
+    <test name="Default test" duration-ms="532711" started-at="2020-05-21T21:18:49Z" finished-at="2020-05-21T21:27:42Z">
       <class name="authorQuotes.operaSoccer">
-        <test-method status="PASS" signature="triggerere()[pri:0, instance:authorQuotes.operaSoccer@2a2d45ba]" name="triggerere" duration-ms="76748" started-at="2020-05-21T17:10:35Z" finished-at="2020-05-21T17:11:52Z">
+        <test-method status="PASS" signature="triggerere()[pri:0, instance:authorQuotes.operaSoccer@2a2d45ba]" name="triggerere" duration-ms="532673" started-at="2020-05-21T23:18:49Z" finished-at="2020-05-21T23:27:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- triggerere -->
