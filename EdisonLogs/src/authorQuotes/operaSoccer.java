@@ -81,7 +81,7 @@ public class operaSoccer
 		int LRs=LR+2;
 		int starter=1099734; // this is for the newsId
 		System.out.println("New Row is at " + LRs);
-		int limiter= LRs+5; // this one is for rows
+		int limiter= LRs+50; // this one is for rows
 		for(int i=LRs;i<=limiter;i++)
 		{
 			String innsbruck = bohraa(starter);

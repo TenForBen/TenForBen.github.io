@@ -2,12 +2,12 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="135286" started-at="2020-05-22T20:06:59Z" finished-at="2020-05-22T20:09:14Z">
+  <suite name="Default suite" duration-ms="983742" started-at="2020-05-22T20:17:13Z" finished-at="2020-05-22T20:33:37Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="135286" started-at="2020-05-22T20:06:59Z" finished-at="2020-05-22T20:09:14Z">
+    <test name="Default test" duration-ms="983742" started-at="2020-05-22T20:17:13Z" finished-at="2020-05-22T20:33:37Z">
       <class name="authorQuotes.operaSoccer">
-        <test-method status="PASS" signature="AureviourTtriggerere()[pri:0, instance:authorQuotes.operaSoccer@2a2d45ba]" name="AureviourTtriggerere" duration-ms="135232" started-at="2020-05-22T22:06:59Z" finished-at="2020-05-22T22:09:14Z">
+        <test-method status="PASS" signature="AureviourTtriggerere()[pri:0, instance:authorQuotes.operaSoccer@2a2d45ba]" name="AureviourTtriggerere" duration-ms="983700" started-at="2020-05-22T22:17:13Z" finished-at="2020-05-22T22:33:37Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- AureviourTtriggerere -->
