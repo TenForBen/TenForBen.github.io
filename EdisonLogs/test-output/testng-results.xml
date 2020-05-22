@@ -2,15 +2,15 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="532711" started-at="2020-05-21T21:18:49Z" finished-at="2020-05-21T21:27:42Z">
+  <suite name="Default suite" duration-ms="135286" started-at="2020-05-22T20:06:59Z" finished-at="2020-05-22T20:09:14Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="532711" started-at="2020-05-21T21:18:49Z" finished-at="2020-05-21T21:27:42Z">
+    <test name="Default test" duration-ms="135286" started-at="2020-05-22T20:06:59Z" finished-at="2020-05-22T20:09:14Z">
       <class name="authorQuotes.operaSoccer">
-        <test-method status="PASS" signature="triggerere()[pri:0, instance:authorQuotes.operaSoccer@2a2d45ba]" name="triggerere" duration-ms="532673" started-at="2020-05-21T23:18:49Z" finished-at="2020-05-21T23:27:42Z">
+        <test-method status="PASS" signature="AureviourTtriggerere()[pri:0, instance:authorQuotes.operaSoccer@2a2d45ba]" name="AureviourTtriggerere" duration-ms="135232" started-at="2020-05-22T22:06:59Z" finished-at="2020-05-22T22:09:14Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- triggerere -->
+        </test-method> <!-- AureviourTtriggerere -->
       </class> <!-- authorQuotes.operaSoccer -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
