@@ -4,6 +4,15 @@
 		margin: 30px;
 
 	}
+	#seal{
+		margin: 6vw 3vh;
+	}
+	#premBabu
+	{
+		display:block;
+		margin: 30px;
+
+	}
 	#groundBreaking
 	{
 			padding:1vw;
@@ -12,8 +21,9 @@
 			color: yellow;
 			border-width:2vw;
 			border-color: yellow;
-			width: 30vw;
-			height:40vh;
+			width: 44vw;
+			height:50vh;
+			display: block;
 	}
 	h1
 	{
