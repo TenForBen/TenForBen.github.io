@@ -27,11 +27,11 @@ public class gpsVier {
 	{
 		frameworktest fwt = new frameworktest();
 		
-		System.setProperty("webdriver.chrome.driver","D:\\Selenium\\chromedriver.exe");
-		WebDriver driver= new ChromeDriver();
-		driver.manage().deleteAllCookies();
-		driver.manage().window().maximize();		
-		String searchParam=place +" coordinates";		
+		System.setProperty("webdriver.chrome.driver","D:\\Selenium\\chromedriver.exe"); // declaring the chrome driver locatoion
+		WebDriver driver= new ChromeDriver();// initializing chrome driver
+		driver.manage().deleteAllCookies(); // deleting all cookies
+		driver.manage().window().maximize();		// maximizing the window
+		String searchParam=place +" coordinates";		// earlier param
 		String uri= "https://www.google.com/search?q=" + place +"+coordinates&aqs=chrome..69i57j0l4.8570j0j9&sourceid=chrome&ie=UTF-8";
 		System.out.println("URL formed -" +uri);
 		driver.get(uri);
