@@ -312,6 +312,48 @@ function boat()
 
 
     }
+    function loader4() {
+        //document.getElementById('Tbag').style.display=='none';
+        //$("body").css("background-color","beige");
+        //document.getElementById("regtable").style.backgroundColor="white";
+        if (s)
+         {
+            //wordsArray = JSON.parse(worter);
+            for (var i = 0; i < s.length; i++)
+             {
+                prepareTableCell3(s[i].Manager_Name, s[i].Manager_ID,s[i].Latest_Score, s[i].OVeraLL_RanK);
+
+               
+             }
+
+
+        }
+
+
+
+    }
+
+    function prepareTableCell3(firstName, lastName, krups, stick) 
+    {
+        var table = document.getElementById("regtable");
+        var row = table.insertRow();
+        var firstNameCell = row.insertCell(0);
+        var lastNameCell = row.insertCell(1);
+        var krupsI = row.insertCell(2);
+        var stickI = row.insertCell(3);
+        
+        firstNameCell.innerHTML = firstName;
+        lastNameCell.innerHTML = lastName;
+        krupsI.innerHTML = krups;
+        stickI.innerHTML = stick;
+        //lastNameCell.innerHTML = ;
+        //var eurl= "<a href="http://www.m.soccerway.mobi/?sport=soccer&page=news&view=article&news_id=1099740&localization_id=www" > sample link</a>";
+       // http://www.m.soccerway.mobi/?sport=soccer&page=news&view=article&news_id=1099740&localization_id=www
+       //<a href="http://www.m.soccerway.mobi/?sport=soccer&page=news&view=article&news_id=1099740&localization_id=www" > sample link</a>
+
+        //firstNameCell.colSpan = 2;
+        
+    }
     function prepareTableCell2(firstName, lastName) 
     {
         var table = document.getElementById("regtable");
