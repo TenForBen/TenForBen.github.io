@@ -43,7 +43,7 @@ public class gpsVier {
 		return searchResult;
 		
 	}
-	@Test
+	
 	public void iteraetor() throws InterruptedException
 	{
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\gps.xlsx");
@@ -68,4 +68,12 @@ public class gpsVier {
 		
 	}
 
+	@Test
+	public void tryere() throws InterruptedException
+	{
+		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\gps.xlsx");
+		//int  LR =  r.getLastRwofaColm("Sheet1",2);
+		 r.getLastRwofaColm("Sheet1",2);
+		//System.out.println("The last row by method  " + LR);
+	}
 }

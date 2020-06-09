@@ -553,6 +553,35 @@ public class Xls_Reader {
 		return s;
 	}
 	
+	public void getLastRwofaColm(String sheetName, int rowNum)
+	{
+		if (!isSheetExist(sheetName))
+			//return -1;
+
+		sheet = workbook.getSheet(sheetName);
+		//column = sheet.getColumnStyle(0);
+		int s=sheet.getLastRowNum();
+		 XSSFRow row = null;
+		 
+		 row = sheet.getRow(rowNum);
+		 int colCount = row.getLastCellNum();
+	      System.out.println("Column Count :- " + colCount);
+	      int rowCount = sheet.getLastRowNum() + 1;
+	       System.out.println("Row Count :- " + rowCount);
+		/* Making the object of excel row
+        row = mySheet.getRow(0);
+
+        int colCount = row.getLastCellNum();
+        System.out.println("Column Count :- " + colCount);
+
+        int rowCount = mySheet.getLastRowNum() + 1;
+        System.out.println("Row Count :- " + rowCount);
+
+		*/
+		
+		//return s;
+	}
+	
 	public int getCellRowNum(String sheetName, String colName, String cellValue) {
 
 		for (int i = 2; i <= getRowCount(sheetName); i++) {
