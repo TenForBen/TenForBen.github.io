@@ -566,7 +566,8 @@ public class Xls_Reader {
 		 row = sheet.getRow(rowNum);
 		 int colCount = row.getLastCellNum();
 	      System.out.println("Column Count :- " + colCount);
-	      int rowCount = sheet.getLastRowNum() + 1;
+	      int rowCount =row.getLastCellNum();
+	     // int rowCount = sheet.getLastRowNum() + 1;
 	       System.out.println("Row Count :- " + rowCount);
 		/* Making the object of excel row
         row = mySheet.getRow(0);

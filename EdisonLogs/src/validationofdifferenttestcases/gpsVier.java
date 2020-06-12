@@ -75,5 +75,7 @@ public class gpsVier {
 		//int  LR =  r.getLastRwofaColm("Sheet1",2);
 		 r.getLastRwofaColm("Sheet1",2);
 		//System.out.println("The last row by method  " + LR);
+		 //wat we can do is iterate over the elements in the collumn and then break wen cells starts throwing blank values..
+		 
 	}
 }
