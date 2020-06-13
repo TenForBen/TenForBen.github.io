@@ -44,6 +44,7 @@ public class gpsVier {
 		
 	}
 	
+	@Test
 	public void iteraetor() throws InterruptedException
 	{
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\gps.xlsx");
@@ -68,7 +69,7 @@ public class gpsVier {
 		
 	}
 
-	@Test
+
 	public void tryere() throws InterruptedException
 	{
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\gps.xlsx");
