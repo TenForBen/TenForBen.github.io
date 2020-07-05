@@ -1,0 +1,59 @@
+#kishore{
+    color: #ee00dd;
+}
+
+
+img.OMG-img{
+	float: right;
+	margin-right:100px;
+	border-color: orange;
+	border-style: dashed;
+	border-width: 10px;
+	 
+}
+#box{
+
+	/*background-color: #aedef0;*/
+	height: 600px;
+	width: 400px;
+}
+body{
+	background-color: #000;
+	color:#f00;
+
+}
+
+ol{
+	background: #000;
+    color: #fff;
+}
+
+div:nth-child(1) {
+    background: #000;
+    color: #fff;
+}
+
+.new {
+	font-style: italic;
+	color: #ff0;
+}
+
+li.boss{
+	font-style:bold;
+	color:#0f0;
+}
+	
+#lukaku{
+	color:#f3d;
+	text-decoration: line-through;
+    text-decoration-color: red;
+}
+
+#GW1:hover{
+	color:#ff6;
+	text-decoration: line-through;
+}
+#LKA:focus{
+	color:#ff6;
+	text-decoration: line-through;
+}

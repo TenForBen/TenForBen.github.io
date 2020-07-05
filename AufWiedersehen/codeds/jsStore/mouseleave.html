@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>This example uses the HTML DOM to assign an "onmouseenter" and "onmouseleave" event to a h1 element.</p>
+
+<h1 id="demo">Mouse over me</h1>
+
+<script>
+document.getElementById("demo").onmouseenter = function() {mouseEnter()};
+document.getElementById("demo").onmouseleave = function() {mouseLeave()};
+
+function mouseEnter() {
+    document.getElementById("demo").style.color = "red";
+    document.getElementsByTagName('p')[0].style.color="green"
+    document.getElementsByTagName('p')[0].style.background-color="black"
+}
+
+function mouseLeave() {
+    document.getElementById("demo").style.color = "black";
+    document.getElementsByTagName('p')[0].style.background-color="black"
+}
+</script>
+
+</body>
+</html>
