@@ -43,13 +43,14 @@ public class gpsVier {
 		String searchResult= driver.findElement(By.xpath("//*[@id=\"rso\"]/div[1]/div[1]/div[1]/div[1]/div/div[2]/div/div/div/div[1]	")).getText() ;
 		System.out.println("coordinates updated in excel  ");		
 		fwt.quitbrowser(driver);
-		return searchResult;
+		return searchResult; // stores the value of searchResult in SR string  in teh iterator method
 		
 	}
 	
-	@Test
+	
 	public void iteraetor() throws InterruptedException
 	{
+		System.out.println("inside iterator method");	
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\gps.xlsx");
 		int  LR =  r.getLastRwoNum("Sheet1");
 		System.out.println("The last row by method  " + LR);
@@ -58,7 +59,7 @@ public class gpsVier {
 		for( int i =2;i<=LRs;i++)
 		{
 			String place =r.getCellData("Sheet1", "Places", i);	
-			System.out.println("Places  at position -"+ i +" is " + place);
+			System.out.println("Places  at position "+ i +" is " + place);
 			String SR=gpsExcel(place);
 			r.setCellData("Sheet1", "Coordinates", i, SR);
 			System.out.println("coordinates updated in excel  ");	
@@ -69,6 +70,44 @@ public class gpsVier {
 		   	//r.setCellDataTS("Sheet1", "timeStamp", i, ts);
 			
 		}
+		
+		
+		
+		
+	}
+	@Test
+	public void starterrr() 
+	{
+		String s1="Sheet1";
+		String s2="Sheet2";
+		 swicherr(s1,s2);
+		
+	}
+	
+	public void swicherr(String s1, String s2)
+	{	
+		System.out.println("inside swicherr method");	
+		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\gps.xlsx");
+		int  LR2 =  r.getLastRwoNum(s2);
+		System.out.println("The last row of sheet 2  " + LR2);
+		int LRs2=LR2+1;
+		int  LR1 =  r.getLastRwoNum(s1);
+		System.out.println("The last row of sheet 1  " + LR1);
+		int LRs=LR1+1;
+		System.out.println("The last row count 4 loop " + LRs);
+		for( int i =2;i<=LRs;i++)
+		{
+			String place =r.getCellData("Sheet1", "Places", i);	
+			System.out.println("Places  at position "+ i +" in sheet1 is  " + place);
+			String SR=place;
+			r.setCellData("Sheet2", "Places", LRs2+1, SR);
+			System.out.println("Places column   updated in excel  at  " + LRs2+1 );	
+			LRs2=LRs2+1;
+		       //TimeStamp  ts = TimeStamp.getCurrentTime();
+		   	//r.setCellDataTS("Sheet1", "timeStamp", i, ts);
+			
+		}
+		
 		
 	}
 
