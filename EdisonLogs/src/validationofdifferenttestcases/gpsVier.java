@@ -18,7 +18,10 @@ import com.test.utility.Xls_Reader;
 
 import validationofdifferenttestcases.frameworktest;
 
-//ciot-0001 to make the code adaptable to take from the last vacant row 
+//gps -0001 to make the code adaptable to take from the last vacant row 
+// gps - 0002 to make the error handling incase the browser stops or fails in any of the iterations.
+// gps - 0003 to make another sheet available get the entries of all the searched places..
+
 public class gpsVier {
 	
 
