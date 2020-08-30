@@ -47,7 +47,7 @@ public class gpsVier {
 		
 	}
 	
-	
+	@Test
 	public void iteraetor() throws InterruptedException
 	{
 		System.out.println("inside iterator method");	
@@ -70,17 +70,18 @@ public class gpsVier {
 		   	//r.setCellDataTS("Sheet1", "timeStamp", i, ts);
 			
 		}
+		String s1="Sheet1";
+		String s2="Sheet2";
+		 swicherr(s1,s2);
 		
 		
 		
 		
 	}
-	@Test
+	
 	public void starterrr() 
 	{
-		String s1="Sheet1";
-		String s2="Sheet2";
-		 swicherr(s1,s2);
+		
 		
 	}
 	
@@ -89,8 +90,11 @@ public class gpsVier {
 		System.out.println("inside swicherr method");	
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\gps.xlsx");
 		int  LR2 =  r.getLastRwoNum(s2);
-		System.out.println("The last row of sheet 2  " + LR2);
+		System.out.println("Total items in  sheet 2  " + LR2);
 		int LRs2=LR2+1;
+		System.out.println("The last row of sheet 2  " + LRs2);
+		int newEntrzComing=LRs2+1;
+		System.out.println("newEntrzComin for sheet 2  " + newEntrzComing);
 		int  LR1 =  r.getLastRwoNum(s1);
 		System.out.println("The last row of sheet 1  " + LR1);
 		int LRs=LR1+1;
@@ -98,10 +102,16 @@ public class gpsVier {
 		for( int i =2;i<=LRs;i++)
 		{
 			String place =r.getCellData("Sheet1", "Places", i);	
-			System.out.println("Places  at position "+ i +" in sheet1 is  " + place);
+			System.out.println("Places  at position "+ i +" in sheet1 is   " + place);
+			String loc =r.getCellData("Sheet1", "Coordinates", i);	
+			System.out.println("Coordinates  at position "+ i +" in sheet1 is  " + loc);
 			String SR=place;
+			String SR2=loc;
 			r.setCellData("Sheet2", "Places", LRs2+1, SR);
-			System.out.println("Places column   updated in excel  at  " + LRs2+1 );	
+			System.out.println("Places column   updated in excel  at  rowNumber " +  (LRs2+1) );	
+			r.setCellData("Sheet2", "Coordinates", LRs2+1, SR2);
+			System.out.println("Coordinates  column   updated in excel  at  rowNumber " + (LRs2+1) );	
+			
 			LRs2=LRs2+1;
 		       //TimeStamp  ts = TimeStamp.getCurrentTime();
 		   	//r.setCellDataTS("Sheet1", "timeStamp", i, ts);
