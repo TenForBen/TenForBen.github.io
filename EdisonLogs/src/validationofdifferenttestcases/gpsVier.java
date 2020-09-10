@@ -3,6 +3,7 @@ package validationofdifferenttestcases;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.net.ntp.TimeStamp;
 import org.apache.poi.sl.usermodel.Sheet;
@@ -38,6 +39,13 @@ public class gpsVier {
 		String uri= "https://www.google.com/search?q=" + place +"+coordinates&aqs=chrome..69i57j0l4.8570j0j9&sourceid=chrome&ie=UTF-8";
 		System.out.println("URL formed -" +uri);
 		driver.get(uri);
+		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		//driver.findElement(By.xpath("//*[@id=\"introAgreeButton\"]/span/span")).click(); 
+		// in case chorme popUP comes up.. with i agree button
+		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		System.out.println("Clicked on i agree button" );	
+		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+		
 		driver.findElement(By.xpath("//*[@id=\"Rzn5id\"]/div/a[2]")).click(); 
 		System.out.println("Clicked on makeshift  link" );		
 		String searchResult= driver.findElement(By.xpath("//*[@id=\"rso\"]/div[1]/div[1]/div[1]/div[1]/div/div[2]/div/div/div/div[1]	")).getText() ;
