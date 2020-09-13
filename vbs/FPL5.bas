@@ -1,6 +1,8 @@
 Attribute VB_Name = "FPL5"
  Sub FPL5()
    
+   'Next thing is to update the entryId into a function
+   
     Set ie = CreateObject("InternetExplorer.Application")
     CeCC = InputBox("To get the Group Details of Road to glory (Y)")
     'Y/5
