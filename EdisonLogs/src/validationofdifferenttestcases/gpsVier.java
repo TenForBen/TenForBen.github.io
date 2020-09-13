@@ -33,7 +33,7 @@ public class gpsVier {
 		
 		System.setProperty("webdriver.chrome.driver","D:\\Selenium\\chromedriver.exe"); // declaring the chrome driver locatoion
 		WebDriver driver= new ChromeDriver();// initializing chrome driver
-		driver.manage().deleteAllCookies(); // deleting all cookies
+		//driver.manage().deleteAllCookies(); // deleting all cookies
 		driver.manage().window().maximize();		// maximizing the window
 		String searchParam=place +" coordinates";		// earlier param
 		String uri= "https://www.google.com/search?q=" + place +"+coordinates&aqs=chrome..69i57j0l4.8570j0j9&sourceid=chrome&ie=UTF-8";
