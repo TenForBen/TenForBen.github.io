@@ -26,43 +26,57 @@ Attribute VB_Name = "FPL5"
     If ce = "Y" Then
             
 
-            nishant = "917014" '`x```
-            Rohan = "1615162"
-            das = "135364"
+            nishant = "1288683" '`x```
+            Rohan = "143864"
+            das = "25825"
             
-            dipenThapa = "1671114"
-            sibin = "2520296"
-            kushal = "2050009"
-            satyam = "3120242"
-            ashimlama = "1002894"
-            inderjeet = "648943"
-            viveklama = "118131"
+            dipenThapa = "3202275"
+            sibin = "1530227"
+            kushal = "1808381"
+            satyam = "30839"
+            ashimlama = "1555875"
+            inderjeet = "1507506"
+            viveklama = "3171178"
+            Prabin = "4363524"
             
-            Prabin = "1502076"
+            sanjeevkumar = "3732429"
+            ashishRai = "6251244"
+            ravishVerma = "74211"
+            bishalRai = "2517295"
+            regeanLama = "2381459"
+            hanSingh = "437359"
+            ashishSubba = "753323"
+            abhijeetSingh = "1009666"
+            pranamRai = "1384222"
+            PemaSHerpa = "3729374"
+            sahilLampard = "2169583"
+            RajKanango = "161204"
+            ONkarSUbba = "1099725"
+            nitishSIng = "947098"
+            okendri = "1150009"
+            gauravShrestha = "2544322"
+            AnkuKumar = "1391491"
             
-            FrancyJones = "1497217"
-            ONkarSUbba = "1586658"
-            
-            nitishSIng = "1879243"
-            okendri = "193293"
-            
-            
-            gauravShrestha = "2945360"
-            RAJIYUNGBARMAN = "1502610"
-            deepankarMoktan = "1955527"
-            sonamdukpa = "1474897"
-            RiwajRay = "1291951"
-            DipumPradhan = "161204"
-            AnkuKumar = "2469681"
-            
-            Cells(20, 1) = " RiwajRay "
-            Cells(20, 2) = RiwajRay
-            Cells(21, 1) = " sonamdukpa "
-            Cells(21, 2) = sonamdukpa
-            Cells(22, 1) = " deepankarMoktan "
-            Cells(22, 2) = deepankarMoktan
-            Cells(23, 1) = " RAJIYUNGBARMAN "
-            Cells(23, 2) = RAJIYUNGBARMAN
+            Cells(26, 1) = " sanjeevkumar "
+            Cells(26, 2) = sanjeevkumar
+            Cells(27, 1) = " ashishRai "
+            Cells(27, 2) = ashishRai
+            Cells(28, 1) = " ravishVerma "
+            Cells(28, 2) = ravishVerma
+            Cells(29, 1) = " bishalRai "
+            Cells(29, 2) = bishalRai
+            Cells(20, 1) = " RajKanango "
+            Cells(20, 2) = RajKanango
+            Cells(21, 1) = " sahilLampard "
+            Cells(21, 2) = sahilLampard
+            Cells(22, 1) = " PemaSHerpa "
+            Cells(22, 2) = PemaSHerpa
+            Cells(23, 1) = " pranamRai "
+            Cells(23, 2) = pranamRai
+            Cells(24, 1) = " regeanLama "
+            Cells(24, 2) = regeanLama
+            Cells(25, 1) = " hanSingh "
+            Cells(25, 2) = hanSingh
             Cells(5, 1) = " gauravShrestha "
             Cells(5, 2) = gauravShrestha
             
@@ -75,10 +89,10 @@ Attribute VB_Name = "FPL5"
             Cells(15, 2) = okendri
             Cells(16, 1) = " ONkarSUbba"
             Cells(16, 2) = ONkarSUbba
-            Cells(17, 1) = " DipumPradhan"
-            Cells(17, 2) = DipumPradhan
-            Cells(18, 1) = " Francy Jones "
-            Cells(18, 2) = FrancyJones
+            Cells(17, 1) = " abhijeetSingh"
+            Cells(17, 2) = abhijeetSingh
+            Cells(18, 1) = " ashishSubba "
+            Cells(18, 2) = ashishSubba
             Cells(19, 1) = " nitesh singh"
             Cells(19, 2) = nitishSIng
             
@@ -362,6 +376,8 @@ RPK::
             OvRrk = ie.document.getElementsByClassName("Entry__DataListValue-sc-1kf863-3 cmkvzv")(1).innerText
             'document.getElementsByClassName("Entry__DataListValue-sc-1kf863-3 cmkvzv")[1].innerText
             Cells(i, 9) = OvRrk
+            gWpt = ie.document.getElementsByClassName("Entry__DataListValue-sc-1kf863-3 cmkvzv")(3).innerText
+            Cells(i, 4) = gWpt
             'tot_xfr = ie.document.getElementsByClassName("ism-data-list")(1).Children(1).Children(1).innerText
                         'document.getElementsByClassName('ism-data-list')[1].children[1].children[1].innerText
 '            nxt_Gwk_Xfr = ie.document.getElementsByClassName("ism-data-list")(1).Children(0).Children(1).innerText
