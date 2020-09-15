@@ -162,14 +162,10 @@ Attribute VB_Name = "FPL5"
             If Cells(1, 19) = "one" Then
                 ie.Visible = 1
             End If
-           
             ie.Top = 120
             ie.Left = 1020
             LocName = ie.LocationName
             LocURL = ie.LocationURL
-                'statusbarText = ie.statusText
-            'if i =2 then
-            'ie.Visible = 1
             Application.Wait (Now + TimeValue("0:00:1"))
             Cells(i - 1, 2).Activate
             'ie.Visible = 1 '----------------------------------------------------------------------------------------------Visibility on
@@ -255,35 +251,17 @@ RPK::
             Else
                 'no chip played
                 Cells(i, 5) = "no chip played"
-                
-                          
             End If
-            'document.getElementsByClassName('ism-data-list ism-data-list--bordered')[0].children[0].children[0].innerText
-            
-
             gk = Split(LP, "R")
             dd = UBound(gk)
             LP = gk(0)
-'''''            MsgBox gk(1)
-'''''            MsgBox gk(2)
-'''''            MsgBox gk(3)
             Cells(i, 3) = LP
             grpAvg = grpAvg + LP
             ich = i - 1
-            
             AvgGrp = grpAvg / ich
-            
             Cells(1, 13) = AvgGrp
-            
-            
-            
             Cells(i, 3).Activate
-            
             Cells(i, 1).Font.Color = RGB(20, 25, 5)
-            
-            
-            
-            
             '        document.getElementsByClassName('ism-scoreboard-points__secondary')[0].children[0].children[3].children[0].children[1].innerText
 '            Xfr = ie.document.getElementsByClassName("ism-scoreboard-points__secondary")(0).Children(0).Children(3).Children(0).Children(1).innerText
 '            If Cells(1, 6) = "Transfers Updated" Then
@@ -301,8 +279,10 @@ RPK::
             '"Transfers"
             'Current GW rank
             cGWr = ie.document.getElementsByClassName("EntryEvent__SecondaryValue-l17rqm-12 gBqbeC")(2).innerText    '#new
+            NoP = ie.document.getElementsByClassName("Entry__EntryName-sc-1kf863-0 ldMMkD")(0).innerText
             'document.getElementsByClassName("EntryEvent__SecondaryValue-l17rqm-12 gBqbeC")[0].innerText
             Cells(i, 10) = cGWr
+            Cells(i, 1) = NoP
             
             AvgPts = ie.document.getElementsByClassName("EntryEvent__SecondaryValue-l17rqm-12 gBqbeC")(0).innerText
             HghPts = ie.document.getElementsByClassName("EntryEvent__SecondaryValue-l17rqm-12 gBqbeC")(1).innerText
@@ -349,7 +329,7 @@ RPK::
 '
 '            End If
 
-            GoTo TinDer '''''------------------------------------------------*including players stuff*-----------------------------------
+            'GoTo TinDer '''''------------------------------------------------*including players stuff*-----------------------------------
             
                 Dim psxl As Integer
                 Dim pben As Integer
@@ -394,37 +374,32 @@ RPK::
                         'For player match outcome
                         'ply = 6
                              'plnm = ie.document.getElementsByClassName("ism-element")(ply).Children(0).Children(1).Children(0).innerText
-                             '          document.getElementsByClassName('ism-element')[5].children[0].children[0].children[1].children[0].innerText
-                             xplnm = ie.document.getElementsByClassName("ism-element")(ply).Children(0).Children(0).Children(1).Children(0).innerText
+                             '          document.getElementsByClassName("Pitch__PitchElementWrap-sc-1mctasb-4 bYEneu")[8].children[0].children[0].children[1].children[0].innerText
+                             xplnm = ie.document.getElementsByClassName("Pitch__PitchElementWrap-sc-1mctasb-4 bYEneu")(ply).Children(0).Children(0).Children(1).Children(0).innerText
                              plnm = xplnm
                              'MsgBox plnm
                             'for VC and Cs
                             'document.getElementsByClassName('ism-element__controls')[0].children.length
-                            tooltip = ie.document.getElementsByClassName("ism-element__controls")(ply).Children.Length
-                            If tooltip > 1 Then 'pakka bhai captain ya VC hai
+                            'document.getElementsByClassName("Pitch__PitchElementWrap-sc-1mctasb-4 bYEneu")[8].children[0].children.length
+                            tooltip = ie.document.getElementsByClassName("Pitch__PitchElementWrap-sc-1mctasb-4 bYEneu")(ply).Children(0).Children.Length
+                            If tooltip > 3 Then 'pakka bhai captain ya VC hai
                                 'document.getElementsByClassName('ism-element__controls')[10].children[1].children[0].title
-                                bahalue = ie.document.getElementsByClassName("ism-element__controls")(ply).Children(1).Children(0).Title
-                                If bahalue = "Captain" Then
+                                'document.getElementsByClassName("Pitch__PitchElementWrap-sc-1mctasb-4 bYEneu")[4].children[0].children[2].className.animVal
+                                bahalue = ie.document.getElementsByClassName("Pitch__PitchElementWrap-sc-1mctasb-4 bYEneu")(ply).Children(0).Children(2).ClassName.animVal
+                                moonu = Split(bahalue, "StyledCaptain")
+                                 'dhanush = UCase(deedee(0))
+                                
+                                If UBound(moonu) > 0 Then
                                     'somthing
                                     Cells(i, mut).Font.Bold = True
                                 Else
                                     'ply _____ VC
                                     MiamiVice = plnm
                                     Cells(i, mut).Font.Italic = True
-                                    
-                                    
-                                    
-                                
                                 End If
-                                
-                                
-                            
-                            
                             End If
-                            
-                             
                         'document.getElementsByClassName('ism-element')[3].children[0].children[1].children[1].innerText
-                        xplot = ie.document.getElementsByClassName("ism-element")(ply).Children(0).Children(0).Children(1).Children(1).innerText
+                        xplot = ie.document.getElementsByClassName("Pitch__PitchElementWrap-sc-1mctasb-4 bYEneu")(ply).Children(0).Children(0).Children(1).Children(1).innerText
                         plot = Trim(xplot)
                         
                         'plot = ie.document.getElementsByClassName("ism-element")(ply).Children(0).Children(1).Children(1).innerText
@@ -565,7 +540,7 @@ TinDer::
     End If
     
      
-    Next
+        Next
     'cardelini (LastRow) '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++FUNCTION CALL( Cardelini)++++++++++++++++++++++++++++++++++++++++++++++++++++++
     'linethrough LastRow, gameweek
     'to call the cupFUnction to strikeout eliminated playerss
