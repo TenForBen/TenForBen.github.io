@@ -2,6 +2,8 @@ Attribute VB_Name = "FPL5"
  Sub FPL5()
    
    'Next thing is to update the entryId into a function
+   'nameOfPlayer = document.getElementsByClassName("Entry__EntryName-sc-1kf863-0 ldMMkD")[0].innerText
+   
    
     Set ie = CreateObject("InternetExplorer.Application")
     CeCC = InputBox("To get the Group Details of Road to glory (Y)")
@@ -24,8 +26,6 @@ Attribute VB_Name = "FPL5"
     sagil = "5478265"          '18-881909,
             
     If ce = "Y" Then
-            
-
             nishant = "1288683" '`x```
             Rohan = "143864"
             das = "25825"
@@ -79,8 +79,6 @@ Attribute VB_Name = "FPL5"
             Cells(25, 2) = hanSingh
             Cells(5, 1) = " gauravShrestha "
             Cells(5, 2) = gauravShrestha
-            
-            
             Cells(13, 1) = " Prabin "
             Cells(13, 2) = Prabin
             Cells(14, 1) = " AnkuKumar "
@@ -95,40 +93,28 @@ Attribute VB_Name = "FPL5"
             Cells(18, 2) = ashishSubba
             Cells(19, 1) = " nitesh singh"
             Cells(19, 2) = nitishSIng
-            
-            
             Cells(1, 1) = " Manager Name "
             Cells(1, 2) = " Manager AieDee "
             Cells(2, 1) = " nishant kumar singh "
             Cells(2, 2) = nishant
             Cells(3, 1) = " Rohan Rai "
             Cells(3, 2) = Rohan
-            
             Cells(4, 1) = "  AVIJIT DAS "
             Cells(4, 2) = das
-            
-            
             Cells(6, 1) = "Dipen Thapa"
             Cells(6, 2) = dipenThapa
-            
             Cells(7, 1) = " Sibin Surendran "
             Cells(7, 2) = sibin
-            
             Cells(8, 1) = "  Kushal Sahota "
             Cells(8, 2) = kushal
-            
             Cells(9, 1) = "  SATYAM RAI "
             Cells(9, 2) = satyam
-            
             Cells(10, 1) = "  Ashim Lama "
             Cells(10, 2) = ashimlama
-            
             Cells(11, 1) = "  indrajeet kumar singh "
             Cells(11, 2) = inderjeet
-            
             Cells(12, 1) = "   Vivek Lama "
             Cells(12, 2) = viveklama
-            
     ElseIf ce = "F" Then
             Cells(1, 1) = " Manager Name "
             Cells(1, 2) = " Manager AieDee "
@@ -140,19 +126,14 @@ Attribute VB_Name = "FPL5"
             Cells(5, 2) = madam
             Cells(3, 1) = " daddy "
             Cells(3, 2) = daddy
-            
             Range("A11").CurrentRegion.EntireColumn.AutoFit
     End If
     ss = ActiveSheet.Name
-
     Set sht = ThisWorkbook.Worksheets(ss)
-    
     '''''Ctrl + Shift + End
       LastRow = Cells(sht.Rows.Count, 1).End(xlUp).Row
     gwH = InputBox("Want Game Week History (aa)")
-    
     grpAvg = 0
-    
     '  Cells(i, 4).Value = Time
        Cells(1, 3).Value = "Latest Score"
        'Cells(1, 6).Value = "Transfers"
@@ -160,87 +141,48 @@ Attribute VB_Name = "FPL5"
           
        Cells(1, 7).Value = "Overall points"
     '  Cells(1, 6).Value = "Overall points"
-    '  Cells(1, 4).Value = Date
-
+       Cells(1, 4).Value = Date
 'Set ie = CreateObject("InternetExplorer.Application")
-   
      Range("A3").CurrentRegion.EntireColumn.AutoFit
     gameweek = InputBox("Enter the Gameweek")
     Cells(1, 4).Value = "GW " & gameweek & " score"
     labor = 0
-    
-    
-
 'ActiveSheet.Name = "GW " & gameweek & "  " & Time & "  " & Date
 '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Newly addededededed____________0++++++++++++++++++++++++++++++++++++++++++++++++
-    For i = decider To LastRow                                                          '**************************************************-------------------------------Modified for debug mode
-    
-            ticker = Cells(i, 2).Value
-                If gwH = "HH" Then
-                
-                    GoTo TinDer
-                    
-                End If
+    For i = decider To LastRow                                   '**************************************************-------------------------------Modified for debug mode
+        ticker = Cells(i, 2).Value
+        If gwH = "HH" Then
+            GoTo TinDer
+        End If
             'https://fantasy.premierleague.com/a/entry/3295162/history
             u = "https://fantasy.premierleague.com/entry/" & ticker & "/event/" & gameweek
             'https://fantasy.premierleague.com/entry/1530227/event/1
            ' u = "http://fantasy.premierleague.com/entry/" & ticker & "/event-history/" & gameweek & "/"
-            
-       
             ie.navigate u
             If Cells(1, 19) = "one" Then
                 ie.Visible = 1
             End If
-            
-            'ie.Visible = False
-                        'ie.Visible = 1
-                        
-                    
-            'ie.Visible = 1 '                                                     '*************************************-------------------------------Modified for debug mode        visibilty
-        '    If i = 14 Then
-        'ie.Visible = 1
-        'End If
-        
-            
-            
-'            Do
-'            DoEvents
-'            Loop Until ie.ReadyState = 4
-        
-        '
-        '
-            'ie.FullScreen = 1
-            
+           
             ie.Top = 120
             ie.Left = 1020
             LocName = ie.LocationName
             LocURL = ie.LocationURL
                 'statusbarText = ie.statusText
             'if i =2 then
-            
             'ie.Visible = 1
             Application.Wait (Now + TimeValue("0:00:1"))
             Cells(i - 1, 2).Activate
             'ie.Visible = 1 '----------------------------------------------------------------------------------------------Visibility on
             'Application.Wait (Now + TimeValue("0:00:3"))
-            
             'Application.Wait (Now + TimeValue("0:00:1"))
             'Cells(i - 1, 9).Activate
             Application.Wait (Now + TimeValue("0:00:1"))
-            
-            'Application.Wait (Now + TimeValue("0:00:1"))
-            
-            'Application.Wait (Now + TimeValue("0:00:1"))
             'Cells(i - 1, 23).Activate
             Application.Wait (Now + TimeValue("0:00:1"))
             ie.Visible = 0
-            'Application.Wait (Now + TimeValue("0:00:1"))
-            'ie.FullScreen = 0
-            'Application.Wait (Now + TimeValue("0:00:1"))
             Cells(i - 1, 25).Activate
             'Application.Wait (Now + TimeValue("0:00:1"))
-            ActiveSheet.Name = "FPL5_GW-" & gameweek & "-" & LastRow '& "" & Date
-'+
+            ActiveSheet.Name = "FPL5_GW-" & gameweek & "-" & LastRow '& "" & Date'+
                 Set doc = ie.document
             'labor = 0
             '       document.getElementsByClassName('subHeader ism-sub-header')[1].innerText
@@ -253,11 +195,8 @@ RPK::
                                         Application.Wait (Now + TimeValue("0:00:10"))
                                         'ActiveSheet.Name = "Feb" & " " & Doss
                                         If i = 2 Then
-            
                                          Application.Wait (Now + TimeValue("0:00:10"))
-                                         
                                         End If
-                                        
                                         On Error Resume Next
                                                                                 
                                        ' biju = doc.getElementsByClassName("subHeader ism-sub-header")(1).innerText
@@ -420,18 +359,18 @@ RPK::
                 'document.getElementsByClassName('subHeader ism-sub-header').length
                 'autos is someting related to headers.
                 
-                autos = ie.document.getElementsByClassName("subHeader ism-sub-header").Length
-    
-                If autos = 2 Then
-    
-                    Shname = ie.document.getElementsByClassName("subHeader ism-sub-header")(1).innerText
-                    Shname = Trim(Shname)
-                    Cells(i, 19) = Shname
-                ElseIf autos = 3 Then
-                    Shname = ie.document.getElementsByClassName("subHeader ism-sub-header")(2).innerText
-                    Shname = Trim(Shname)
-                    Cells(i, 19) = Shname
-                End If
+'                autos = ie.document.getElementsByClassName("subHeader ism-sub-header").Length
+'
+'                If autos = 2 Then
+'
+'                    Shname = ie.document.getElementsByClassName("subHeader ism-sub-header")(1).innerText
+'                    Shname = Trim(Shname)
+'                    Cells(i, 19) = Shname
+'                ElseIf autos = 3 Then
+'                    Shname = ie.document.getElementsByClassName("subHeader ism-sub-header")(2).innerText
+'                    Shname = Trim(Shname)
+'                    Cells(i, 19) = Shname
+'                End If
                 
                 For ply = 0 To 14
 
