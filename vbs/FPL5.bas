@@ -15,7 +15,7 @@ Attribute VB_Name = "FPL5"
         g2 = "on"
     Else
     'same as usual
-    decider = 2
+    decider = 27
     End If
 
     daddy = "1013853"
@@ -313,6 +313,10 @@ RPK::
             'Range("I3").CurrentRegion.EntireColumn.AutoFit
             Dim cupEntrz As Integer
             'cupEntrz = ie.document.getElementsByClassName("ism-table--cup-sum__event").Length
+            teamName = ie.document.getElementsByClassName("Panel__PanelHeading-sc-1nmpshp-2 iuMmkk")(0).innerText
+            'document.getElementsByClassName("Panel__PanelHeading-sc-1nmpshp-2 iuMmkk")[0].innerText
+            Cells(i, 19) = teamName
+            
             
 '            If cupEntrz > 0 Then
 '                CCupp = "Qualified"
