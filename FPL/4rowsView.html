@@ -12,10 +12,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 <script src="../AufWiedersehen/js\jquery-3.1.1.min.js"></script>
-<script src="../AufWiedersehen/js\classAtom.js"></script>
-<script src="../AufWiedersehen/js\pokemonGo.js"></script>
-<script src="../AufWiedersehen/db\deutsch.js"></script>
-<script src="GW\GW1\fpl5.json"></script>
+
+<script src="GW\GW1\fpl5.js"></script>
 <script src="samples.js"></script>
 <link rel="stylesheet" href="css/mobileFirst.css">
 
@@ -35,6 +33,49 @@ function create_UUID()
 
 console.log(create_UUID());
 console.log("cd H:/\vsos/\TenForBen.github.io")
+
+     function loader4() {
+        //document.getElementById('Tbag').style.display=='none';
+        //$("body").css("background-color","beige");
+        //document.getElementById("regtable").style.backgroundColor="white";
+        if (s)
+         {
+            //wordsArray = JSON.parse(worter);
+            for (var i = 0; i < s.length; i++)
+             {
+                prepareTableCell3(s[i].Teams, s[i].Player_1,s[i].PlayingXL, s[i].Bench);
+
+               
+             }
+
+
+        }
+
+
+
+    }
+
+    function prepareTableCell3(firstName, lastName, krups, stick) 
+    {
+        var table = document.getElementById("regtable");
+        var row = table.insertRow();
+        var firstNameCell = row.insertCell(0);
+        var lastNameCell = row.insertCell(1);
+        var krupsI = row.insertCell(2);
+        var stickI = row.insertCell(3);
+        
+        firstNameCell.innerHTML = firstName;
+        lastNameCell.innerHTML = lastName;
+        krupsI.innerHTML = krups;
+        stickI.innerHTML = stick;
+        //lastNameCell.innerHTML = ;
+        //var eurl= "<a href="http://www.m.soccerway.mobi/?sport=soccer&page=news&view=article&news_id=1099740&localization_id=www" > sample link</a>";
+       // http://www.m.soccerway.mobi/?sport=soccer&page=news&view=article&news_id=1099740&localization_id=www
+       //<a href="http://www.m.soccerway.mobi/?sport=soccer&page=news&view=article&news_id=1099740&localization_id=www" > sample link</a>
+
+        //firstNameCell.colSpan = 2;
+        
+    }
 
 </script>
 <style>

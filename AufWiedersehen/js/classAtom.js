@@ -321,7 +321,7 @@ function boat()
             //wordsArray = JSON.parse(worter);
             for (var i = 0; i < s.length; i++)
              {
-                prepareTableCell3(s[i].Manager_Name, s[i].Manager_ID,s[i].Latest_Score, s[i].OVeraLL_RanK);
+                prepareTableCell3(s[i].Teams, s[i].Player_1,s[i].PlayingXL, s[i].Bench);
 
                
              }
