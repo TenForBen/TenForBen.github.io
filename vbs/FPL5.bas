@@ -15,7 +15,7 @@ Attribute VB_Name = "FPL5"
         g2 = "on"
     Else
     'same as usual
-    decider = 27
+    decider = 2
     End If
 
     daddy = "1013853"
@@ -131,7 +131,7 @@ Attribute VB_Name = "FPL5"
     ss = ActiveSheet.Name
     Set sht = ThisWorkbook.Worksheets(ss)
     '''''Ctrl + Shift + End
-      LastRow = Cells(sht.Rows.Count, 1).End(xlUp).Row
+      LastRow = Cells(sht.Rows.Count, 2).End(xlUp).Row
     gwH = InputBox("Want Game Week History (aa)")
     grpAvg = 0
     '  Cells(i, 4).Value = Time
@@ -147,6 +147,8 @@ Attribute VB_Name = "FPL5"
     gameweek = InputBox("Enter the Gameweek")
     Cells(1, 4).Value = "GW " & gameweek & " score"
     labor = 0
+'    decider = 9
+'    LastRow = 11
 'ActiveSheet.Name = "GW " & gameweek & "  " & Time & "  " & Date
 '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Newly addededededed____________0++++++++++++++++++++++++++++++++++++++++++++++++
     For i = decider To LastRow                                   '**************************************************-------------------------------Modified for debug mode
@@ -359,7 +361,7 @@ RPK::
                 For ply = 0 To 14
 
                         mut = pun + ply
-                        Cells(1, mut) = (ply + 1)
+                        Cells(1, mut) = "Player" + "_" & (ply + 1)
                         If ply > 10 Then
                             Cells(1, mut).Activate
                             Cells(1, mut).Interior.Color = RGB(233, 253, 253)
