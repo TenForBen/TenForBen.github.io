@@ -50,7 +50,7 @@ Attribute VB_Name = "FPL5"
             pranamRai = "1384222"
             PemaSHerpa = "3729374"
             sahilLampard = "2169583"
-            RajKanango = "161204"
+            RajKanango = "972259"
             ONkarSUbba = "1099725"
             nitishSIng = "947098"
             okendri = "1150009"
@@ -237,7 +237,7 @@ RPK::
             'chips and wildwards
             '         current GW chip - document.getElementsByClassName('EntryEvent__ChipStatus-l17rqm-15 hFeyyJ')[0].innerText
             'Chips = ie.document.getElementsByClassName("ism-scoreboard-points__primary")(0).Children(1).innerText
-            ChipsL = ie.document.getElementsByClassName("EntryEvent__ChipStatus-l17rqm-15 hFeyyJ").Length   '#new
+            ChipsL = ie.document.getElementsByClassName("EntryEvent__ChipStatus-l17rqm-17 xZgGL").Length   '#new
             ' chipLength-document.getElementsByClassName('EntryEvent__ChipStatus-l17rqm-15 hFeyyJ').length
             '
            ' tra = ie.document.getElementsByClassName("ism-element__data")(3).innerText
@@ -247,7 +247,7 @@ RPK::
             
             If ChipsL > 0 Then
                 ' chips played
-                Chips = ie.document.getElementsByClassName("EntryEvent__ChipStatus-l17rqm-15 hFeyyJ")(0).innerText           '#new
+                Chips = ie.document.getElementsByClassName("EntryEvent__ChipStatus-l17rqm-17 xZgGL")(0).innerText           '#new
                 Chips = Trim(Chips)
                 Cells(i, 5) = Chips
             Else
