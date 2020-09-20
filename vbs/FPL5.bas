@@ -284,7 +284,7 @@ RPK::
             NoP = ie.document.getElementsByClassName("Entry__EntryName-sc-1kf863-0 ldMMkD")(0).innerText
             'document.getElementsByClassName("EntryEvent__SecondaryValue-l17rqm-12 gBqbeC")[0].innerText
             Cells(i, 10) = cGWr
-            Cells(i, 8) = NoP
+            Cells(i, 1) = NoP
             
             AvgPts = ie.document.getElementsByClassName("EntryEvent__SecondaryValue-l17rqm-12 gBqbeC")(0).innerText
             HghPts = ie.document.getElementsByClassName("EntryEvent__SecondaryValue-l17rqm-12 gBqbeC")(1).innerText
