@@ -284,7 +284,7 @@ RPK::
             NoP = ie.document.getElementsByClassName("Entry__EntryName-sc-1kf863-0 ldMMkD")(0).innerText
             'document.getElementsByClassName("EntryEvent__SecondaryValue-l17rqm-12 gBqbeC")[0].innerText
             Cells(i, 10) = cGWr
-            Cells(i, 1) = NoP
+            Cells(i, 8) = NoP
             
             AvgPts = ie.document.getElementsByClassName("EntryEvent__SecondaryValue-l17rqm-12 gBqbeC")(0).innerText
             HghPts = ie.document.getElementsByClassName("EntryEvent__SecondaryValue-l17rqm-12 gBqbeC")(1).innerText
@@ -295,8 +295,10 @@ RPK::
             Cells(1, 10) = "GW A.P= " & AvgPts & " H.P= " & HghPts
             
             OvRrk = ie.document.getElementsByClassName("Entry__DataListValue-sc-1kf863-3 cmkvzv")(1).innerText
+            OvPts = ie.document.getElementsByClassName("Entry__DataListValue-sc-1kf863-3 cmkvzv")(0).innerText
             'document.getElementsByClassName("Entry__DataListValue-sc-1kf863-3 cmkvzv")[1].innerText
             Cells(i, 9) = OvRrk
+            Cells(i, 8) = OvPts
             gWpt = ie.document.getElementsByClassName("Entry__DataListValue-sc-1kf863-3 cmkvzv")(3).innerText
             Cells(i, 4) = gWpt
             'tot_xfr = ie.document.getElementsByClassName("ism-data-list")(1).Children(1).Children(1).innerText
