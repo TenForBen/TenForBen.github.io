@@ -472,6 +472,7 @@ RPK::
                         plot = Trim(xplot)
         
                         Cells(i, mut) = plnm & " " & plot
+                        Cells(1, 20) = "teamName"
                         
         
                        ' MsgBox plnm & vbCr & plot
@@ -483,6 +484,7 @@ RPK::
             Range("AE6").CurrentRegion.EntireColumn.AutoFit
             Application.Wait (Now + TimeValue("0:00:3"))
             Cells(i, 20).Activate
+            
             
             
 TinDer::
