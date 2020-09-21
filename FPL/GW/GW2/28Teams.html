@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>OpSoccer</title>
+
+</head>
+<link rel="stylesheet" href="../../../AufWiedersehen/BootMeister/css/bootstrap.min.css">
+<link rel="stylesheet" href="../AufWiedersehen/css/lawrence.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+ <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+<script src="../../../AufWiedersehen/js\jquery-3.1.1.min.js"></script>
+
+<script src="gw2.js"></script>
+<script src="samples.js"></script>
+<link rel="stylesheet" href="css/mobileFirst.css">
+
+<script>
+
+function create_UUID()
+{
+    var dt = new Date().getTime();
+    console.log(dt);
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (dt + Math.random()*16)%16 | 0;
+        dt = Math.floor(dt/16);
+        return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+}
+
+console.log(create_UUID());
+console.log("cd H:/\vsos/\TenForBen.github.io")
+
+     function loader4() {
+        //document.getElementById('Tbag').style.display=='none';
+        //$("body").css("background-color","beige");
+        //document.getElementById("regtable").style.backgroundColor="white";
+        if (s)
+         {
+            //wordsArray = JSON.parse(worter);
+            for (var i = 0; i < s.length; i++)
+             {
+                prepareTableCell3(s[i].teamName,s[i].Player_1,s[i].Player_2,s[i].Player_3,s[i].Player_4,s[i].Player_5,s[i].Player_6,s[i].Player_7,s[i].Player_8,s[i].Player_9,s[i].Player_10,s[i].Player_11,s[i].Player_12,s[i].Player_13,s[i].Player_14,s[i].Player_15,s[i].SXL, s[i].Bench);
+
+               
+             }
+
+
+        }
+
+
+
+    }
+
+    function prepareTableCell3(Team, p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15, krups, stick) 
+    {
+        var table = document.getElementById("regtable");
+        var row = table.insertRow();
+        var firstNameCell = row.insertCell(0);
+        var lastNameCell = row.insertCell(1);
+        var pp1 = row.insertCell(2);
+        var pp2 = row.insertCell(3);
+        var pp3 = row.insertCell(4);
+        var pp4 = row.insertCell(5);
+        var pp5 = row.insertCell(6);
+        var pp6 = row.insertCell(7);
+        var pp7 = row.insertCell(8);
+        var pp8 = row.insertCell(9);
+        var pp9 = row.insertCell(10);
+        var pp10 = row.insertCell(11);
+        var pp11 = row.insertCell(12);
+        var pp12 = row.insertCell(13);
+        var pp13 = row.insertCell(14);
+        var pp14 = row.insertCell(15);
+        var pp15 = row.insertCell(16);
+        var stickI = row.insertCell(17);
+        
+        
+        firstNameCell.innerHTML = Team;
+        lastNameCell.innerHTML = krups;
+        stickI.innerHTML = stick;
+        pp1.innerHTML = p1;
+        pp2.innerHTML = p2;
+        pp3.innerHTML = p3;
+        pp4.innerHTML = p4;
+        pp5.innerHTML = p5;
+        pp6.innerHTML = p6;
+        pp7.innerHTML = p7;
+        pp8.innerHTML = p8;
+        pp9.innerHTML = p9;
+        pp10.innerHTML = p10;
+        pp11.innerHTML = p11;
+        pp12.innerHTML = p12;
+        pp13.innerHTML = p13;
+        pp14.innerHTML = p14;
+        pp15.innerHTML = p15;
+
+
+        //lastNameCell.innerHTML = ;
+        //var eurl= "<a href="http://www.m.soccerway.mobi/?sport=soccer&page=news&view=article&news_id=1099740&localization_id=www" > sample link</a>";
+       // http://www.m.soccerway.mobi/?sport=soccer&page=news&view=article&news_id=1099740&localization_id=www
+       //<a href="http://www.m.soccerway.mobi/?sport=soccer&page=news&view=article&news_id=1099740&localization_id=www" > sample link</a>
+
+        //firstNameCell.colSpan = 2;
+        
+    }
+
+</script>
+<style>
+	
+</style>
+<!--<script src="js\localWalaStorage.js"></script>
+<script> 
+</script>
+<link rel="stylesheet" href="carnegie.css" >-->
+<body onload='loader4()' onclick="myFunction(event)">
+    
+    
+    <table id="regtable" class="table table-hover table-bordered">
+        <thead>	
+            <tr>
+                <th>TeamName</th>
+                <th>Starting xl</th>
+                <th>Player_1</th>
+                <th>Player_2</th>
+                <th>Player_3</th>
+                <th>Player_4</th>
+                <th>Player_5</th>
+                <th>Player_6</th>
+                <th>Player_7</th>
+                <th>Player_8</th>
+                <th>Player_9</th>
+                <th>Player_10</th>
+                <th>Player_11</th>
+                
+                <th>Player_12</th>
+                <th>Player_13</th>
+                <th>Player_14</th>
+                <th>Player_15</th>             
+                <th>bench xl</th>
+                
+                
+
+                
+                
+                
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+	<button id="barnes" class="btn btn-info" onclick="">Table button</button>
+	<button id="lowton" class="btn btn-success" onclick="">Table toggler</button>
+	
+</body>
+</html>
