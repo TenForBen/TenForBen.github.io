@@ -1,4 +1,4 @@
-Attribute VB_Name = "FPL5"
+Attribute VB_Name = "FPL5old"
  Sub FPL5()
    
    'Next thing is to update the entryId into a function
@@ -213,24 +213,7 @@ RPK::
 '
 '                                        End If
             
-'            Shname = ie.document.getElementsByClassName("subHeader ism-sub-header")(1).innerText
-'            Shname = Trim(Shname)
-'            If Trim(Cells(i, 1)) = Shname Then
-'                MsgBox " Matched"
-'            End If
 '
-            'document.getElementsByClassName('subHeader ism-sub-header')[1].innerText
-            
-            'doc.querys
-            'lst = ie.document.getElementsByClassName("event event-open")(oo).Children(3).Children(0).Children(hi).innerText
-            'document.getElementsByClassName('ism-round-pager')[0].innerText
-            
-            
-                'cGW = ie.document.getElementsByClassName("ism-round-pager")(0).innerText
-            'cGW = Trim(cGW) ' GW can be extracted from two places URL and from DOM
-            'ie.Visible = 1 '==================================================
-            '       latest points - document.getElementsByClassName('EntryEvent__PrimaryValue-l17rqm-4 dKLPfQ')[0].innerText
-            
             'LP = ie.document.getElementsByClassName("ism-scoreboard-points__primary")(0).Children(0).Children(1).innerText
              LP = ie.document.getElementsByClassName("EntryEvent__PrimaryValue-l17rqm-4 dKLPfQ")(0).innerText           '#new
             'document.getElementsByClassName("EntryEvent__PrimaryValue-l17rqm-4 dKLPfQ")[0].innerText
@@ -240,11 +223,10 @@ RPK::
             ChipsL = ie.document.getElementsByClassName("EntryEvent__ChipStatus-l17rqm-17 xZgGL").Length   '#new
             ' chipLength-document.getElementsByClassName('EntryEvent__ChipStatus-l17rqm-15 hFeyyJ').length
             '
-           ' tra = ie.document.getElementsByClassName("ism-element__data")(3).innerText
+            tra = ie.document.getElementsByClassName("EntryEvent__SecondaryValue-l17rqm-12 gBqbeC")(3).innerText
             '        document.getElementsByClassName('ism-element__data')[3].innerText
             'Cells(20, 1) = Chips
-            Cells(i, 6) = Time
-            
+            Cells(i, 6) = tra
             If ChipsL > 0 Then
                 ' chips played
                 Chips = ie.document.getElementsByClassName("EntryEvent__ChipStatus-l17rqm-17 xZgGL")(0).innerText           '#new
@@ -521,37 +503,22 @@ TinDer::
                         'Cells(i, cp).Activate
                         'Cells(i, 12) = Cells(i, cp)
                     Next
-                    
-                    
-                
-                
-                
                     Else
                         mrs = "No Chips played so far"
-                        
-                    
                     
                     End If
-                    
                 'MsgBox ships
-                
-                
-                
-                
             End If
             siju = biju
-            
-            
-            
             'ie.Visible = 1 '=========================================================================Visible-------------------------
-     'Cells(1, 6) = "Transfers"
-     If g2 = "on" Then
-        Stop
-    End If
+            Cells(1, 6) = "Transfers"
+             If g2 = "on" Then
+                Stop
+            End If
     
      
         Next
-    'cardelini (LastRow) '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++FUNCTION CALL( Cardelini)++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    cardelini (LastRow) '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++FUNCTION CALL( Cardelini)++++++++++++++++++++++++++++++++++++++++++++++++++++++
     'linethrough LastRow, gameweek
     'to call the cupFUnction to strikeout eliminated playerss
 icebucket::
@@ -817,7 +784,7 @@ cou = 0
 sXL = 0
 bench = 0
 
-For i = 1 To LR
+For i = 2 To LR
     For j = 18 To 60
     
         If Cells(i, j).Interior.Color <> RGB(255, 255, 255) Then
