@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="1" passed="1">
+<testng-results skipped="0" failed="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="34538" started-at="2020-09-20T21:22:07Z" finished-at="2020-09-20T21:22:41Z">
+  <suite name="Suite" duration-ms="156" started-at="2020-09-22T06:16:48Z" finished-at="2020-09-22T06:16:48Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="34538" started-at="2020-09-20T21:22:07Z" finished-at="2020-09-20T21:22:41Z">
-      <class name="validationofdifferenttestcases.PwdFieldValidations">
-        <test-method status="PASS" signature="PwdVlaidivostak()[pri:0, instance:validationofdifferenttestcases.PwdFieldValidations@2a5ca609]" name="PwdVlaidivostak" duration-ms="34454" started-at="2020-09-20T23:22:07Z" finished-at="2020-09-20T23:22:41Z">
+    <test name="Test" duration-ms="156" started-at="2020-09-22T06:16:48Z" finished-at="2020-09-22T06:16:48Z">
+      <class name="com.test.DazEins">
+        <test-method status="PASS" signature="FirstAm()[pri:0, instance:com.test.DazEins@2a2d45ba]" name="FirstAm" duration-ms="5" started-at="2020-09-22T08:16:48Z" finished-at="2020-09-22T08:16:48Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- PwdVlaidivostak -->
-      </class> <!-- validationofdifferenttestcases.PwdFieldValidations -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+        </test-method> <!-- FirstAm -->
+      </class> <!-- com.test.DazEins -->
+      <class name="com.test.utility.DifferentPackage">
+        <test-method status="PASS" signature="SecondAm()[pri:0, instance:com.test.utility.DifferentPackage@548a9f61]" name="SecondAm" duration-ms="45" started-at="2020-09-22T08:16:48Z" finished-at="2020-09-22T08:16:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- SecondAm -->
+      </class> <!-- com.test.utility.DifferentPackage -->
+    </test> <!-- Test -->
+  </suite> <!-- Suite -->
 </testng-results>
