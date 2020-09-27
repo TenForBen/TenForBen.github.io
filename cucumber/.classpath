@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/Sibin/Downloads/Cucumber/cobertura-2.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sibin/Downloads/Cucumber/cucumber-core-1.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sibin/Downloads/Cucumber/cucumber-java-1.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sibin/Downloads/Cucumber/cucumber-junit-1.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sibin/Downloads/Cucumber/cucumber-jvm-deps-1.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sibin/Downloads/Cucumber/cucumber-reporting-0.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sibin/Downloads/Cucumber/gherkin-2.12.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sibin/Downloads/Cucumber/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sibin/Downloads/Cucumber/junit-4.11.jar"/>
+	<classpathentry kind="lib" path="D:/Selenium/selenium-server-standalone-2.53.0.jar"/>
+	<classpathentry kind="lib" path="D:/Selenium/selenium-server-standalone-3.14.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
