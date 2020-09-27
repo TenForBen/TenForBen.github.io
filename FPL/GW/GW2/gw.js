@@ -1,6 +1,6 @@
 var s = [{
 	"Teams": "beta 11",
-	"teamName": "McCarthy 0",
+	"Player_1": "McCarthy 0",
 	"Player_2": "Alexander-Arnold 7",
 	"Player_3": "Egan -2",
 	"Player_4": "Doherty 0",
@@ -15,11 +15,11 @@ var s = [{
 	"Player_13": "Bernardo 0",
 	"Player_14": "Douglas 0",
 	"Player_15": "Stephens 0",
-	"SXL": "SxL 74",
-	"Bench": "B.P 0"
+	"SXL": "74",
+	"Bench": "0"
 }, {
 	"Teams": "FALSE 9",
-	"teamName": "Ryan 6",
+	"Player_1": "Ryan 6",
 	"Player_2": "Justin 7",
 	"Player_3": "Coleman 1",
 	"Player_4": "Holding 2",
@@ -34,11 +34,11 @@ var s = [{
 	"Player_13": "Davis 1",
 	"Player_14": "Saliba 0",
 	"Player_15": "Bernardo 0",
-	"SXL": "SxL 81",
-	"Bench": "B.P 1"
+	"SXL": "81",
+	"Bench": "1"
 }, {
 	"Teams": "WeAreTheArsenal",
-	"teamName": "McCarthy 0",
+	"Player_1": "McCarthy 0",
 	"Player_2": "Davies 1",
 	"Player_3": "Egan -2",
 	"Player_4": "Alexander-Arnold 7",
@@ -53,11 +53,11 @@ var s = [{
 	"Player_13": "Bissouma 0",
 	"Player_14": "Taylor 3",
 	"Player_15": "Ferguson 0",
-	"SXL": "SxL 75",
-	"Bench": "B.P 3"
+	"SXL": "75",
+	"Bench": "3"
 }, {
 	"Teams": "Fußball-Mannschaft",
-	"teamName": "McCarthy 0",
+	"Player_1": "McCarthy 0",
 	"Player_2": "Alexander-Arnold 7",
 	"Player_3": "Dier 1",
 	"Player_4": "Saïss 1",
@@ -72,11 +72,11 @@ var s = [{
 	"Player_13": "Bissouma 0",
 	"Player_14": "Davis 1",
 	"Player_15": "Ferguson 0",
-	"SXL": "SxL 40",
-	"Bench": "B.P 1"
+	"SXL": "40",
+	"Bench": "1"
 }, {
 	"Teams": "Lokipower Reloaded",
-	"teamName": "Leno 2",
+	"Player_1": "Leno 2",
 	"Player_2": "Doherty 0",
 	"Player_3": "Taylor 3",
 	"Player_4": "Holding 2",
@@ -91,11 +91,11 @@ var s = [{
 	"Player_13": "Wan-Bissaka 0",
 	"Player_14": "Bednarek 0",
 	"Player_15": "Rice 2",
-	"SXL": "SxL 63",
-	"Bench": "B.P 2"
+	"SXL": "63",
+	"Bench": "2"
 }, {
 	"Teams": "FortunaDüsseldorfer",
-	"teamName": "Alisson 14",
+	"Player_1": "Alisson 14",
 	"Player_2": "Alexander-Arnold 7",
 	"Player_3": "Keane 7",
 	"Player_4": "Azpilicueta 0",
@@ -110,11 +110,11 @@ var s = [{
 	"Player_13": "Tierney 0",
 	"Player_14": "Alderweireld 0",
 	"Player_15": "Davis 1",
-	"SXL": "SxL 78",
-	"Bench": "B.P 1"
+	"SXL": "78",
+	"Bench": "1"
 }, {
 	"Teams": "FC ASSASSINS",
-	"teamName": "Schmeichel 2",
+	"Player_1": "Schmeichel 2",
 	"Player_2": "van Dijk 7",
 	"Player_3": "Stevens 2",
 	"Player_4": "Lamptey 4",
@@ -129,11 +129,11 @@ var s = [{
 	"Player_13": "Pulisic 0",
 	"Player_14": "Bernardo 0",
 	"Player_15": "Brewster 0",
-	"SXL": "SxL 41",
-	"Bench": "B.P 6"
+	"SXL": "41",
+	"Bench": "6"
 }, {
 	"Teams": "PINE",
-	"teamName": "McCarthy 0",
+	"Player_1": "McCarthy 0",
 	"Player_2": "Alexander-Arnold 7",
 	"Player_3": "Justin 7",
 	"Player_4": "Egan -2",
@@ -148,11 +148,11 @@ var s = [{
 	"Player_13": "Taylor 3",
 	"Player_14": "Ferguson 0",
 	"Player_15": "Gordon 0",
-	"SXL": "SxL 43",
-	"Bench": "B.P 3"
+	"SXL": "43",
+	"Bench": "3"
 }, {
 	"Teams": "⚔️FURY⚔️",
-	"teamName": "McCarthy 0",
+	"Player_1": "McCarthy 0",
 	"Player_2": "Alexander-Arnold 7",
 	"Player_3": "Justin 7",
 	"Player_4": "James 1",
@@ -167,11 +167,11 @@ var s = [{
 	"Player_13": "Alli 0",
 	"Player_14": "Lemina 1",
 	"Player_15": "Douglas 0",
-	"SXL": "SxL 57",
-	"Bench": "B.P 1"
+	"SXL": "57",
+	"Bench": "1"
 }, {
 	"Teams": "Kung fu Pandoos",
-	"teamName": "Pickford 1",
+	"Player_1": "Pickford 1",
 	"Player_2": "James 1",
 	"Player_3": "Dier 1",
 	"Player_4": "Holding 2",
@@ -186,11 +186,11 @@ var s = [{
 	"Player_13": "Wan-Bissaka 0",
 	"Player_14": "Walker-Peters 3",
 	"Player_15": "Reed 2",
-	"SXL": "SxL 97",
-	"Bench": "B.P 7"
+	"SXL": "97",
+	"Bench": "7"
 }, {
 	"Teams": "JOJOs LFC",
-	"teamName": "Alisson 14",
+	"Player_1": "Alisson 14",
 	"Player_2": "Alexander-Arnold 7",
 	"Player_3": "Egan -2",
 	"Player_4": "Walker-Peters 3",
@@ -205,11 +205,11 @@ var s = [{
 	"Player_13": "Antonio 6",
 	"Player_14": "Douglas 0",
 	"Player_15": "Saïss 1",
-	"SXL": "SxL 74",
-	"Bench": "B.P 13"
+	"SXL": "74",
+	"Bench": "13"
 }, {
 	"Teams": "Random XI",
-	"teamName": "Schmeichel 2",
+	"Player_1": "Schmeichel 2",
 	"Player_2": "Baldock 2",
 	"Player_3": "Söyüncü 1",
 	"Player_4": "Lascelles 0",
@@ -224,11 +224,11 @@ var s = [{
 	"Player_13": "Saka 2",
 	"Player_14": "Stephens 0",
 	"Player_15": "Bernardo 0",
-	"SXL": "SxL 44",
-	"Bench": "B.P 2"
+	"SXL": "44",
+	"Bench": "2"
 }, {
 	"Teams": "Galaxies Stars",
-	"teamName": "Patrício 3",
+	"Player_1": "Patrício 3",
 	"Player_2": "Robertson 6",
 	"Player_3": "Davies 1",
 	"Player_4": "Koch 1",
@@ -243,11 +243,11 @@ var s = [{
 	"Player_13": "Buur 0",
 	"Player_14": "Oriol Romeu 0",
 	"Player_15": "Thomas 0",
-	"SXL": "SxL 73",
-	"Bench": "B.P 0"
+	"SXL": "73",
+	"Bench": "0"
 }, {
 	"Teams": "Happy Williams",
-	"teamName": "McCarthy 0",
+	"Player_1": "McCarthy 0",
 	"Player_2": "Dallas 1",
 	"Player_3": "Lindelöf 1",
 	"Player_4": "Davies 1",
@@ -262,11 +262,11 @@ var s = [{
 	"Player_13": "Soucek 2",
 	"Player_14": "Bednarek 0",
 	"Player_15": "Mitchell 5",
-	"SXL": "SxL 38",
-	"Bench": "B.P 7"
+	"SXL": "38",
+	"Bench": "7"
 }, {
 	"Teams": "Omk09",
-	"teamName": "Leno 2",
+	"Player_1": "Leno 2",
 	"Player_2": "Söyüncü 1",
 	"Player_3": "Robertson 6",
 	"Player_4": "Gabriel 2",
@@ -281,11 +281,11 @@ var s = [{
 	"Player_13": "Vinagre 1",
 	"Player_14": "Origi 0",
 	"Player_15": "Branthwaite 0",
-	"SXL": "SxL 27",
-	"Bench": "B.P 1"
+	"SXL": "27",
+	"Bench": "1"
 }, {
 	"Teams": "Impact Creators",
-	"teamName": "McCarthy 0",
+	"Player_1": "McCarthy 0",
 	"Player_2": "Alexander-Arnold 7",
 	"Player_3": "Lascelles 0",
 	"Player_4": "Egan -2",
@@ -300,11 +300,11 @@ var s = [{
 	"Player_13": "Taylor 3",
 	"Player_14": "Douglas 0",
 	"Player_15": "Stephens 0",
-	"SXL": "SxL 67",
-	"Bench": "B.P 3"
+	"SXL": "67",
+	"Bench": "3"
 }, {
 	"Teams": "GUSTAVOUS GUNNER",
-	"teamName": "Ramsdale 2",
+	"Player_1": "Ramsdale 2",
 	"Player_2": "Alexander-Arnold 7",
 	"Player_3": "Egan -2",
 	"Player_4": "Lascelles 0",
@@ -319,11 +319,11 @@ var s = [{
 	"Player_13": "Dendoncker 1",
 	"Player_14": "Davis 1",
 	"Player_15": "Vinagre 1",
-	"SXL": "SxL 60",
-	"Bench": "B.P 3"
+	"SXL": "60",
+	"Bench": "3"
 }, {
 	"Teams": "Danapur United",
-	"teamName": "Alisson 14",
+	"Player_1": "Alisson 14",
 	"Player_2": "Stevens 2",
 	"Player_3": "van Dijk 7",
 	"Player_4": "Söyüncü 1",
@@ -338,11 +338,11 @@ var s = [{
 	"Player_13": "Fabio Silva 1",
 	"Player_14": "Jota 0",
 	"Player_15": "Carter-Vickers 0",
-	"SXL": "SxL 91",
-	"Bench": "B.P 1"
+	"SXL": "91",
+	"Bench": "1"
 }, {
 	"Teams": "66866",
-	"teamName": "Pope 1",
+	"Player_1": "Pope 1",
 	"Player_2": "Alexander-Arnold 7",
 	"Player_3": "Justin 7",
 	"Player_4": "Walker 2",
@@ -357,11 +357,11 @@ var s = [{
 	"Player_13": "Bardsley -1",
 	"Player_14": "Oriol Romeu 0",
 	"Player_15": "Branthwaite 0",
-	"SXL": "SxL 77",
-	"Bench": "B.P -1"
+	"SXL": "77",
+	"Bench": "-1"
 }, {
 	"Teams": "Marx 11",
-	"teamName": "Martínez 13",
+	"Player_1": "Martínez 13",
 	"Player_2": "Alexander-Arnold 7",
 	"Player_3": "Doherty 0",
 	"Player_4": "Bertrand -1",
@@ -376,11 +376,11 @@ var s = [{
 	"Player_13": "Chilwell 0",
 	"Player_14": "Wan-Bissaka 0",
 	"Player_15": "Muto 0",
-	"SXL": "SxL 50",
-	"Bench": "B.P 1"
+	"SXL": "50",
+	"Bench": "1"
 }, {
 	"Teams": "CottonMouth XI",
-	"teamName": "Schmeichel 2",
+	"Player_1": "Schmeichel 2",
 	"Player_2": "Doherty 0",
 	"Player_3": "Mitchell 5",
 	"Player_4": "Azpilicueta 0",
@@ -395,11 +395,11 @@ var s = [{
 	"Player_13": "Pulisic 0",
 	"Player_14": "Douglas 0",
 	"Player_15": "Gomez 0",
-	"SXL": "SxL 68",
-	"Bench": "B.P 0"
+	"SXL": "68",
+	"Bench": "0"
 }, {
 	"Teams": "SYAKREE F.C.",
-	"teamName": "McCarthy 0",
+	"Player_1": "McCarthy 0",
 	"Player_2": "Castagne 9",
 	"Player_3": "James 1",
 	"Player_4": "Alexander-Arnold 7",
@@ -414,11 +414,11 @@ var s = [{
 	"Player_13": "Douglas 0",
 	"Player_14": "Soucek 2",
 	"Player_15": "Vinagre 1",
-	"SXL": "SxL 70",
-	"Bench": "B.P 3"
+	"SXL": "70",
+	"Bench": "3"
 }, {
 	"Teams": "Busby Baby",
-	"teamName": "McCarthy 0",
+	"Player_1": "McCarthy 0",
 	"Player_2": "Justin 7",
 	"Player_3": "Alexander-Arnold 7",
 	"Player_4": "Walker-Peters 3",
@@ -433,11 +433,11 @@ var s = [{
 	"Player_13": "Taylor 3",
 	"Player_14": "Davis 1",
 	"Player_15": "Douglas 0",
-	"SXL": "SxL 63",
-	"Bench": "B.P 4"
+	"SXL": "63",
+	"Bench": "4"
 }, {
 	"Teams": "hansing",
-	"teamName": "McCarthy 0",
+	"Player_1": "McCarthy 0",
 	"Player_2": "Lewis 0",
 	"Player_3": "Doherty 0",
 	"Player_4": "Justin 7",
@@ -452,11 +452,11 @@ var s = [{
 	"Player_13": "Alexander-Arnold 7",
 	"Player_14": "Mitchell 5",
 	"Player_15": "Bissouma 0",
-	"SXL": "SxL 68",
-	"Bench": "B.P 12"
+	"SXL": "68",
+	"Bench": "12"
 }, {
 	"Teams": "mendal11",
-	"teamName": "Ramsdale 2",
+	"Player_1": "Ramsdale 2",
 	"Player_2": "Alexander-Arnold 7",
 	"Player_3": "Mitchell 5",
 	"Player_4": "Walker-Peters 3",
@@ -471,11 +471,11 @@ var s = [{
 	"Player_13": "Taylor 3",
 	"Player_14": "Saka 2",
 	"Player_15": "Brewster 0",
-	"SXL": "SxL 37",
-	"Bench": "B.P 5"
+	"SXL": "37",
+	"Bench": "5"
 }, {
 	"Teams": "goooooooners",
-	"teamName": "Ryan 6",
+	"Player_1": "Ryan 6",
 	"Player_2": "Dallas 1",
 	"Player_3": "Lascelles 0",
 	"Player_4": "Coady 1",
@@ -490,11 +490,11 @@ var s = [{
 	"Player_13": "Oriol Romeu 0",
 	"Player_14": "Bednarek 0",
 	"Player_15": "Branthwaite 0",
-	"SXL": "SxL 67",
-	"Bench": "B.P 0"
+	"SXL": "67",
+	"Bench": "0"
 }, {
 	"Teams": "Jatt Da Muqaabla FC",
-	"teamName": "Ramsdale 2",
+	"Player_1": "Ramsdale 2",
 	"Player_2": "Alexander-Arnold 7",
 	"Player_3": "Mitchell 5",
 	"Player_4": "Justin 7",
@@ -509,11 +509,11 @@ var s = [{
 	"Player_13": "Walker-Peters 3",
 	"Player_14": "Douglas 0",
 	"Player_15": "Reed 2",
-	"SXL": "SxL 102",
-	"Bench": "B.P 5"
+	"SXL": "102",
+	"Bench": "5"
 }, {
 	"Teams": "Gooner for Life",
-	"teamName": "McCarthy 0",
+	"Player_1": "McCarthy 0",
 	"Player_2": "Alexander-Arnold 7",
 	"Player_3": "van Dijk 7",
 	"Player_4": "Walker-Peters 3",
@@ -528,6 +528,6 @@ var s = [{
 	"Player_13": "Tierney 0",
 	"Player_14": "Bernardo 0",
 	"Player_15": "Davis 1",
-	"SXL": "SxL 61",
-	"Bench": "B.P 1"
+	"SXL": "61",
+	"Bench": "1"
 }]
