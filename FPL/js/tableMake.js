@@ -13,6 +13,14 @@ function tableShakers()
 	for(p=13;p<=16;p++)
 		{
 		document.getElementsByTagName('tr')[0].children[p].style.backgroundColor='turquoise'
+		}
+
+
+	for(r=1;r<=28;r++)
+		{
+		if(r%2)
+			document.getElementsByTagName('tr')[r].style.backgroundColor='rgba(0,0,0,.04)'
+
 		}	
 }
 
