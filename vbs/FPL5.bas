@@ -1,10 +1,5 @@
-Attribute VB_Name = "FPL5old"
+Attribute VB_Name = "spinOff"
  Sub FPL5()
-   
-   'Next thing is to update the entryId into a function
-   'nameOfPlayer = document.getElementsByClassName("Entry__EntryName-sc-1kf863-0 ldMMkD")[0].innerText
-   
-   
     Set ie = CreateObject("InternetExplorer.Application")
     CeCC = InputBox("To get the Group Details of Road to glory (Y)")
     'Y/5
@@ -17,104 +12,8 @@ Attribute VB_Name = "FPL5old"
     'same as usual
     decider = 2
     End If
-
-    daddy = "1013853"
-    mommy = "1012340"
-    madam = "1015947"
-    kp = "1013402"             '18=742312,
-    sibin = "1014425"
-    sagil = "5478265"          '18-881909,
-            
     If ce = "Y" Then
-            nishant = "1288683" '`x```
-            Rohan = "143864"
-            das = "25825"
-            
-            dipenThapa = "3202275"
-            sibin = "1530227"
-            kushal = "1808381"
-            satyam = "30839"
-            ashimlama = "1555875"
-            inderjeet = "1507506"
-            viveklama = "3171178"
-            Prabin = "4363524"
-            
-            sanjeevkumar = "3732429"
-            ashishRai = "1170113"
-            ravishVerma = "74211"
-            bishalRai = "2517295"
-            regeanLama = "2381459"
-            hanSingh = "437359"
-            ashishSubba = "753323"
-            abhijeetSingh = "1009666"
-            pranamRai = "1384222"
-            PemaSHerpa = "3729374"
-            sahilLampard = "2169583"
-            RajKanango = "972259"
-            ONkarSUbba = "1099725"
-            nitishSIng = "947098"
-            okendri = "1150009"
-            gauravShrestha = "2544322"
-            AnkuKumar = "1391491"
-            
-            Cells(26, 1) = " sanjeevkumar "
-            Cells(26, 2) = sanjeevkumar
-            Cells(27, 1) = " ashishRai "
-            Cells(27, 2) = ashishRai
-            Cells(28, 1) = " ravishVerma "
-            Cells(28, 2) = ravishVerma
-            Cells(29, 1) = " bishalRai "
-            Cells(29, 2) = bishalRai
-            Cells(20, 1) = " RajKanango "
-            Cells(20, 2) = RajKanango
-            Cells(21, 1) = " sahilLampard "
-            Cells(21, 2) = sahilLampard
-            Cells(22, 1) = " PemaSHerpa "
-            Cells(22, 2) = PemaSHerpa
-            Cells(23, 1) = " pranamRai "
-            Cells(23, 2) = pranamRai
-            Cells(24, 1) = " regeanLama "
-            Cells(24, 2) = regeanLama
-            Cells(25, 1) = " hanSingh "
-            Cells(25, 2) = hanSingh
-            Cells(5, 1) = " gauravShrestha "
-            Cells(5, 2) = gauravShrestha
-            Cells(13, 1) = " Prabin "
-            Cells(13, 2) = Prabin
-            Cells(14, 1) = " AnkuKumar "
-            Cells(14, 2) = AnkuKumar
-            Cells(15, 1) = " okendri"
-            Cells(15, 2) = okendri
-            Cells(16, 1) = " ONkarSUbba"
-            Cells(16, 2) = ONkarSUbba
-            Cells(17, 1) = " abhijeetSingh"
-            Cells(17, 2) = abhijeetSingh
-            Cells(18, 1) = " ashishSubba "
-            Cells(18, 2) = ashishSubba
-            Cells(19, 1) = " nitesh singh"
-            Cells(19, 2) = nitishSIng
-            Cells(1, 1) = " Manager Name "
-            Cells(1, 2) = " Manager AieDee "
-            Cells(2, 1) = " nishant kumar singh "
-            Cells(2, 2) = nishant
-            Cells(3, 1) = " Rohan Rai "
-            Cells(3, 2) = Rohan
-            Cells(4, 1) = "  AVIJIT DAS "
-            Cells(4, 2) = das
-            Cells(6, 1) = "Dipen Thapa"
-            Cells(6, 2) = dipenThapa
-            Cells(7, 1) = " Sibin Surendran "
-            Cells(7, 2) = sibin
-            Cells(8, 1) = "  Kushal Sahota "
-            Cells(8, 2) = kushal
-            Cells(9, 1) = "  SATYAM RAI "
-            Cells(9, 2) = satyam
-            Cells(10, 1) = "  Ashim Lama "
-            Cells(10, 2) = ashimlama
-            Cells(11, 1) = "  indrajeet kumar singh "
-            Cells(11, 2) = inderjeet
-            Cells(12, 1) = "   Vivek Lama "
-            Cells(12, 2) = viveklama
+            FPL5group
     ElseIf ce = "F" Then
             Cells(1, 1) = " Manager Name "
             Cells(1, 2) = " Manager AieDee "
@@ -454,7 +353,7 @@ RPK::
                         plot = Trim(xplot)
         
                         Cells(i, mut) = plnm & " " & plot
-                        Cells(1, 20) = "teamName"
+                        Cells(1, 19) = "teamName"
                         
         
                        ' MsgBox plnm & vbCr & plot
@@ -542,8 +441,97 @@ icebucket::
 
 End Sub
 
-Sub drandgrop()
+Sub FPL5group()
 
+  nishant = "1288683" '`x```
+            Rohan = "143864"
+            das = "25825"
+            
+            dipenThapa = "3202275"
+            sibin = "1530227"
+            kushal = "1808381"
+            satyam = "30839"
+            ashimlama = "1555875"
+            inderjeet = "1507506"
+            viveklama = "3171178"
+            Prabin = "4363524"
+            
+            sanjeevkumar = "3732429"
+            ashishRai = "1170113"
+            ravishVerma = "74211"
+            bishalRai = "2517295"
+            regeanLama = "2381459"
+            hanSingh = "437359"
+            ashishSubba = "753323"
+            abhijeetSingh = "1009666"
+            pranamRai = "1384222"
+            PemaSHerpa = "3729374"
+            sahilLampard = "2169583"
+            RajKanango = "972259"
+            ONkarSUbba = "1099725"
+            nitishSIng = "947098"
+            okendri = "1150009"
+            gauravShrestha = "2544322"
+            AnkuKumar = "1391491"
+            
+            Cells(26, 1) = " sanjeevkumar "
+            Cells(26, 2) = sanjeevkumar
+            Cells(27, 1) = " ashishRai "
+            Cells(27, 2) = ashishRai
+            Cells(28, 1) = " ravishVerma "
+            Cells(28, 2) = ravishVerma
+            Cells(29, 1) = " bishalRai "
+            Cells(29, 2) = bishalRai
+            Cells(20, 1) = " RajKanango "
+            Cells(20, 2) = RajKanango
+            Cells(21, 1) = " sahilLampard "
+            Cells(21, 2) = sahilLampard
+            Cells(22, 1) = " PemaSHerpa "
+            Cells(22, 2) = PemaSHerpa
+            Cells(23, 1) = " pranamRai "
+            Cells(23, 2) = pranamRai
+            Cells(24, 1) = " regeanLama "
+            Cells(24, 2) = regeanLama
+            Cells(25, 1) = " hanSingh "
+            Cells(25, 2) = hanSingh
+            Cells(5, 1) = " gauravShrestha "
+            Cells(5, 2) = gauravShrestha
+            Cells(13, 1) = " Prabin "
+            Cells(13, 2) = Prabin
+            Cells(14, 1) = " AnkuKumar "
+            Cells(14, 2) = AnkuKumar
+            Cells(15, 1) = " okendri"
+            Cells(15, 2) = okendri
+            Cells(16, 1) = " ONkarSUbba"
+            Cells(16, 2) = ONkarSUbba
+            Cells(17, 1) = " abhijeetSingh"
+            Cells(17, 2) = abhijeetSingh
+            Cells(18, 1) = " ashishSubba "
+            Cells(18, 2) = ashishSubba
+            Cells(19, 1) = " nitesh singh"
+            Cells(19, 2) = nitishSIng
+            Cells(1, 1) = " Manager Name "
+            Cells(1, 2) = " Manager AieDee "
+            Cells(2, 1) = " nishant kumar singh "
+            Cells(2, 2) = nishant
+            Cells(3, 1) = " Rohan Rai "
+            Cells(3, 2) = Rohan
+            Cells(4, 1) = "  AVIJIT DAS "
+            Cells(4, 2) = das
+            Cells(6, 1) = "Dipen Thapa"
+            Cells(6, 2) = dipenThapa
+            Cells(7, 1) = " Sibin Surendran "
+            Cells(7, 2) = sibin
+            Cells(8, 1) = "  Kushal Sahota "
+            Cells(8, 2) = kushal
+            Cells(9, 1) = "  SATYAM RAI "
+            Cells(9, 2) = satyam
+            Cells(10, 1) = "  Ashim Lama "
+            Cells(10, 2) = ashimlama
+            Cells(11, 1) = "  indrajeet kumar singh "
+            Cells(11, 2) = inderjeet
+            Cells(12, 1) = "   Vivek Lama "
+            Cells(12, 2) = viveklama
 
 
 End Sub
