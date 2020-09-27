@@ -25,18 +25,19 @@ public class Steps {
        driver.get("http://demo.guru99.com/v4");					
     }		
 
-    @When("^Enter the Username and Password$")					
-    public void enter_the_Username_and_Password() throws Throwable 							
+    @When("^Enter the Username \"(.*)\" and Password \"(.*)\"$")			
+    public void enter_the_Username_and_Password(String username,String password) throws Throwable 							
     {		
-    	System.out.println("This step enter the Username and Password on the login page.");
-    	driver.findElement(By.name("uid")).sendKeys("username12");							
-       driver.findElement(By.name("password")).sendKeys("password12");							
+       
+    	System.out.println("This Step is enter userName " +username + "and  Password." +password);
+    	//driver.findElement(By.name("uid")).sendKeys(username);					
+       //driver.findElement(By.name("password")).sendKeys(password);					
     }		
 
     @Then("^Reset the credential$")					
-    public void Reset_the_credential() throws Throwable 							
+    public void	Reset_the_credential() throws Throwable 							
     {		
-    	System.out.println("This step click on the Reset button.");		
-    	driver.findElement(By.name("btnReset")).click();					
+    	System.out.println("This Step is to reset.");
+       //driver.findElement(By.name("btnReset")).click();					
     }		
-}		
+}
