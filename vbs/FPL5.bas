@@ -353,14 +353,16 @@ RPK::
                         plot = Trim(xplot)
         
                         Cells(i, mut) = plnm & " " & plot
-                        Cells(1, 19) = "teamName"
+                        Cells(1, 19) = "Teams"
                         
         
                        ' MsgBox plnm & vbCr & plot
 
                 Next
-            Cells(i, 35) = "SxL " & psxl
-            Cells(i, 36) = "B.P " & pben
+            Cells(1, 35) = "SXL"
+            Cells(1, 36) = "Bench"
+            Cells(i, 35) = psxl
+            Cells(i, 36) = pben
             'MsgBox psxl & vbCr & pben
             Range("AE6").CurrentRegion.EntireColumn.AutoFit
             Application.Wait (Now + TimeValue("0:00:3"))
