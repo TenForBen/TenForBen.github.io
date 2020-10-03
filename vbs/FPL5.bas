@@ -861,22 +861,28 @@ Sub playerCountAnalysis()
     LastRow18 = Cells(sht.Rows.Count, 18).End(xlUp).Row
      Cells(30, 19).Value = "PLAYERS_COUNT"
     For r = 2 To 29 ' for all the rows of each manager
-        For c = 20 To 35    ' for all the players of each row
+        For c = 20 To 34    ' for all the players of each row
             a = Cells(r, c).Value  ' getting each player
             For t = 30 To LastRow18 ' comparing with already present player
+                comparedValue = Cells(t, 18).Value
                 If Cells(t, 18).Value = a Then ' if  present incrementing
                     If Cells(t, 19).Value = "" Then 'seems redundant
                         Cells(t, 19).Value = 0
                     End If
                     inc = Cells(t, 19).Value
                     Cells(t, 19).Value = inc + 1
-                    
+                    present = "Y"
+                    GoTo skipperOfLoop
                 Else ' if not present create an entry
+                present = "N"
+                End If
+            Next
+skipperOfLoop::
+            If present = "N" Then
                 Cells(LastRow18 + 1, 18).Value = a 'create an entry in the lastRow plus one
                 Cells(LastRow18 + 1, 19).Value = 1 ' increment with one as the player is first timer
                 LastRow18 = Cells(sht.Rows.Count, 18).End(xlUp).Row ' now update the new lastRow18 value
-                End If
-            Next
+            End If
         Next
     Next
     
