@@ -51,10 +51,10 @@ var s = [{
 	"Player_11": "Mitrović WOL (A)",
 	"Player_12": "Button SOU (A)",
 	"Player_13": "Davies MUN (A)",
-	"Player_14": "Bissouma 7",
+	"Player_14": "Bissouma 9",
 	"Player_15": "Ferguson 0",
 	"SXL": "13",
-	"Bench": "7"
+	"Bench": "9"
 }, {
 	"Teams": "Fußball-Mannschaft",
 	"Player_1": "McCarthy WBA (H)",
@@ -63,17 +63,17 @@ var s = [{
 	"Player_4": "Saïss FUL (H)",
 	"Player_5": "Walker-Peters WBA (H)",
 	"Player_6": "Salah AVL (A)",
-	"Player_7": "Rodríguez 15",
+	"Player_7": "Rodríguez 18",
 	"Player_8": "De Bruyne 4",
 	"Player_9": "Barnes WHU (H)",
 	"Player_10": "Jiménez FUL (H)",
 	"Player_11": "Calvert-Lewin 6",
 	"Player_12": "Steer LIV (H)",
-	"Player_13": "Bissouma 7",
+	"Player_13": "Bissouma 9",
 	"Player_14": "Davis LIV (H)",
 	"Player_15": "Ferguson 0",
-	"SXL": "25",
-	"Bench": "7"
+	"SXL": "28",
+	"Bench": "9"
 }, {
 	"Teams": "Lokipower Reloaded",
 	"Player_1": "McCarthy WBA (H)",
@@ -81,17 +81,17 @@ var s = [{
 	"Player_3": "Gabriel SHU (H)",
 	"Player_4": "Taylor 1",
 	"Player_5": "Fernandes TOT (H)",
-	"Player_6": "Rodríguez 15",
+	"Player_6": "Rodríguez 18",
 	"Player_7": "Aubameyang SHU (H)",
 	"Player_8": "Salah AVL (A)",
 	"Player_9": "Calvert-Lewin 6",
 	"Player_10": "Bamford 1",
-	"Player_11": "Wood 1",
+	"Player_11": "Wood 2",
 	"Player_12": "Martínez LIV (H)",
 	"Player_13": "Costa 2",
 	"Player_14": "Dunne 0",
 	"Player_15": "Mitchell 0",
-	"SXL": "24",
+	"SXL": "28",
 	"Bench": "2"
 }, {
 	"Teams": "FortunaDüsseldorfer",
@@ -118,7 +118,7 @@ var s = [{
 	"Player_2": "van Dijk AVL (A)",
 	"Player_3": "Mitchell 0",
 	"Player_4": "Lamptey 0",
-	"Player_5": "Saint-Maximin 6",
+	"Player_5": "Saint-Maximin 12",
 	"Player_6": "Son MUN (A)",
 	"Player_7": "Pulisic 1",
 	"Player_8": "Salah AVL (A)",
@@ -129,7 +129,7 @@ var s = [{
 	"Player_13": "Oriol Romeu WBA (H)",
 	"Player_14": "Alioski 1",
 	"Player_15": "Bernardo 0",
-	"SXL": "15",
+	"SXL": "21",
 	"Bench": "1"
 }, {
 	"Teams": "PINE",
@@ -140,16 +140,16 @@ var s = [{
 	"Player_5": "Justin WHU (H)",
 	"Player_6": "Salah AVL (A)",
 	"Player_7": "Fernandes TOT (H)",
-	"Player_8": "Sterling 7",
-	"Player_9": "Wilson 4",
+	"Player_8": "Sterling 9",
+	"Player_9": "Wilson 16",
 	"Player_10": "Mitrović WOL (A)",
 	"Player_11": "Vardy WHU (H)",
 	"Player_12": "Steer LIV (H)",
 	"Player_13": "Ferguson 0",
-	"Player_14": "Bissouma 7",
+	"Player_14": "Bissouma 9",
 	"Player_15": "Gordon 0",
-	"SXL": "12",
-	"Bench": "7"
+	"SXL": "26",
+	"Bench": "9"
 }, {
 	"Teams": "⚔️FURY⚔️",
 	"Player_1": "Martínez LIV (H)",
@@ -157,9 +157,9 @@ var s = [{
 	"Player_3": "Walker-Peters WBA (H)",
 	"Player_4": "James 0",
 	"Player_5": "Justin WHU (H)",
-	"Player_6": "Sterling 7",
+	"Player_6": "Sterling 9",
 	"Player_7": "Foden 2",
-	"Player_8": "Rodríguez 15",
+	"Player_8": "Rodríguez 18",
 	"Player_9": "Werner 4",
 	"Player_10": "Jiménez FUL (H)",
 	"Player_11": "Calvert-Lewin 6",
@@ -167,7 +167,7 @@ var s = [{
 	"Player_13": "Podence FUL (H)",
 	"Player_14": "Mitchell 0",
 	"Player_15": "Son MUN (A)",
-	"SXL": "34",
+	"SXL": "39",
 	"Bench": "0"
 }, {
 	"Teams": "Kung fu Pandoos",
@@ -177,7 +177,7 @@ var s = [{
 	"Player_4": "Walker-Peters WBA (H)",
 	"Player_5": "Vinagre FUL (H)",
 	"Player_6": "Pereira SOU (A)",
-	"Player_7": "Rodríguez 15",
+	"Player_7": "Rodríguez 18",
 	"Player_8": "Salah AVL (A)",
 	"Player_9": "Aubameyang SHU (H)",
 	"Player_10": "Jiménez FUL (H)",
@@ -186,7 +186,7 @@ var s = [{
 	"Player_13": "Bamford 1",
 	"Player_14": "Dier MUN (A)",
 	"Player_15": "Reed WOL (A)",
-	"SXL": "16",
+	"SXL": "19",
 	"Bench": "3"
 }, {
 	"Teams": "JOJOs LFC",
@@ -196,17 +196,17 @@ var s = [{
 	"Player_4": "Walker-Peters WBA (H)",
 	"Player_5": "Zaha 2",
 	"Player_6": "Barnes WHU (H)",
-	"Player_7": "Sterling 7",
+	"Player_7": "Sterling 9",
 	"Player_8": "Jota AVL (A)",
 	"Player_9": "Vardy WHU (H)",
 	"Player_10": "Martial TOT (H)",
 	"Player_11": "Mitrović WOL (A)",
 	"Player_12": "Ryan 0",
-	"Player_13": "Saint-Maximin 6",
+	"Player_13": "Saint-Maximin 12",
 	"Player_14": "Dunne 0",
 	"Player_15": "Egan ARS (A)",
-	"SXL": "9",
-	"Bench": "6"
+	"SXL": "11",
+	"Bench": "12"
 }, {
 	"Teams": "Random XI",
 	"Player_1": "Ryan 0",
@@ -216,15 +216,15 @@ var s = [{
 	"Player_5": "Mount 0",
 	"Player_6": "Son MUN (A)",
 	"Player_7": "Salah AVL (A)",
-	"Player_8": "Sterling 7",
+	"Player_8": "Sterling 9",
 	"Player_9": "Jiménez FUL (H)",
 	"Player_10": "Richarlison 1",
-	"Player_11": "Wood 1",
+	"Player_11": "Wood 2",
 	"Player_12": "Macey SHU (H)",
 	"Player_13": "Costa 2",
 	"Player_14": "Dunne 0",
 	"Player_15": "Mitchell 0",
-	"SXL": "9",
+	"SXL": "12",
 	"Bench": "2"
 }, {
 	"Teams": "Galaxies Stars",
@@ -233,7 +233,7 @@ var s = [{
 	"Player_3": "Coady FUL (H)",
 	"Player_4": "Dunne 0",
 	"Player_5": "Targett LIV (H)",
-	"Player_6": "Sterling 7",
+	"Player_6": "Sterling 9",
 	"Player_7": "Willian SHU (H)",
 	"Player_8": "Salah AVL (A)",
 	"Player_9": "Rashford TOT (H)",
@@ -241,10 +241,10 @@ var s = [{
 	"Player_11": "Werner 2",
 	"Player_12": "Forster WBA (H)",
 	"Player_13": "Mitchell 0",
-	"Player_14": "Vydra 0",
+	"Player_14": "Vydra 1",
 	"Player_15": "Anguissa WOL (A)",
-	"SXL": "10",
-	"Bench": "0"
+	"SXL": "12",
+	"Bench": "1"
 }, {
 	"Teams": "Happy Williams",
 	"Player_1": "McCarthy WBA (H)",
@@ -272,17 +272,17 @@ var s = [{
 	"Player_4": "James 0",
 	"Player_5": "Justin WHU (H)",
 	"Player_6": "Salah AVL (A)",
-	"Player_7": "Rodríguez 15",
+	"Player_7": "Rodríguez 18",
 	"Player_8": "De Bruyne 2",
 	"Player_9": "Barnes WHU (H)",
 	"Player_10": "Jiménez FUL (H)",
 	"Player_11": "Calvert-Lewin 6",
 	"Player_12": "Nyland LIV (H)",
 	"Player_13": "Bamford 1",
-	"Player_14": "Jorginho 13",
+	"Player_14": "Jorginho 15",
 	"Player_15": "Mitchell 0",
-	"SXL": "23",
-	"Bench": "14"
+	"SXL": "26",
+	"Bench": "16"
 }, {
 	"Teams": "Impact Creators",
 	"Player_1": "McCarthy WBA (H)",
@@ -297,11 +297,11 @@ var s = [{
 	"Player_10": "Jiménez FUL (H)",
 	"Player_11": "Mitrović WOL (A)",
 	"Player_12": "Martin LEI (A)",
-	"Player_13": "Stephens 1",
+	"Player_13": "Stephens 2",
 	"Player_14": "Douglas 0",
 	"Player_15": "Son MUN (A)",
 	"SXL": "11",
-	"Bench": "1"
+	"Bench": "2"
 }, {
 	"Teams": "GUSTAVOUS GUNNER",
 	"Player_1": "Pickford 1",
@@ -309,7 +309,7 @@ var s = [{
 	"Player_3": "Justin WHU (H)",
 	"Player_4": "James 0",
 	"Player_5": "Zaha 2",
-	"Player_6": "Rodríguez 15",
+	"Player_6": "Rodríguez 18",
 	"Player_7": "Salah AVL (A)",
 	"Player_8": "De Bruyne 2",
 	"Player_9": "Klich 2",
@@ -319,7 +319,7 @@ var s = [{
 	"Player_13": "Dunne 0",
 	"Player_14": "Mitchell 0",
 	"Player_15": "Davis LIV (H)",
-	"SXL": "22",
+	"SXL": "25",
 	"Bench": "0"
 }, {
 	"Teams": "Danapur United",
@@ -328,7 +328,7 @@ var s = [{
 	"Player_3": "van Dijk AVL (A)",
 	"Player_4": "Söyüncü WHU (H)",
 	"Player_5": "Townsend 2",
-	"Player_6": "Rodríguez 15",
+	"Player_6": "Rodríguez 18",
 	"Player_7": "Mount 0",
 	"Player_8": "Salah AVL (A)",
 	"Player_9": "Lundstram ARS (A)",
@@ -338,7 +338,7 @@ var s = [{
 	"Player_13": "Fabio Silva FUL (H)",
 	"Player_14": "Stevens ARS (A)",
 	"Player_15": "Carter-Vickers MUN (A)",
-	"SXL": "18",
+	"SXL": "21",
 	"Bench": "0"
 }, {
 	"Teams": "66866",
@@ -351,13 +351,13 @@ var s = [{
 	"Player_7": "Costa 2",
 	"Player_8": "De Bruyne 2",
 	"Player_9": "Mitrović WOL (A)",
-	"Player_10": "Wilson 4",
+	"Player_10": "Wilson 16",
 	"Player_11": "Vardy WHU (H)",
 	"Player_12": "Johnstone SOU (A)",
 	"Player_13": "Oriol Romeu WBA (H)",
 	"Player_14": "Mané AVL (A)",
 	"Player_15": "Branthwaite 0",
-	"SXL": "14",
+	"SXL": "26",
 	"Bench": "0"
 }, {
 	"Teams": "Marx 11",
@@ -365,7 +365,7 @@ var s = [{
 	"Player_2": "Alexander-Arnold AVL (A)",
 	"Player_3": "Shaw TOT (H)",
 	"Player_4": "Bertrand WBA (H)",
-	"Player_5": "Chilwell 15",
+	"Player_5": "Chilwell 18",
 	"Player_6": "Ceballos SHU (H)",
 	"Player_7": "Traoré FUL (H)",
 	"Player_8": "De Bruyne 2",
@@ -376,7 +376,7 @@ var s = [{
 	"Player_13": "Doherty MUN (A)",
 	"Player_14": "Rice LEI (A)",
 	"Player_15": "Long WBA (H)",
-	"SXL": "21",
+	"SXL": "24",
 	"Bench": "0"
 }, {
 	"Teams": "CottonMouth XI",
@@ -386,7 +386,7 @@ var s = [{
 	"Player_4": "Castagne WHU (H)",
 	"Player_5": "De Bruyne 2",
 	"Player_6": "Salah AVL (A)",
-	"Player_7": "Rodríguez 15",
+	"Player_7": "Rodríguez 18",
 	"Player_8": "Zaha 2",
 	"Player_9": "Bamford 1",
 	"Player_10": "Jiménez FUL (H)",
@@ -395,7 +395,7 @@ var s = [{
 	"Player_13": "Phillips 2",
 	"Player_14": "Dunne 0",
 	"Player_15": "Mitchell 0",
-	"SXL": "26",
+	"SXL": "29",
 	"Bench": "2"
 }, {
 	"Teams": "SYAKREE F.C.",
@@ -406,7 +406,7 @@ var s = [{
 	"Player_5": "Zaha 2",
 	"Player_6": "Foden 2",
 	"Player_7": "Salah AVL (A)",
-	"Player_8": "Rodríguez 15",
+	"Player_8": "Rodríguez 18",
 	"Player_9": "Mitrović WOL (A)",
 	"Player_10": "Bamford 2",
 	"Player_11": "Jiménez FUL (H)",
@@ -414,7 +414,7 @@ var s = [{
 	"Player_13": "Son MUN (A)",
 	"Player_14": "James 0",
 	"Player_15": "Aké 1",
-	"SXL": "21",
+	"SXL": "24",
 	"Bench": "1"
 }, {
 	"Teams": "Busby Baby",
@@ -424,7 +424,7 @@ var s = [{
 	"Player_4": "Justin WHU (H)",
 	"Player_5": "Salah AVL (A)",
 	"Player_6": "De Bruyne 4",
-	"Player_7": "Sterling 7",
+	"Player_7": "Sterling 9",
 	"Player_8": "Soucek LEI (A)",
 	"Player_9": "Podence FUL (H)",
 	"Player_10": "Mitrović WOL (A)",
@@ -433,7 +433,7 @@ var s = [{
 	"Player_13": "Walker-Peters WBA (H)",
 	"Player_14": "Davis LIV (H)",
 	"Player_15": "Douglas 0",
-	"SXL": "12",
+	"SXL": "14",
 	"Bench": "0"
 }, {
 	"Teams": "hansing",
@@ -481,16 +481,16 @@ var s = [{
 	"Player_4": "Coady FUL (H)",
 	"Player_5": "Podence FUL (H)",
 	"Player_6": "Salah AVL (A)",
-	"Player_7": "Sterling 14",
+	"Player_7": "Sterling 18",
 	"Player_8": "Mount 0",
-	"Player_9": "Wood 1",
+	"Player_9": "Wood 2",
 	"Player_10": "Vardy WHU (H)",
 	"Player_11": "Kane MUN (A)",
 	"Player_12": "Nyland LIV (H)",
 	"Player_13": "Oriol Romeu WBA (H)",
 	"Player_14": "Dallas 1",
 	"Player_15": "Branthwaite 0",
-	"SXL": "15",
+	"SXL": "20",
 	"Bench": "1"
 }, {
 	"Teams": "Jatt Da Muqaabla FC",
@@ -498,7 +498,7 @@ var s = [{
 	"Player_2": "Alexander-Arnold AVL (A)",
 	"Player_3": "Justin WHU (H)",
 	"Player_4": "Walker-Peters WBA (H)",
-	"Player_5": "Saint-Maximin 6",
+	"Player_5": "Saint-Maximin 12",
 	"Player_6": "De Bruyne 4",
 	"Player_7": "Zaha 2",
 	"Player_8": "Salah AVL (A)",
@@ -509,7 +509,7 @@ var s = [{
 	"Player_13": "Mitchell 0",
 	"Player_14": "Reed WOL (A)",
 	"Player_15": "Douglas 0",
-	"SXL": "24",
+	"SXL": "30",
 	"Bench": "0"
 }, {
 	"Teams": "Gooner for Life",
@@ -519,7 +519,7 @@ var s = [{
 	"Player_4": "Castagne WHU (H)",
 	"Player_5": "De Bruyne 2",
 	"Player_6": "Salah AVL (A)",
-	"Player_7": "Rodríguez 15",
+	"Player_7": "Rodríguez 18",
 	"Player_8": "Zaha 2",
 	"Player_9": "Mitrović WOL (A)",
 	"Player_10": "Bamford 1",
@@ -528,6 +528,6 @@ var s = [{
 	"Player_13": "Justin WHU (H)",
 	"Player_14": "McCarthy 2",
 	"Player_15": "Lamptey 0",
-	"SXL": "26",
+	"SXL": "29",
 	"Bench": "2"
 }]
