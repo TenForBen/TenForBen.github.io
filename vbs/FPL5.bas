@@ -361,6 +361,7 @@ RPK::
                 Next
             Cells(1, 35) = "SXL"
             Cells(1, 36) = "Bench"
+            Cells(1, 37) = "Count"
             Cells(i, 35) = psxl
             Cells(i, 36) = pben
             'MsgBox psxl & vbCr & pben
@@ -768,46 +769,34 @@ For i = 2 To DV
 End Function
 
 Function cardelini(ByVal LR As Integer)
-
-
-cou = 0
-sXL = 0
-bench = 0
-
-For i = 2 To LR
-    For j = 18 To 60
-    
-        If Cells(i, j).Interior.Color <> RGB(255, 255, 255) Then
-            cou = cou + 1
-            If j < 31 Then
-                sXL = sXL + 1
-            Else
-                bench = bench + 1
-            End If
-            
-            
-            Cells(i, 18) = cou
-            
-            'MsgBox "something is not rite here"
-            
-            'GoTo somewhere
-        End If
-        
-        
-        'Cells(i, j).Interior.Color = RGB(255, 155, 242)
-        'Cells(i, j).Color = RGB(33, 21, 222)
-        
-    Next
-somewhere::
-    Cells(1, 18) = "Count  "
-    Cells(i, 18) = cou & "( " & sXL & "+" & bench & " )"
-    
     cou = 0
     sXL = 0
     bench = 0
-    
-    Application.Wait (Now + TimeValue("0:00:1"))
-Next
+    For i = 2 To LR
+        For j = 18 To 60
+            If Cells(i, j).Interior.Color <> RGB(255, 255, 255) Then
+                cou = cou + 1
+                If j < 31 Then
+                    sXL = sXL + 1
+                Else
+                    bench = bench + 1
+                End If
+                'MsgBox "something is not rite here"
+                'GoTo somewhere
+            End If
+            'Cells(i, j).Interior.Color = RGB(255, 155, 242)
+            'Cells(i, j).Color = RGB(33, 21, 222)
+        Next
+somewhere::
+        Cells(i, 18) = Cells(i, 1).Value
+        Cells(1, 18) = "manager_Name"
+        Cells(1, 37) = "Count  "
+        Cells(i, 37) = cou & "( " & sXL & "+" & bench & " )"
+        cou = 0
+        sXL = 0
+        bench = 0
+        Application.Wait (Now + TimeValue("0:00:1"))
+    Next
 End Function
 
 Sub secondSons()
@@ -819,47 +808,40 @@ Sub secondSons()
 End Sub
 
 Sub cup(ByVal i As Integer)
-    Dim cupEntrz As Integer
-    Set ie = CreateObject("InternetExplorer.Application")
-    phogat = Split(underURnose, "/")
-    ddd = UBound(phogat)
-     Cells(k, 2) = phogat(5)
-    cupEntrz = ie.document.getElementsByClassName("ism-table--cup-sum__event").Length
+        Dim cupEntrz As Integer
+        Set ie = CreateObject("InternetExplorer.Application")
+        phogat = Split(underURnose, "/")
+        ddd = UBound(phogat)
+         Cells(k, 2) = phogat(5)
+        cupEntrz = ie.document.getElementsByClassName("ism-table--cup-sum__event").Length
+        
+        If cupEntrz > 0 Then
+           Cells(i, 18) = "Qualified"
+        Else
+            Cells(i, 18) = "Not Qualified"
     
-    If cupEntrz > 0 Then
-       Cells(i, 18) = "Qualified"
-    Else
-        Cells(i, 18) = "Not Qualified"
-
-End If
-
-
-
-
+        End If
 End Sub
 
 Sub linethrough(ByVal LR As Integer, ByVal cGW As Integer)
-
-neutralize (LR)
-'LR = 23
-'cGW = "18"
-For i = 2 To LR
-    
-    vvd = Cells(i, 17).Value
-    phogat = Split(vvd, " ")
-    ddd = UBound(phogat)
-    GW = phogat(0)
-    tt = Right(GW, 2)
-    If cGW = tt Then
-         Cells(i, 17).Font.Underline = xlUnderlineStyleSingle
-    Else
-        Cells(i, 17).Font.Strikethrough = True
-         
+    neutralize (LR)
+    'LR = 23
+    'cGW = "18"
+    For i = 2 To LR
         
-    End If
-Next
-
-
+        vvd = Cells(i, 17).Value
+        phogat = Split(vvd, " ")
+        ddd = UBound(phogat)
+        GW = phogat(0)
+        tt = Right(GW, 2)
+        If cGW = tt Then
+             Cells(i, 17).Font.Underline = xlUnderlineStyleSingle
+        Else
+            Cells(i, 17).Font.Strikethrough = True
+             
+            
+        End If
+    Next
 End Sub
 
 Sub neutralize(ByVal LR As Integer)
