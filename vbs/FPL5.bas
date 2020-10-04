@@ -860,12 +860,31 @@ Sub playerCountAnalysis()
     Set sht = ThisWorkbook.Worksheets(ss)
     LastRow18 = Cells(sht.Rows.Count, 18).End(xlUp).Row
      Cells(30, 19).Value = "PLAYERS_COUNT"
+     
     For r = 2 To 29 ' for all the rows of each manager
         For c = 20 To 34    ' for all the players of each row
             a = Cells(r, c).Value  ' getting each player
+            'De Bruyne 2 is an exception
+            emi = Split(a, "De Bruyne")
+            temp = UBound(emi)
+            If UBound(emi) > 0 Then
+                 a = "De Bruyne"
+            Else
+                deedee = Split(a, " ")
+                a = deedee(0)
+            End If
+            
             For t = 30 To LastRow18 ' comparing with already present player
                 comparedValue = Cells(t, 18).Value
-                If Cells(t, 18).Value = a Then ' if  present incrementing
+                mart = Split(comparedValue, "De Bruyne")
+                If UBound(mart) > 0 Then
+                    comparedValue = "De Bruyne"
+                Else
+                    deedee = Split(comparedValue, " ")
+                    comparedValue = deedee(0)
+                End If
+                
+                If comparedValue = a Then ' if  present incrementing
                     If Cells(t, 19).Value = "" Then 'seems redundant
                         Cells(t, 19).Value = 0
                     End If
