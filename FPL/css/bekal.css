@@ -7,3 +7,13 @@
 
 
     }
+
+ tr:nth-child(even) {
+  background: rgba(0,0,0,.04);
+}   
+
+tr:nth-child(1)
+ {
+  background: black;
+  color: white;
+}   

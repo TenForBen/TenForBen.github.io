@@ -87,7 +87,7 @@ function loader4mgw()
             prepareTableCell3mgw(s[i].Teams,s[i].manager_Name,s[i].Player_1,s[i].Player_2,s[i].Player_3,s[i].Player_4,s[i].Player_5,s[i].Player_6,s[i].Player_7,s[i].Player_8,s[i].Player_9,s[i].Player_10,s[i].Player_11,s[i].Player_12,s[i].Player_13,s[i].Player_14,s[i].Player_15,s[i].SXL, s[i].Bench);
          }
     }
-    tableShakers();
+    //tableShakers();
 }
 
 function prepareTableCell3mgw(Team,mN,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15, krups, stick) 
