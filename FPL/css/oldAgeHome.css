@@ -1,0 +1,59 @@
+
+        body{
+        	
+        	background-color: black;
+        	color:yellow;
+        	font-family: calibri;
+        }
+
+
+        .houdini{
+
+        	display:none;
+        }
+
+        #Header-center{
+            text-align: center;
+        }
+
+        #basicDiv{
+        margin:10px;
+        padding: 5px;
+        border:2px white solid;
+        width:60vw;
+        float:left;
+
+        }
+
+        #MainPhoto{
+            width:30vw;
+            float:;
+            height:39vh;
+            margin-left: 5vw;
+            
+        }
+        }
+
+        #baksa{
+        background-image:  url('../../img/teetam.jpg');
+        width:30vw;
+
+        height:39vh;
+        position: relative;
+        top: 100px;
+        margin:10px;
+        padding: 5px;
+        border:2px white solid;
+        background-repeat: no-repeat;
+            background-position:-59px -157px;
+        background-size: 129%;
+        }
+
+        #OpSo{
+            display: inline-block;
+            height: 13px;
+            width: 16px;
+            background-image:  url('../../img/OpSo/map.png');
+            background-repeat: no-repeat;
+            background-position: 0px -1585px;
+        }
