@@ -167,9 +167,9 @@ function larojita(t)
             var tseconds = Math.floor((distance) / 1000);
 
 
-            //document.getElementById("sofOL").innerHTML=tseconds + " seconds";
+            document.getElementById("sofOL").innerHTML=tseconds + " seconds from nextGW";
            //document.getElementById("hofOL").innerHTML=thours+ " hours";
-            document.getElementById("mofOL").innerHTML=tminutes+ " minutes from GW";
+            document.getElementById("mofOL").innerHTML=tminutes+ " minutes from nextGW";
 
             // Display the result in the element with id="demo"
             //document.getElementById("emo").innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
