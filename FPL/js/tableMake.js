@@ -134,4 +134,52 @@ function prepareTableCell3mgw(Team,mN,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13
     pp15.innerHTML = p15;
     
 }
+var NextGW = "Oct 17,2020 12:00:00"
+larojita(NextGW )
+function larojita(t)
+{
+
+
+
+    // Set the date we're counting down to
+            var countDownDate = new Date(t).getTime();
+
+          // Update the count down every 1 second
+          var x = setInterval(function() {
+
+            // Get todays date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now an the count down date
+            var distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+
+
+            var tdays = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var thours = Math.floor((distance) / (1000 * 60 * 60));
+            var tminutes = Math.floor((distance) / (1000 * 60));
+            var tseconds = Math.floor((distance) / 1000);
+
+
+            //document.getElementById("sofOL").innerHTML=tseconds + " seconds";
+           //document.getElementById("hofOL").innerHTML=thours+ " hours";
+            document.getElementById("mofOL").innerHTML=tminutes+ " minutes from GW";
+
+            // Display the result in the element with id="demo"
+            //document.getElementById("emo").innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
+            
+
+            // If the count down is finished, write some text 
+            if (distance < 0) {
+              clearInterval(x);
+              document.getElementById("emo").innerHTML = "EXPIRED";
+            }
+          }, 100);
+}
     
