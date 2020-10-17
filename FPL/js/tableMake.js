@@ -134,7 +134,7 @@ function prepareTableCell3mgw(Team,mN,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13
     pp15.innerHTML = p15;
     
 }
-var NextGW = "Oct 17,2020 12:00:00"
+var NextGW = "Oct 23,2020 18:30:00"
 larojita(NextGW )
 function larojita(t)
 {
