@@ -183,7 +183,7 @@ function larojita(t)
           }, 100);
 }
 
-function loader4mgw()
+function noMoreSameName()
 {
     if (pcc)
      {
@@ -200,12 +200,8 @@ function harryMaguire(p1,p2)
     var table = document.getElementById("regtable");
     var row = table.insertRow();
     var teamName = row.insertCell(0);
-    var manager_Name = row.insertCell(1);
-    
-        
+    var manager_Name = row.insertCell(1);   
     teamName.innerHTML = p1;
     manager_Name.innerHTML = p2;
-    
-    
 }
     
