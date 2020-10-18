@@ -18,7 +18,7 @@ var s =[{
 	"Player_15": "Alzate CRY (A)",
 	"SXL": "16",
 	"Bench": "0",
-	"Count  ": "4( 4+0 )"
+	"Count  ": "2( 2+0 )"
 }, {
 	"manager_Name": "Rohan Rai",
 	"Teams": "FALSE 9",
@@ -26,18 +26,18 @@ var s =[{
 	"Player_2": "Coady LEE (A)",
 	"Player_3": "Justin AVL (H)",
 	"Player_4": "Taylor WBA (A)",
-	"Player_5": "Sterling 8",
+	"Player_5": "Sterling 11",
 	"Player_6": "Salah 7",
 	"Player_7": "Barnes AVL (H)",
 	"Player_8": "Podence LEE (A)",
 	"Player_9": "Son WHU (H)",
 	"Player_10": "Calvert-Lewin 6",
-	"Player_11": "Werner 13",
+	"Player_11": "Werner 16",
 	"Player_12": "Martínez LEI (A)",
 	"Player_13": "James 1",
 	"Player_14": "Dunne WBA (A)",
 	"Player_15": "Davis LEI (A)",
-	"SXL": "34",
+	"SXL": "40",
 	"Bench": "1",
 	"Count  ": "4( 4+0 )"
 }, {
@@ -50,7 +50,7 @@ var s =[{
 	"Player_5": "Grealish LEI (A)",
 	"Player_6": "Son WHU (H)",
 	"Player_7": "Salah 14",
-	"Player_8": "Sterling 8",
+	"Player_8": "Sterling 11",
 	"Player_9": "Bamford WOL (H)",
 	"Player_10": "Calvert-Lewin 6",
 	"Player_11": "Kane WHU (H)",
@@ -58,9 +58,9 @@ var s =[{
 	"Player_13": "Saïss LEE (A)",
 	"Player_14": "Bissouma CRY (A)",
 	"Player_15": "Walker-Peters 1",
-	"SXL": "31",
+	"SXL": "34",
 	"Bench": "1",
-	"Count  ": "5( 4+1 )"
+	"Count  ": "3( 3+0 )"
 }, {
 	"manager_Name": "Gaurav Shrestha",
 	"Teams": "Fußball-Mannschaft",
@@ -81,7 +81,7 @@ var s =[{
 	"Player_15": "Ferguson BHA (H)",
 	"SXL": "20",
 	"Bench": "0",
-	"Count  ": "7( 6+1 )"
+	"Count  ": "2( 2+0 )"
 }, {
 	"manager_Name": "Dipen Thapa",
 	"Teams": "Lokipower Reloaded",
@@ -89,7 +89,7 @@ var s =[{
 	"Player_2": "James 1",
 	"Player_3": "Taylor WBA (A)",
 	"Player_4": "Gabriel 2",
-	"Player_5": "Fernandes 8",
+	"Player_5": "Fernandes 11",
 	"Player_6": "Rodríguez 4",
 	"Player_7": "Son WHU (H)",
 	"Player_8": "Salah 7",
@@ -100,20 +100,20 @@ var s =[{
 	"Player_13": "Costa WOL (H)",
 	"Player_14": "Mitchell BHA (H)",
 	"Player_15": "Dunne WBA (A)",
-	"SXL": "28",
+	"SXL": "31",
 	"Bench": "1",
-	"Count  ": "5( 5+0 )"
+	"Count  ": "3( 3+0 )"
 }, {
 	"manager_Name": "Sibin _",
 	"Teams": "FortunaDüsseldorfer",
 	"Player_1": "Ramsdale FUL (H)",
 	"Player_2": "Alexander-Arnold 1",
-	"Player_3": "Keane 7",
+	"Player_3": "Keane 8",
 	"Player_4": "Alderweireld WHU (H)",
 	"Player_5": "Azpilicueta 1",
 	"Player_6": "Salah 7",
 	"Player_7": "Zaha BHA (H)",
-	"Player_8": "Fernandes 8",
+	"Player_8": "Fernandes 11",
 	"Player_9": "Kane WHU (H)",
 	"Player_10": "Callum Robinson BUR (H)",
 	"Player_11": "Bamford WOL (H)",
@@ -121,9 +121,9 @@ var s =[{
 	"Player_13": "McCarthy BHA (H)",
 	"Player_14": "Oriol Romeu 1",
 	"Player_15": "Tierney 2",
-	"SXL": "24",
+	"SXL": "28",
 	"Bench": "3",
-	"Count  ": "5( 4+1 )"
+	"Count  ": "3( 3+0 )"
 }, {
 	"manager_Name": "Kushal Sahota",
 	"Teams": "FC ASSASSINS",
@@ -137,25 +137,25 @@ var s =[{
 	"Player_8": "Salah 14",
 	"Player_9": "Calvert-Lewin 6",
 	"Player_10": "Kane WHU (H)",
-	"Player_11": "Ings 6",
+	"Player_11": "Ings 7",
 	"Player_12": "Ryan CRY (A)",
 	"Player_13": "Alioski WOL (H)",
 	"Player_14": "Oriol Romeu 1",
 	"Player_15": "Bernardo CRY (A)",
-	"SXL": "31",
+	"SXL": "32",
 	"Bench": "1",
-	"Count  ": "5( 4+1 )"
+	"Count  ": "3( 3+0 )"
 }, {
 	"manager_Name": "SATYAM RAI",
 	"Teams": "PINE",
 	"Player_1": "McCarthy 1",
 	"Player_2": "Taylor WBA (A)",
-	"Player_3": "Robertson 4",
+	"Player_3": "Robertson 6",
 	"Player_4": "Justin AVL (H)",
 	"Player_5": "Saïss LEE (A)",
 	"Player_6": "Salah 7",
-	"Player_7": "Fernandes 8",
-	"Player_8": "Sterling 8",
+	"Player_7": "Fernandes 11",
+	"Player_8": "Sterling 11",
 	"Player_9": "Wilson 2",
 	"Player_10": "Mitrović SHU (A)",
 	"Player_11": "Kane WHU (H)",
@@ -163,9 +163,9 @@ var s =[{
 	"Player_13": "Ferguson BHA (H)",
 	"Player_14": "Bissouma CRY (A)",
 	"Player_15": "Gordon 0",
-	"SXL": "30",
+	"SXL": "38",
 	"Bench": "0",
-	"Count  ": "7( 6+1 )"
+	"Count  ": "4( 4+0 )"
 }, {
 	"manager_Name": "ashim lama",
 	"Teams": "⚔️FURY⚔️",
@@ -173,20 +173,20 @@ var s =[{
 	"Player_2": "Alexander-Arnold 1",
 	"Player_3": "Mitchell BHA (H)",
 	"Player_4": "Justin AVL (H)",
-	"Player_5": "Sterling 8",
+	"Player_5": "Sterling 11",
 	"Player_6": "Son WHU (H)",
 	"Player_7": "Rodríguez 4",
 	"Player_8": "Podence LEE (A)",
-	"Player_9": "Werner 13",
+	"Player_9": "Werner 16",
 	"Player_10": "Jiménez LEE (A)",
 	"Player_11": "Calvert-Lewin 6",
 	"Player_12": "Steer LEI (A)",
 	"Player_13": "Foden 6",
 	"Player_14": "Walker-Peters 1",
 	"Player_15": "James 1",
-	"SXL": "32",
+	"SXL": "38",
 	"Bench": "8",
-	"Count  ": "5( 4+1 )"
+	"Count  ": "4( 3+1 )"
 }, {
 	"manager_Name": "Indrajeet Singh",
 	"Teams": "Kung fu Pandoos",
@@ -207,7 +207,7 @@ var s =[{
 	"Player_15": "Reed SHU (A)",
 	"SXL": "14",
 	"Bench": "4",
-	"Count  ": "4( 4+0 )"
+	"Count  ": "1( 1+0 )"
 }, {
 	"manager_Name": "Vivek Lama",
 	"Teams": "JOJOs LFC",
@@ -217,7 +217,7 @@ var s =[{
 	"Player_4": "Egan FUL (H)",
 	"Player_5": "Zaha BHA (H)",
 	"Player_6": "Son WHU (H)",
-	"Player_7": "Sterling 8",
+	"Player_7": "Sterling 11",
 	"Player_8": "Jota 1",
 	"Player_9": "Saint-Maximin 2",
 	"Player_10": "Vardy AVL (H)",
@@ -226,9 +226,9 @@ var s =[{
 	"Player_13": "Mitrović SHU (A)",
 	"Player_14": "Dunne WBA (A)",
 	"Player_15": "Walker-Peters 1",
-	"SXL": "12",
+	"SXL": "15",
 	"Bench": "1",
-	"Count  ": "4( 3+1 )"
+	"Count  ": "1( 1+0 )"
 }, {
 	"manager_Name": "Prabin Singh",
 	"Teams": "Random XI",
@@ -249,28 +249,28 @@ var s =[{
 	"Player_15": "Dunne WBA (A)",
 	"SXL": "10",
 	"Bench": "-1",
-	"Count  ": "4( 4+0 )"
+	"Count  ": "1( 1+0 )"
 }, {
 	"manager_Name": "Kumar Anku",
 	"Teams": "Galaxies Stars",
 	"Player_1": "Patrício LEE (A)",
-	"Player_2": "Digne 4",
+	"Player_2": "Digne 7",
 	"Player_3": "Coady LEE (A)",
 	"Player_4": "Mitchell BHA (H)",
-	"Player_5": "Sterling 8",
+	"Player_5": "Sterling 11",
 	"Player_6": "Son WHU (H)",
 	"Player_7": "Salah 7",
-	"Player_8": "Rashford 26",
+	"Player_8": "Rashford 30",
 	"Player_9": "Delap 0",
 	"Player_10": "Watkins LEI (A)",
-	"Player_11": "Werner 13",
+	"Player_11": "Werner 16",
 	"Player_12": "Forster 0",
 	"Player_13": "Targett LEI (A)",
 	"Player_14": "Anguissa SHU (A)",
 	"Player_15": "Dunne WBA (A)",
-	"SXL": "58",
+	"SXL": "71",
 	"Bench": "0",
-	"Count  ": "4( 4+0 )"
+	"Count  ": "5( 5+0 )"
 }, {
 	"manager_Name": "Okdenri Longchari",
 	"Teams": "Happy Williams",
@@ -280,7 +280,7 @@ var s =[{
 	"Player_4": "Lamptey CRY (A)",
 	"Player_5": "Salah 14",
 	"Player_6": "Podence LEE (A)",
-	"Player_7": "Fernandes 8",
+	"Player_7": "Fernandes 11",
 	"Player_8": "Son WHU (H)",
 	"Player_9": "Mitrović SHU (A)",
 	"Player_10": "Wilson 2",
@@ -289,9 +289,9 @@ var s =[{
 	"Player_13": "De Bruyne 0",
 	"Player_14": "Dunne WBA (A)",
 	"Player_15": "Walker-Peters 1",
-	"SXL": "30",
+	"SXL": "33",
 	"Bench": "2",
-	"Count  ": "6( 6+0 )"
+	"Count  ": "3( 3+0 )"
 }, {
 	"manager_Name": "Omkar Subba",
 	"Teams": "Omk09",
@@ -312,7 +312,7 @@ var s =[{
 	"Player_15": "De Bruyne 0",
 	"SXL": "23",
 	"Bench": "1",
-	"Count  ": "5( 4+1 )"
+	"Count  ": "3( 3+0 )"
 }, {
 	"manager_Name": "Abhijeet Singh",
 	"Teams": "Impact Creators",
@@ -333,7 +333,7 @@ var s =[{
 	"Player_15": "Douglas WOL (H)",
 	"SXL": "22",
 	"Bench": "0",
-	"Count  ": "5( 4+1 )"
+	"Count  ": "2( 2+0 )"
 }, {
 	"manager_Name": "Ashish Subba",
 	"Teams": "GUSTAVOUS GUNNER",
@@ -354,7 +354,7 @@ var s =[{
 	"Player_15": "Davis LEI (A)",
 	"SXL": "11",
 	"Bench": "4",
-	"Count  ": "4( 4+0 )"
+	"Count  ": "1( 1+0 )"
 }, {
 	"manager_Name": "Nitesh Singh",
 	"Teams": "Danapur United",
@@ -367,13 +367,13 @@ var s =[{
 	"Player_7": "Mount 2",
 	"Player_8": "Salah 7",
 	"Player_9": "Lundstram FUL (H)",
-	"Player_10": "Ings 6",
+	"Player_10": "Ings 7",
 	"Player_11": "Kane WHU (H)",
 	"Player_12": "Button BUR (H)",
 	"Player_13": "Fabio Silva LEE (A)",
 	"Player_14": "Söyüncü AVL (H)",
 	"Player_15": "Carter-Vickers WHU (H)",
-	"SXL": "25",
+	"SXL": "26",
 	"Bench": "0",
 	"Count  ": "3( 3+0 )"
 }, {
@@ -381,7 +381,7 @@ var s =[{
 	"Teams": "66866",
 	"Player_1": "Pope WBA (A)",
 	"Player_2": "Alexander-Arnold 1",
-	"Player_3": "Walker 6",
+	"Player_3": "Walker 7",
 	"Player_4": "Justin AVL (H)",
 	"Player_5": "Costa WOL (H)",
 	"Player_6": "Zaha BHA (H)",
@@ -394,9 +394,9 @@ var s =[{
 	"Player_13": "Bardsley WBA (A)",
 	"Player_14": "Oriol Romeu 1",
 	"Player_15": "Branthwaite 0",
-	"SXL": "15",
+	"SXL": "16",
 	"Bench": "1",
-	"Count  ": "2( 1+1 )"
+	"Count  ": "2( 2+0 )"
 }, {
 	"manager_Name": "Sahil Lampard",
 	"Teams": "Marx 11",
@@ -438,7 +438,7 @@ var s =[{
 	"Player_15": "Mitchell BHA (H)",
 	"SXL": "27",
 	"Bench": "0",
-	"Count  ": "4( 4+0 )"
+	"Count  ": "2( 2+0 )"
 }, {
 	"manager_Name": "pranam rai",
 	"Teams": "SYAKREE F.C.",
@@ -459,7 +459,7 @@ var s =[{
 	"Player_15": "James 1",
 	"SXL": "30",
 	"Bench": "2",
-	"Count  ": "3( 2+1 )"
+	"Count  ": "4( 4+0 )"
 }, {
 	"manager_Name": "Regean Lama",
 	"Teams": "Busby Baby",
@@ -480,7 +480,7 @@ var s =[{
 	"Player_15": "Douglas WOL (H)",
 	"SXL": "13",
 	"Bench": "1",
-	"Count  ": "4( 3+1 )"
+	"Count  ": "1( 1+0 )"
 }, {
 	"manager_Name": "Han Sing",
 	"Teams": "hansing",
@@ -490,7 +490,7 @@ var s =[{
 	"Player_4": "Chilwell 3",
 	"Player_5": "Zaha BHA (H)",
 	"Player_6": "Salah 7",
-	"Player_7": "Fernandes 8",
+	"Player_7": "Fernandes 11",
 	"Player_8": "Son WHU (H)",
 	"Player_9": "Calvert-Lewin 6",
 	"Player_10": "Bamford WOL (H)",
@@ -499,7 +499,7 @@ var s =[{
 	"Player_13": "Mitchell BHA (H)",
 	"Player_14": "Dunne WBA (A)",
 	"Player_15": "Anguissa SHU (A)",
-	"SXL": "27",
+	"SXL": "30",
 	"Bench": "0",
 	"Count  ": "3( 3+0 )"
 }, {
@@ -522,7 +522,7 @@ var s =[{
 	"Player_15": "Mitchell BHA (H)",
 	"SXL": "7",
 	"Bench": "0",
-	"Count  ": "3( 3+0 )"
+	"Count  ": "1( 1+0 )"
 }, {
 	"manager_Name": "Ashish Rai",
 	"Teams": "goooooooners",
@@ -532,7 +532,7 @@ var s =[{
 	"Player_4": "Bednarek 1",
 	"Player_5": "Podence LEE (A)",
 	"Player_6": "Salah 7",
-	"Player_7": "Sterling 8",
+	"Player_7": "Sterling 11",
 	"Player_8": "Mount 2",
 	"Player_9": "Wood WBA (A)",
 	"Player_10": "Watkins LEI (A)",
@@ -541,9 +541,9 @@ var s =[{
 	"Player_13": "Oriol Romeu 1",
 	"Player_14": "Coady LEE (A)",
 	"Player_15": "Branthwaite 0",
-	"SXL": "18",
+	"SXL": "21",
 	"Bench": "1",
-	"Count  ": "6( 6+0 )"
+	"Count  ": "2( 2+0 )"
 }, {
 	"manager_Name": "Ravish Verma",
 	"Teams": "Jatt Da Muqaabla FC",
@@ -564,7 +564,7 @@ var s =[{
 	"Player_15": "Douglas WOL (H)",
 	"SXL": "23",
 	"Bench": "1",
-	"Count  ": "6( 6+0 )"
+	"Count  ": "2( 2+0 )"
 }, {
 	"manager_Name": "Bishal Rai",
 	"Teams": "Gooner for Life",
@@ -585,5 +585,5 @@ var s =[{
 	"Player_15": "McCarthy BHA (H)",
 	"SXL": "19",
 	"Bench": "0",
-	"Count  ": "3( 3+0 )"
+	"Count  ": "2( 2+0 )"
 }]
