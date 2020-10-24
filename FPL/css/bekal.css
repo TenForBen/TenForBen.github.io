@@ -17,3 +17,8 @@ tr:nth-child(1)
   background: black;
   color: yellow;
 }   
+
+.AnchorButton
+{
+	padding: 3px
+}
