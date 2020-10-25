@@ -199,6 +199,8 @@ function noMoreSameName()
             harryMaguire(pcc[i].PLAYERS,pcc[i].PLAYERS_COUNT);
          }
     }
+    sortTable();
+    document.getElementById("uqPc").innerText=pcc.length
     //tableShakers();
 }
 function harryMaguire(p1,p2) 
