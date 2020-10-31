@@ -92,6 +92,9 @@ function loader4mgw()
     //tableShakers();
     // sorter
      sortTable_col3();
+     captainSignRemovar();
+
+     
 
 
 
@@ -282,3 +285,28 @@ function sortTable_col3() {
     }
   }
 }
+
+function captainSignRemovar()
+{
+    var trl = document.getElementsByTagName("tr").length
+    var colms = document.getElementsByTagName("tr")[0].children.length
+    for(u=0;u<trl;u++)
+    {
+        for(uu=0;uu<colms;uu++)
+        {
+            var cap =document.getElementsByTagName("tr")[u].children[uu].innerText
+            res= cap.split("$")
+            if (res.length>1)
+            {
+                document.getElementsByTagName("tr")[u].children[uu].innerText=res[0]
+                document.getElementsByTagName("tr")[u].children[uu].style.fontWeight = "800";
+            }
+
+        }
+       //var cap =document.getElementsByTagName("tr")[1].children[8].innerText 
+
+    }
+}
+
+
+
