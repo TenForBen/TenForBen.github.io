@@ -307,6 +307,11 @@ function captainSignRemovar()
                 
                 document.getElementsByTagName("tr")[u].children[uu].style.borderRight =  "thin solid #000000";
             }
+            if (uu==2)
+            {
+                
+                document.getElementsByTagName("tr")[u].children[uu].style.borderRight =  "thin solid #000000";
+            }
 
         }
        //var cap =document.getElementsByTagName("tr")[1].children[8].innerText 
