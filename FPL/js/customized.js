@@ -32,8 +32,8 @@ function channelAnchors()
 
     nextB.classList.add("btn-success")
     prevB.classList.add("btn-danger")
-
-    
+    nextB.classList.add("mystyle")
+    prevB.classList.add("mystyle")
 
 }
 

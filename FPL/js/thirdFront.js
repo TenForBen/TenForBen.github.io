@@ -19,3 +19,5 @@ function nextGw()
 }
 
 nextGw();
+
+channelAnchors();
