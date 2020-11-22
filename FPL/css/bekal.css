@@ -28,3 +28,21 @@ tr:nth-child(1)
     background-color: white
   }
 }
+
+.mystyle {
+  /*width: 100%;
+  
+  background-color: coral;
+  color: white;
+  font-size: 25px;*/
+  margin: 20px;
+
+  padding: 10px;
+}
+
+.sBox{
+width: 200px;
+height: 50px;
+
+
+}
