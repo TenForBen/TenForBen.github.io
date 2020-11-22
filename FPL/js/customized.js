@@ -24,3 +24,18 @@ function pageLodader()
         lastNameCell.innerHTML = lastName;              
 }
 
+
+function channelAnchors()
+{
+    var nextB = document.getElementsByTagName("button")[1]
+    var prevB = document.getElementsByTagName("button")[0]
+
+    nextB.classList.add("btn-success")
+    prevB.classList.add("btn-danger")
+
+    
+
+}
+
+
+
