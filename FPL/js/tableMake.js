@@ -215,6 +215,34 @@ function harryMaguire(p1,p2)
     teamName.innerHTML = p1;
     manager_Name.innerHTML = p2;
 }
+
+function noMoreSameName4()
+{
+    if (pcc)
+     {
+        //wordsArray = JSON.parse(worter);
+        for (var i = 0; i < pcc.length; i++)
+         {
+            harryMaguire4(pcc[i].PLAYERS,pcc[i].PLAYERS_COUNT,pcc[i].CAPTAIN_COUNT,pcc[i].CAPTAINED_MGR);
+         }
+    }
+    sortTable();
+    document.getElementById("uqPc").innerText=pcc.length
+    //tableShakers();
+}
+function harryMaguire4(p1,p2,p3,p4) 
+{
+    var table = document.getElementById("regtable");
+    var row = table.insertRow();
+    var teamName = row.insertCell(0);
+    var manager_Name = row.insertCell(1);   
+    var capC = row.insertCell(2);
+    var Cap_manager_Name = row.insertCell(3);   
+    teamName.innerHTML = p1;
+    manager_Name.innerHTML = p2;
+    capC.innerHTML = p3;
+    Cap_manager_Name.innerHTML = p4;
+}
     
 function sortTable() {
   var table, rows, switching, i, x, y, shouldSwitch;
