@@ -5,12 +5,13 @@
 <title>Players-GW-13</title>
 
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" href="../../../AufWiedersehen/BootMeister/css/bootstrap.min.css">
 <link rel="stylesheet" href="../AufWiedersehen/css/lawrence.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">  
 <link rel="shortcut icon" type="image/x-icon" href="../../../img\icons\EPL_blue.png">
  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 <script src="../../../AufWiedersehen/js\jquery-3.1.1.min.js"></script>
 
@@ -20,6 +21,11 @@
 <script src="../../js/tableMake.js"></script>
 <link rel="stylesheet" type="text/css" href="../../css/bekal.css">
 <style>
+
+    .maine {
+  font-size: 100%;
+  color: red;
+}
    
 </style>
 
@@ -27,7 +33,7 @@
 <script> 
 </script>
 <link rel="stylesheet" href="carnegie.css" >-->
-<body onload='noMoreSameName4()' onclick="myFunction(event)">
+<body onload='noMoreSameName4()' >
     <p>Click the button to sort the table numerically:</p>
 <p><button onclick="location.href='../GW6/playerCount.html';">Last GW</button></p>
 
@@ -37,15 +43,14 @@
         <thead>	
             <tr>
                 <th>PlayerName</th>
-                <th>Count</th>
-                <th>CaptainCount</th>
+                <th class="maine" id="shit">Count</th>
+                <th  class="maine" id="Deepshit">CaptainCount</th>
                 <th>Captained managers</th>
             </tr>
         </thead>
         <tbody></tbody>
-    </table>
-	<button id="barnes" class="btn btn-info" onclick="">Table button</button>
-	<button id="lowton" class="btn btn-success" onclick="">Table toggler</button>
+    
 	
 </body>
+<script src="../../js/jQ.js"></script>
 </html>
