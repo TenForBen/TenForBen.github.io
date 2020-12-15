@@ -226,7 +226,7 @@ function noMoreSameName4()
             harryMaguire4(pcc[i].PLAYERS,pcc[i].PLAYERS_COUNT,pcc[i].CAPTAIN_COUNT,pcc[i].CAPTAINED_MGR);
          }
     }
-    sortTable();
+    sortTable_col3();
     document.getElementById("uqPc").innerText=pcc.length
     //tableShakers();
 }
