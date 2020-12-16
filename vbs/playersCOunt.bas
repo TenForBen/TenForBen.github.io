@@ -1,4 +1,4 @@
-Attribute VB_Name = "playersCOunt"
+Attribute VB_Name = "playersCount_v2"
 Sub playerCountAnalysis()
 
     Cells(30, 18).Value = "PLAYERS"
@@ -72,7 +72,9 @@ skipperOfLoop::
                 End If
             End If
         Next
+        
     Next
+    fixx LastRow18
     
     
 End Sub
@@ -83,6 +85,24 @@ LastRow = 29
 CaptainVIce (LastRow)
 'CaptainRemoval (LastRow)
 'Function leader(ByVal rod As Integer, ByVal winklewoss As Integer)
+End Sub
+
+Sub fixx(ByVal LastRow18 As Integer)
+
+ 'LastRow18 = 147
+ For t = 30 To LastRow18
+    a = Cells(t, 20).Value
+    If Cells(t, 20).Value = "" Then 'when nothing is there in right row
+       Cells(t, 20).Value = 0
+       
+    Else
+        Cells(t, 20).Font.Bold = True
+    End If
+    
+ 
+ Next
+ 
+
 End Sub
 
 
