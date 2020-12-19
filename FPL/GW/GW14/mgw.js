@@ -586,25 +586,4 @@ var s = [{
 	"SXL": "28",
 	"Bench": "0",
 	"Count  ": "1( 1+0 )"
-}, {
-	"manager_Name": "",
-	"Teams": "",
-	"Player_1": "",
-	"Player_2": "",
-	"Player_3": "",
-	"Player_4": "",
-	"Player_5": "",
-	"Player_6": "",
-	"Player_7": "",
-	"Player_8": "",
-	"Player_9": "",
-	"Player_10": "",
-	"Player_11": "",
-	"Player_12": "",
-	"Player_13": "",
-	"Player_14": "",
-	"Player_15": "",
-	"SXL": "PLAYERS",
-	"Bench": "",
-	"Count  ": ""
 }]
