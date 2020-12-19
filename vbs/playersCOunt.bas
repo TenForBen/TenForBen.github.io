@@ -49,6 +49,14 @@ Sub playerCountAnalysis()
                         End If
                         Cinc = Cells(t, 20).Value
                         Cells(t, 20).Value = Cinc + 1
+                        If Cells(t, 21).Value = "" Then 'for captained manager first time
+                            r18 = Cells(r, 18)
+                            Cells(t, 21).Value = r18
+                        Else
+                            alD = Cells(t, 21).Value
+                            r18 = Cells(r, 18)
+                            Cells(t, 21).Value = alD + " , " + r18
+                        End If
                     End If
                     GoTo skipperOfLoop
                 Else ' if not present create an entry
@@ -62,13 +70,21 @@ skipperOfLoop::
                 LastRow18 = Cells(sht.Rows.Count, 18).End(xlUp).Row ' now update the new lastRow18 value
                 cap = Cells(r, c).Value
                 tain = Split(cap, "$")
-                If UBound(tain) > 0 Then
+                If UBound(tain) > 0 Then ' Adding captains entrz if firstTime encountred
                     Capt_flag = 1
                     If Cells(t, 20).Value = "" Then 'when nothing is there in right row
                         Cells(t, 20).Value = 0
                     End If
                     Cinc = Cells(t, 20).Value
                     Cells(t, 20).Value = Cinc + 1
+                    If Cells(t, 21).Value = "" Then 'for captained manager first time
+                            r18 = Cells(r, 18)
+                            Cells(t, 21).Value = r18
+                        Else
+                            alD = Cells(t, 21).Value
+                            r18 = Cells(r, 18)
+                            Cells(t, 21).Value = alD + " , " + r18
+                        End If
                 End If
             End If
         Next
