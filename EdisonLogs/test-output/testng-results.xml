@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="2" passed="2">
+<testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="156" started-at="2020-09-22T06:16:48Z" finished-at="2020-09-22T06:16:48Z">
+  <suite name="Default suite" duration-ms="23826" started-at="2020-12-20T18:46:27Z" finished-at="2020-12-20T18:46:51Z">
     <groups>
     </groups>
-    <test name="Test" duration-ms="156" started-at="2020-09-22T06:16:48Z" finished-at="2020-09-22T06:16:48Z">
-      <class name="com.test.DazEins">
-        <test-method status="PASS" signature="FirstAm()[pri:0, instance:com.test.DazEins@2a2d45ba]" name="FirstAm" duration-ms="5" started-at="2020-09-22T08:16:48Z" finished-at="2020-09-22T08:16:48Z">
+    <test name="Default test" duration-ms="23826" started-at="2020-12-20T18:46:27Z" finished-at="2020-12-20T18:46:51Z">
+      <class name="validationofdifferenttestcases.UsernameLessThanSixChars">
+        <test-method status="PASS" signature="UsernameLessThanSixChars()[pri:0, instance:validationofdifferenttestcases.UsernameLessThanSixChars@2a5ca609]" name="UsernameLessThanSixChars" duration-ms="23753" started-at="2020-12-20T19:46:28Z" finished-at="2020-12-20T19:46:51Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- FirstAm -->
-      </class> <!-- com.test.DazEins -->
-      <class name="com.test.utility.DifferentPackage">
-        <test-method status="PASS" signature="SecondAm()[pri:0, instance:com.test.utility.DifferentPackage@548a9f61]" name="SecondAm" duration-ms="45" started-at="2020-09-22T08:16:48Z" finished-at="2020-09-22T08:16:48Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- SecondAm -->
-      </class> <!-- com.test.utility.DifferentPackage -->
-    </test> <!-- Test -->
-  </suite> <!-- Suite -->
+        </test-method> <!-- UsernameLessThanSixChars -->
+      </class> <!-- validationofdifferenttestcases.UsernameLessThanSixChars -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
 </testng-results>
