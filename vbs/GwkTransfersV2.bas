@@ -36,9 +36,10 @@ mos = 0
             
             ticker = Cells(ii, 2).Value
             'u = "http://fantasy.premierleague.com/a/team/" & ticker & "/event/" & gameweek
-            ie.navigate "https://fantasy.premierleague.com/a/entry/" & ticker & "/transfers"
+            '            https://fantasy.premierleague.com/entry/1530227/transfers
+            ie.navigate "https://fantasy.premierleague.com/entry/" & ticker & "/transfers"
             ie.Visible = 0
-            'ie.Visible = 1 '''''*************************************************************************************TO change here wen debugging is over
+            ie.Visible = 1 '''''*************************************************************************************TO change here wen debugging is over
             
 np::
             patodia = patodia + 1
@@ -64,23 +65,29 @@ np::
             
             Set doc = ie.document
             'document.getElementsByClassName('ism-table')[10].children[1].children[k].children[i].innerText
-            '
-            lend = ie.document.getElementsByClassName("ism-table")(0).Children(1).Children.Length
+            'document.getElementsByClassName('Layout__Main-eg6k6r-1 haICgV')[0].children[1].children[0].children[1].children.length
+            lend = ie.document.getElementsByClassName("Layout__Main-eg6k6r-1 haICgV")(0).Children(1).Children(0).Children(1).Children.Length
             col = 40
             kay = 1
             For k = 0 To lend - 1
                         '  document.getElementsByClassName('ism-table')[0].children[1].children[2].children[3].innerText
-                    s = ie.document.getElementsByClassName("ism-table")(0).Children(1).Children(k).Children(3).innerText
+                            'document.getElementsByClassName('Layout__Main-eg6k6r-1 haICgV')[0].children[1].children[0].children[1].children[0].children[3].innerText
+                    's = ie.document.getElementsByClassName("ism-table")(0).Children(1).Children(k).Children(3).innerText
+                    s = ie.document.getElementsByClassName("Layout__Main-eg6k6r-1 haICgV")(0).Children(1).Children(0).Children(1).Children(k).Children(3).innerText
+                    
                     aass = Trim(s)
                      'for the column to fetch the transfer details
                     If aass = coutinho Then
                         lgw = 1 ' To Make Sure that we have last/desired game week
                         
                         For e = 0 To 3
-                                Uri = ie.document.getElementsByClassName("ism-table")(0).Children(1).Children(k).Children(e).innerText
+                                'Uri = ie.document.getElementsByClassName("ism-table")(0).Children(1).Children(k).Children(e).innerText
+                                Uri = ie.document.getElementsByClassName("Layout__Main-eg6k6r-1 haICgV")(0).Children(1).Children(0).Children(1).Children(k).Children(e).innerText
                                 If e = 1 Then ' This one is exclusively for Xfr in player
-                                    ply = ie.document.getElementsByClassName("ism-table")(0).Children(1).Children(k).Children(1).innerText
-                                    plyout = ie.document.getElementsByClassName("ism-table")(0).Children(1).Children(k).Children(2).innerText
+                                    'ply = ie.document.getElementsByClassName("ism-table")(0).Children(1).Children(k).Children(1).innerText
+                                    ply = ie.document.getElementsByClassName("Layout__Main-eg6k6r-1 haICgV")(0).Children(1).Children(0).Children(1).Children(k).Children(1).innerText
+                                    'plyout = ie.document.getElementsByClassName("ism-table")(0).Children(1).Children(k).Children(2).innerText
+                                    plyout = ie.document.getElementsByClassName("Layout__Main-eg6k6r-1 haICgV")(0).Children(1).Children(0).Children(1).Children(k).Children(2).innerText
             '                        Cells(5, col) = Uri
             '
             '                        col = col + 1
