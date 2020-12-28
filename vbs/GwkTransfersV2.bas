@@ -39,7 +39,7 @@ mos = 0
             '            https://fantasy.premierleague.com/entry/1530227/transfers
             ie.navigate "https://fantasy.premierleague.com/entry/" & ticker & "/transfers"
             ie.Visible = 0
-            ie.Visible = 1 '''''*************************************************************************************TO change here wen debugging is over
+            'ie.Visible = 1 '''''*************************************************************************************TO change here wen debugging is over
             
 np::
             patodia = patodia + 1

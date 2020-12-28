@@ -31,7 +31,8 @@ Attribute VB_Name = "spinOff"
     Set sht = ThisWorkbook.Worksheets(ss)
     '''''Ctrl + Shift + End
       LastRow = Cells(sht.Rows.Count, 2).End(xlUp).Row
-    gwH = InputBox("Want Game Week History (aa)")
+    'gwH = InputBox("Want Game Week History (aa)")
+    gwH = "shit needs to be dealt later"
     grpAvg = 0
     '  Cells(i, 4).Value = Time
        Cells(1, 3).Value = "Latest Score"
@@ -125,7 +126,7 @@ RPK::
             tra = ie.document.getElementsByClassName("EntryEvent__SecondaryValue-l17rqm-12 gBqbeC")(3).innerText
             '        document.getElementsByClassName('ism-element__data')[3].innerText
             'Cells(20, 1) = Chips
-            Cells(i, 6) = tra
+            
             If ChipsL > 0 Then
                 ' chips played
                 Chips = ie.document.getElementsByClassName("EntryEvent__ChipStatus-l17rqm-17 xZgGL")(0).innerText           '#new
@@ -147,14 +148,14 @@ RPK::
             Cells(i, 1).Font.Color = RGB(20, 25, 5)
             '        document.getElementsByClassName('ism-scoreboard-points__secondary')[0].children[0].children[3].children[0].children[1].innerText
 '            Xfr = ie.document.getElementsByClassName("ism-scoreboard-points__secondary")(0).Children(0).Children(3).Children(0).Children(1).innerText
-'            If Cells(1, 6) = "Transfers Updated" Then
-'               Cells(1, 66) = "Already updated"
-'               'Without the below line it would hamper wen you run the leader's insest function it would take col'm 66
-'
-'               Cells(i, 66) = Xfr
-'            Else
-'               Cells(i, 6) = Xfr
-'            End If
+            If Cells(1, 6) = "Transfers Updated" Then
+               Cells(1, 66) = "Already updated"
+               'Without the below line it would hamper wen you run the leader's insest function it would take col'm 66
+
+               Cells(i, 6) = tra
+            Else
+               Cells(i, 6) = tra
+            End If
             
                
             '"0"
@@ -421,6 +422,7 @@ TinDer::
      
         Next
     cardelini (LastRow) '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++FUNCTION CALL( Cardelini)++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    CaptainVIce (LastRow)
     'linethrough LastRow, gameweek
     'to call the cupFUnction to strikeout eliminated playerss
 icebucket::
@@ -440,6 +442,20 @@ icebucket::
 '
 '             End If
 
+
+
+End Sub
+Sub CaptainVIce(ByVal rrow As Integer)
+    
+    For r = 2 To rrow ' for all the rows of each manager
+        For c = 20 To 34    ' for all the players of each row
+           If Cells(r, c).Font.Bold = True Then
+                skp = Cells(r, c).Value
+                Cells(r, c).Value = skp + "$ captain"
+           End If
+           
+        Next
+    Next
 
 
 End Sub
@@ -550,7 +566,7 @@ For k = 0 To 10
 End Function
 
 
-Function leader(ByVal rod As Integer, ByVal winklewoss As Integer)
+    
 
 twins = winklewoss
 
@@ -853,60 +869,6 @@ Sub neutralize(ByVal LR As Integer)
     Next
 End Sub
 
-Sub playerCountAnalysis()
-
-    Cells(30, 18).Value = "PLAYERS"
-    ss = ActiveSheet.Name
-    Set sht = ThisWorkbook.Worksheets(ss)
-    LastRow18 = Cells(sht.Rows.Count, 18).End(xlUp).Row
-     Cells(30, 19).Value = "PLAYERS_COUNT"
-     
-    For r = 2 To 29 ' for all the rows of each manager
-        For c = 20 To 34    ' for all the players of each row
-            a = Cells(r, c).Value  ' getting each player
-            'De Bruyne 2 is an exception
-            emi = Split(a, "De Bruyne")
-            temp = UBound(emi)
-            If UBound(emi) > 0 Then
-                 a = "De Bruyne"
-            Else
-                deedee = Split(a, " ")
-                a = deedee(0)
-            End If
-            
-            For t = 30 To LastRow18 ' comparing with already present player
-                comparedValue = Cells(t, 18).Value
-                mart = Split(comparedValue, "De Bruyne")
-                If UBound(mart) > 0 Then
-                    comparedValue = "De Bruyne"
-                Else
-                    deedee = Split(comparedValue, " ")
-                    comparedValue = deedee(0)
-                End If
-                
-                If comparedValue = a Then ' if  present incrementing
-                    If Cells(t, 19).Value = "" Then 'seems redundant
-                        Cells(t, 19).Value = 0
-                    End If
-                    inc = Cells(t, 19).Value
-                    Cells(t, 19).Value = inc + 1
-                    present = "Y"
-                    GoTo skipperOfLoop
-                Else ' if not present create an entry
-                present = "N"
-                End If
-            Next
-skipperOfLoop::
-            If present = "N" Then
-                Cells(LastRow18 + 1, 18).Value = a 'create an entry in the lastRow plus one
-                Cells(LastRow18 + 1, 19).Value = 1 ' increment with one as the player is first timer
-                LastRow18 = Cells(sht.Rows.Count, 18).End(xlUp).Row ' now update the new lastRow18 value
-            End If
-        Next
-    Next
-    
-    
-End Sub
 
 
 
