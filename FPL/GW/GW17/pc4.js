@@ -1,0 +1,626 @@
+var pcc = [{
+	"PLAYERS": "Pope",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Robertson",
+	"PLAYERS_COUNT": "8",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Cresswell",
+	"PLAYERS_COUNT": "6",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Mee",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Justin",
+	"PLAYERS_COUNT": "14",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Salah",
+	"PLAYERS_COUNT": "20",
+	"CAPTAIN_COUNT": "3",
+	"CAPTAINED_MGR": "Rohan Rai , Pema Sherpa , Bishal Rai"
+}, {
+	"PLAYERS": "Fernandes",
+	"PLAYERS_COUNT": "19",
+	"CAPTAIN_COUNT": "8",
+	"CAPTAINED_MGR": "Nishant Singh , Sibin _ , Okdenri Longchari , Omkar Subba , Nitesh Singh , Raj Kanango , Sahil Lampard , Han Sing"
+}, {
+	"PLAYERS": "Soucek",
+	"PLAYERS_COUNT": "6",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Adams",
+	"PLAYERS_COUNT": "4",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Bamford",
+	"PLAYERS_COUNT": "24",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Vardy",
+	"PLAYERS_COUNT": "5",
+	"CAPTAIN_COUNT": "1",
+	"CAPTAINED_MGR": "Ashish Rai"
+}, {
+	"PLAYERS": "Fabianski",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Harrison",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Ward-Prowse",
+	"PLAYERS_COUNT": "5",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Dallas",
+	"PLAYERS_COUNT": "6",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Martínez",
+	"PLAYERS_COUNT": "14",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Marçal",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Holding",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "De Bruyne",
+	"PLAYERS_COUNT": "5",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Podence",
+	"PLAYERS_COUNT": "3",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Son",
+	"PLAYERS_COUNT": "21",
+	"CAPTAIN_COUNT": "5",
+	"CAPTAINED_MGR": "Avijit Das , Dipen Thapa , SATYAM RAI , Kumar Anku , Abhijeet Singh"
+}, {
+	"PLAYERS": "Calvert-Lewin",
+	"PLAYERS_COUNT": "16",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Ryan",
+	"PLAYERS_COUNT": "5",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Taylor",
+	"PLAYERS_COUNT": "7",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Coufal",
+	"PLAYERS_COUNT": "8",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Davis",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Dier",
+	"PLAYERS_COUNT": "4",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Wan-Bissaka",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Cancelo",
+	"PLAYERS_COUNT": "7",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Zaha",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "1",
+	"CAPTAINED_MGR": "Sanjeev Kumar"
+}, {
+	"PLAYERS": "Kane",
+	"PLAYERS_COUNT": "18",
+	"CAPTAIN_COUNT": "8",
+	"CAPTAINED_MGR": "Gaurav Shrestha , Kushal Sahota , ashim lama , Indrajeet Singh , Ashish Subba , pranam rai , Regean Lama , Ravish Verma"
+}, {
+	"PLAYERS": "Steer",
+	"PLAYERS_COUNT": "3",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Mitchell",
+	"PLAYERS_COUNT": "4",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Bissouma",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Ayling",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Raphinha",
+	"PLAYERS_COUNT": "3",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Grealish",
+	"PLAYERS_COUNT": "13",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Forster",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Zouma",
+	"PLAYERS_COUNT": "4",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Walker-Peters",
+	"PLAYERS_COUNT": "9",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Mings",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "McCarthy",
+	"PLAYERS_COUNT": "7",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Neto",
+	"PLAYERS_COUNT": "4",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Furlong",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Davies",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Dias",
+	"PLAYERS_COUNT": "3",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Johnstone",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Struijk",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Alzate",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Lloris",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Bernardo",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Alioski",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Macey",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Oriol",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Neco",
+	"PLAYERS_COUNT": "4",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Watkins",
+	"PLAYERS_COUNT": "5",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Peacock-Farrell",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Stones",
+	"PLAYERS_COUNT": "3",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Martin",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Bowen",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Meslier",
+	"PLAYERS_COUNT": "3",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Bellerín",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Webster",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Maddison",
+	"PLAYERS_COUNT": "3",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Henderson",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Reed",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Alisson",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Saïss",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Alexander-Arnold",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Tielemans",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Sterling",
+	"PLAYERS_COUNT": "3",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Mané",
+	"PLAYERS_COUNT": "3",
+	"CAPTAIN_COUNT": "1",
+	"CAPTAINED_MGR": "Vivek Lama"
+}, {
+	"PLAYERS": "Connolly",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Saint-Maximin",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Egan",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Dunne",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Ederson",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Mahrez",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Aubameyang",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Werner",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "1",
+	"CAPTAINED_MGR": "Prabin Singh"
+}, {
+	"PLAYERS": "Leno",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Aurier",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Kilman",
+	"PLAYERS_COUNT": "3",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Ritchie",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Sigurdsson",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Martinelli",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Firmino",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Targett",
+	"PLAYERS_COUNT": "3",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Wilson",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Dunk",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Nyland",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "James",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Maguire",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Johnson",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Riedewald",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Chilwell",
+	"PLAYERS_COUNT": "5",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Buur",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Bednarek",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Burke",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Bertrand",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Reguilón",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Klich",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Delap",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Casey",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Castagne",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Pulisic",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Westwood",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Button",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Phillips",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Guaita",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "El",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Wood",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Harper",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Haller",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Walcott",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Lowton",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Saka",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Hause",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Mendy",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Areola",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Lookman",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Torres",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Robinson",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Sánchez",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Branthwaite",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}]
