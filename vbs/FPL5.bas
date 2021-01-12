@@ -32,7 +32,7 @@ Attribute VB_Name = "spinOff"
     '''''Ctrl + Shift + End
       LastRow = Cells(sht.Rows.Count, 2).End(xlUp).Row
     'gwH = InputBox("Want Game Week History (aa)")
-    gwH = "shit needs to be dealt later"
+    'gwH = "shit needs to be dealt later"
     grpAvg = 0
     '  Cells(i, 4).Value = Time
        Cells(1, 3).Value = "Latest Score"
@@ -374,18 +374,19 @@ RPK::
             
 TinDer::
     
-            If gwH = "aa" Then '------------------------------------------------------------------------------------------------------------------------------------------------
+            If gwH = "HH" Then '------------------------------------------------------------------------------------------------------------------------------------------------
                 'ie.Visible = 1
                 
-                    'https://fantasy.premierleague.com/a/entry/3295162/history
-                u = "http://fantasy.premierleague.com/a/entry/" & ticker & "/history"
+                    'https://fantasy.premierleague.com/entry/809791/history
+                u = "http://fantasy.premierleague.com/entry/" & ticker & "/history"
                 ie.navigate u
                 ie.Visible = 0
                 'document.getElementsByClassName('ism-table')[1].children[1].children.length
                 Application.Wait (Now + TimeValue("0:00:10"))
                 ie.Left = 100
                 
-                ships = ie.document.getElementsByClassName("ism-table")(1).Children(1).Children.Length
+                ships = ie.document.getElementsByClassName("Table-ziussd-1 fVnGhl")(1).Children(1).Children.Length
+                            'document.getElementsByClassName('Table-ziussd-1 fVnGhl')[1].children[1].children.length
                 'Value of ships is the number of Chips/wildcard played could range from 0-5
                 
                 If ships > 0 Then
@@ -396,11 +397,13 @@ TinDer::
                     For shipsn = 0 To ships - 1
                         cp = ChipStart + shipsn
                         
-                        ChipName = ie.document.getElementsByClassName("ism-table")(1).Children(1).Children(shipsn).Children(1).innerText
-                        ChipTime = ie.document.getElementsByClassName("ism-table")(1).Children(1).Children(shipsn).Children(0).innerText
-                        ChipStatus = ie.document.getElementsByClassName("ism-table")(1).Children(1).Children(shipsn).Children(2).innerText
+                        ChipName = ie.document.getElementsByClassName("Table-ziussd-1 fVnGhl")(1).Children(1).Children(shipsn).Children(1).innerText
+                        ChipTime = ie.document.getElementsByClassName("Table-ziussd-1 fVnGhl")(1).Children(1).Children(shipsn).Children(0).innerText
+                        'ChipStatus = ie.document.getElementsByClassName("Table-ziussd-1 fVnGhl")(1).Children(1).Children(shipsn).Children(2).innerText
                         Range("L3").CurrentRegion.EntireColumn.AutoFit
-                        ChipGwk = ie.document.getElementsByClassName("ism-table")(1).Children(1).Children(shipsn).Children(3).innerText
+                        'ChipGwk = ie.document.getElementsByClassName("Table-ziussd-1 fVnGhl")(1).Children(shipsn).Children(2).innerText
+                        ChipGwk = ie.document.getElementsByClassName("Table-ziussd-1 fVnGhl")(1).Children(1).Children(shipsn).Children(2).innerText
+                        'document.getElementsByClassName('Table-ziussd-1 fVnGhl')[1].children[1].children[0].children[2].innerText
                         Cells(i, cp) = ChipName & "  " & ChipGwk
                         
                         'Cells(i, cp).Activate
