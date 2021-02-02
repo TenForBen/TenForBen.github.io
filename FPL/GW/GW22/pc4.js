@@ -4,11 +4,6 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Mee",
-	"PLAYERS_COUNT": "2",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
-}, {
 	"PLAYERS": "Stones",
 	"PLAYERS_COUNT": "11",
 	"CAPTAIN_COUNT": "0",
@@ -19,43 +14,28 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Robertson",
-	"PLAYERS_COUNT": "5",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
+	"PLAYERS": "Cancelo",
+	"PLAYERS_COUNT": "11",
+	"CAPTAIN_COUNT": "1",
+	"CAPTAINED_MGR": " ashishRai "
+}, {
+	"PLAYERS": "Sterling",
+	"PLAYERS_COUNT": "12",
+	"CAPTAIN_COUNT": "5",
+	"CAPTAINED_MGR": " nishant kumar singh  ,   Ashim Lama  ,   indrajeet kumar singh  ,  okendri ,  regeanLama "
 }, {
 	"PLAYERS": "Salah",
-	"PLAYERS_COUNT": "19",
-	"CAPTAIN_COUNT": "1",
-	"CAPTAINED_MGR": "Kushal Sahota"
+	"PLAYERS_COUNT": "23",
+	"CAPTAIN_COUNT": "15",
+	"CAPTAINED_MGR": " Rohan Rai  ,   AVIJIT DAS  ,  gauravShrestha  , Dipen Thapa ,  Sibin Surendran  ,   Kushal Sahota  ,   SATYAM RAI  ,  ONkarSUbba ,  ashishSubba  ,  nitesh singh ,  RajKanango  ,  sahilLampard  ,  hanSingh  ,  ravishVerma  ,  bishalRai "
 }, {
 	"PLAYERS": "Fernandes",
 	"PLAYERS_COUNT": "22",
-	"CAPTAIN_COUNT": "18",
-	"CAPTAINED_MGR": "Rohan Rai , Avijit Das , Gaurav Shrestha , Dipen Thapa , Sibin _ , SATYAM RAI , Omkar Subba , Abhijeet Singh , Ashish Subba , Nitesh Singh , Sahil Lampard , Pema Sherpa , pranam rai , Regean Lama , Han Sing , Sanjeev Kumar , Ravish Verma , Bishal Rai"
+	"CAPTAIN_COUNT": "1",
+	"CAPTAINED_MGR": " abhijeetSingh"
 }, {
 	"PLAYERS": "Soucek",
-	"PLAYERS_COUNT": "8",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
-}, {
-	"PLAYERS": "Bamford",
-	"PLAYERS_COUNT": "23",
-	"CAPTAIN_COUNT": "1",
-	"CAPTAINED_MGR": "Raj Kanango"
-}, {
-	"PLAYERS": "Watkins",
 	"PLAYERS_COUNT": "6",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
-}, {
-	"PLAYERS": "Antonio",
-	"PLAYERS_COUNT": "9",
-	"CAPTAIN_COUNT": "1",
-	"CAPTAINED_MGR": "Nishant Singh"
-}, {
-	"PLAYERS": "Pope",
-	"PLAYERS_COUNT": "1",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
@@ -64,23 +44,38 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Foden",
-	"PLAYERS_COUNT": "5",
+	"PLAYERS": "Watkins",
+	"PLAYERS_COUNT": "7",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Antonio",
+	"PLAYERS_COUNT": "10",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Pope",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Bamford",
+	"PLAYERS_COUNT": "23",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Mee",
+	"PLAYERS_COUNT": "2",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
 	"PLAYERS": "Dallas",
-	"PLAYERS_COUNT": "6",
+	"PLAYERS_COUNT": "7",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
 	"PLAYERS": "Martínez",
-	"PLAYERS_COUNT": "14",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
-}, {
-	"PLAYERS": "Coufal",
-	"PLAYERS_COUNT": "8",
+	"PLAYERS_COUNT": "15",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
@@ -89,18 +84,18 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Sterling",
-	"PLAYERS_COUNT": "7",
-	"CAPTAIN_COUNT": "3",
-	"CAPTAINED_MGR": "ashim lama , Kumar Anku , Okdenri Longchari"
+	"PLAYERS": "Shaw",
+	"PLAYERS_COUNT": "3",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Pulisic",
-	"PLAYERS_COUNT": "2",
+	"PLAYERS": "Son",
+	"PLAYERS_COUNT": "20",
 	"CAPTAIN_COUNT": "1",
-	"CAPTAINED_MGR": "Ashish Rai"
+	"CAPTAINED_MGR": " sanjeevkumar "
 }, {
 	"PLAYERS": "Maddison",
-	"PLAYERS_COUNT": "7",
+	"PLAYERS_COUNT": "8",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
@@ -109,18 +104,18 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "James",
-	"PLAYERS_COUNT": "2",
+	"PLAYERS": "Mitchell",
+	"PLAYERS_COUNT": "5",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Mitchell",
-	"PLAYERS_COUNT": "6",
+	"PLAYERS": "Coufal",
+	"PLAYERS_COUNT": "8",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
 	"PLAYERS": "Brewster",
-	"PLAYERS_COUNT": "4",
+	"PLAYERS_COUNT": "5",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
@@ -134,18 +129,13 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Cancelo",
-	"PLAYERS_COUNT": "8",
+	"PLAYERS": "Wilson",
+	"PLAYERS_COUNT": "9",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Wilson",
-	"PLAYERS_COUNT": "9",
-	"CAPTAIN_COUNT": "1",
-	"CAPTAINED_MGR": "Prabin Singh"
-}, {
-	"PLAYERS": "Kane",
-	"PLAYERS_COUNT": "15",
+	"PLAYERS": "Calvert-Lewin",
+	"PLAYERS_COUNT": "12",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
@@ -155,12 +145,7 @@ var pcc = [{
 	"CAPTAINED_MGR": ""
 }, {
 	"PLAYERS": "Ayling",
-	"PLAYERS_COUNT": "1",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
-}, {
-	"PLAYERS": "Bissouma",
-	"PLAYERS_COUNT": "1",
+	"PLAYERS_COUNT": "2",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
@@ -174,8 +159,8 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Walker-Peters",
-	"PLAYERS_COUNT": "9",
+	"PLAYERS": "McCarthy",
+	"PLAYERS_COUNT": "4",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
@@ -184,28 +169,13 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Son",
-	"PLAYERS_COUNT": "17",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
-}, {
-	"PLAYERS": "Neto",
-	"PLAYERS_COUNT": "3",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
-}, {
-	"PLAYERS": "McGoldrick",
-	"PLAYERS_COUNT": "1",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
-}, {
-	"PLAYERS": "McCarthy",
+	"PLAYERS": "Zaha",
 	"PLAYERS_COUNT": "5",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Aubameyang",
-	"PLAYERS_COUNT": "1",
+	"PLAYERS": "Barnes",
+	"PLAYERS_COUNT": "6",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
@@ -214,8 +184,8 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Furlong",
-	"PLAYERS_COUNT": "1",
+	"PLAYERS": "Kilman",
+	"PLAYERS_COUNT": "3",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
@@ -225,7 +195,7 @@ var pcc = [{
 	"CAPTAINED_MGR": ""
 }, {
 	"PLAYERS": "Dias",
-	"PLAYERS_COUNT": "5",
+	"PLAYERS_COUNT": "6",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
@@ -240,9 +210,9 @@ var pcc = [{
 	"CAPTAINED_MGR": ""
 }, {
 	"PLAYERS": "Werner",
-	"PLAYERS_COUNT": "1",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "1",
+	"CAPTAINED_MGR": " PemaSHerpa "
 }, {
 	"PLAYERS": "Johnstone",
 	"PLAYERS_COUNT": "2",
@@ -254,8 +224,8 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Alzate",
-	"PLAYERS_COUNT": "1",
+	"PLAYERS": "Walker-Peters",
+	"PLAYERS_COUNT": "5",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
@@ -269,8 +239,8 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Grealish",
-	"PLAYERS_COUNT": "9",
+	"PLAYERS": "Foden",
+	"PLAYERS_COUNT": "3",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
@@ -294,12 +264,7 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Shaw",
-	"PLAYERS_COUNT": "2",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
-}, {
-	"PLAYERS": "Chilwell",
+	"PLAYERS": "Gündogan",
 	"PLAYERS_COUNT": "4",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
@@ -309,13 +274,13 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Saka",
-	"PLAYERS_COUNT": "3",
+	"PLAYERS": "Chilwell",
+	"PLAYERS_COUNT": "4",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Bowen",
-	"PLAYERS_COUNT": "1",
+	"PLAYERS": "Saka",
+	"PLAYERS_COUNT": "3",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
@@ -334,20 +299,15 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Zouma",
-	"PLAYERS_COUNT": "1",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
-}, {
-	"PLAYERS": "Reed",
-	"PLAYERS_COUNT": "1",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
-}, {
-	"PLAYERS": "Vardy",
+	"PLAYERS": "Maguire",
 	"PLAYERS_COUNT": "2",
-	"CAPTAIN_COUNT": "1",
-	"CAPTAINED_MGR": "Indrajeet Singh"
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Pereira",
+	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
 }, {
 	"PLAYERS": "Henderson",
 	"PLAYERS_COUNT": "1",
@@ -355,11 +315,6 @@ var pcc = [{
 	"CAPTAINED_MGR": ""
 }, {
 	"PLAYERS": "Webster",
-	"PLAYERS_COUNT": "1",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
-}, {
-	"PLAYERS": "Pereira",
 	"PLAYERS_COUNT": "1",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
@@ -385,9 +340,9 @@ var pcc = [{
 	"CAPTAINED_MGR": ""
 }, {
 	"PLAYERS": "Mané",
-	"PLAYERS_COUNT": "3",
+	"PLAYERS_COUNT": "2",
 	"CAPTAIN_COUNT": "1",
-	"CAPTAINED_MGR": "Vivek Lama"
+	"CAPTAINED_MGR": "   Vivek Lama "
 }, {
 	"PLAYERS": "Connolly",
 	"PLAYERS_COUNT": "1",
@@ -415,17 +370,17 @@ var pcc = [{
 	"CAPTAINED_MGR": ""
 }, {
 	"PLAYERS": "Mahrez",
-	"PLAYERS_COUNT": "2",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
-}, {
-	"PLAYERS": "Rashford",
-	"PLAYERS_COUNT": "3",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
-}, {
-	"PLAYERS": "Ward-Prowse",
 	"PLAYERS_COUNT": "1",
+	"CAPTAIN_COUNT": "1",
+	"CAPTAINED_MGR": " Prabin "
+}, {
+	"PLAYERS": "Grealish",
+	"PLAYERS_COUNT": "9",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Kane",
+	"PLAYERS_COUNT": "3",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
@@ -435,19 +390,14 @@ var pcc = [{
 	"CAPTAINED_MGR": ""
 }, {
 	"PLAYERS": "Konsa",
-	"PLAYERS_COUNT": "1",
+	"PLAYERS_COUNT": "2",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
 	"PLAYERS": "Digne",
 	"PLAYERS_COUNT": "1",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
-}, {
-	"PLAYERS": "Zaha",
-	"PLAYERS_COUNT": "1",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
+	"CAPTAIN_COUNT": "1",
+	"CAPTAINED_MGR": " AnkuKumar "
 }, {
 	"PLAYERS": "Sigurdsson",
 	"PLAYERS_COUNT": "1",
@@ -456,16 +406,6 @@ var pcc = [{
 }, {
 	"PLAYERS": "Martial",
 	"PLAYERS_COUNT": "1",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
-}, {
-	"PLAYERS": "Martinelli",
-	"PLAYERS_COUNT": "1",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
-}, {
-	"PLAYERS": "Kilman",
-	"PLAYERS_COUNT": "3",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
@@ -479,8 +419,13 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Bednarek",
+	"PLAYERS": "Targett",
 	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "0",
+	"CAPTAINED_MGR": ""
+}, {
+	"PLAYERS": "Robertson",
+	"PLAYERS_COUNT": "4",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
@@ -489,12 +434,12 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Calvert-Lewin",
-	"PLAYERS_COUNT": "3",
+	"PLAYERS": "Bednarek",
+	"PLAYERS_COUNT": "1",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Maguire",
+	"PLAYERS": "Riedewald",
 	"PLAYERS_COUNT": "1",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
@@ -504,28 +449,23 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Riedewald",
-	"PLAYERS_COUNT": "1",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
-}, {
-	"PLAYERS": "Barnes",
-	"PLAYERS_COUNT": "3",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
+	"PLAYERS": "Lacazette",
+	"PLAYERS_COUNT": "2",
+	"CAPTAIN_COUNT": "1",
+	"CAPTAINED_MGR": " pranamRai "
 }, {
 	"PLAYERS": "Davis",
 	"PLAYERS_COUNT": "2",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Areola",
-	"PLAYERS_COUNT": "2",
+	"PLAYERS": "Keane",
+	"PLAYERS_COUNT": "1",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Keane",
-	"PLAYERS_COUNT": "1",
+	"PLAYERS": "Areola",
+	"PLAYERS_COUNT": "2",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
@@ -554,12 +494,12 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Reguilón",
+	"PLAYERS": "Klich",
 	"PLAYERS_COUNT": "1",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Klich",
+	"PLAYERS": "Reguilón",
 	"PLAYERS_COUNT": "1",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
@@ -574,17 +514,12 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Tierney",
-	"PLAYERS_COUNT": "1",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
-}, {
 	"PLAYERS": "Button",
 	"PLAYERS_COUNT": "2",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Targett",
+	"PLAYERS": "Tierney",
 	"PLAYERS_COUNT": "1",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
@@ -604,12 +539,7 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Gündogan",
-	"PLAYERS_COUNT": "2",
-	"CAPTAIN_COUNT": "0",
-	"CAPTAINED_MGR": ""
-}, {
-	"PLAYERS": "Torres",
+	"PLAYERS": "James",
 	"PLAYERS_COUNT": "1",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
@@ -619,12 +549,12 @@ var pcc = [{
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Pieters",
+	"PLAYERS": "Robinson",
 	"PLAYERS_COUNT": "1",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
 }, {
-	"PLAYERS": "Robinson",
+	"PLAYERS": "Pieters",
 	"PLAYERS_COUNT": "1",
 	"CAPTAIN_COUNT": "0",
 	"CAPTAINED_MGR": ""
