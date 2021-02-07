@@ -36,9 +36,9 @@ var s = [{
 	"Player_12": "Martínez 9",
 	"Player_13": "Stones 2",
 	"Player_14": "Mitchell LEE (A)",
-	"Player_15": "Brewster CHE (H)",
+	"Player_15": "Brewster 1",
 	"SXL": "66",
-	"Bench": "11",
+	"Bench": "12",
 	"Count  ": "8( 7+1 )"
 }, {
 	"manager_Name": "Avijit Das",
@@ -116,14 +116,14 @@ var s = [{
 	"Player_8": "Fernandes 14$ captain",
 	"Player_9": "Smith Rowe 2",
 	"Player_10": "Bamford CRY (H)",
-	"Player_11": "Werner SHU (A)",
+	"Player_11": "Werner 8",
 	"Player_12": "Johnstone 2",
 	"Player_13": "Stones 2",
 	"Player_14": "Coufal 6",
 	"Player_15": "Adams 5",
-	"SXL": "41",
+	"SXL": "49",
 	"Bench": "15",
-	"Count  ": "6( 4+2 )"
+	"Count  ": "7( 5+2 )"
 }, {
 	"manager_Name": "Kushal Sahota",
 	"Teams": "FC ASSASSINS",
@@ -149,7 +149,7 @@ var s = [{
 	"manager_Name": "SATYAM RAI",
 	"Teams": "PINE",
 	"Player_1": "Martínez 9",
-	"Player_2": "Chilwell SHU (A)",
+	"Player_2": "Chilwell 2",
 	"Player_3": "Shaw 3",
 	"Player_4": "Cancelo 2",
 	"Player_5": "Soucek 0",
@@ -163,7 +163,7 @@ var s = [{
 	"Player_13": "Sterling 7",
 	"Player_14": "Justin 6",
 	"Player_15": "Lowton 2",
-	"SXL": "48",
+	"SXL": "50",
 	"Bench": "15",
 	"Count  ": "6( 4+2 )"
 }, {
@@ -224,10 +224,10 @@ var s = [{
 	"Player_11": "Bamford CRY (H)",
 	"Player_12": "Ryan 4",
 	"Player_13": "Saint-Maximin 8",
-	"Player_14": "Egan CHE (H)",
+	"Player_14": "Egan 1",
 	"Player_15": "Dunne 0",
 	"SXL": "29",
-	"Bench": "12",
+	"Bench": "13",
 	"Count  ": "4( 3+1 )"
 }, {
 	"manager_Name": "Prabin Singh",
@@ -256,7 +256,7 @@ var s = [{
 	"Player_1": "Sánchez 5",
 	"Player_2": "Cancelo 2",
 	"Player_3": "Digne 1",
-	"Player_4": "Rüdiger SHU (A)",
+	"Player_4": "Rüdiger 0",
 	"Player_5": "Ayling CRY (H)",
 	"Player_6": "Salah 7",
 	"Player_7": "Sterling 7",
@@ -267,9 +267,9 @@ var s = [{
 	"Player_12": "Forster 0",
 	"Player_13": "Zaha LEE (A)",
 	"Player_14": "Konsa 5",
-	"Player_15": "Brewster CHE (H)",
+	"Player_15": "Brewster 1",
 	"SXL": "48",
-	"Bench": "5",
+	"Bench": "6",
 	"Count  ": "6( 5+1 )"
 }, {
 	"manager_Name": "Okdenri Longchari",
@@ -392,11 +392,11 @@ var s = [{
 	"Player_11": "Calvert-Lewin 12",
 	"Player_12": "Steer 0",
 	"Player_13": "Stones 2",
-	"Player_14": "Burke CHE (H)",
+	"Player_14": "Burke 5",
 	"Player_15": "Neco Williams 0",
 	"SXL": "46",
-	"Bench": "2",
-	"Count  ": "4( 4+0 )"
+	"Bench": "7",
+	"Count  ": "5( 4+1 )"
 }, {
 	"manager_Name": "Sahil Lampard",
 	"Teams": "Marx 11",
@@ -443,7 +443,7 @@ var s = [{
 	"manager_Name": "pranam rai",
 	"Teams": "SYAKREE F.C.",
 	"Player_1": "Martínez 9",
-	"Player_2": "Chilwell SHU (A)",
+	"Player_2": "Chilwell 2",
 	"Player_3": "Stones 2",
 	"Player_4": "Targett 7",
 	"Player_5": "Gündogan 10",
@@ -457,7 +457,7 @@ var s = [{
 	"Player_13": "Johnson 0",
 	"Player_14": "Robertson 0",
 	"Player_15": "Davis 0",
-	"SXL": "51",
+	"SXL": "53",
 	"Bench": "0",
 	"Count  ": "6( 6+0 )"
 }, {
@@ -475,11 +475,11 @@ var s = [{
 	"Player_10": "Bamford CRY (H)",
 	"Player_11": "Antonio 2",
 	"Player_12": "McCarthy 1",
-	"Player_13": "Brewster CHE (H)",
+	"Player_13": "Brewster 1",
 	"Player_14": "Long 0",
 	"Player_15": "Taylor 0",
 	"SXL": "51",
-	"Bench": "1",
+	"Bench": "2",
 	"Count  ": "6( 6+0 )"
 }, {
 	"manager_Name": "Han Sing",
@@ -507,7 +507,7 @@ var s = [{
 	"Teams": "mendal11",
 	"Player_1": "Ederson 2",
 	"Player_2": "Justin 6",
-	"Player_3": "James SHU (A)",
+	"Player_3": "James 2",
 	"Player_4": "Coufal 6",
 	"Player_5": "Grealish 2",
 	"Player_6": "Son 16$ captain",
@@ -520,7 +520,7 @@ var s = [{
 	"Player_13": "Targett 7",
 	"Player_14": "Mitchell LEE (A)",
 	"Player_15": "Zaha LEE (A)",
-	"SXL": "69",
+	"SXL": "71",
 	"Bench": "7",
 	"Count  ": "9( 8+1 )"
 }, {
@@ -561,16 +561,16 @@ var s = [{
 	"Player_12": "Button 0",
 	"Player_13": "Dias 1",
 	"Player_14": "Walker-Peters 0",
-	"Player_15": "Burke CHE (H)",
+	"Player_15": "Burke 5",
 	"SXL": "69",
-	"Bench": "1",
-	"Count  ": "7( 7+0 )"
+	"Bench": "6",
+	"Count  ": "8( 7+1 )"
 }, {
 	"manager_Name": "Bishal Rai",
 	"Teams": "Gooner for Life",
 	"Player_1": "Fabianski 6",
 	"Player_2": "Dias 1",
-	"Player_3": "Rüdiger SHU (A)",
+	"Player_3": "Rüdiger 0",
 	"Player_4": "Justin 6",
 	"Player_5": "Cresswell 9",
 	"Player_6": "Raphinha CRY (H)",
@@ -582,8 +582,8 @@ var s = [{
 	"Player_12": "Martínez 9",
 	"Player_13": "Robertson 0",
 	"Player_14": "Watkins 9",
-	"Player_15": "Brewster CHE (H)",
+	"Player_15": "Brewster 1",
 	"SXL": "54",
-	"Bench": "18",
+	"Bench": "19",
 	"Count  ": "8( 6+2 )"
 }]
