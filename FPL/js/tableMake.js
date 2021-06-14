@@ -349,5 +349,49 @@ function captainSignRemovar()
     }
 }
 
+function loader4grocery()
+{
+    if (s)
+     {
+        //wordsArray = JSON.parse(worter);
+        for (var i = 0; i < s.length; i++)
+         {
+            prepareTableCellgrocery(s[i].itemID,s[i].ItemName,s[i].dayOfPurchase,s[i].expiryDate,s[i].consumedFlag,s[i].Comment);
+         }
+    }
+    //tableShakers();
+    // sorter
+     //sortTable_col3();
+     //captainSignRemovar();
+
+     
+
+
+
+}
+
+function prepareTableCellgrocery(p1,p2,p3,p4,p5,p6) 
+{
+    var table = document.getElementById("regtable");
+    var row = table.insertRow();
+    
+    var pp1 = row.insertCell(0);
+    var pp2 = row.insertCell(1);
+    var pp3 = row.insertCell(2);
+    var pp4 = row.insertCell(3);
+    var pp5 = row.insertCell(4);
+    var pp6 = row.insertCell(5);
+       
+    
+    pp1.innerHTML = p1;
+    pp2.innerHTML = p2;
+    pp3.innerHTML = p3;
+    pp4.innerHTML = p4;
+    pp5.innerHTML = p5;
+    pp6.innerHTML = p6;
+    
+    
+}
+
 
 
