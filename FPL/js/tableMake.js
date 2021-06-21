@@ -178,6 +178,17 @@ function larojita(t)
 
             //document.getElementById("sofOL").innerHTML=tseconds + " seconds from nextGW";
             document.getElementById("sofOL").innerHTML=tseconds + " seconds";
+            if(tseconds%60==0)
+              {
+                document.getElementById("sofOL").style.color="cyan"
+
+              }
+            else
+              {
+                document.getElementById("sofOL").style.color="#8DB600"
+
+              }
+
            //document.getElementById("hofOL").innerHTML=thours+ " hours";
            // document.getElementById("mofOL").innerHTML=tminutes+ " minutes from nextGW";
             document.getElementById("mofOL").innerHTML=tminutes+ " minutes ";
