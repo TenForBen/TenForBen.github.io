@@ -186,6 +186,7 @@ function larojita(t)
             else
               {
                 document.getElementById("sofOL").style.color="#8DB600"
+                //https://en.wikipedia.org/wiki/List_of_colors:_A%E2%80%93F
 
               }
 
