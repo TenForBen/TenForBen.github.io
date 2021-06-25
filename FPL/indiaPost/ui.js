@@ -14,10 +14,8 @@ class UI {
         
         <div class="card mx-auto mt-5" style="width: 20rem;">
             <div class="card-body justify-content-center">
-                <h5 class="card-title"><b>${data.name}</b> , <u>  ${data.sys.country}</u> </h5>
-                <h6 class="card-subtitle mb-2 text-muted">current Temperature ${data.main.temp}. and feels like  ${data.main.feels_like}</h6>
-                <h6 class="card-subtitle mb-2 text-muted">Highs of ${data.main.temp_max}. Lows of ${data.main.temp_min}</h6>
-                <p class="card-text ">Weather conditions are described as: ${data.weather[0].description}</p>
+                <h5 class="card-title">Total number of PostOffices - <b>${data[0].PostOffice.length}</b> ,</h5>
+                
                 
             </div>
         </div>
@@ -46,5 +44,9 @@ class UI {
 
   clearLS() {
     localStorage.clear();
+
+    /*<h6 class="card-subtitle mb-2 text-muted">current Temperature ${data.main.temp}. and feels like  ${data.main.feels_like}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Highs of ${data.main.temp_max}. Lows of ${data.main.temp_min}</h6>
+                <p class="card-text ">Weather conditions are described as: ${data.weather[0].description}</p>*/
   }
 }
