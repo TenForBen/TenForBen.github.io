@@ -18,12 +18,15 @@ class UI {
                 <h6 class="card-subtitle mb-2 text-muted">current Temperature ${data.main.temp}. and feels like  ${data.main.feels_like}</h6>
                 <h6 class="card-subtitle mb-2 text-muted">Highs of ${data.main.temp_max}. Lows of ${data.main.temp_min}</h6>
                 <p class="card-text ">Weather conditions are described as: ${data.weather[0].description}</p>
+                <p class="card-text " id="art"> latitude: ${data.coord.lat} AND longitude: ${data.coord.lon}</p>
                 
             </div>
         </div>
         
         
         `;
+
+        document.getElementById("art").style.color="red"
   }
 
   clearUI() {
