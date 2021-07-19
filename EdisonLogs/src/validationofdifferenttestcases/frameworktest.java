@@ -24,9 +24,10 @@ public class frameworktest {
 	}
 	
 	
-	public void hyperlinks(WebDriver driver) {
+	public void hyperlinks(WebDriver driver)
+	{
 		//System.setProperty("webdriver.chrome.driver","D:\\Selenium\\chromedriver.exe");
-	System.out.println("hyperlinks started");
+	    System.out.println("hyperlinks started");
 		List <WebElement> anchor= driver.findElements(By.tagName("a"));
 		int a= anchor.size();
 		System.out.println("Number of anchor tag in this webpage is "+a);

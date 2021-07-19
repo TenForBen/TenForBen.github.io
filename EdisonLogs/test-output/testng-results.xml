@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="22090" started-at="2021-01-27T18:42:34Z" finished-at="2021-01-27T18:42:56Z">
+  <suite name="Default suite" duration-ms="27529" started-at="2021-07-19T15:17:30Z" finished-at="2021-07-19T15:17:57Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="22090" started-at="2021-01-27T18:42:34Z" finished-at="2021-01-27T18:42:56Z">
-      <class name="validationofdifferenttestcases.EmptyUserCheck">
-        <test-method status="PASS" signature="yumptyUserNameCHeck()[pri:0, instance:validationofdifferenttestcases.EmptyUserCheck@2a2d45ba]" name="yumptyUserNameCHeck" duration-ms="22032" started-at="2021-01-27T19:42:34Z" finished-at="2021-01-27T19:42:56Z">
+    <test name="Default test" duration-ms="27529" started-at="2021-07-19T15:17:30Z" finished-at="2021-07-19T15:17:57Z">
+      <class name="validationofdifferenttestcases.openWeatherAPI">
+        <test-method status="PASS" signature="weatherAPI()[pri:0, instance:validationofdifferenttestcases.openWeatherAPI@7dc7cbad]" name="weatherAPI" duration-ms="27490" started-at="2021-07-19T17:17:30Z" finished-at="2021-07-19T17:17:57Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- yumptyUserNameCHeck -->
-      </class> <!-- validationofdifferenttestcases.EmptyUserCheck -->
+        </test-method> <!-- weatherAPI -->
+      </class> <!-- validationofdifferenttestcases.openWeatherAPI -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
