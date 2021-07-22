@@ -2,12 +2,12 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="27529" started-at="2021-07-19T15:17:30Z" finished-at="2021-07-19T15:17:57Z">
+  <suite name="Default suite" duration-ms="53633" started-at="2021-07-22T06:37:55Z" finished-at="2021-07-22T06:38:49Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="27529" started-at="2021-07-19T15:17:30Z" finished-at="2021-07-19T15:17:57Z">
+    <test name="Default test" duration-ms="53633" started-at="2021-07-22T06:37:55Z" finished-at="2021-07-22T06:38:49Z">
       <class name="validationofdifferenttestcases.openWeatherAPI">
-        <test-method status="PASS" signature="weatherAPI()[pri:0, instance:validationofdifferenttestcases.openWeatherAPI@7dc7cbad]" name="weatherAPI" duration-ms="27490" started-at="2021-07-19T17:17:30Z" finished-at="2021-07-19T17:17:57Z">
+        <test-method status="PASS" signature="weatherAPI()[pri:0, instance:validationofdifferenttestcases.openWeatherAPI@7dc7cbad]" name="weatherAPI" duration-ms="53557" started-at="2021-07-22T08:37:55Z" finished-at="2021-07-22T08:38:49Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- weatherAPI -->
