@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="57356" started-at="2021-07-22T06:57:45Z" finished-at="2021-07-22T06:58:42Z">
+  <suite name="Default suite" duration-ms="28966" started-at="2021-07-24T22:30:09Z" finished-at="2021-07-24T22:30:38Z">
     <groups>
     </groups>
-    <test name="Test" duration-ms="57356" started-at="2021-07-22T06:57:45Z" finished-at="2021-07-22T06:58:42Z">
-      <class name="validationofdifferenttestcases.openWeatherAPI">
-        <test-method status="PASS" signature="weatherAPI()[pri:0, instance:validationofdifferenttestcases.openWeatherAPI@7dc7cbad]" name="weatherAPI" duration-ms="57309" started-at="2021-07-22T08:57:45Z" finished-at="2021-07-22T08:58:42Z">
+    <test name="Default test" duration-ms="28966" started-at="2021-07-24T22:30:09Z" finished-at="2021-07-24T22:30:38Z">
+      <class name="validationofdifferenttestcases.ExcelUseOnOpenWeatherAPI">
+        <test-method status="PASS" signature="weatherAPI()[pri:0, instance:validationofdifferenttestcases.ExcelUseOnOpenWeatherAPI@7dc7cbad]" name="weatherAPI" duration-ms="28931" started-at="2021-07-25T00:30:09Z" finished-at="2021-07-25T00:30:38Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- weatherAPI -->
-      </class> <!-- validationofdifferenttestcases.openWeatherAPI -->
-    </test> <!-- Test -->
-  </suite> <!-- Suite -->
+      </class> <!-- validationofdifferenttestcases.ExcelUseOnOpenWeatherAPI -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
 </testng-results>

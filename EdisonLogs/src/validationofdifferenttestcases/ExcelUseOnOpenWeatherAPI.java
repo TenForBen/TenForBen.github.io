@@ -48,16 +48,20 @@ public class ExcelUseOnOpenWeatherAPI  {
 			document.getElementById("submit").click()
 		 * */
 		//fwt.emptyuser(driver);
+		String searchReq ="baikal";
 		WebElement searchBarr=driver.findElement(By.id("searchUser"));
-		searchBarr.sendKeys("normandy");
+		searchBarr.sendKeys(searchReq);
 		
 		WebElement sambi = driver.findElement(By.id("submit"));
-		
-		String searchResult= driver.findElement(By.xpath("//*[@id=\"xPat\"]")).getText() ;
-		System.out.println("coordinates for are "+searchResult);
+		 sambi.click();
+		 Thread.sleep(2000);
+		//String searchR= driver.findElement(By.xpath("/html/body/div[3]/div/div/p[1]")).getText() ;
+		 WebElement  searchResonse= driver.findElement(By.id("xPat"));
+		 String searchRes = searchResonse.getText();
+		System.out.println("coordinates for are "+searchRes);
 		//reader.setCellData("Sheet1", "Coordinates", 2, searchResult);
 		System.out.println("coordinates updated in excel  ");		
- 		 sambi.click();
+ 		
 		Thread.sleep(12000);
 		fwt.quitbrowser(driver);
 		
