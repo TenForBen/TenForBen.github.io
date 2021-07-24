@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="53633" started-at="2021-07-22T06:37:55Z" finished-at="2021-07-22T06:38:49Z">
+  <suite name="Suite" duration-ms="57356" started-at="2021-07-22T06:57:45Z" finished-at="2021-07-22T06:58:42Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="53633" started-at="2021-07-22T06:37:55Z" finished-at="2021-07-22T06:38:49Z">
+    <test name="Test" duration-ms="57356" started-at="2021-07-22T06:57:45Z" finished-at="2021-07-22T06:58:42Z">
       <class name="validationofdifferenttestcases.openWeatherAPI">
-        <test-method status="PASS" signature="weatherAPI()[pri:0, instance:validationofdifferenttestcases.openWeatherAPI@7dc7cbad]" name="weatherAPI" duration-ms="53557" started-at="2021-07-22T08:37:55Z" finished-at="2021-07-22T08:38:49Z">
+        <test-method status="PASS" signature="weatherAPI()[pri:0, instance:validationofdifferenttestcases.openWeatherAPI@7dc7cbad]" name="weatherAPI" duration-ms="57309" started-at="2021-07-22T08:57:45Z" finished-at="2021-07-22T08:58:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- weatherAPI -->
       </class> <!-- validationofdifferenttestcases.openWeatherAPI -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+    </test> <!-- Test -->
+  </suite> <!-- Suite -->
 </testng-results>

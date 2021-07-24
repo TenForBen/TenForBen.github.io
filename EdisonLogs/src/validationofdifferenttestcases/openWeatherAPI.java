@@ -49,7 +49,7 @@ public class openWeatherAPI  {
 		 * */
 		//fwt.emptyuser(driver);
 		WebElement searchBarr=driver.findElement(By.id("searchUser"));
-		searchBarr.sendKeys("emar");
+		searchBarr.sendKeys("normandy");
 		
 		WebElement sambi = driver.findElement(By.id("submit"));
  		 sambi.click();
