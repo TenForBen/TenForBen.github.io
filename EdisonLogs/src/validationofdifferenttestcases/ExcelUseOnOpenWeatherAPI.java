@@ -48,7 +48,7 @@ public class ExcelUseOnOpenWeatherAPI  {
 			document.getElementById("submit").click()
 		 * */
 		//fwt.emptyuser(driver);
-		String searchReq ="baikal";
+		String searchReq ="venice";
 		WebElement searchBarr=driver.findElement(By.id("searchUser"));
 		searchBarr.sendKeys(searchReq);
 		
