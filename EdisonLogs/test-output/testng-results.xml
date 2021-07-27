@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="28966" started-at="2021-07-24T22:30:09Z" finished-at="2021-07-24T22:30:38Z">
+  <suite name="Default suite" duration-ms="33621" started-at="2021-07-27T22:59:01Z" finished-at="2021-07-27T22:59:35Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="28966" started-at="2021-07-24T22:30:09Z" finished-at="2021-07-24T22:30:38Z">
-      <class name="validationofdifferenttestcases.ExcelUseOnOpenWeatherAPI">
-        <test-method status="PASS" signature="weatherAPI()[pri:0, instance:validationofdifferenttestcases.ExcelUseOnOpenWeatherAPI@7dc7cbad]" name="weatherAPI" duration-ms="28931" started-at="2021-07-25T00:30:09Z" finished-at="2021-07-25T00:30:38Z">
+    <test name="Default test" duration-ms="33621" started-at="2021-07-27T22:59:01Z" finished-at="2021-07-27T22:59:35Z">
+      <class name="validationofdifferenttestcases.gpsDrei">
+        <test-method status="PASS" signature="gpsExcel()[pri:0, instance:validationofdifferenttestcases.gpsDrei@7dc7cbad]" name="gpsExcel" duration-ms="33584" started-at="2021-07-28T00:59:01Z" finished-at="2021-07-28T00:59:35Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- weatherAPI -->
-      </class> <!-- validationofdifferenttestcases.ExcelUseOnOpenWeatherAPI -->
+        </test-method> <!-- gpsExcel -->
+      </class> <!-- validationofdifferenttestcases.gpsDrei -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
