@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="33621" started-at="2021-07-27T22:59:01Z" finished-at="2021-07-27T22:59:35Z">
+  <suite name="Default suite" duration-ms="131106" started-at="2021-07-29T21:29:22Z" finished-at="2021-07-29T21:31:33Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="33621" started-at="2021-07-27T22:59:01Z" finished-at="2021-07-27T22:59:35Z">
-      <class name="validationofdifferenttestcases.gpsDrei">
-        <test-method status="PASS" signature="gpsExcel()[pri:0, instance:validationofdifferenttestcases.gpsDrei@7dc7cbad]" name="gpsExcel" duration-ms="33584" started-at="2021-07-28T00:59:01Z" finished-at="2021-07-28T00:59:35Z">
+    <test name="Default test" duration-ms="131106" started-at="2021-07-29T21:29:22Z" finished-at="2021-07-29T21:31:33Z">
+      <class name="validationofdifferenttestcases.excelWithWeatherApp">
+        <test-method status="PASS" signature="iteraetor()[pri:0, instance:validationofdifferenttestcases.excelWithWeatherApp@7dc7cbad]" name="iteraetor" duration-ms="131066" started-at="2021-07-29T23:29:22Z" finished-at="2021-07-29T23:31:33Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- gpsExcel -->
-      </class> <!-- validationofdifferenttestcases.gpsDrei -->
+        </test-method> <!-- iteraetor -->
+      </class> <!-- validationofdifferenttestcases.excelWithWeatherApp -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
