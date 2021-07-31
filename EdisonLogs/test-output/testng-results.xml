@@ -2,12 +2,12 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="131106" started-at="2021-07-29T21:29:22Z" finished-at="2021-07-29T21:31:33Z">
+  <suite name="Default suite" duration-ms="105694" started-at="2021-07-31T21:47:43Z" finished-at="2021-07-31T21:49:28Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="131106" started-at="2021-07-29T21:29:22Z" finished-at="2021-07-29T21:31:33Z">
+    <test name="Default test" duration-ms="105694" started-at="2021-07-31T21:47:43Z" finished-at="2021-07-31T21:49:28Z">
       <class name="validationofdifferenttestcases.excelWithWeatherApp">
-        <test-method status="PASS" signature="iteraetor()[pri:0, instance:validationofdifferenttestcases.excelWithWeatherApp@7dc7cbad]" name="iteraetor" duration-ms="131066" started-at="2021-07-29T23:29:22Z" finished-at="2021-07-29T23:31:33Z">
+        <test-method status="PASS" signature="iteraetor()[pri:0, instance:validationofdifferenttestcases.excelWithWeatherApp@7dc7cbad]" name="iteraetor" duration-ms="105663" started-at="2021-07-31T23:47:43Z" finished-at="2021-07-31T23:49:28Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- iteraetor -->

@@ -29,8 +29,7 @@ public class excelWithWeatherApp {
 	public  String  gpsExcel(String place)throws InterruptedException
 	
 	{
-		frameworktest fwt = new frameworktest();
-		
+		frameworktest fwt = new frameworktest();		
 		System.setProperty("webdriver.chrome.driver","D:\\Selenium\\chromedriver.exe"); // declaring the chrome driver locatoion
 		WebDriver driver= new ChromeDriver();// initializing chrome driver
 		//driver.manage().deleteAllCookies(); // deleting all cookies
@@ -41,24 +40,21 @@ public class excelWithWeatherApp {
 		driver.get(uri);
 		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		//driver.findElement(By.xpath("//*[@id=\"introAgreeButton\"]/span/span")).click(); 
-		// in case chorme popUP comes up.. with i agree button
-	
-		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-		
+		// in case chorme popUP comes up.. with i agree button	
+		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);		
 		String searchReq =place;
 		WebElement searchBarr=driver.findElement(By.id("searchUser"));
-		searchBarr.sendKeys(searchReq);
-		
+		searchBarr.sendKeys(searchReq);		
 		WebElement sambi = driver.findElement(By.id("submit"));
 		 sambi.click();
 		 Thread.sleep(2000);
 		//String searchR= driver.findElement(By.xpath("/html/body/div[3]/div/div/p[1]")).getText() ;
-		 WebElement  searchResonse= driver.findElement(By.id("xPat"));
-		 String searchRes = searchResonse.getText();
-		 
-		 
+		// WebElement  searchResonse= driver.findElement(By.id("xPat"));
+		 //document.getElementById("cuwt").innerText
+		 WebElement  searchResonse= driver.findElement(By.id("cuwt"));
+		 String searchRes = searchResonse.getText(); 		 
 		String searchResult= searchRes ;
-		System.out.println("coordinates updated in excel  ");		
+		System.out.println("CUrrent temperature  updated in excel  ");		
 		fwt.quitbrowser(driver);
 		return searchResult; // stores the value of searchResult in SR string  in teh iterator method
 		
