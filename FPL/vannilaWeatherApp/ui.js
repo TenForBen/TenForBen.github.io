@@ -30,7 +30,7 @@ class UI {
 
         document.getElementById("art").style.color="red"
         document.getElementById("cuwt").style.color="green"
-        document.getElementById("cuwt").style.fontSize="200%"
+        document.getElementById("cuwt").style.fontSize="300%"
   }
 
   clearUI() {
