@@ -33,6 +33,34 @@ class UI {
         document.getElementById("cuwt").style.fontSize="300%"
         document.getElementById("placeName").style.color="orange"
         document.getElementById("placeName").style.fontSize="200%"
+        var k = document.getElementById("cuwt").innerText
+        var arse = parseFloat(k)
+        if(arse>30)
+        {
+          document.getElementById("placeName").style.color="red"
+        }
+        if(arse<30)
+        {
+          document.getElementById("placeName").style.color="orange"          
+        }
+        if(arse<25)
+        {
+          document.getElementById("placeName").style.color="yellow"          
+        }
+        if(arse<20)
+        {
+          document.getElementById("placeName").style.color="green"          
+        }
+        if(arse<15)
+        {
+          document.getElementById("placeName").style.color="lightgreen"          
+        }
+        
+        if(arse<5)
+        {
+          document.getElementById("placeName").style.color="#1dc59f"          
+        }
+
   }
 
   clearUI() {
