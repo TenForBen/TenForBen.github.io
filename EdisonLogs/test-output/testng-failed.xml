@@ -3,11 +3,11 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="validationofdifferenttestcases.excelWithWeatherApp">
+      <class name="validationofdifferenttestcases.excelTempTracker">
         <methods>
           <include name="iteraetor"/>
         </methods>
-      </class> <!-- validationofdifferenttestcases.excelWithWeatherApp -->
+      </class> <!-- validationofdifferenttestcases.excelTempTracker -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
