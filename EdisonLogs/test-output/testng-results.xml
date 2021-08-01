@@ -2,12 +2,12 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="263000" started-at="2021-08-01T20:23:38Z" finished-at="2021-08-01T20:28:01Z">
+  <suite name="Default suite" duration-ms="249764" started-at="2021-08-01T21:10:38Z" finished-at="2021-08-01T21:14:48Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="263000" started-at="2021-08-01T20:23:38Z" finished-at="2021-08-01T20:28:01Z">
+    <test name="Default test" duration-ms="249764" started-at="2021-08-01T21:10:38Z" finished-at="2021-08-01T21:14:48Z">
       <class name="validationofdifferenttestcases.excelTempTracker">
-        <test-method status="PASS" signature="iteraetor()[pri:0, instance:validationofdifferenttestcases.excelTempTracker@7dc7cbad]" name="iteraetor" duration-ms="262953" started-at="2021-08-01T22:23:38Z" finished-at="2021-08-01T22:28:01Z">
+        <test-method status="PASS" signature="iteraetor()[pri:0, instance:validationofdifferenttestcases.excelTempTracker@7dc7cbad]" name="iteraetor" duration-ms="249732" started-at="2021-08-01T23:10:38Z" finished-at="2021-08-01T23:14:48Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- iteraetor -->

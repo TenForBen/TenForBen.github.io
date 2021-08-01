@@ -69,19 +69,26 @@ public class excelTempTracker {
 		System.out.println("The last row by method  " + LR);
 		int LRs=LR+1;
 		System.out.println("The last row count is  " + LRs);
-		for( int i =2;i<=LRs;i++)
+		int numVar = 2;
+		
+		for( numVar =1;numVar<=5;numVar++)
 		{
-			String place =r.getCellData("Sheet1", "Places", i);	
-			System.out.println("Places  at position "+ i +" is " + place);
-			String SR=gpsExcel(place);
-			r.setCellData("Sheet1", "Temperature1", i, SR);
-			System.out.println("coordinates updated in excel  ");	
-			 Date date = new Date();
-		       System.out.println(new Timestamp(date.getTime()));
-		       System.out.println( TimeStamp.getCurrentTime());
-		       //TimeStamp  ts = TimeStamp.getCurrentTime();
-		   	//r.setCellDataTS("Sheet1", "timeStamp", i, ts);
-			
+			String shitColName = "Temperature"+numVar ;
+			System.out.println("Current Column is  " + numVar);
+			for( int i =2;i<=LRs;i++)
+				{
+							String place =r.getCellData("Sheet1", "Places", i);	
+							System.out.println("Places  at position "+ i +" is " + place);
+							String SR=gpsExcel(place);
+							r.setCellData("Sheet1", shitColName, i, SR);
+							System.out.println("weather  updated in excel  and value is " +SR);	
+							 Date date = new Date();
+						       System.out.println(new Timestamp(date.getTime()));
+						       System.out.println( TimeStamp.getCurrentTime());
+						       //TimeStamp  ts = TimeStamp.getCurrentTime();
+						   	//r.setCellDataTS("Sheet1", "timeStamp", i, ts);
+					
+				}
 		}
 		String s1="Sheet1";
 		String s2="Sheet2";
