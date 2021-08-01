@@ -87,8 +87,10 @@ public class excelTempTracker {
 						       System.out.println( TimeStamp.getCurrentTime());
 						       //TimeStamp  ts = TimeStamp.getCurrentTime();
 						   	//r.setCellDataTS("Sheet1", "timeStamp", i, ts);
+						       //driver.manage().timeouts().implicitlyWait(200, TimeUnit.SECONDS);	
 					
 				}
+			Thread.sleep(22000);
 		}
 		String s1="Sheet1";
 		String s2="Sheet2";
