@@ -38,27 +38,33 @@ class UI {
         if(arse>30)
         {
           document.getElementById("placeName").style.color="red"
+          document.getElementById("cuwt").style.color="red"
         }
         if(arse<30)
         {
+          document.getElementById("cuwt").style.color="orange"
           document.getElementById("placeName").style.color="orange"          
         }
         if(arse<25)
         {
+          document.getElementById("cuwt").style.color="yellow"
           document.getElementById("placeName").style.color="yellow"          
         }
         if(arse<20)
         {
+          document.getElementById("cuwt").style.color="green"
           document.getElementById("placeName").style.color="green"          
         }
         if(arse<15)
         {
-          document.getElementById("placeName").style.color="lightgreen"          
+          document.getElementById("placeName").style.color="lightgreen"
+          document.getElementById("cuwt").style.color="lightgreen"          
         }
         
         if(arse<5)
         {
-          document.getElementById("placeName").style.color="#1dc59f"          
+          document.getElementById("placeName").style.color="#1dc59f"
+          document.getElementById("cuwt").style.color="#1dc59f"          
         }
 
   }
