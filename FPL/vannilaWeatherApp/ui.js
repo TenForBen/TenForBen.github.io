@@ -48,7 +48,9 @@ class UI {
         if(arse<25)
         {
           document.getElementById("cuwt").style.color="yellow"
-          document.getElementById("placeName").style.color="yellow"          
+          document.getElementById("placeName").style.color="yellow"
+          document.getElementById("placeName").style.background="black"
+          document.getElementById("cuwt").style.background="black"          
         }
         if(arse<20)
         {
