@@ -54,7 +54,7 @@ public class excelTempTracker {
 		 WebElement  searchResonse= driver.findElement(By.id("cuwt"));
 		 String searchRes = searchResonse.getText(); 		
 		 String loc = coords.getText(); 	
-		String searchResult= searchRes +"$" + coords ;
+		String searchResult= searchRes +" " + loc ;
 		System.out.println("CUrrent temperature  updated in excel  ");		
 		fwt.quitbrowser(driver);
 		return searchResult; // stores the value of searchResult in SR string  in teh iterator method
@@ -83,11 +83,11 @@ public class excelTempTracker {
 							String place =r.getCellData("Sheet1", "Places", i);	
 							System.out.println("Places  at position "+ i +" is " + place);
 							String receivedValue=gpsExcel(place);
-							String[] result = receivedValue.split("$");
+							String[] result = receivedValue.split(" ");
 							String SR =result[0];
 							System.out.println("weather "+" is " + SR +" degrees ");
 							String Coords =result[1];//location
-							System.out.println("location  "+" is " + Coords +" Lat/Longitude ");
+							System.out.println("location is " + Coords +" Lat/Longitude ");
 							r.setCellData("Sheet1", "location", i, Coords);
 							r.setCellData("Sheet1", shitColName, i, SR);
 							System.out.println("weather  updated in excel  and value is " +SR);	
