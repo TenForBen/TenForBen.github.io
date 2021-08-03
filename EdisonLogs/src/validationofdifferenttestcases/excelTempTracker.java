@@ -49,14 +49,17 @@ public class excelTempTracker {
 		 sambi.click();
 		 Thread.sleep(2000);
 		//String searchR= driver.findElement(By.xpath("/html/body/div[3]/div/div/p[1]")).getText() ;
-		// WebElement  searchResonse= driver.findElement(By.id("xPat"));
+		WebElement  coords= driver.findElement(By.id("xPat"));
 		 //document.getElementById("cuwt").innerText
 		 WebElement  searchResonse= driver.findElement(By.id("cuwt"));
-		 String searchRes = searchResonse.getText(); 		 
-		String searchResult= searchRes ;
+		 String searchRes = searchResonse.getText(); 		
+		 String loc = coords.getText(); 	
+		String searchResult= searchRes +"$" + coords ;
 		System.out.println("CUrrent temperature  updated in excel  ");		
 		fwt.quitbrowser(driver);
 		return searchResult; // stores the value of searchResult in SR string  in teh iterator method
+		// for multiple return we can condense the the two varriable temp and coords in one and then split in the main mehtod.
+		
 		
 	}
 	
@@ -71,7 +74,7 @@ public class excelTempTracker {
 		System.out.println("The last row count is  " + LRs);
 		int numVar = 2;
 		
-		for( numVar =1;numVar<=5;numVar++)
+		for( numVar =1;numVar<=1;numVar++)
 		{
 			String shitColName = "Temperature"+numVar ;
 			System.out.println("Current Column is  " + numVar);
@@ -79,7 +82,13 @@ public class excelTempTracker {
 				{
 							String place =r.getCellData("Sheet1", "Places", i);	
 							System.out.println("Places  at position "+ i +" is " + place);
-							String SR=gpsExcel(place);
+							String receivedValue=gpsExcel(place);
+							String[] result = receivedValue.split("$");
+							String SR =result[0];
+							System.out.println("weather "+" is " + SR +" degrees ");
+							String Coords =result[1];//location
+							System.out.println("location  "+" is " + Coords +" Lat/Longitude ");
+							r.setCellData("Sheet1", "location", i, Coords);
 							r.setCellData("Sheet1", shitColName, i, SR);
 							System.out.println("weather  updated in excel  and value is " +SR);	
 							 Date date = new Date();
@@ -90,7 +99,7 @@ public class excelTempTracker {
 						       //driver.manage().timeouts().implicitlyWait(200, TimeUnit.SECONDS);	
 					
 				}
-			Thread.sleep(22000);
+			//Thread.sleep(50000);
 		}
 		String s1="Sheet1";
 		String s2="Sheet2";
