@@ -23,7 +23,7 @@ import validationofdifferenttestcases.frameworktest;
 // gps - 0002 to make the error handling incase the browser stops or fails in any of the iterations.
 // gps - 0003 to make another sheet available get the entries of all the searched places..
 
-public class excelTempTracker {
+public class FPLscrapper {
 	
 
 	public  String  gpsExcel(String place)throws InterruptedException
@@ -35,12 +35,17 @@ public class excelTempTracker {
 		//driver.manage().deleteAllCookies(); // deleting all cookies
 		driver.manage().window().maximize();		// maximizing the window
 		String searchParam=place +" coordinates";		// earlier param
-		String uri= "https://tenforben.github.io/FPL/vannilaWeatherApp/index.html";
+		int  gameweek =1 ;
+		String  ticker = place;
+		String uri= "https://fantasy.premierleague.com/entry/" + ticker + "/event/"+ gameweek ;
+		//String uri= "https://tenforben.github.io/FPL/vannilaWeatherApp/index.html";
 		System.out.println("URL formed -" +uri);
 		driver.get(uri);
 		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		//driver.findElement(By.xpath("//*[@id=\"introAgreeButton\"]/span/span")).click(); 
 		// in case chorme popUP comes up.. with i agree button	
+		/*
+		
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);		
 		String searchReq =place;
 		WebElement searchBarr=driver.findElement(By.id("searchUser"));
@@ -58,8 +63,11 @@ public class excelTempTracker {
 		 String loc = coords.getText(); 	
 		String searchResult= searchRes +" " + loc +" " + string_CC;
 		System.out.println("CUrrent temperature  updated in excel  ");		
+		*/
 		fwt.quitbrowser(driver);
-		return searchResult; // stores the value of searchResult in SR string  in teh iterator method
+		
+		
+		return place; // stores the value of searchResult in SR string  in teh iterator method
 		// for multiple return we can condense the the two varriable temp and coords in one and then split in the main mehtod.
 		
 		
@@ -76,16 +84,16 @@ public class excelTempTracker {
 		System.out.println("The last row count is  " + LRs);
 		int numVar = 2;
 		
-		for( numVar =1;numVar<=1;numVar++)
+		for( numVar =1;numVar<=2;numVar++)
 		{
 			String shitColName = "T"+numVar ;
 			System.out.println("Current Column is  " + numVar);
 			for( int i =2;i<=LRs;i++)
 				{
-							String place =r.getCellData("Sheet1", "Places", i);	
+							String place =r.getCellData("Sheet4", "Manager AieDee", i);	
 							System.out.println("Places  at position "+ i +" is " + place);
 							String receivedValue=gpsExcel(place);
-							String[] result = receivedValue.split(" ");
+							/*String[] result = receivedValue.split(" ");
 							String SR =result[0];
 							System.out.println("weather "+" is " + SR +" degrees ");
 							String Coords =result[1];//location
@@ -104,6 +112,11 @@ public class excelTempTracker {
 						       //TimeStamp  ts = TimeStamp.getCurrentTime();
 						   	//r.setCellDataTS("Sheet1", "timeStamp", i, ts);
 						       //driver.manage().timeouts().implicitlyWait(200, TimeUnit.SECONDS);	
+						        * 
+						        * 
+						        * 
+						        * 
+						        */
 					
 				}
 			Thread.sleep(100);
