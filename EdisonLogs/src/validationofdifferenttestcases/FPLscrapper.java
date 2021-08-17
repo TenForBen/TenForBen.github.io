@@ -44,10 +44,15 @@ public class FPLscrapper {
 		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		//driver.findElement(By.xpath("//*[@id=\"introAgreeButton\"]/span/span")).click(); 
 		// in case chorme popUP comes up.. with i agree button	
-		/*
+		
 		
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);		
 		String searchReq =place;
+		String fp= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[1]/div[3]/div/div[1]/div[1]/div/div ")).getText() ;
+		System.out.println("final points -  " +fp);		
+		/* 
+		 * //*[@id="root"]/div[2]/div[2]/div[1]/div[3]/div/div[1]/div[1]/div/div - xPath for final points
+		 * 
 		WebElement searchBarr=driver.findElement(By.id("searchUser"));
 		searchBarr.sendKeys(searchReq);		
 		WebElement sambi = driver.findElement(By.id("submit"));
@@ -67,7 +72,7 @@ public class FPLscrapper {
 		fwt.quitbrowser(driver);
 		
 		
-		return place; // stores the value of searchResult in SR string  in teh iterator method
+		return fp; // stores the value of searchResult in SR string  in teh iterator method
 		// for multiple return we can condense the the two varriable temp and coords in one and then split in the main mehtod.
 		
 		
@@ -84,7 +89,7 @@ public class FPLscrapper {
 		System.out.println("The last row count is  " + LRs);
 		int numVar = 2;
 		
-		for( numVar =1;numVar<=2;numVar++)
+		for( numVar =1;numVar<=1;numVar++)
 		{
 			String shitColName = "T"+numVar ;
 			System.out.println("Current Column is  " + numVar);
