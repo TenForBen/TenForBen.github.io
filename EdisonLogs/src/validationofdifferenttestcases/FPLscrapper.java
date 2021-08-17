@@ -49,7 +49,12 @@ public class FPLscrapper {
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);		
 		String searchReq =place;
 		String fp= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[1]/div[3]/div/div[1]/div[1]/div/div ")).getText() ;
-		System.out.println("final points -  " +fp);		
+		// teamNameXpath - //*[@id="root"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[1]/h4
+		String teamName= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[1]/h4")).getText() ;
+		System.out.println("final points -  " +fp);	
+		System.out.println("Teams Name is  -  " +teamName);	
+		
+		
 		/* 
 		 * //*[@id="root"]/div[2]/div[2]/div[1]/div[3]/div/div[1]/div[1]/div/div - xPath for final points
 		 * 
@@ -66,13 +71,14 @@ public class FPLscrapper {
 		 String string_CC = CountryC.getText(); 
 		 String searchRes = searchResonse.getText(); 		
 		 String loc = coords.getText(); 	
-		String searchResult= searchRes +" " + loc +" " + string_CC;
+		
 		System.out.println("CUrrent temperature  updated in excel  ");		
 		*/
+		String searchResult= fp +" " + teamName +" " + "string_CC";
 		fwt.quitbrowser(driver);
 		
 		
-		return fp; // stores the value of searchResult in SR string  in teh iterator method
+		return searchResult; // stores the value of searchResult in SR string  in teh iterator method
 		// for multiple return we can condense the the two varriable temp and coords in one and then split in the main mehtod.
 		
 		
@@ -83,7 +89,7 @@ public class FPLscrapper {
 	{
 		System.out.println("inside iterator method");	
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		int  LR =  r.getLastRwoNum("Sheet1");
+		int  LR =  r.getLastRwoNum("FPL");
 		System.out.println("The last row by method  " + LR);
 		int LRs=LR+1;
 		System.out.println("The last row count is  " + LRs);
@@ -95,12 +101,17 @@ public class FPLscrapper {
 			System.out.println("Current Column is  " + numVar);
 			for( int i =2;i<=LRs;i++)
 				{
-							String place =r.getCellData("Sheet4", "Manager AieDee", i);	
+							String place =r.getCellData("FPL", "Manager_iD", i);	
 							System.out.println("Places  at position "+ i +" is " + place);
 							String receivedValue=gpsExcel(place);
-							/*String[] result = receivedValue.split(" ");
+							String[] result = receivedValue.split(" ");
 							String SR =result[0];
-							System.out.println("weather "+" is " + SR +" degrees ");
+							String tN =result[1];
+							System.out.println("Final Points "+" are " + SR +" points ");
+							r.setCellData("FPL", "Latest Score", i, SR);
+							r.setCellData("FPL", "Manager_Name", i, tN);
+							
+							/*
 							String Coords =result[1];//location
 							String nation =result[2]; // country codeq
 							System.out.println("location is " + Coords +" Lat/Longitude ");

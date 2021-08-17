@@ -74,9 +74,9 @@ public class excelTempTracker {
 		System.out.println("The last row by method  " + LR);
 		int LRs=LR+1;
 		System.out.println("The last row count is  " + LRs);
-		int numVar = 2;
+		int numVar = 16;
 		
-		for( numVar =1;numVar<=1;numVar++)
+		for( numVar =1;numVar<=18;numVar++)
 		{
 			String shitColName = "T"+numVar ;
 			System.out.println("Current Column is  " + numVar);
@@ -106,7 +106,7 @@ public class excelTempTracker {
 						       //driver.manage().timeouts().implicitlyWait(200, TimeUnit.SECONDS);	
 					
 				}
-			Thread.sleep(100);
+			Thread.sleep(1000);
 		}
 		String s1="Sheet1";
 		String s2="Sheet2";
