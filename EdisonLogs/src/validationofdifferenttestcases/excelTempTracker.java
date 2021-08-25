@@ -70,19 +70,20 @@ public class excelTempTracker {
 	{
 		System.out.println("inside iterator method");	
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		int  LR =  r.getLastRwoNum("Sheet1");
+		String snj ="India";
+		int  LR =  r.getLastRwoNum(snj);
 		System.out.println("The last row by method  " + LR);
 		int LRs=LR+1;
 		System.out.println("The last row count is  " + LRs);
 		int numVar = 16;
 		
-		for( numVar =1;numVar<=18;numVar++)
+		for( numVar =1;numVar<=3;numVar++)
 		{
 			String shitColName = "T"+numVar ;
 			System.out.println("Current Column is  " + numVar);
 			for( int i =2;i<=LRs;i++)
 				{
-							String place =r.getCellData("Sheet1", "Places", i);	
+							String place =r.getCellData(snj, "Places", i);	
 							System.out.println("Places  at position "+ i +" is " + place);
 							String receivedValue=gpsExcel(place);
 							String[] result = receivedValue.split(" ");
@@ -91,9 +92,9 @@ public class excelTempTracker {
 							String Coords =result[1];//location
 							String nation =result[2]; // country codeq
 							System.out.println("location is " + Coords +" Lat/Longitude ");
-							r.setCellData("Sheet1", "location", i, Coords);
-							r.setCellData("Sheet1", "CountryCode", i, nation);
-							r.setCellData("Sheet1", shitColName, i, SR);
+							r.setCellData(snj, "location", i, Coords);
+							r.setCellData(snj, "CountryCode", i, nation);
+							r.setCellData(snj, shitColName, i, SR);
 							//CountryCode
 
 							System.out.println("weather  updated in excel  and value is " +SR);	
@@ -104,7 +105,7 @@ public class excelTempTracker {
 						       //TimeStamp  ts = TimeStamp.getCurrentTime();
 						   	//r.setCellDataTS("Sheet1", "timeStamp", i, ts);
 						       //driver.manage().timeouts().implicitlyWait(200, TimeUnit.SECONDS);	
-					
+						       Thread.sleep(3000);
 				}
 			Thread.sleep(1000);
 		}

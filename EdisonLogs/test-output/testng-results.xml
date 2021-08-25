@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="97288" started-at="2021-08-17T22:50:25Z" finished-at="2021-08-17T22:52:02Z">
+  <suite name="Default suite" duration-ms="674248" started-at="2021-08-25T22:07:51Z" finished-at="2021-08-25T22:19:05Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="97288" started-at="2021-08-17T22:50:25Z" finished-at="2021-08-17T22:52:02Z">
-      <class name="validationofdifferenttestcases.FPLscrapper">
-        <test-method status="PASS" signature="iteraetor()[pri:0, instance:validationofdifferenttestcases.FPLscrapper@7dc7cbad]" name="iteraetor" duration-ms="97247" started-at="2021-08-18T00:50:25Z" finished-at="2021-08-18T00:52:02Z">
+    <test name="Default test" duration-ms="674248" started-at="2021-08-25T22:07:51Z" finished-at="2021-08-25T22:19:05Z">
+      <class name="validationofdifferenttestcases.excelTempTracker">
+        <test-method status="PASS" signature="iteraetor()[pri:0, instance:validationofdifferenttestcases.excelTempTracker@7dc7cbad]" name="iteraetor" duration-ms="674169" started-at="2021-08-26T00:07:51Z" finished-at="2021-08-26T00:19:05Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- iteraetor -->
-      </class> <!-- validationofdifferenttestcases.FPLscrapper -->
+      </class> <!-- validationofdifferenttestcases.excelTempTracker -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
