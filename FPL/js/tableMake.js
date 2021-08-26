@@ -190,6 +190,25 @@ function larojita(t)
 
               }
 
+              let isPrime = true;
+              for ( let i =2;i<tseconds;i++)
+              {
+
+                if ( tseconds % i == 0)
+                {
+                  isPrime = false;
+                  break;
+                }
+
+              }
+              if(isPrime)
+              {
+                console.log(`  ${tseconds} is a crime number ` );
+                document.getElementById("sofOL").style.color="orange"
+
+
+              }
+
            //document.getElementById("hofOL").innerHTML=thours+ " hours";
            // document.getElementById("mofOL").innerHTML=tminutes+ " minutes from nextGW";
             document.getElementById("mofOL").innerHTML=tminutes+ " minutes ";
