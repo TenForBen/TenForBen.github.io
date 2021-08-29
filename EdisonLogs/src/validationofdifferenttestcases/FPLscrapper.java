@@ -26,7 +26,7 @@ import validationofdifferenttestcases.frameworktest;
 public class FPLscrapper {
 	
 
-	public  String  gpsExcel(String place)throws InterruptedException
+	public  String  fplExcel(String place,int gw)throws InterruptedException
 	
 	{
 		frameworktest fwt = new frameworktest();		
@@ -35,7 +35,7 @@ public class FPLscrapper {
 		//driver.manage().deleteAllCookies(); // deleting all cookies
 		driver.manage().window().maximize();		// maximizing the window
 		String searchParam=place +" coordinates";		// earlier param
-		int  gameweek =1 ;
+		int  gameweek =gw ;
 		String  ticker = place;
 		String uri= "https://fantasy.premierleague.com/entry/" + ticker + "/event/"+ gameweek ;
 		//String uri= "https://tenforben.github.io/FPL/vannilaWeatherApp/index.html";
@@ -49,8 +49,15 @@ public class FPLscrapper {
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);		
 		String searchReq =place;
 		String fp= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[1]/div[3]/div/div[1]/div[1]/div/div ")).getText() ;
+		// xpath extraction is leading to error in fp- reload points and reload texts are also coming up.. 
+		//best way IMO is using conventional className operator..
 		// teamNameXpath - //*[@id="root"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[1]/h4
+		String[] latestPoints = fp.split("\n");
+		fp=latestPoints[0];
+		System.out.println("after split  " +latestPoints[0]);
+		
 		String teamName= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[1]/h4")).getText() ;
+		
 		System.out.println("final points -  " +fp);	
 		System.out.println("Teams Name is  -  " +teamName);	
 		
@@ -94,6 +101,7 @@ public class FPLscrapper {
 		int LRs=LR+1;
 		System.out.println("The last row count is  " + LRs);
 		int numVar = 2;
+		int gw=3;
 		
 		for( numVar =1;numVar<=1;numVar++)
 		{
@@ -103,7 +111,7 @@ public class FPLscrapper {
 				{
 							String place =r.getCellData("FPL", "Manager_iD", i);	
 							System.out.println("Places  at position "+ i +" is " + place);
-							String receivedValue=gpsExcel(place);
+							String receivedValue=fplExcel(place,gw);
 							String[] result = receivedValue.split(" ");
 							String SR =result[0];
 							String tN =result[1];
