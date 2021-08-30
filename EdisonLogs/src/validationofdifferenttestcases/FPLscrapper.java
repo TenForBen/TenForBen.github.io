@@ -57,9 +57,15 @@ public class FPLscrapper {
 		System.out.println("after split  " +latestPoints[0]);
 		
 		String teamName= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[1]/h4")).getText() ;
-		
+		String playerName= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/h2")).getText() ;
+		////*[@id="root"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[2]/ul/li[2]/div
+		String overallPoints= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[2]/ul/li[1]/div")).getText() ;
+		String overallRank= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[2]/ul/li[1]/div")).getText() ;
 		System.out.println("final points -  " +fp);	
 		System.out.println("Teams Name is  -  " +teamName);	
+		System.out.println("Player Name is  -  " +playerName);	
+		System.out.println("overall points -  " +overallPoints);	
+		System.out.println("overall rank -  " +overallRank);
 		
 		
 		/* 
@@ -81,7 +87,7 @@ public class FPLscrapper {
 		
 		System.out.println("CUrrent temperature  updated in excel  ");		
 		*/
-		String searchResult= fp +" " + teamName +" " + "string_CC";
+		String searchResult= fp +"~" + teamName +"~"+ playerName+"~" + overallPoints  +"~" + overallRank;
 		fwt.quitbrowser(driver);
 		
 		
@@ -96,7 +102,8 @@ public class FPLscrapper {
 	{
 		System.out.println("inside iterator method");	
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		int  LR =  r.getLastRwoNum("FPL");
+		String snj ="turf";
+		int  LR =  r.getLastRwoNum(snj);
 		System.out.println("The last row by method  " + LR);
 		int LRs=LR+1;
 		System.out.println("The last row count is  " + LRs);
@@ -109,15 +116,19 @@ public class FPLscrapper {
 			System.out.println("Current Column is  " + numVar);
 			for( int i =2;i<=LRs;i++)
 				{
-							String place =r.getCellData("FPL", "Manager_iD", i);	
+							String place =r.getCellData(snj, "Manager_iD", i);	
 							System.out.println("Places  at position "+ i +" is " + place);
 							String receivedValue=fplExcel(place,gw);
-							String[] result = receivedValue.split(" ");
+							String[] result = receivedValue.split("~");
 							String SR =result[0];
 							String tN =result[1];
-							System.out.println("Final Points "+" are " + SR +" points ");
-							r.setCellData("FPL", "Latest Score", i, SR);
-							r.setCellData("FPL", "Manager_Name", i, tN);
+							String Op =result[3];
+							String OR  =result[4];
+							
+							System.out.println("Final ORPoints "+" are " + SR +" points ");
+							r.setCellData(snj, "Latest Score", i, SR);
+							r.setCellData(snj, "overallRank", i, OR);
+							r.setCellData(snj, "overallPoints", i, Op);
 							
 							/*
 							String Coords =result[1];//location
