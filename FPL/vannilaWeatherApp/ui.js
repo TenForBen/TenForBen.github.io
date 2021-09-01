@@ -9,6 +9,23 @@ class UI {
     //de-structure vars
 
     //add them to inner HTML
+    
+    var vbl =  data.sys.sunrise;
+      let unix_timestamp = vbl;
+    
+    //epocher(vbl);
+    var date = new Date(unix_timestamp * 1000);
+// Hours part from the timestamp
+var hours = date.getHours();
+// Minutes part from the timestamp
+var minutes = "0" + date.getMinutes();
+// Seconds part from the timestamp
+var seconds = "0" + date.getSeconds();
+
+// Will display time in 10:30:23 format
+var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+console.log(`sunrise at ${data.name} is ${vbl} which is ` );
+console.log(formattedTime);
 
     this.uiContainer.innerHTML = `
         
@@ -19,6 +36,7 @@ class UI {
                 <h6 class="card-subtitle mb-2 text-muted">current Temperature <p id="cuwt">${data.main.temp}.</p> and feels like  ${data.main.feels_like}</h6>
                 <h6 class="card-subtitle mb-2 text-muted">Highs of ${data.main.temp_max}. Lows of ${data.main.temp_min}</h6>
                 <p class="card-text ">Weather conditions are described as: ${data.weather[0].description}</p>
+                <p class="card-text ">Sunrise (as per localTime ) : ${formattedTime}  </p>
                 <p class="card-text " id="art"> latitude: ${data.coord.lat} AND longitude: ${data.coord.lon}</p>
 
                 
@@ -70,6 +88,8 @@ class UI {
         }
 
   }
+
+ 
 
   clearUI() {
     uiContainer.innerHTML = "";
