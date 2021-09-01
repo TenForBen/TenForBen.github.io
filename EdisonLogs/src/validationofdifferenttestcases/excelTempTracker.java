@@ -70,14 +70,14 @@ public class excelTempTracker {
 	{
 		System.out.println("inside iterator method");	
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		String snj ="India";
+		String snj ="sept";
 		int  LR =  r.getLastRwoNum(snj);
 		System.out.println("The last row by method  " + LR);
 		int LRs=LR+1;
 		System.out.println("The last row count is  " + LRs);
 		int numVar = 16;
 		
-		for( numVar =1;numVar<=3;numVar++)
+		for( numVar =1;numVar<=10;numVar++)
 		{
 			String shitColName = "T"+numVar ;
 			System.out.println("Current Column is  " + numVar);
@@ -105,7 +105,7 @@ public class excelTempTracker {
 						       //TimeStamp  ts = TimeStamp.getCurrentTime();
 						   	//r.setCellDataTS("Sheet1", "timeStamp", i, ts);
 						       //driver.manage().timeouts().implicitlyWait(200, TimeUnit.SECONDS);	
-						       Thread.sleep(3000);
+						       Thread.sleep(5000);
 				}
 			Thread.sleep(1000);
 		}
