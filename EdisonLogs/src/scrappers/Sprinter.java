@@ -65,7 +65,7 @@ public class Sprinter {
 		
 	}
 	
-	@Test
+	
 	public void iteraetor() throws InterruptedException
 	{
 		System.out.println("inside iterator method");	
@@ -118,7 +118,8 @@ public class Sprinter {
 		
 	}
 	
-public  String  superSprinter(String place)throws InterruptedException
+	@Test
+public  void  superSprinter()throws InterruptedException
 	
 	{
 		frameworktest fwt = new frameworktest();		
@@ -126,31 +127,68 @@ public  String  superSprinter(String place)throws InterruptedException
 		WebDriver driver= new ChromeDriver();// initializing chrome driver
 		//driver.manage().deleteAllCookies(); // deleting all cookies
 		driver.manage().window().maximize();		// maximizing the window
-		
+		String snj ="Sheet1";
 		String uri= "https://tenforben.github.io/FPL/vannilaWeatherApp/index.html";
 		System.out.println("URL formed -" +uri);
 		driver.get(uri);
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);		
+		System.out.println("inside iterator method");	
+		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\gps.xlsx");
+		int  LR =  r.getLastRwoNum(snj);
+		System.out.println("The last row by method  " + LR);
+		int LRs=LR+1;
+		System.out.println("The last row count is  " + LRs);
+		int totalIterator = 1;
+		int numVar;
+		for( numVar =1;numVar<=totalIterator;numVar++)
+		{
+			String shitColName = "T"+numVar ;
+			System.out.println("Current Column is  " + shitColName);
+			for( int i =2;i<=LRs;i++)
+				{
+					String brooks =r.getCellData("Sheet1", "Places", i);	
+					String searchReq =brooks;
+					System.out.println("Places  at position "+ i +" is " + brooks);
+					WebElement searchBarr=driver.findElement(By.id("searchUser"));
+					searchBarr.sendKeys(searchReq);		
+					WebElement sambi = driver.findElement(By.id("submit"));
+					 sambi.click();
+					 Thread.sleep(2000);
+					//String searchR= driver.findElement(By.xpath("/html/body/div[3]/div/div/p[1]")).getText() ;
+					WebElement  coords= driver.findElement(By.id("xPat"));
+					 //document.getElementById("cuwt").innerText
+					 WebElement  searchResonse= driver.findElement(By.id("cuwt"));
+					 WebElement  CountryC= driver.findElement(By.id("landen"));
+					 String string_CC = CountryC.getText(); 
+					 String searchRes = searchResonse.getText(); 		
+					 String loc = coords.getText(); 	
+					String searchResult= searchRes +" " + loc +" " + string_CC;
+					System.out.println("CUrrent temperature  updated in excel  ");		
+					String receivedValue=searchResult;
+		
+					String[] result = receivedValue.split(" ");
+					String SR =result[0];
+					System.out.println("weather "+" is " + SR +" degrees ");
+					String Coords =result[1];//location
+					String nation =result[2]; // country codeq
+					System.out.println("location is " + Coords +" Lat/Longitude ");
+					r.setCellData(snj, "location", i, Coords);
+					r.setCellData(snj, "CountryCode", i, nation);
+					r.setCellData(snj, shitColName, i, SR);
+					//CountryCode
+		
+					System.out.println("weather  updated in excel  and value is " +SR);	
+					System.out.println("Country code is  " +nation);	
+					 Date date = new Date();
+				       System.out.println(new Timestamp(date.getTime()));
+				       System.out.println( TimeStamp.getCurrentTime());
+					
+				}
+		}
 		
 		
-		String searchReq =place;
-		WebElement searchBarr=driver.findElement(By.id("searchUser"));
-		searchBarr.sendKeys(searchReq);		
-		WebElement sambi = driver.findElement(By.id("submit"));
-		 sambi.click();
-		 Thread.sleep(2000);
-		//String searchR= driver.findElement(By.xpath("/html/body/div[3]/div/div/p[1]")).getText() ;
-		WebElement  coords= driver.findElement(By.id("xPat"));
-		 //document.getElementById("cuwt").innerText
-		 WebElement  searchResonse= driver.findElement(By.id("cuwt"));
-		 WebElement  CountryC= driver.findElement(By.id("landen"));
-		 String string_CC = CountryC.getText(); 
-		 String searchRes = searchResonse.getText(); 		
-		 String loc = coords.getText(); 	
-		String searchResult= searchRes +" " + loc +" " + string_CC;
-		System.out.println("CUrrent temperature  updated in excel  ");		
 		fwt.quitbrowser(driver);
-		return searchResult; // stores the value of searchResult in SR string  in teh iterator method
+		//return searchResult; // stores the value of searchResult in SR string  in teh iterator method
 		// for multiple return we can condense the the two varriable temp and coords in one and then split in the main mehtod.
 		
 		

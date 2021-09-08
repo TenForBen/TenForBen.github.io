@@ -52,6 +52,9 @@ console.log(formattedTime);
         document.getElementById("placeName").style.color="orange"
         document.getElementById("placeName").style.fontSize="200%"
         var k = document.getElementById("cuwt").innerText
+        //clearUI();
+        document.getElementById("searchUser").value=""
+
         var arse = parseFloat(k)
         if(arse>30)
         {
