@@ -127,18 +127,19 @@ public  void  superSprinter()throws InterruptedException
 		WebDriver driver= new ChromeDriver();// initializing chrome driver
 		//driver.manage().deleteAllCookies(); // deleting all cookies
 		driver.manage().window().maximize();		// maximizing the window
-		String snj ="Sheet1";
+		
 		String uri= "https://tenforben.github.io/FPL/vannilaWeatherApp/index.html";
 		System.out.println("URL formed -" +uri);
 		driver.get(uri);
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);		
 		System.out.println("inside iterator method");	
-		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\gps.xlsx");
+		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
+		String snj ="Sheet1";
 		int  LR =  r.getLastRwoNum(snj);
 		System.out.println("The last row by method  " + LR);
 		int LRs=LR+1;
 		System.out.println("The last row count is  " + LRs);
-		int totalIterator = 1;
+		int totalIterator = 4;
 		int numVar;
 		for( numVar =1;numVar<=totalIterator;numVar++)
 		{
@@ -146,7 +147,7 @@ public  void  superSprinter()throws InterruptedException
 			System.out.println("Current Column is  " + shitColName);
 			for( int i =2;i<=LRs;i++)
 				{
-					String brooks =r.getCellData("Sheet1", "Places", i);	
+					String brooks =r.getCellData(snj, "Places", i);	
 					String searchReq =brooks;
 					System.out.println("Places  at position "+ i +" is " + brooks);
 					WebElement searchBarr=driver.findElement(By.id("searchUser"));
@@ -184,6 +185,7 @@ public  void  superSprinter()throws InterruptedException
 				       System.out.println( TimeStamp.getCurrentTime());
 					
 				}
+			Thread.sleep(20000);
 		}
 		
 		
