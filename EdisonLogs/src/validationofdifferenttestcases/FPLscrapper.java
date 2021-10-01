@@ -108,7 +108,7 @@ public class FPLscrapper {
 		int LRs=LR+1;
 		System.out.println("The last row count is  " + LRs);
 		int numVar = 2;
-		int gw=3;
+		int gw=6;
 		
 		for( numVar =1;numVar<=1;numVar++)
 		{
