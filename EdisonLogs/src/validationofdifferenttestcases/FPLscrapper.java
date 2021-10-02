@@ -26,10 +26,18 @@ import validationofdifferenttestcases.frameworktest;
 public class FPLscrapper {
 	
 
-	public  String  fplExcel(String place,int gw)throws InterruptedException
+	public  String  fplExcel(String place,int gw,int crete)throws InterruptedException
 	
 	{
-		frameworktest fwt = new frameworktest();		
+		frameworktest fwt = new frameworktest();	
+		System.out.println("inside iterator method");	
+		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
+		String snj ="turf";
+		int i = crete;
+		int  LR =  r.getLastRwoNum(snj);
+		System.out.println("The last row by method  " + LR);
+		int LRs=LR+1;
+		System.out.println("The last row count is  " + LRs);
 		System.setProperty("webdriver.chrome.driver","D:\\Selenium\\chromedriver.exe"); // declaring the chrome driver locatoion
 		WebDriver driver= new ChromeDriver();// initializing chrome driver
 		//driver.manage().deleteAllCookies(); // deleting all cookies
@@ -38,14 +46,8 @@ public class FPLscrapper {
 		int  gameweek =gw ;
 		String  ticker = place;
 		String uri= "https://fantasy.premierleague.com/entry/" + ticker + "/event/"+ gameweek ;
-		//String uri= "https://tenforben.github.io/FPL/vannilaWeatherApp/index.html";
 		System.out.println("URL formed -" +uri);
 		driver.get(uri);
-		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		//driver.findElement(By.xpath("//*[@id=\"introAgreeButton\"]/span/span")).click(); 
-		// in case chorme popUP comes up.. with i agree button	
-		
-		
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);		
 		String searchReq =place;
 		String fp= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[1]/div[3]/div/div[1]/div[1]/div/div ")).getText() ;
@@ -56,38 +58,29 @@ public class FPLscrapper {
 		fp=latestPoints[0];
 		System.out.println("after split  " +latestPoints[0]);
 		
-		String teamName= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[1]/h4")).getText() ;
+		String teamName= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[1]/h4")).getText() ;	
 		String playerName= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/h2")).getText() ;
 		////*[@id="root"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[2]/ul/li[2]/div
+		String transferXpath = "//*[@id=\"root\"]/div[2]/div[2]/div[1]/div[3]/div/div[2]/div[2]/div[2]/div/a";
 		String overallPoints= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[2]/ul/li[1]/div")).getText() ;
-		String overallRank= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[2]/ul/li[1]/div")).getText() ;
+		String overallRank= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[2]/ul/li[2]/div")).getText() ;
+		String gwTransfer= driver.findElement(By.xpath(transferXpath)).getText() ;
+		
 		System.out.println("final points -  " +fp);	
 		System.out.println("Teams Name is  -  " +teamName);	
 		System.out.println("Player Name is  -  " +playerName);	
 		System.out.println("overall points -  " +overallPoints);	
-		System.out.println("overall rank -  " +overallRank);
-		
-		
-		/* 
-		 * //*[@id="root"]/div[2]/div[2]/div[1]/div[3]/div/div[1]/div[1]/div/div - xPath for final points
-		 * 
-		WebElement searchBarr=driver.findElement(By.id("searchUser"));
-		searchBarr.sendKeys(searchReq);		
-		WebElement sambi = driver.findElement(By.id("submit"));
-		 sambi.click();
-		 Thread.sleep(2000);
-		//String searchR= driver.findElement(By.xpath("/html/body/div[3]/div/div/p[1]")).getText() ;
-		WebElement  coords= driver.findElement(By.id("xPat"));
-		 //document.getElementById("cuwt").innerText
-		 WebElement  searchResonse= driver.findElement(By.id("cuwt"));
-		 WebElement  CountryC= driver.findElement(By.id("landen"));
-		 String string_CC = CountryC.getText(); 
-		 String searchRes = searchResonse.getText(); 		
-		 String loc = coords.getText(); 	
-		
-		System.out.println("CUrrent temperature  updated in excel  ");		
-		*/
+		System.out.println("gw transfer -  " +gwTransfer);
 		String searchResult= fp +"~" + teamName +"~"+ playerName+"~" + overallPoints  +"~" + overallRank;
+		
+		
+		System.out.println("Final ORPoints "+" are " + fp +" points ");
+		r.setCellData(snj, "Latest Score", i, fp);
+		r.setCellData(snj, "Manager_Name", i, teamName);
+		r.setCellData(snj, "playerName", i, playerName);
+		r.setCellData(snj, "overallRank", i, overallRank);
+		r.setCellData(snj, "overallPoints", i, overallPoints);
+		r.setCellData(snj, "gwXfr", i, gwTransfer);
 		fwt.quitbrowser(driver);
 		
 		
@@ -108,51 +101,18 @@ public class FPLscrapper {
 		int LRs=LR+1;
 		System.out.println("The last row count is  " + LRs);
 		int numVar = 2;
-		int gw=6;
-		
+		int gw=7;		
 		for( numVar =1;numVar<=1;numVar++)
 		{
-			String shitColName = "T"+numVar ;
-			System.out.println("Current Column is  " + numVar);
-			for( int i =2;i<=LRs;i++)
+				for( int i =2;i<=LRs;i++)
 				{
 							String place =r.getCellData(snj, "Manager_iD", i);	
 							System.out.println("Places  at position "+ i +" is " + place);
-							String receivedValue=fplExcel(place,gw);
+							String receivedValue=fplExcel(place,gw,i);
 							String[] result = receivedValue.split("~");
-							String SR =result[0];
-							String tN =result[1];
-							String Op =result[3];
-							String OR  =result[4];
+						
 							
-							System.out.println("Final ORPoints "+" are " + SR +" points ");
-							r.setCellData(snj, "Latest Score", i, SR);
-							r.setCellData(snj, "overallRank", i, OR);
-							r.setCellData(snj, "overallPoints", i, Op);
-							
-							/*
-							String Coords =result[1];//location
-							String nation =result[2]; // country codeq
-							System.out.println("location is " + Coords +" Lat/Longitude ");
-							r.setCellData("Sheet1", "location", i, Coords);
-							r.setCellData("Sheet1", "CountryCode", i, nation);
-							r.setCellData("Sheet1", shitColName, i, SR);
-							//CountryCode
-
-							System.out.println("weather  updated in excel  and value is " +SR);	
-							System.out.println("Country code is  " +nation);	
-							 Date date = new Date();
-						       System.out.println(new Timestamp(date.getTime()));
-						       System.out.println( TimeStamp.getCurrentTime());
-						       //TimeStamp  ts = TimeStamp.getCurrentTime();
-						   	//r.setCellDataTS("Sheet1", "timeStamp", i, ts);
-						       //driver.manage().timeouts().implicitlyWait(200, TimeUnit.SECONDS);	
-						        * 
-						        * 
-						        * 
-						        * 
-						        */
-					
+											
 				}
 			Thread.sleep(100);
 		}
@@ -165,56 +125,4 @@ public class FPLscrapper {
 		
 	}
 	
-	public void starterrr() 
-	{
-		
-		
-	}
-	
-	public void swicherr(String s1, String s2)
-	{	
-		System.out.println("inside swicherr method");	
-		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\gps.xlsx");
-		int  LR2 =  r.getLastRwoNum(s2);
-		System.out.println("Total items in  sheet 2  " + LR2);
-		int LRs2=LR2+1;
-		System.out.println("The last row of sheet 2  " + LRs2);
-		int newEntrzComing=LRs2+1;
-		System.out.println("newEntrzComin for sheet 2  " + newEntrzComing);
-		int  LR1 =  r.getLastRwoNum(s1);
-		System.out.println("The last row of sheet 1  " + LR1);
-		int LRs=LR1+1;
-		System.out.println("The last row count 4 loop " + LRs);
-		for( int i =2;i<=LRs;i++)
-		{
-			String place =r.getCellData("Sheet1", "Places", i);	
-			System.out.println("Places  at position "+ i +" in sheet1 is   " + place);
-			String loc =r.getCellData("Sheet1", "Coordinates", i);	
-			System.out.println("Coordinates  at position "+ i +" in sheet1 is  " + loc);
-			String SR=place;
-			String SR2=loc;
-			r.setCellData("Sheet2", "Places", LRs2+1, SR);
-			System.out.println("Places column   updated in excel  at  rowNumber " +  (LRs2+1) );	
-			r.setCellData("Sheet2", "Coordinates", LRs2+1, SR2);
-			System.out.println("Coordinates  column   updated in excel  at  rowNumber " + (LRs2+1) );	
-			
-			LRs2=LRs2+1;
-		       //TimeStamp  ts = TimeStamp.getCurrentTime();
-		   	//r.setCellDataTS("Sheet1", "timeStamp", i, ts);
-			
-		}
-		
-		
-	}
-
-
-	public void tryere() throws InterruptedException
-	{
-		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\gps.xlsx");
-		//int  LR =  r.getLastRwofaColm("Sheet1",2);
-		 r.getLastRwofaColm("Sheet1",2);
-		//System.out.println("The last row by method  " + LR);
-		 //wat we can do is iterate over the elements in the collumn and then break wen cells starts throwing blank values..
-		 
-	}
 }
