@@ -65,15 +65,19 @@ public class FPLscrapper {
 		String overallPoints= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[2]/ul/li[1]/div")).getText() ;
 		String overallRank= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[2]/ul/li[2]/div")).getText() ;
 		String gwTransfer= driver.findElement(By.xpath(transferXpath)).getText() ;
-		String spielerNama = "PitchElementData__ElementValue-sc-1u4y6pr-1 eNGpzK";
-		List<WebElement> allInputElements   = driver.findElements(By.className("PitchElementData__ElementValue-sc-1u4y6pr-1"));
-		if(allInputElements.size() != 0) 
+		String spielerNama =   "PitchElementData__ElementName-sc-1u4y6pr-0 iAoMMY";
+		String spielerPunkte = "PitchElementData__ElementValue-sc-1u4y6pr-1 eNGpzK";
+		List<WebElement> allInputElementsV   = driver.findElements(By.cssSelector(".PitchElementData__ElementValue-sc-1u4y6pr-1.eNGpzK"));
+		List<WebElement> allInputElementsN   = driver.findElements(By.cssSelector(".PitchElementData__ElementName-sc-1u4y6pr-0.iAoMMY"));
+		if(allInputElementsN.size() != 0) 
 		   {
-			   System.out.println(allInputElements.size() + " Elements found by classname \n");
+			   System.out.println(allInputElementsN.size() + " Elements found by css selector \n");
 				
-			   for(int sp=0;sp<allInputElements.size();sp++) 
+			   for(int sp=0;sp<allInputElementsN.size();sp++) 
 			   {
-				   System.out.println(allInputElements .get(sp).getAttribute("innerText"));
+				   System.out.println("   " +allInputElementsN .get(sp).getAttribute("innerText") +"   " +allInputElementsV .get(sp).getAttribute("innerText"));
+				   
+				   //System.out.println(allInputElements .get(sp).getAttribute("innerHTML"));
 			   }
 		   }
 		
