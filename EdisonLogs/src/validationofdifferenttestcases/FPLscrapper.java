@@ -65,6 +65,17 @@ public class FPLscrapper {
 		String overallPoints= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[2]/ul/li[1]/div")).getText() ;
 		String overallRank= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[2]/ul/li[2]/div")).getText() ;
 		String gwTransfer= driver.findElement(By.xpath(transferXpath)).getText() ;
+		String spielerNama = "PitchElementData__ElementValue-sc-1u4y6pr-1 eNGpzK";
+		List<WebElement> allInputElements   = driver.findElements(By.className("PitchElementData__ElementValue-sc-1u4y6pr-1"));
+		if(allInputElements.size() != 0) 
+		   {
+			   System.out.println(allInputElements.size() + " Elements found by classname \n");
+				
+			   for(int sp=0;sp<allInputElements.size();sp++) 
+			   {
+				   System.out.println(allInputElements .get(sp).getAttribute("innerText"));
+			   }
+		   }
 		
 		System.out.println("final points -  " +fp);	
 		System.out.println("Teams Name is  -  " +teamName);	
@@ -81,6 +92,7 @@ public class FPLscrapper {
 		r.setCellData(snj, "overallRank", i, overallRank);
 		r.setCellData(snj, "overallPoints", i, overallPoints);
 		r.setCellData(snj, "gwXfr", i, gwTransfer);
+		
 		fwt.quitbrowser(driver);
 		
 		
