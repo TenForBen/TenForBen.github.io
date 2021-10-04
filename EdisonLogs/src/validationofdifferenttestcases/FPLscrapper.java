@@ -67,8 +67,8 @@ public class FPLscrapper {
 		String gwTransfer= driver.findElement(By.xpath(transferXpath)).getText() ;
 		String spielerNama =   "PitchElementData__ElementName-sc-1u4y6pr-0 iAoMMY";
 		String spielerPunkte = "PitchElementData__ElementValue-sc-1u4y6pr-1 eNGpzK";
-		List<WebElement> allInputElementsV   = driver.findElements(By.cssSelector(".PitchElementData__ElementValue-sc-1u4y6pr-1.eNGpzK"));
-		List<WebElement> allInputElementsN   = driver.findElements(By.cssSelector(".PitchElementData__ElementName-sc-1u4y6pr-0.iAoMMY"));
+		List<WebElement> allInputElementsV   = driver.findElements(By.cssSelector(".PitchElementData__ElementValue-sc-1u4y6pr-1"));
+		List<WebElement> allInputElementsN   = driver.findElements(By.cssSelector(".PitchElementData__ElementName-sc-1u4y6pr-0"));
 		if(allInputElementsN.size() != 0) 
 		   {
 			   System.out.println(allInputElementsN.size() + " Elements found by css selector \n");
@@ -76,7 +76,12 @@ public class FPLscrapper {
 			   for(int sp=0;sp<allInputElementsN.size();sp++) 
 			   {
 				   System.out.println("   " +allInputElementsN .get(sp).getAttribute("innerText") +"   " +allInputElementsV .get(sp).getAttribute("innerText"));
-				   
+				   //Player_1
+				   String impStuff ="" +allInputElementsN .get(sp).getAttribute("innerText") +" " +allInputElementsV .get(sp).getAttribute("innerText");
+				   String ColumbName ="Player_" +(sp+1);
+				   System.out.println("colm Name " +ColumbName);
+				   r.setCellData(snj, ColumbName, i, impStuff);
+
 				   //System.out.println(allInputElements .get(sp).getAttribute("innerHTML"));
 			   }
 		   }
