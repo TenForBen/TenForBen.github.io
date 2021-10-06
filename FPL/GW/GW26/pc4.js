@@ -38,8 +38,8 @@ var pcc = [
    {
       "PLAYERS":"Salah",
       "PLAYERS_COUNT":"31",
-      "CAPTAIN_COUNT":"0",
-      "CAPTAINED_MGR":""
+      "CAPTAIN_COUNT":"2",
+      "CAPTAINED_MGR":"Sahil Lampard , Sanjeev Kumar"
    },
    {
       "PLAYERS":"Greenwood",
@@ -122,14 +122,14 @@ var pcc = [
    {
       "PLAYERS":"Ronaldo",
       "PLAYERS_COUNT":"24",
-      "CAPTAIN_COUNT":"0",
-      "CAPTAINED_MGR":""
+      "CAPTAIN_COUNT":"10",
+      "CAPTAINED_MGR":"Regean Lama , Vivek Pradhan , Rishi Thulung , Dipen Thapa , Raj Kanango , Gaurav Shrestha , Ravish Verma , Harsh Raval , Abhijeet Singh , SATYAM RAI"
    },
    {
       "PLAYERS":"Lukaku",
       "PLAYERS_COUNT":"15",
-      "CAPTAIN_COUNT":"0",
-      "CAPTAINED_MGR":""
+      "CAPTAIN_COUNT":"13",
+      "CAPTAINED_MGR":"Saurabh Tamang , Pranesh Sharma , Kushal Sahota , pranam rai , Ashim Lama , Sibin _ , Indrajeet Singh , Nishant Singh , Rohan Rai , Ashish Rai , Prayash Thapa , Tenzing Ninjey , PRAYAS BAJGAI"
    },
    {
       "PLAYERS":"Guaita",
@@ -206,8 +206,8 @@ var pcc = [
    {
       "PLAYERS":"Raphinha",
       "PLAYERS_COUNT":"13",
-      "CAPTAIN_COUNT":"0",
-      "CAPTAINED_MGR":""
+      "CAPTAIN_COUNT":"1",
+      "CAPTAINED_MGR":"AVIJIT DAS"
    },
    {
       "PLAYERS":"Saka",
@@ -218,8 +218,8 @@ var pcc = [
    {
       "PLAYERS":"Antonio",
       "PLAYERS_COUNT":"23",
-      "CAPTAIN_COUNT":"0",
-      "CAPTAINED_MGR":""
+      "CAPTAIN_COUNT":"4",
+      "CAPTAINED_MGR":"Kumar Anku , Omkar Subba , Bishal Rai , RAJIYUNG Sun"
    },
    {
       "PLAYERS":"Elyounoussi",
@@ -266,8 +266,8 @@ var pcc = [
    {
       "PLAYERS":"Benrahma",
       "PLAYERS_COUNT":"18",
-      "CAPTAIN_COUNT":"0",
-      "CAPTAINED_MGR":""
+      "CAPTAIN_COUNT":"1",
+      "CAPTAINED_MGR":"Ashish Subba"
    },
    {
       "PLAYERS":"Ødegaard",
@@ -488,8 +488,8 @@ var pcc = [
    {
       "PLAYERS":"Jiménez",
       "PLAYERS_COUNT":"5",
-      "CAPTAIN_COUNT":"0",
-      "CAPTAINED_MGR":""
+      "CAPTAIN_COUNT":"1",
+      "CAPTAINED_MGR":"prabin kumar"
    },
    {
       "PLAYERS":"Toney",

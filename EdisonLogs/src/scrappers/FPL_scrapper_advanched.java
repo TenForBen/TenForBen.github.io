@@ -91,14 +91,30 @@ public class FPL_scrapper_advanched {
 					String customxPath ="(//*[contains(@class, 'Pitch__PitchElementWrap-sc-1mctasb-4 bWWBeR notranslate')])["+(sp+1) +"]/*/*";
 					List<WebElement> rama   = driver.findElements(By.xpath(customxPath));
 					int yana = rama.size();
+					System.out.println("ramayana katte  " +yana);
 					if(yana>3)
 					{
 						System.out.println("Captain or Vice Captain @");
-						String xPath4SVG ="((//*[contains(@class, 'Pitch__PitchElementWrap-sc-1mctasb-4 bWWBeR notranslate')])[10]/*/*)[3]/*";
+						String xPath4SVG ="((//*[contains(@class, 'Pitch__PitchElementWrap-sc-1mctasb-4 bWWBeR notranslate')])["+(sp+1) +"]/*/*)[3]";
+						//((//*[contains(@class, 'Pitch__PitchElementWrap-sc-1mctasb-4 bWWBeR notranslate')])[10]/*/*)[3]
+						//List<WebElement> xpathxPath4SVG   = driver.findElements(By.xpath(xPath4SVG));
+						 //String svg = xpathxPath4SVG .get(1).getAttribute("innerHTML") ;
+						 //System.out.println("svg katte  " +svg);
+					 WebElement elementPath = driver.findElement(By.xpath(xPath4SVG));
+					 String svgClassName = elementPath.getAttribute("class");
+					 System.out.println("svg classNama --" +svgClassName);
+					 String[] varra = svgClassName.split("StyledCaptain");
+						if(varra.length>1)
+						{
+							impStuff = "" + impStuff +"$ captain";
+						}
+						else {
+							 System.out.println("player is viceCaptain  -----" +impStuff);
+						}
+					 
 						
-						impStuff = "" + impStuff +"$ captain";
 					}
-					System.out.println("ramayana katte  " +yana);
+					
 					System.out.println(" impStuff  2238 " +(sp+1) +" " +impStuff );
 				   String ColumbName ="Player_" +(sp+1);
 				   //System.out.println("colm Name " +ColumbName);
@@ -141,7 +157,7 @@ public class FPL_scrapper_advanched {
 	{
 		System.out.println("inside iterator method");	
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		String snj ="Sheet4";
+		String snj ="turf";
 		int  LR =  r.getLastRwoNum(snj);
 		System.out.println("The last row by method  " + LR);
 		int LRs=LR+1;
