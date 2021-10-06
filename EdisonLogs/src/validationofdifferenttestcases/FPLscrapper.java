@@ -26,13 +26,13 @@ import validationofdifferenttestcases.frameworktest;
 public class FPLscrapper {
 	
 
-	public  String  fplExcel(String place,int gw,int crete)throws InterruptedException
+	public  String  fplExcel(String place,int gw,String shitt,int crete)throws InterruptedException
 	
 	{
 		frameworktest fwt = new frameworktest();	
 		System.out.println("inside iterator method");	
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		String snj ="turf";
+		String snj =shitt;
 		int i = crete;
 		int  LR =  r.getLastRwoNum(snj);
 		System.out.println("The last row by method  " + LR);
@@ -94,10 +94,13 @@ public class FPLscrapper {
 		String searchResult= fp +"~" + teamName +"~"+ playerName+"~" + overallPoints  +"~" + overallRank;
 		
 		
+		
+
 		System.out.println("Final ORPoints "+" are " + fp +" points ");
 		r.setCellData(snj, "Latest Score", i, fp);
-		r.setCellData(snj, "Manager_Name", i, teamName);
-		r.setCellData(snj, "playerName", i, playerName);
+		r.setCellData(snj, "Teams", i, teamName);
+		r.setCellData(snj, "manager_Name", i, playerName);
+		r.setCellData(snj, "Trainer_name", i, playerName);
 		r.setCellData(snj, "overallRank", i, overallRank);
 		r.setCellData(snj, "overallPoints", i, overallPoints);
 		r.setCellData(snj, "gwXfr", i, gwTransfer);
@@ -116,7 +119,7 @@ public class FPLscrapper {
 	{
 		System.out.println("inside iterator method");	
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		String snj ="turf";
+		String snj ="Sheet4";
 		int  LR =  r.getLastRwoNum(snj);
 		System.out.println("The last row by method  " + LR);
 		int LRs=LR+1;
@@ -129,11 +132,8 @@ public class FPLscrapper {
 				{
 							String place =r.getCellData(snj, "Manager_iD", i);	
 							System.out.println("Places  at position "+ i +" is " + place);
-							String receivedValue=fplExcel(place,gw,i);
+							String receivedValue=fplExcel(place,gw,snj,i);
 							String[] result = receivedValue.split("~");
-						
-							
-											
 				}
 			Thread.sleep(100);
 		}

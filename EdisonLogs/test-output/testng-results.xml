@@ -2,12 +2,12 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="74137" started-at="2021-10-04T21:48:15Z" finished-at="2021-10-04T21:49:29Z">
+  <suite name="Default suite" duration-ms="172012" started-at="2021-10-06T15:39:42Z" finished-at="2021-10-06T15:42:34Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="74137" started-at="2021-10-04T21:48:15Z" finished-at="2021-10-04T21:49:29Z">
+    <test name="Default test" duration-ms="172012" started-at="2021-10-06T15:39:42Z" finished-at="2021-10-06T15:42:34Z">
       <class name="validationofdifferenttestcases.FPLscrapper">
-        <test-method status="PASS" signature="iteraetor()[pri:0, instance:validationofdifferenttestcases.FPLscrapper@7dc7cbad]" name="iteraetor" duration-ms="74095" started-at="2021-10-04T23:48:15Z" finished-at="2021-10-04T23:49:29Z">
+        <test-method status="PASS" signature="iteraetor()[pri:0, instance:validationofdifferenttestcases.FPLscrapper@7dc7cbad]" name="iteraetor" duration-ms="171976" started-at="2021-10-06T17:39:42Z" finished-at="2021-10-06T17:42:34Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- iteraetor -->
