@@ -61,7 +61,7 @@ public class FPL_scrapper_advanched {
 		String teamName= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[1]/h4")).getText() ;	
 		String playerName= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/h2")).getText() ;
 		////*[@id="root"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[2]/ul/li[2]/div
-		String transferXpath = "//*[@id=\"root\"]/div[2]/div[2]/div[1]/div[3]/div/div[2]/div[2]/div[2]/div/a";
+		String transferXpath = "//*[@id=\"root\"]/div[2]/div[2]/div[1]/div[3]/div/div[2]/div[2]/div[2]/div";
 		String overallPoints= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[2]/ul/li[1]/div")).getText() ;
 		String overallRank= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[2]/ul/li[2]/div")).getText() ;
 		String gwTransfer= driver.findElement(By.xpath(transferXpath)).getText() ;
@@ -91,7 +91,7 @@ public class FPL_scrapper_advanched {
 					String customxPath ="(//*[contains(@class, 'Pitch__PitchElementWrap-sc-1mctasb-4 bWWBeR notranslate')])["+(sp+1) +"]/*/*";
 					List<WebElement> rama   = driver.findElements(By.xpath(customxPath));
 					int yana = rama.size();
-					System.out.println("ramayana katte  " +yana);
+					//System.out.println("ramayana katte  " +yana);
 					if(yana>3)
 					{
 						System.out.println("Captain or Vice Captain @");
@@ -115,7 +115,7 @@ public class FPL_scrapper_advanched {
 						
 					}
 					
-					System.out.println(" impStuff  2238 " +(sp+1) +" " +impStuff );
+					//System.out.println(" impStuff  2238 " +(sp+1) +" " +impStuff );
 				   String ColumbName ="Player_" +(sp+1);
 				   //System.out.println("colm Name " +ColumbName);
 				   r.setCellData(snj, ColumbName, i, impStuff);
@@ -155,9 +155,10 @@ public class FPL_scrapper_advanched {
 	@Test
 	public void iteraetor() throws InterruptedException
 	{
-		System.out.println("inside iterator method");	
+		
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		String snj ="turf";
+		String snj ="Sheet4";
+		System.out.println("inside iterator method running IDs of sheet - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
 		System.out.println("The last row by method  " + LR);
 		int LRs=LR+1;
@@ -181,6 +182,34 @@ public class FPL_scrapper_advanched {
 		
 		
 		
+		
+	}
+	
+	public void fetcher() throws InterruptedException
+	{
+		System.out.println("inside fetchere method");	
+		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
+		String snj ="turf";
+		int  LR =  r.getLastRwoNum(snj);
+		//https://fantasy.premierleague.com/leagues/132436/standings/c?phase=4
+		System.out.println("The last row by method  " + LR);
+		int LRs=LR+1;
+		System.out.println("The last row count is  " + LRs);
+		int numVar = 2;
+		int gw=7;		
+		for( numVar =1;numVar<=1;numVar++)
+		{
+				for( int i =2;i<=LRs;i++)
+				{
+							String place =r.getCellData(snj, "Manager_iD", i);	
+							System.out.println("Places  at position "+ i +" is " + place);
+							String receivedValue=fplExcel(place,gw,snj,i);
+							String[] result = receivedValue.split("~");
+				}
+			Thread.sleep(100);
+		}
+		String s1="Sheet1";
+		String s2="Sheet2";
 		
 	}
 	
