@@ -126,27 +126,27 @@ public class FPL_multinavigator {
 		
 	}
 	
-	
+	@Test
 	public void iteraetor() throws InterruptedException
 	{
 		
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		String snj ="Sheet4";
+		String snj ="Sheet5";
 		String historyChips = "(//*[contains(@class, 'Table-ziussd-1 fHBHIK')])[2]/tbody/tr";
 		System.out.println("inside iterator method running IDs of sheet - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
 		System.out.println("The last row by method  " + LR);
-		int LRs=LR+1;
+		int LRs=LR+2;
 		System.out.println("The last row count is  " + LRs);
 		int numVar = 2;
-		int gw=7;		
+		int gw=3;		
 		for( numVar =1;numVar<=1;numVar++)
 		{
 				for( int i =2;i<=LRs;i++)
 				{
-							String place =r.getCellData(snj, "Manager_iD", i);	
+							String place ="56210";	
 							System.out.println("Places  at position "+ i +" is " + place);
-							String receivedValue=fplExcel(place,gw,snj,i);
+							String receivedValue=fetcher(place,gw,snj,i);
 							String[] result = receivedValue.split("~");
 				}
 			Thread.sleep(100);
@@ -160,36 +160,30 @@ public class FPL_multinavigator {
 		
 	}
 	
-	@Test
-	public void fetcher() throws InterruptedException
+	
+	public String fetcher(String place,int gw,String shitt,int crete) throws InterruptedException
 	{
-		System.out.println("inside fetchere method");	
+		frameworktest fwt = new frameworktest();	
+		System.out.println("inside iterator method");	
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		String snj ="Sheet5";
-		//r.setCellData(snj, 1, 1, "dkdf");
-		
-		//https://fantasy.premierleague.com/leagues/781927/standings/c
+		String snj =shitt;
+		int i = crete;
 		int  LR =  r.getLastRwoNum(snj);
-		//https://fantasy.premierleague.com/leagues/132436/standings/c?phase=4
 		System.out.println("The last row by method  " + LR);
 		int LRs=LR+1;
 		System.out.println("The last row count is  " + LRs);
-		int numVar = 2;
-		int gw=7;		
-		for( numVar =1;numVar<=1;numVar++)
-		{
-				for( int i =2;i<=LRs;i++)
-				{
-							String place =r.getCellData(snj, "Manager_iD", i);	
-							System.out.println("Places  at position "+ i +" is " + place);
-							String receivedValue=fplExcel(place,gw,snj,i);
-							String[] result = receivedValue.split("~");
-				}
-			Thread.sleep(100);
-		}
-		String s1="Sheet1";
-		String s2="Sheet2";
-		
+		System.setProperty("webdriver.chrome.driver","D:\\Selenium\\chromedriver.exe"); // declaring the chrome driver locatoion
+		WebDriver driver= new ChromeDriver();
+		driver.manage().window().maximize();
+		String searchParam=place +" coordinates";
+		int  gameweek =gw ;
+		String  ticker = place;
+		String uri= "https://fantasy.premierleague.com/leagues/" + ticker + "/standings/c" ;
+		//https://fantasy.premierleague.com/leagues/56210/standings/c
+		System.out.println("URL formed -" +uri);
+		driver.get(uri);
+		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);		
+		return "Parc Guell";
 	}
 	
 }
