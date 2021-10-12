@@ -136,7 +136,7 @@ public class FPL_multinavigator {
 		System.out.println("inside iterator method running IDs of sheet - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
 		System.out.println("The last row by method  " + LR);
-		int LRs=LR+2;
+		int LRs=LR+2 ;
 		System.out.println("The last row count is  " + LRs);
 		int numVar = 2;
 		int gw=3;		
@@ -144,7 +144,7 @@ public class FPL_multinavigator {
 		{
 				for( int i =2;i<=LRs;i++)
 				{
-							String place ="56210";	
+							String place ="269580";	
 							System.out.println("Places  at position "+ i +" is " + place);
 							String receivedValue=fetcher(place,gw,snj,i);
 							String[] result = receivedValue.split("~");
@@ -183,7 +183,35 @@ public class FPL_multinavigator {
 		System.out.println("URL formed -" +uri);
 		driver.get(uri);
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);		
+		String trClassName ="StandingsRow-fwk48s-0";
+		List<WebElement> rampoola   = driver.findElements(By.className(trClassName));
+		System.out.println("number of members in the league page is " +rampoola.size());
+		int rator = rampoola.size();
+		for( int ii =0;ii<rator;ii++)
+		{
+					String xPath4href ="(//*[contains(@class, 'StandingsRow-fwk48s-0')])["+(ii+1) +"]/td[2]/a";	
+					String xPath4TeamName ="(//*[contains(@class, 'StandingsRow-fwk48s-0')])["+(ii+1) +"]/td[2]/a/strong";
+					WebElement exHref = driver.findElement(By.xpath(xPath4href));
+					WebElement exTeamNaef = driver.findElement(By.xpath(xPath4TeamName));
+					//String extractedTeamNama =exTeamNaef.getAttribute("text");
+					String extractedTeamNama =exTeamNaef.getText();
+					String exMgrId = exHref.getAttribute("href");
+					//System.out.println("each href extracted for rank  "+ (ii+1) +" is " + exMgrId);
+					//String receivedValue=fplExcel(place,gw,snj,i);
+					String[] result = exMgrId.split("entry/");
+					String PlyPoints=result[1];
+					String[] idVal = PlyPoints.split("/");
+					String extractedMgrId =idVal[0];
+					System.out.println("for Team "+extractedTeamNama +" at  "  + (ii+1) +" manager id is " + extractedMgrId);
+					
+					
+					
+		}
+		
+		
+		fwt.quitbrowser(driver);
 		return "Parc Guell";
+		
 	}
 	
 }
