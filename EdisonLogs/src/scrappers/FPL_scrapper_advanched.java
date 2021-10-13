@@ -154,7 +154,7 @@ public class FPL_scrapper_advanched {
 	{
 		
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		String snj ="RoC";
+		String snj ="Sheet4";
 		System.out.println("inside iterator method running IDs of sheet - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
 		System.out.println("The last row by method  " + LR);
@@ -179,34 +179,6 @@ public class FPL_scrapper_advanched {
 		
 		
 		
-		
-	}
-	
-	public void fetcher() throws InterruptedException
-	{
-		System.out.println("inside fetchere method");	
-		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		String snj ="turf";
-		int  LR =  r.getLastRwoNum(snj);
-		//https://fantasy.premierleague.com/leagues/132436/standings/c?phase=4
-		System.out.println("The last row by method  " + LR);
-		int LRs=LR+1;
-		System.out.println("The last row count is  " + LRs);
-		int numVar = 2;
-		int gw=7;		
-		for( numVar =1;numVar<=1;numVar++)
-		{
-				for( int i =2;i<=LRs;i++)
-				{
-							String place =r.getCellData(snj, "Manager_iD", i);	
-							System.out.println("Places  at position "+ i +" is " + place);
-							String receivedValue=fplExcel(place,gw,snj,i);
-							String[] result = receivedValue.split("~");
-				}
-			Thread.sleep(100);
-		}
-		String s1="Sheet1";
-		String s2="Sheet2";
 		
 	}
 	

@@ -144,7 +144,7 @@ public class FPL_multinavigator {
 		{
 				for( int i =2;i<=LRs;i++)
 				{
-							String place ="269580";	
+							String place ="417002";	
 							System.out.println("Places  at position "+ i +" is " + place);
 							String receivedValue=fetcher(place,gw,snj,i);
 							String[] result = receivedValue.split("~");
@@ -187,6 +187,7 @@ public class FPL_multinavigator {
 		List<WebElement> rampoola   = driver.findElements(By.className(trClassName));
 		System.out.println("number of members in the league page is " +rampoola.size());
 		int rator = rampoola.size();
+		System.out.println("total items on league page  " + rator);
 		for( int ii =0;ii<rator;ii++)
 		{
 					String xPath4href ="(//*[contains(@class, 'StandingsRow-fwk48s-0')])["+(ii+1) +"]/td[2]/a";	
@@ -203,7 +204,8 @@ public class FPL_multinavigator {
 					String[] idVal = PlyPoints.split("/");
 					String extractedMgrId =idVal[0];
 					System.out.println("for Team "+extractedTeamNama +" at  "  + (ii+1) +" manager id is " + extractedMgrId);
-					
+					r.setCellData(snj, "Trainer_name", (ii+2), extractedTeamNama);
+					r.setCellData(snj, "Manager_iD", (ii+2), extractedMgrId);
 					
 					
 		}
