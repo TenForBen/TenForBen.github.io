@@ -133,25 +133,24 @@ public class FPL_multinavigator {
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
 		String snj ="Sheet7";
 		String historyChips = "(//*[contains(@class, 'Table-ziussd-1 fHBHIK')])[2]/tbody/tr";
-		System.out.println("inside iterator method running IDs of sheet - " +snj);	
+		int gw=8;		
+		String leagueID ="217319";	// leagueID -217319 -9 losers
+		String laGarbage=fetcher(leagueID,gw,snj,3);
+		System.out.println("inside main  method running IDs of sheet - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
 		System.out.println("The last row by method  " + LR);
 		int LRs=LR+2 ;
 		System.out.println("The last row count is  " + LRs);
-		int numVar = 2;
-		int gw=3;		
-		String leagueID ="64813";	
-		String laGarbage=fetcher(leagueID,gw,snj,3);
-		
-		for( numVar =1;numVar<=1;numVar++)
+		for( int numVar =1;numVar<=1;numVar++)
 		{
-				for( int i =2;i<=2;i++)
-				{
-							
-							System.out.println("League code   is " + leagueID);
-							//String receivedValue=fetcher(place,gw,snj,i);
-							//String[] result = receivedValue.split("~");
-				}
+			for( int i =2;i<=LRs;i++)
+			{
+				System.out.println("iinside loop");	
+						String place =r.getCellData(snj, "Manager_iD", i);	
+						System.out.println("mgrId  at position "+ i +" is " + place);
+						String receivedValue=fplExcel(place,gw,snj,i);
+						String[] result = receivedValue.split("~");
+			}
 			Thread.sleep(100);
 		}
 		String s1="Sheet1";

@@ -154,7 +154,7 @@ public class FPL_scrapper_advanched {
 	{
 		
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		String snj ="FPL6";
+		String snj ="Sheet7";
 		System.out.println("inside iterator method running IDs of sheet - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
 		System.out.println("The last row by method  " + LR);
