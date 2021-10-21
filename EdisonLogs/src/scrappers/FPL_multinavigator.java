@@ -131,7 +131,7 @@ public class FPL_multinavigator {
 	{
 		
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		String snj ="Sheet5";
+		String snj ="Sheet7";
 		String historyChips = "(//*[contains(@class, 'Table-ziussd-1 fHBHIK')])[2]/tbody/tr";
 		System.out.println("inside iterator method running IDs of sheet - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
@@ -140,14 +140,17 @@ public class FPL_multinavigator {
 		System.out.println("The last row count is  " + LRs);
 		int numVar = 2;
 		int gw=3;		
+		String leagueID ="64813";	
+		String laGarbage=fetcher(leagueID,gw,snj,3);
+		
 		for( numVar =1;numVar<=1;numVar++)
 		{
-				for( int i =2;i<=LRs;i++)
+				for( int i =2;i<=2;i++)
 				{
-							String place ="417002";	
-							System.out.println("Places  at position "+ i +" is " + place);
-							String receivedValue=fetcher(place,gw,snj,i);
-							String[] result = receivedValue.split("~");
+							
+							System.out.println("League code   is " + leagueID);
+							//String receivedValue=fetcher(place,gw,snj,i);
+							//String[] result = receivedValue.split("~");
 				}
 			Thread.sleep(100);
 		}
