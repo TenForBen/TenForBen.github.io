@@ -425,4 +425,32 @@ function prepareTableCellgrocery(p1,p2,p3,p4,p5,p6)
 }
 
 
+function colorCoder(){
+	
+	for(rw=1;rw<32;rw++)
+{
+    for(i=3;i<18;i++)
+{
+console.log(document.getElementsByTagName("tr")[1].children[3].innerText)
+let zam =document.getElementsByTagName("tr")[rw].children[i].innerText
+myArr = zam.split(" ")  
+let myArrLen =myArr.length 
+let ron = myArr[myArrLen-1].length
+if(ron<3)
+{
+    let pts = myArr[myArrLen-1]
+    if(pts>4)
+        document.getElementsByTagName("tr")[rw].children[i].bgColor="orange"
+
+}
+else
+{
+    //console.log(myArr[myArrLen-2])
+}
+
+}
+}
+
+}
+
 
