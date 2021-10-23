@@ -30,14 +30,14 @@ public class FPL_scrapper_advanched {
 	
 	{
 		frameworktest fwt = new frameworktest();	
-		System.out.println("inside iterator method");	
+		System.out.println("inside FPL Excle method");	
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
 		String snj =shitt;
 		int i = crete;
 		int  LR =  r.getLastRwoNum(snj);
-		System.out.println("The last row by method  " + LR);
+		//System.out.println("The last row by method  " + LR);
 		int LRs=LR+1;
-		System.out.println("The last row count is  " + LRs);
+		//System.out.println("The last row count is  " + LRs);
 		System.setProperty("webdriver.chrome.driver","D:\\Selenium\\chromedriver.exe"); // declaring the chrome driver locatoion
 		WebDriver driver= new ChromeDriver();// initializing chrome driver
 		//driver.manage().deleteAllCookies(); // deleting all cookies
@@ -56,7 +56,7 @@ public class FPL_scrapper_advanched {
 		// teamNameXpath - //*[@id="root"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[1]/h4
 		String[] latestPoints = fp.split("\n");
 		fp=latestPoints[0];
-		System.out.println("after split  " +latestPoints[0]);
+		//System.out.println("after split  " +latestPoints[0]);
 		
 		String teamName= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[1]/h4")).getText() ;	
 		String playerName= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/h2")).getText() ;
@@ -74,7 +74,7 @@ public class FPL_scrapper_advanched {
 		List<WebElement> xpathFinder   = driver.findElements(By.xpath(xPathClasser));
 		if(allInputElementsN.size() != 0) 
 		   {
-			   System.out.println(allInputElementsN.size() + " Elements found by css selector \n");
+			   //System.out.println(allInputElementsN.size() + " Elements found by css selector \n");
 				
 			   for(int sp=0;sp<allInputElementsN.size();sp++) 
 			   {
@@ -102,7 +102,7 @@ public class FPL_scrapper_advanched {
 						 //System.out.println("svg katte  " +svg);
 					 WebElement elementPath = driver.findElement(By.xpath(xPath4SVG));
 					 String svgClassName = elementPath.getAttribute("class");
-					 System.out.println("svg classNama --" +svgClassName);
+					 //System.out.println("svg classNama --" +svgClassName);
 					 String[] varra = svgClassName.split("StyledCaptain");
 						if(varra.length>1)
 						{
@@ -124,11 +124,11 @@ public class FPL_scrapper_advanched {
 			   }
 		   }
 		
-		System.out.println("final points -  " +fp);	
+		/*System.out.println("final points -  " +fp);	
 		System.out.println("Teams Name is  -  " +teamName);	
 		System.out.println("Player Name is  -  " +playerName);	
 		System.out.println("overall points -  " +overallPoints);	
-		System.out.println("gw transfer -  " +gwTransfer);
+		System.out.println("gw transfer -  " +gwTransfer);*/
 		String searchResult= fp +"~" + teamName +"~"+ playerName+"~" + overallPoints  +"~" + overallRank;
 	    System.out.println("Final ORPoints "+" are " + fp +" points ");
 		r.setCellData(snj, "Latest Score", i, fp);
@@ -157,9 +157,9 @@ public class FPL_scrapper_advanched {
 		String snj ="FPL6";
 		System.out.println("inside iterator method running IDs of sheet - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
-		System.out.println("The last row by method  " + LR);
+		//System.out.println("The last row by method  " + LR);
 		int LRs=LR+1;
-		System.out.println("The last row count is  " + LRs);
+		System.out.println("The last row count is LRs " + LRs);
 		int numVar = 2;
 		int gw=9;		
 		for( numVar =1;numVar<=1;numVar++)
@@ -167,7 +167,7 @@ public class FPL_scrapper_advanched {
 				for( int i =2;i<=LRs;i++)
 				{
 							String place =r.getCellData(snj, "Manager_iD", i);	
-							System.out.println("Places  at position "+ i +" is " + place);
+							System.out.println("Places  at position------------------------------                     "+ i +"  -----------------is                   " + place);
 							String receivedValue=fplExcel(place,gw,snj,i);
 							String[] result = receivedValue.split("~");
 				}
