@@ -4,8 +4,9 @@
   <test thread-count="1" name="Test">
     <classes>
      
-      <class name="com.test.utility.DifferentPackage"/>
-      <class name="com.test.DazEins"/>
+      <class name="scrappers.FPL_multinavigator"/>
+      <class name="scrappers.FPL_scrapper_advanched"/>
+      
      
     </classes>
   </test> <!-- Test

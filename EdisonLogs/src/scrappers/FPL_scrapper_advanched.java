@@ -12,6 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeTest;
 //import validationofdifferenttest;
 import org.testng.annotations.Test;
 
@@ -154,8 +155,8 @@ public class FPL_scrapper_advanched {
 	{
 		
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		String snj ="FPL6";
-		System.out.println("inside iterator method running IDs of sheet - " +snj);	
+		String snj ="Sheet9";
+		System.out.println("League Scrapper - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
 		//System.out.println("The last row by method  " + LR);
 		int LRs=LR+1;
@@ -179,6 +180,99 @@ public class FPL_scrapper_advanched {
 		
 		
 		
+		
+	}
+
+	
+	
+	public void FirstFetcher() throws InterruptedException
+	{
+		System.out.println("League Fetcher - " );
+		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
+		String snj ="Sheet9";
+		String historyChips = "(//*[contains(@class, 'Table-ziussd-1 fHBHIK')])[2]/tbody/tr";
+		int gw=8;		
+		String leagueID ="217319";	// leagueID -217319 -9 losers
+		String laGarbage=fetcher(leagueID,gw,snj,3);
+		System.out.println("inside FirstFetcher - " +snj);	
+		int  LR =  r.getLastRwoNum(snj);
+		System.out.println("The last row by method  " + LR);
+		int LRs=LR+2 ;
+		System.out.println("The last row count is  " + LRs);
+		for( int numVar =1;numVar<=1;numVar++)
+		{
+			for( int i =2;i<=LRs;i++)
+			{
+				System.out.println("iinside loop");	
+						String place =r.getCellData(snj, "Manager_iD", i);	
+						System.out.println("mgrId  at position "+ i +" is " + place);
+						//String receivedValue=fplExcel(place,gw,snj,i);
+						//String[] result = receivedValue.split("~");
+			}
+			Thread.sleep(100);
+		}
+		String s1="Sheet1";
+		String s2="Sheet2";
+		 //swicherr(s1,s2);
+		
+		
+		
+		
+	}
+	
+	
+	public String fetcher(String place,int gw,String shitt,int crete) throws InterruptedException
+	{
+		frameworktest fwt = new frameworktest();	
+		System.out.println("inside iterator method");	
+		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
+		String snj =shitt;
+		int i = crete;
+		int  LR =  r.getLastRwoNum(snj);
+		System.out.println("The last row by method  " + LR);
+		int LRs=LR+1;
+		System.out.println("The last row count is  " + LRs);
+		System.setProperty("webdriver.chrome.driver","D:\\Selenium\\chromedriver.exe"); // declaring the chrome driver locatoion
+		WebDriver driver= new ChromeDriver();
+		driver.manage().window().maximize();
+		String searchParam=place +" coordinates";
+		int  gameweek =gw ;
+		String  ticker = place;
+		String uri= "https://fantasy.premierleague.com/leagues/" + ticker + "/standings/c" ;
+		//https://fantasy.premierleague.com/leagues/56210/standings/c
+		System.out.println("URL formed -" +uri);
+		driver.get(uri);
+		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);		
+		String trClassName ="StandingsRow-fwk48s-0";
+		List<WebElement> rampoola   = driver.findElements(By.className(trClassName));
+		System.out.println("number of members in the league page is " +rampoola.size());
+		int rator = rampoola.size();
+		System.out.println("total items on league page  " + rator);
+		for( int ii =0;ii<rator;ii++)
+		{
+					String xPath4href ="(//*[contains(@class, 'StandingsRow-fwk48s-0')])["+(ii+1) +"]/td[2]/a";	
+					String xPath4TeamName ="(//*[contains(@class, 'StandingsRow-fwk48s-0')])["+(ii+1) +"]/td[2]/a/strong";
+					WebElement exHref = driver.findElement(By.xpath(xPath4href));
+					WebElement exTeamNaef = driver.findElement(By.xpath(xPath4TeamName));
+					//String extractedTeamNama =exTeamNaef.getAttribute("text");
+					String extractedTeamNama =exTeamNaef.getText();
+					String exMgrId = exHref.getAttribute("href");
+					//System.out.println("each href extracted for rank  "+ (ii+1) +" is " + exMgrId);
+					//String receivedValue=fplExcel(place,gw,snj,i);
+					String[] result = exMgrId.split("entry/");
+					String PlyPoints=result[1];
+					String[] idVal = PlyPoints.split("/");
+					String extractedMgrId =idVal[0];
+					System.out.println("for Team "+extractedTeamNama +" at  "  + (ii+1) +" manager id is " + extractedMgrId);
+					r.setCellData(snj, "Trainer_name", (ii+2), extractedTeamNama);
+					r.setCellData(snj, "Manager_iD", (ii+2), extractedMgrId);
+					
+					
+		}
+		
+		
+		fwt.quitbrowser(driver);
+		return "Parc Guell";
 		
 	}
 	

@@ -3,11 +3,11 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
   <test name="Test(failed)">
     <classes>
-      <class name="validationofdifferenttestcases.EmptyUserCheck">
+      <class name="scrappers.FPL_scrapper_advanched">
         <methods>
-          <include name="yumptyUserNameCHeck"/>
+          <include name="iteraetor"/>
         </methods>
-      </class> <!-- validationofdifferenttestcases.EmptyUserCheck -->
+      </class> <!-- scrappers.FPL_scrapper_advanched -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

@@ -12,6 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeTest;
 //import validationofdifferenttest;
 import org.testng.annotations.Test;
 
@@ -23,25 +24,26 @@ import validationofdifferenttestcases.frameworktest;
 // gps - 0002 to make the error handling incase the browser stops or fails in any of the iterations.
 // gps - 0003 to make another sheet available get the entries of all the searched places..
 
-public class FPL_multinavigator {
+public class FPL_scrapper_zussamem {
 	
 
 	public  String  fplExcel(String place,int gw,String shitt,int crete)throws InterruptedException
 	
 	{
 		frameworktest fwt = new frameworktest();	
-		System.out.println("inside iterator method");	
+		System.out.println("inside FPL Excle method");	
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
 		String snj =shitt;
 		int i = crete;
 		int  LR =  r.getLastRwoNum(snj);
-		System.out.println("The last row by method  " + LR);
+		//System.out.println("The last row by method  " + LR);
 		int LRs=LR+1;
-		System.out.println("The last row count is  " + LRs);
+		//System.out.println("The last row count is  " + LRs);
 		System.setProperty("webdriver.chrome.driver","D:\\Selenium\\chromedriver.exe"); // declaring the chrome driver locatoion
-		WebDriver driver= new ChromeDriver();
-		driver.manage().window().maximize();
-		String searchParam=place +" coordinates";
+		WebDriver driver= new ChromeDriver();// initializing chrome driver
+		//driver.manage().deleteAllCookies(); // deleting all cookies
+		driver.manage().window().maximize();		// maximizing the window
+		String searchParam=place +" coordinates";		// earlier param
 		int  gameweek =gw ;
 		String  ticker = place;
 		String uri= "https://fantasy.premierleague.com/entry/" + ticker + "/event/"+ gameweek ;
@@ -50,11 +52,16 @@ public class FPL_multinavigator {
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);		
 		String searchReq =place;
 		String fp= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[1]/div[3]/div/div[1]/div[1]/div/div ")).getText() ;
+		// xpath extraction is leading to error in fp- reload points and reload texts are also coming up.. 
+		//best way IMO is using conventional className operator..
+		// teamNameXpath - //*[@id="root"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[1]/h4
 		String[] latestPoints = fp.split("\n");
 		fp=latestPoints[0];
-		System.out.println("after split  " +latestPoints[0]);
+		//System.out.println("after split  " +latestPoints[0]);
+		
 		String teamName= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[1]/h4")).getText() ;	
-		String playerName= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/h2")).getText() ;		
+		String playerName= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/h2")).getText() ;
+		////*[@id="root"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[2]/ul/li[2]/div
 		String transferXpath = "//*[@id=\"root\"]/div[2]/div[2]/div[1]/div[3]/div/div[2]/div[2]/div[2]/div";
 		String overallPoints= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[2]/ul/li[1]/div")).getText() ;
 		String overallRank= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div[2]/ul/li[2]/div")).getText() ;
@@ -68,10 +75,14 @@ public class FPL_multinavigator {
 		List<WebElement> xpathFinder   = driver.findElements(By.xpath(xPathClasser));
 		if(allInputElementsN.size() != 0) 
 		   {
-			   System.out.println(allInputElementsN.size() + " Elements found by css selector \n");
+			   //System.out.println(allInputElementsN.size() + " Elements found by css selector \n");
+				
 			   for(int sp=0;sp<allInputElementsN.size();sp++) 
 			   {
-				    String Prossy = xpathFinder .get(sp).getAttribute("innerText") ;
+				   //System.out.println("   " +allInputElementsN .get(sp).getAttribute("innerText") +"   " +allInputElementsV .get(sp).getAttribute("innerText"));
+				   //Player_1
+				   //System.out.println(" exploration  player " +(sp+1) +" " +xpathFinder .get(sp).getAttribute("innerText") );
+				   String Prossy = xpathFinder .get(sp).getAttribute("innerText") ;
 				   String[] result = Prossy.split("\n");
 					String PlyName =result[0];
 					String PlyPoints=result[1];
@@ -86,9 +97,13 @@ public class FPL_multinavigator {
 					{
 						System.out.println("Captain or Vice Captain @");
 						String xPath4SVG ="((//*[contains(@class, 'Pitch__PitchElementWrap-sc-1mctasb-4 bWWBeR notranslate')])["+(sp+1) +"]/*/*)[3]";
+						//((//*[contains(@class, 'Pitch__PitchElementWrap-sc-1mctasb-4 bWWBeR notranslate')])[10]/*/*)[3]
+						//List<WebElement> xpathxPath4SVG   = driver.findElements(By.xpath(xPath4SVG));
+						 //String svg = xpathxPath4SVG .get(1).getAttribute("innerHTML") ;
+						 //System.out.println("svg katte  " +svg);
 					 WebElement elementPath = driver.findElement(By.xpath(xPath4SVG));
 					 String svgClassName = elementPath.getAttribute("class");
-					 System.out.println("svg classNama --" +svgClassName);
+					 //System.out.println("svg classNama --" +svgClassName);
 					 String[] varra = svgClassName.split("StyledCaptain");
 						if(varra.length>1)
 						{
@@ -97,26 +112,35 @@ public class FPL_multinavigator {
 						else {
 							 System.out.println("player is viceCaptain  -----" +impStuff);
 						}
+					 
+						
 					}
+					
+					//System.out.println(" impStuff  2238 " +(sp+1) +" " +impStuff );
 				   String ColumbName ="Player_" +(sp+1);
+				   //System.out.println("colm Name " +ColumbName);
 				   r.setCellData(snj, ColumbName, i, impStuff);
+
+				   //System.out.println(allInputElements .get(sp).getAttribute("innerHTML"));
 			   }
 		   }
 		
-		System.out.println("final points -  " +fp);	
+		/*System.out.println("final points -  " +fp);	
 		System.out.println("Teams Name is  -  " +teamName);	
 		System.out.println("Player Name is  -  " +playerName);	
 		System.out.println("overall points -  " +overallPoints);	
-		System.out.println("gw transfer -  " +gwTransfer);
+		System.out.println("gw transfer -  " +gwTransfer);*/
 		String searchResult= fp +"~" + teamName +"~"+ playerName+"~" + overallPoints  +"~" + overallRank;
-		System.out.println("Final ORPoints "+" are " + fp +" points ");
+	    System.out.println("Final ORPoints "+" are " + fp +" points ");
 		r.setCellData(snj, "Latest Score", i, fp);
+		r.setCellData(snj, "SXL", i, fp);
 		r.setCellData(snj, "Teams", i, teamName);
 		r.setCellData(snj, "manager_Name", i, playerName);
 		r.setCellData(snj, "Trainer_name", i, playerName);
 		r.setCellData(snj, "overallRank", i, overallRank);
 		r.setCellData(snj, "overallPoints", i, overallPoints);
 		r.setCellData(snj, "gwXfr", i, gwTransfer);
+		
 		fwt.quitbrowser(driver);
 		
 		
@@ -132,11 +156,45 @@ public class FPL_multinavigator {
 		
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
 		String snj ="Sheet9";
+		System.out.println("League Scrapper - " +snj);	
+		int  LR =  r.getLastRwoNum(snj);
+		//System.out.println("The last row by method  " + LR);
+		int LRs=LR+1;
+		System.out.println("The last row count is LRs " + LRs);
+		int numVar = 2;
+		int gw=9;		
+		for( numVar =1;numVar<=1;numVar++)
+		{
+				for( int i =2;i<=LRs;i++)
+				{
+							String place =r.getCellData(snj, "Manager_iD", i);	
+							System.out.println("Places  at position------------------------------                     "+ i +"  -----------------is                   " + place);
+							String receivedValue=fplExcel(place,gw,snj,i);
+							String[] result = receivedValue.split("~");
+				}
+			Thread.sleep(100);
+		}
+		String s1="Sheet1";
+		String s2="Sheet2";
+		 //swicherr(s1,s2);
+		
+		
+		
+		
+	}
+
+	
+	@BeforeTest
+	public void FirstFetcher() throws InterruptedException
+	{
+		System.out.println("League Fetcher - " );
+		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
+		String snj ="Sheet9";
 		String historyChips = "(//*[contains(@class, 'Table-ziussd-1 fHBHIK')])[2]/tbody/tr";
 		int gw=8;		
 		String leagueID ="217319";	// leagueID -217319 -9 losers
 		String laGarbage=fetcher(leagueID,gw,snj,3);
-		System.out.println("inside main  method running IDs of sheet - " +snj);	
+		System.out.println("inside FirstFetcher - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
 		System.out.println("The last row by method  " + LR);
 		int LRs=LR+2 ;
