@@ -155,7 +155,7 @@ public class FPL_scrapper_advanched {
 	{
 		
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		String snj ="Sheet9";
+		String snj ="FPL6";
 		System.out.println("League Scrapper - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
 		//System.out.println("The last row by method  " + LR);
@@ -189,7 +189,7 @@ public class FPL_scrapper_advanched {
 	{
 		System.out.println("League Fetcher - " );
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		String snj ="Sheet9";
+		String snj ="FPL6";
 		String historyChips = "(//*[contains(@class, 'Table-ziussd-1 fHBHIK')])[2]/tbody/tr";
 		int gw=8;		
 		String leagueID ="217319";	// leagueID -217319 -9 losers
