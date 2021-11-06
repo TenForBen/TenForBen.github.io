@@ -24,7 +24,7 @@ import validationofdifferenttestcases.frameworktest;
 // gps - 0002 to make the error handling incase the browser stops or fails in any of the iterations.
 // gps - 0003 to make another sheet available get the entries of all the searched places..
 
-public class FPL_scrapper_advanched {
+public class FPL_RoC_Lge_Scrapper {
 	
 
 	public  String  fplExcel(String place,int gw,String shitt,int crete)throws InterruptedException
@@ -155,7 +155,7 @@ public class FPL_scrapper_advanched {
 	{
 		
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		String snj ="FPL6";
+		String snj ="RoC";
 		System.out.println("League Scrapper - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
 		//System.out.println("The last row by method  " + LR);
