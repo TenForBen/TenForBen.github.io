@@ -473,6 +473,10 @@ function colorCoder()
 			}
 	}
 
+  //button logics
+
+    
+
 }
 
 
