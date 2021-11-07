@@ -4,8 +4,8 @@
   <test thread-count="1" name="Test">
     <classes>
      
+      
       <class name="scrappers.FPL_RoC_Lge_Scrapper"/>
-      <class name="scrappers.FPL_scrapper_advanched"/>
       
      
     </classes>
@@ -13,6 +13,7 @@
    <class name="com.parameters.datadrivenlogin"/>
       <class name="com.test.testlogin"/>
        <class name="com.test.ValidateLogin"/>
-  
+       
+  <class name="scrappers.FPL_scrapper_advanched"/>
    -->
 </suite> <!-- Suite -->
