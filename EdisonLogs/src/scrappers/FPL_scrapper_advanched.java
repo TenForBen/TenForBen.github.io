@@ -155,7 +155,7 @@ public class FPL_scrapper_advanched {
 	{
 		
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		String snj ="FPL6";
+		String snj ="Sheet9";
 		System.out.println("League Scrapper - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
 		//System.out.println("The last row by method  " + LR);

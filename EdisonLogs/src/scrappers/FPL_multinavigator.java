@@ -134,7 +134,8 @@ public class FPL_multinavigator {
 		String snj ="Sheet9";
 		String historyChips = "(//*[contains(@class, 'Table-ziussd-1 fHBHIK')])[2]/tbody/tr";
 		int gw=8;		
-		String leagueID ="217319";	// leagueID -217319 -9 losers
+		String leagueID ="639080";	// leagueID -217319 -9 losers
+		// overall - 314 starsports - 639080 comics league / 94902
 		String laGarbage=fetcher(leagueID,gw,snj,3);
 		System.out.println("inside main  method running IDs of sheet - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
