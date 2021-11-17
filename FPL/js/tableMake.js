@@ -462,7 +462,20 @@ function colorCoder()
 					{
 						let pts = myArr[myArrLen-1]
 						if(pts>4)
-							document.getElementsByTagName("tr")[rw].children[i].bgColor="orange"
+                        {
+							document.getElementsByTagName("tr")[rw].children[i].bgColor="#cd7f32"
+                            document.getElementsByTagName("tr")[rw].children[i].style.color="white"
+                        }
+                        if(pts>8)
+                        {
+                            document.getElementsByTagName("tr")[rw].children[i].bgColor="#9ea39e"
+                            document.getElementsByTagName("tr")[rw].children[i].style.color="black"
+                        }
+                        if(pts>12)
+                        {
+                            document.getElementsByTagName("tr")[rw].children[i].bgColor="#e5d514"
+                            document.getElementsByTagName("tr")[rw].children[i].style.color="black"
+                        }
 
 					}
 					else
