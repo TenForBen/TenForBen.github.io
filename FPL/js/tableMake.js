@@ -116,7 +116,7 @@ function loader4mgwFPL6()
     // sorter
      sortTable_col3();
      captainSignRemovar();
-	 colorCoder();
+	 colorCoder(s.length);
 	
 }
 
@@ -445,11 +445,12 @@ function prepareTableCellgrocery(p1,p2,p3,p4,p5,p6)
 }
 
 
-function colorCoder()
+function colorCoder(darshana)
 
 {
 	
-		for(rw=1;rw<32;rw++)
+
+		for(rw=1;rw<=darshana;rw++)
 	{
 				for(i=3;i<18;i++)
 			{
@@ -462,7 +463,20 @@ function colorCoder()
 					{
 						let pts = myArr[myArrLen-1]
 						if(pts>4)
-							document.getElementsByTagName("tr")[rw].children[i].bgColor="orange"
+                        {
+							document.getElementsByTagName("tr")[rw].children[i].bgColor="#cd7f32"
+                            document.getElementsByTagName("tr")[rw].children[i].style.color="white"
+                        }
+                        if(pts>8)
+                        {
+                            document.getElementsByTagName("tr")[rw].children[i].bgColor="#9ea39e"
+                            document.getElementsByTagName("tr")[rw].children[i].style.color="black"
+                        }
+                        if(pts>12)
+                        {
+                            document.getElementsByTagName("tr")[rw].children[i].bgColor="#e5d514"
+                            document.getElementsByTagName("tr")[rw].children[i].style.color="black"
+                        }
 
 					}
 					else
