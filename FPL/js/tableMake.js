@@ -116,7 +116,7 @@ function loader4mgwFPL6()
     // sorter
      sortTable_col3();
      captainSignRemovar();
-	 colorCoder();
+	 colorCoder(s.length);
 	
 }
 
@@ -445,11 +445,12 @@ function prepareTableCellgrocery(p1,p2,p3,p4,p5,p6)
 }
 
 
-function colorCoder()
+function colorCoder(darshana)
 
 {
 	
-		for(rw=1;rw<32;rw++)
+
+		for(rw=1;rw<=darshana;rw++)
 	{
 				for(i=3;i<18;i++)
 			{
