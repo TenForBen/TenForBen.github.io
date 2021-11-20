@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>FPL6 -Players-GW-11</title>
+<title>FPL6 -Players-GW-1</title>
 
 </head>
 <link rel="stylesheet" href="../../../../AufWiedersehen/BootMeister/css/bootstrap.min.css">
@@ -34,8 +34,6 @@
     <p>Please click on the Count and Captain Count Table header to sort</p>
 <p><button onclick="location.href='../GW6/playerCount.html';">Last GW</button></p>
 <a id="barnes" class="btn btn-info" href="punkte.html" onclick="">CurrentStatus</a>
-<a id="prev" class="btn btn-info" href="punkte.html" onclick="">PrevButt</a>
-<a id="next" class="btn btn-info" href="punkte.html" onclick="">NextButt</a>
 
     
     
@@ -53,19 +51,4 @@
 	
 </body>
 <script src="../../../js/jQ.js"></script>
-<script> 
-	var tt =document.getElementsByTagName('title')[0].innerText
-	  dm = tt.split("-")  
-	   var callum =dm[dm.length-1]
-	   var prevGW = callum-1
-	   var nextGW = parseInt(callum)
-	   nextGW=nextGW+1
-	   document.getElementById("prev").innerText= "Previous GW -> " + prevGW 
-	   document.getElementById("next").innerText= "Next GW <-> " + nextGW
-	   var prevHref = "../../GW" +prevGW +"/FPL6/playerCountNew.html"
-	   var nextHref = "../../GW" +nextGW +"/FPL6/playerCountNew.html"
-	   //GW11/FPL6/playerCountNew.html
-	   document.getElementById("prev").href=prevHref
-	   document.getElementById("next").href=nextHref
-</script>
 </html>

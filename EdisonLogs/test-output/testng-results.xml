@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="2" passed="2">
+<testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="1436658" started-at="2021-11-16T22:10:25Z" finished-at="2021-11-16T22:34:22Z">
+  <suite name="Default suite" duration-ms="1062175" started-at="2021-11-20T13:57:20Z" finished-at="2021-11-20T14:15:02Z">
     <groups>
     </groups>
-    <test name="Test" duration-ms="1436658" started-at="2021-11-16T22:10:25Z" finished-at="2021-11-16T22:34:22Z">
+    <test name="Default test" duration-ms="1062175" started-at="2021-11-20T13:57:20Z" finished-at="2021-11-20T14:15:02Z">
       <class name="scrappers.FPL_scrapper_advanched">
-        <test-method status="PASS" signature="iteraetor()[pri:0, instance:scrappers.FPL_scrapper_advanched@1753acfe]" name="iteraetor" duration-ms="1361571" started-at="2021-11-16T23:11:40Z" finished-at="2021-11-16T23:34:22Z">
+        <test-method status="PASS" signature="iteraetor()[pri:0, instance:scrappers.FPL_scrapper_advanched@7dc7cbad]" name="iteraetor" duration-ms="1062136" started-at="2021-11-20T14:57:20Z" finished-at="2021-11-20T15:15:02Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- iteraetor -->
       </class> <!-- scrappers.FPL_scrapper_advanched -->
-      <class name="scrappers.FPL_multinavigator">
-        <test-method status="PASS" signature="iteraetor()[pri:0, instance:scrappers.FPL_multinavigator@d2cc05a]" name="iteraetor" duration-ms="75027" started-at="2021-11-16T23:10:25Z" finished-at="2021-11-16T23:11:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- iteraetor -->
-      </class> <!-- scrappers.FPL_multinavigator -->
-    </test> <!-- Test -->
-  </suite> <!-- Suite -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
 </testng-results>
