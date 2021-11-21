@@ -162,7 +162,7 @@ public class FPL_RoC_Lge_Scrapper {
 		int LRs=LR+1;
 		System.out.println("The last row count is LRs " + LRs);
 		int numVar = 2;
-		int gw=11;		
+		int gw=12;		
 		for( numVar =1;numVar<=1;numVar++)
 		{
 				for( int i =2;i<=LRs;i++)
