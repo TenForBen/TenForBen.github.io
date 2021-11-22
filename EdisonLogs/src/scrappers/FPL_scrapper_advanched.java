@@ -155,6 +155,7 @@ public class FPL_scrapper_advanched {
 	{
 		
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
+		int gw=12;	
 		String snj ="FPL6";
 		System.out.println("League Scrapper - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
@@ -162,7 +163,7 @@ public class FPL_scrapper_advanched {
 		int LRs=LR+1;
 		System.out.println("The last row count is LRs " + LRs);
 		int numVar = 2;
-		int gw=12;		
+			
 		for( numVar =1;numVar<=1;numVar++)
 		{
 				for( int i =2;i<=LRs;i++)
