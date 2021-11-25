@@ -2,15 +2,15 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="291535" started-at="2021-11-25T00:02:23Z" finished-at="2021-11-25T00:07:14Z">
+  <suite name="Default suite" duration-ms="822668" started-at="2021-11-25T14:03:49Z" finished-at="2021-11-25T14:17:31Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="291535" started-at="2021-11-25T00:02:23Z" finished-at="2021-11-25T00:07:14Z">
+    <test name="Default test" duration-ms="822668" started-at="2021-11-25T14:03:49Z" finished-at="2021-11-25T14:17:31Z">
       <class name="scrappers.FPL_scrapper_advanched">
-        <test-method status="PASS" signature="comics()[pri:0, instance:scrappers.FPL_scrapper_advanched@7dc7cbad]" name="comics" duration-ms="291504" started-at="2021-11-25T01:02:23Z" finished-at="2021-11-25T01:07:14Z">
+        <test-method status="PASS" signature="FPL6()[pri:0, instance:scrappers.FPL_scrapper_advanched@7dc7cbad]" name="FPL6" duration-ms="822556" started-at="2021-11-25T15:03:49Z" finished-at="2021-11-25T15:17:31Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- comics -->
+        </test-method> <!-- FPL6 -->
       </class> <!-- scrappers.FPL_scrapper_advanched -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->

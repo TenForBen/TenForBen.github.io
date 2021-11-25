@@ -580,4 +580,21 @@ function loader4mgwFPL6_1_0()
   
 }
 
+function shenai()
+	{
+		var tt =document.getElementsByTagName('title')[0].innerText
+	  dm = tt.split("-")  
+	   var callum =dm[dm.length-1]
+	   var prevGW = callum-1
+	   var nextGW = parseInt(callum)
+	   nextGW=nextGW+1
+	   document.getElementById("prev").innerText= "Previous GW -> " + prevGW 
+	   document.getElementById("next").innerText= "Next GW <-> " + nextGW
+	   var prevHref = "../../GW" +prevGW +"/FPL6/playerCountNew.html"
+	   var nextHref = "../../GW" +nextGW +"/FPL6/playerCountNew.html"
+	   //GW11/FPL6/playerCountNew.html
+	   document.getElementById("prev").href=prevHref
+	   document.getElementById("next").href=nextHref
+	}
+
 
