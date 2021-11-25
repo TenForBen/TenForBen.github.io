@@ -131,7 +131,7 @@ public class FPL_multinavigator {
 	{
 		
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		String snj ="Sheet9";
+		String snj ="Sheet10";
 		String historyChips = "(//*[contains(@class, 'Table-ziussd-1 fHBHIK')])[2]/tbody/tr";
 		int gw=8;		
 		String leagueID ="639080";	// leagueID -217319 -9 losers
