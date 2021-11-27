@@ -150,12 +150,11 @@ public class FPL_scrapper_advanched {
 		
 	}
 	
-	
 	public void comics() throws InterruptedException
 	{
 		
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		int gw=11;	
+		int gw=13;	
 		String snj ="Comics";
 		System.out.println("League Scrapper - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
@@ -179,7 +178,7 @@ public class FPL_scrapper_advanched {
 	public void StarsSports() throws InterruptedException
 	{
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		int gw=10;	
+		int gw=13;	
 		String snj ="StarsSports";
 		System.out.println("League Scrapper - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
@@ -205,7 +204,7 @@ public class FPL_scrapper_advanched {
 	{
 		
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		int gw=2;	
+		int gw=13;	
 		String snj ="FPL6";
 		System.out.println("League Scrapper - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
@@ -234,11 +233,6 @@ public class FPL_scrapper_advanched {
 		
 	}
 
-	
-	
-
-	
-	
 	public void FirstFetcher() throws InterruptedException
 	{
 		System.out.println("League Fetcher - " );

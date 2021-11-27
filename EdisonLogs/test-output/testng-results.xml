@@ -2,12 +2,12 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="822668" started-at="2021-11-25T14:03:49Z" finished-at="2021-11-25T14:17:31Z">
+  <suite name="Default suite" duration-ms="943523" started-at="2021-11-27T22:54:43Z" finished-at="2021-11-27T23:10:27Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="822668" started-at="2021-11-25T14:03:49Z" finished-at="2021-11-25T14:17:31Z">
+    <test name="Default test" duration-ms="943523" started-at="2021-11-27T22:54:43Z" finished-at="2021-11-27T23:10:27Z">
       <class name="scrappers.FPL_scrapper_advanched">
-        <test-method status="PASS" signature="FPL6()[pri:0, instance:scrappers.FPL_scrapper_advanched@7dc7cbad]" name="FPL6" duration-ms="822556" started-at="2021-11-25T15:03:49Z" finished-at="2021-11-25T15:17:31Z">
+        <test-method status="PASS" signature="FPL6()[pri:0, instance:scrappers.FPL_scrapper_advanched@7dc7cbad]" name="FPL6" duration-ms="943429" started-at="2021-11-27T23:54:43Z" finished-at="2021-11-28T00:10:26Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- FPL6 -->

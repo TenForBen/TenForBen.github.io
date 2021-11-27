@@ -3,11 +3,11 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="scrappers.FPL_RoC_Lge_Scrapper">
+      <class name="scrappers.FPL_scrapper_advanched">
         <methods>
-          <include name="iteraetor"/>
+          <include name="FPL6"/>
         </methods>
-      </class> <!-- scrappers.FPL_RoC_Lge_Scrapper -->
+      </class> <!-- scrappers.FPL_scrapper_advanched -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
