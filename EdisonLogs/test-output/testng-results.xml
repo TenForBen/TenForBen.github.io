@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="3" passed="3">
+<testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="5035497" started-at="2021-11-28T11:26:06Z" finished-at="2021-11-28T12:50:01Z">
+  <suite name="Suite" duration-ms="1063446" started-at="2021-11-28T15:34:13Z" finished-at="2021-11-28T15:51:57Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="5035497" started-at="2021-11-28T11:26:06Z" finished-at="2021-11-28T12:50:01Z">
+    <test name="Test" duration-ms="1063446" started-at="2021-11-28T15:34:13Z" finished-at="2021-11-28T15:51:57Z">
       <class name="scrappers.FPL_scrapper_advanched">
-        <test-method status="PASS" signature="FPL6()[pri:0, instance:scrappers.FPL_scrapper_advanched@7dc7cbad]" name="FPL6" duration-ms="1016267" started-at="2021-11-28T12:26:06Z" finished-at="2021-11-28T12:43:02Z">
+        <test-method status="PASS" signature="FPL6()[pri:0, instance:scrappers.FPL_scrapper_advanched@1753acfe]" name="FPL6" duration-ms="1063235" started-at="2021-11-28T16:34:14Z" finished-at="2021-11-28T16:51:57Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- FPL6 -->
-        <test-method status="PASS" signature="StarsSports()[pri:0, instance:scrappers.FPL_scrapper_advanched@7dc7cbad]" name="StarsSports" duration-ms="1536653" started-at="2021-11-28T12:43:02Z" finished-at="2021-11-28T13:08:39Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- StarsSports -->
-        <test-method status="PASS" signature="comics()[pri:0, instance:scrappers.FPL_scrapper_advanched@7dc7cbad]" name="comics" duration-ms="2482399" started-at="2021-11-28T13:08:39Z" finished-at="2021-11-28T13:50:01Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- comics -->
       </class> <!-- scrappers.FPL_scrapper_advanched -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+    </test> <!-- Test -->
+  </suite> <!-- Suite -->
 </testng-results>

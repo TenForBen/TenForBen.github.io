@@ -4,15 +4,19 @@
   <test thread-count="1" name="Test">
     <classes>
      
-       <class name="scrappers.FPL_multinavigator"/>
-       <class name="scrappers.FPL_scrapper_advanched"/>
+       
+       <class name="scrappers.FPL_scrapper_advanched">
+       			<methods>
+       						<include name="FPL6"></include>
+       			</methods>
+       </class>
      
     </classes>
   </test> <!-- Test
    <class name="com.parameters.datadrivenlogin"/>
       <class name="com.test.testlogin"/>
        <class name="com.test.ValidateLogin"/>
-       
+       <class name="scrappers.FPL_multinavigator"/>
        <class name="scrappers.FPL_scrapper_advanched"/>
       <class name="scrappers.FPL_RoC_Lge_Scrapper"/>
   
