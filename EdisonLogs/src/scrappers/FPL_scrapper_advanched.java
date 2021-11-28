@@ -149,7 +149,7 @@ public class FPL_scrapper_advanched {
 		
 		
 	}
-	
+	@Test
 	public void comics() throws InterruptedException
 	{
 		
@@ -174,7 +174,7 @@ public class FPL_scrapper_advanched {
 			Thread.sleep(100);
 		}
 	}
-	
+	@Test
 	public void StarsSports() throws InterruptedException
 	{
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");

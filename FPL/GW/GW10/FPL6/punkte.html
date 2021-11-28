@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>FPL6-GW10</title>
+<title>FPL6-GW-10</title>
 
 </head>
 <link rel="stylesheet" href="../../../../AufWiedersehen/BootMeister/css/bootstrap.min.css">
@@ -26,7 +26,9 @@
 </script>
 <link rel="stylesheet" href="carnegie.css" >-->
 <body onload='loader4mgwFPL6()' onclick="myFunction(event)">
-    
+    <a id="prev" class="btn btn-info" href="punkte.html" onclick="">PrevButt</a>
+	<a id="next" class="btn btn-info" href="punkte.html" onclick="">NextButt</a>
+	
     
     <table id="regtable" class="table table-hover table-bordered">
         <thead>	
@@ -68,9 +70,14 @@
 document.getElementsByTagName("tr")[0].children[18].innerText="Transfers"
 //document.getElementsByTagName("tr")[1].children[1].style.color="orange"
 //colorCoder();
+var tt =document.getElementsByTagName('title')[0].innerText
+  dm = tt.split("-")  
+   var callum =dm[dm.length-1]
+   document.getElementById("lowton").innerText= "Roc GameWeek " +callum  
 
 
 </script>
+<script>thunderbolt();</script>
 </body>
 
 </html>
