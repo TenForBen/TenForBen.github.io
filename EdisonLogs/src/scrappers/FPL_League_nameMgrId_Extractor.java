@@ -124,9 +124,10 @@ public  String  fplExcel(String place,int gw,String shitt,int crete)throws Inter
 						if(varra.length>1)
 						{
 							impStuff = "" + impStuff +"$ captain";
+							System.out.println("player is  Captain  -----" +impStuff);
 						}
 						else {
-							 System.out.println("player is viceCaptain  -----" +impStuff);
+							 //System.out.println("player is viceCaptain  -----" +impStuff);
 						}
 					}
 				   String ColumbName ="Player_" +(sp+1);

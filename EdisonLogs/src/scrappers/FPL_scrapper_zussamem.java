@@ -13,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 //import validationofdifferenttest;
 import org.testng.annotations.Test;
 
@@ -25,6 +26,9 @@ import validationofdifferenttestcases.frameworktest;
 // gps - 0003 to make another sheet available get the entries of all the searched places..
 
 public class FPL_scrapper_zussamem {
+	
+	
+
 	
 
 	public  String  fplExcel(String place,int gw,String shitt,int crete)throws InterruptedException
@@ -150,19 +154,103 @@ public class FPL_scrapper_zussamem {
 		
 	}
 	
+	
+	
+	@Parameters({"gameweek"})
 	@Test
-	public void iteraetor() throws InterruptedException
+	public void comics(int gameweek) throws InterruptedException
 	{
 		
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		String snj ="Sheet9";
+		int gw=gameweek;	
+		String snj ="Comics";
 		System.out.println("League Scrapper - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
 		//System.out.println("The last row by method  " + LR);
 		int LRs=LR+1;
 		System.out.println("The last row count is LRs " + LRs);
 		int numVar = 2;
-		int gw=9;		
+		for( numVar =1;numVar<=1;numVar++)
+		{
+				for( int i =2;i<=LRs;i++)
+				{
+							String place =r.getCellData(snj, "Manager_iD", i);	
+							System.out.println("Places  at position------------------------------                     "+ i +"  -----------------is                   " + place);
+							String receivedValue=fplExcel(place,gw,snj,i);
+							String[] result = receivedValue.split("~");
+				}
+			Thread.sleep(100);
+		}
+	}
+	
+	@Parameters({"gameweek"})
+	@Test
+	public void RoC(int gameweek) throws InterruptedException
+	{
+		
+		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
+		int gw=gameweek;	
+		String snj ="RoC";
+		System.out.println("League Scrapper - " +snj);	
+		int  LR =  r.getLastRwoNum(snj);
+		//System.out.println("The last row by method  " + LR);
+		int LRs=LR+1;
+		System.out.println("The last row count is LRs " + LRs);
+		int numVar = 2;
+		for( numVar =1;numVar<=1;numVar++)
+		{
+				for( int i =2;i<=LRs;i++)
+				{
+							String place =r.getCellData(snj, "Manager_iD", i);	
+							System.out.println("Places  at position------------------------------                     "+ i +"  -----------------is                   " + place);
+							String receivedValue=fplExcel(place,gw,snj,i);
+							String[] result = receivedValue.split("~");
+				}
+			Thread.sleep(100);
+		}
+	}
+	
+	@Parameters({"gameweek"})
+	@Test
+	public void StarsSports(int gameweek) throws InterruptedException
+	{
+		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
+		int gw=gameweek;	
+		String snj ="StarsSports";
+		System.out.println("League Scrapper - " +snj);	
+		int  LR =  r.getLastRwoNum(snj);
+		//System.out.println("The last row by method  " + LR);
+		int LRs=LR+1;
+		System.out.println("The last row count is LRs " + LRs);
+		int numVar = 2;
+		for( numVar =1;numVar<=1;numVar++)
+		{
+				for( int i =2;i<=LRs;i++)
+				{
+							String place =r.getCellData(snj, "Manager_iD", i);	
+							System.out.println("Places  at position------------------------------                     "+ i +"  -----------------is                   " + place);
+							String receivedValue=fplExcel(place,gw,snj,i);
+							String[] result = receivedValue.split("~");
+				}
+			Thread.sleep(100);
+		}
+	}
+	
+	@Parameters({"gameweek"})
+	@Test
+	public void FPL6(int gameweek) throws InterruptedException
+	{
+		
+		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
+		int gw=gameweek;	
+		String snj ="FPL6";
+		System.out.println("League Scrapper - " +snj);	
+		int  LR =  r.getLastRwoNum(snj);
+		//System.out.println("The last row by method  " + LR);
+		int LRs=LR+1;
+		System.out.println("The last row count is LRs " + LRs);
+		int numVar = 2;
+			
 		for( numVar =1;numVar<=1;numVar++)
 		{
 				for( int i =2;i<=LRs;i++)
@@ -182,98 +270,60 @@ public class FPL_scrapper_zussamem {
 		
 		
 	}
-
 	
-	@BeforeTest
-	public void FirstFetcher() throws InterruptedException
+	
+	@Parameters({"gameweek"})
+	@Test
+	public void test(int gameweek) throws InterruptedException
 	{
-		System.out.println("League Fetcher - " );
+		
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		String snj ="Sheet9";
-		String historyChips = "(//*[contains(@class, 'Table-ziussd-1 fHBHIK')])[2]/tbody/tr";
-		int gw=8;		
-		String leagueID ="217319";	// leagueID -217319 -9 losers
-		String laGarbage=fetcher(leagueID,gw,snj,3);
-		System.out.println("inside FirstFetcher - " +snj);	
+		int gw=gameweek;	
+		String snj ="test";
+		System.out.println("League Scrapper - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
-		System.out.println("The last row by method  " + LR);
-		int LRs=LR+2 ;
-		System.out.println("The last row count is  " + LRs);
-		for( int numVar =1;numVar<=1;numVar++)
+		//System.out.println("The last row by method  " + LR);
+		int LRs=LR+1;
+		System.out.println("The last row count is LRs " + LRs);
+		int numVar = 2;
+		for( numVar =1;numVar<=1;numVar++)
 		{
-			for( int i =2;i<=LRs;i++)
-			{
-				System.out.println("iinside loop");	
-						String place =r.getCellData(snj, "Manager_iD", i);	
-						System.out.println("mgrId  at position "+ i +" is " + place);
-						//String receivedValue=fplExcel(place,gw,snj,i);
-						//String[] result = receivedValue.split("~");
-			}
+				for( int i =2;i<=LRs;i++)
+				{
+							String place =r.getCellData(snj, "Manager_iD", i);	
+							System.out.println("Places  at position------------------------------                     "+ i +"  -----------------is                   " + place);
+							String receivedValue=fplExcel(place,gw,snj,i);
+							String[] result = receivedValue.split("~");
+				}
 			Thread.sleep(100);
 		}
-		String s1="Sheet1";
-		String s2="Sheet2";
-		 //swicherr(s1,s2);
-		
-		
-		
-		
 	}
 	
 	
-	public String fetcher(String place,int gw,String shitt,int crete) throws InterruptedException
+	@Parameters({"gameweek"})
+	@Test
+	public void randomGroup(int gameweek) throws InterruptedException
 	{
-		frameworktest fwt = new frameworktest();	
-		System.out.println("inside iterator method");	
+		
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		String snj =shitt;
-		int i = crete;
+		int gw=gameweek;	
+		String snj ="randomGroup";
+		System.out.println("League Scrapper - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
-		System.out.println("The last row by method  " + LR);
+		//System.out.println("The last row by method  " + LR);
 		int LRs=LR+1;
-		System.out.println("The last row count is  " + LRs);
-		System.setProperty("webdriver.chrome.driver","D:\\Selenium\\chromedriver.exe"); // declaring the chrome driver locatoion
-		WebDriver driver= new ChromeDriver();
-		driver.manage().window().maximize();
-		String searchParam=place +" coordinates";
-		int  gameweek =gw ;
-		String  ticker = place;
-		String uri= "https://fantasy.premierleague.com/leagues/" + ticker + "/standings/c" ;
-		//https://fantasy.premierleague.com/leagues/56210/standings/c
-		System.out.println("URL formed -" +uri);
-		driver.get(uri);
-		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);		
-		String trClassName ="StandingsRow-fwk48s-0";
-		List<WebElement> rampoola   = driver.findElements(By.className(trClassName));
-		System.out.println("number of members in the league page is " +rampoola.size());
-		int rator = rampoola.size();
-		System.out.println("total items on league page  " + rator);
-		for( int ii =0;ii<rator;ii++)
+		System.out.println("The last row count is LRs " + LRs);
+		int numVar = 2;
+		for( numVar =1;numVar<=1;numVar++)
 		{
-					String xPath4href ="(//*[contains(@class, 'StandingsRow-fwk48s-0')])["+(ii+1) +"]/td[2]/a";	
-					String xPath4TeamName ="(//*[contains(@class, 'StandingsRow-fwk48s-0')])["+(ii+1) +"]/td[2]/a/strong";
-					WebElement exHref = driver.findElement(By.xpath(xPath4href));
-					WebElement exTeamNaef = driver.findElement(By.xpath(xPath4TeamName));
-					//String extractedTeamNama =exTeamNaef.getAttribute("text");
-					String extractedTeamNama =exTeamNaef.getText();
-					String exMgrId = exHref.getAttribute("href");
-					//System.out.println("each href extracted for rank  "+ (ii+1) +" is " + exMgrId);
-					//String receivedValue=fplExcel(place,gw,snj,i);
-					String[] result = exMgrId.split("entry/");
-					String PlyPoints=result[1];
-					String[] idVal = PlyPoints.split("/");
-					String extractedMgrId =idVal[0];
-					System.out.println("for Team "+extractedTeamNama +" at  "  + (ii+1) +" manager id is " + extractedMgrId);
-					r.setCellData(snj, "Trainer_name", (ii+2), extractedTeamNama);
-					r.setCellData(snj, "Manager_iD", (ii+2), extractedMgrId);
-					
-					
+				for( int i =2;i<=LRs;i++)
+				{
+							String place =r.getCellData(snj, "Manager_iD", i);	
+							System.out.println("Places  at position------------------------------                     "+ i +"  -----------------is                   " + place);
+							String receivedValue=fplExcel(place,gw,snj,i);
+							String[] result = receivedValue.split("~");
+				}
+			Thread.sleep(100);
 		}
-		
-		
-		fwt.quitbrowser(driver);
-		return "Parc Guell";
-		
 	}
-	
 }

@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name= "loginvalidation">
+<suite name= "FPL">
 <test name= "test1">
 
-							
+							<parameter name="gameweek" value="10"></parameter>
 			                <classes>
-			                <class name= "com.parameters.testparameter" />
-			                  <class name= "com.parameters.registration" />
-			                </classes>
+     
+      
+       <class name="scrappers.FPL_scrapper_zussamem">
+       			<methods>
+       						
+       						<include name="test"></include>
+       						<include name="randomGroup"></include>
+       			</methods>
+       </class>
+     
+    </classes>
 </test>
 </suite>

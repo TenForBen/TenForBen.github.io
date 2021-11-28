@@ -8,6 +8,7 @@
        <class name="scrappers.FPL_scrapper_advanched">
        			<methods>
        						<include name="FPL6"></include>
+       						<include name="RoC"></include>
        			</methods>
        </class>
      

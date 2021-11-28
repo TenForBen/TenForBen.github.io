@@ -5,7 +5,8 @@
     <classes>
       <class name="scrappers.FPL_scrapper_advanched">
         <methods>
-          <include name="iteraetor"/>
+          <include name="FPL6"/>
+          <include name="RoC"/>
         </methods>
       </class> <!-- scrappers.FPL_scrapper_advanched -->
     </classes>
