@@ -1,28 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="2" passed="2">
+<testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="FPL" duration-ms="367645" started-at="2021-11-28T21:48:48Z" finished-at="2021-11-28T21:54:56Z">
+  <suite name="FPL" duration-ms="133102" started-at="2021-11-28T22:07:53Z" finished-at="2021-11-28T22:10:06Z">
     <groups>
     </groups>
-    <test name="test1" duration-ms="367645" started-at="2021-11-28T21:48:48Z" finished-at="2021-11-28T21:54:56Z">
+    <test name="test1" duration-ms="133102" started-at="2021-11-28T22:07:53Z" finished-at="2021-11-28T22:10:06Z">
       <class name="scrappers.FPL_scrapper_zussamem">
-        <test-method status="PASS" signature="test(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="test" duration-ms="256616" started-at="2021-11-28T22:48:48Z" finished-at="2021-11-28T22:53:05Z">
+        <test-method status="PASS" signature="randomGroup(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="randomGroup" duration-ms="132895" started-at="2021-11-28T23:07:53Z" finished-at="2021-11-28T23:10:06Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[10]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="randomGroup(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="randomGroup" duration-ms="110552" started-at="2021-11-28T22:53:05Z" finished-at="2021-11-28T22:54:56Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[10]]>
+                <![CDATA[13]]>
               </value>
             </param>
           </params>

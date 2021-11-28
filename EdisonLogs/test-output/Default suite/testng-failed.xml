@@ -3,11 +3,16 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="scrappers.FPL_scrapper_advanched">
+      <class name="scrappers.FPL_scrapper_zussamem">
         <methods>
+          <include name="StarsSports"/>
           <include name="FPL6"/>
+          <include name="test"/>
+          <include name="RoC"/>
+          <include name="comics"/>
+          <include name="randomGroup"/>
         </methods>
-      </class> <!-- scrappers.FPL_scrapper_advanched -->
+      </class> <!-- scrappers.FPL_scrapper_zussamem -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

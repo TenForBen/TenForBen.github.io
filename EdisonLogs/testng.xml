@@ -20,6 +20,6 @@
        <class name="scrappers.FPL_multinavigator"/>
        <class name="scrappers.FPL_scrapper_advanched"/>
       <class name="scrappers.FPL_RoC_Lge_Scrapper"/>
-  
+  <include name="test"></include>
    -->
 </suite> <!-- Suite -->

@@ -4,18 +4,27 @@
 <suite name= "FPL">
 <test name= "test1">
 
-							<parameter name="gameweek" value="10"></parameter>
+							<parameter name="gameweek" value="13"></parameter>
 			                <classes>
      
       
        <class name="scrappers.FPL_scrapper_zussamem">
        			<methods>
        						
-       						<include name="test"></include>
+       						
        						<include name="randomGroup"></include>
        			</methods>
        </class>
      
     </classes>
 </test>
+<!-- Test
+   <class name="com.parameters.datadrivenlogin"/>
+      <class name="com.test.testlogin"/>
+       <class name="com.test.ValidateLogin"/>
+       <class name="scrappers.FPL_multinavigator"/>
+       <class name="scrappers.FPL_scrapper_advanched"/>
+      <class name="scrappers.FPL_RoC_Lge_Scrapper"/>
+  <include name="test"></include>
+   -->
 </suite>

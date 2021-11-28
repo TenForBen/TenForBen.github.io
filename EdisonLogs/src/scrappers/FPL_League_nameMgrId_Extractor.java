@@ -147,7 +147,9 @@ public  String  fplExcel(String place,int gw,String shitt,int crete)throws Inter
 		r.setCellData(snj, "manager_Name", i, playerName);
 		r.setCellData(snj, "Trainer_name", i, playerName);
 		r.setCellData(snj, "overallRank", i, overallRank);
+		r.setCellData(snj, "Count", i, overallRank);
 		r.setCellData(snj, "overallPoints", i, overallPoints);
+		r.setCellData(snj, "Bench", i, overallPoints);
 		r.setCellData(snj, "gwXfr", i, gwTransfer);
 		fwt.quitbrowser(driver);
 		
