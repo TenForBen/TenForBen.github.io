@@ -2,27 +2,27 @@
 <testng-results skipped="0" failed="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="FPL" duration-ms="1931284" started-at="2021-11-30T00:05:28Z" finished-at="2021-11-30T00:37:40Z">
+  <suite name="FPL" duration-ms="1513449" started-at="2021-12-01T22:01:27Z" finished-at="2021-12-01T22:26:40Z">
     <groups>
     </groups>
-    <test name="test1" duration-ms="1931284" started-at="2021-11-30T00:05:28Z" finished-at="2021-11-30T00:37:40Z">
+    <test name="test1" duration-ms="1513449" started-at="2021-12-01T22:01:27Z" finished-at="2021-12-01T22:26:40Z">
       <class name="scrappers.FPL_scrapper_zussamem">
-        <test-method status="PASS" signature="FPL6(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="FPL6" duration-ms="1399617" started-at="2021-11-30T01:05:28Z" finished-at="2021-11-30T01:28:48Z">
+        <test-method status="PASS" signature="FPL6(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="FPL6" duration-ms="1039393" started-at="2021-12-01T23:01:27Z" finished-at="2021-12-01T23:18:46Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[13]]>
+                <![CDATA[14]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- FPL6 -->
-        <test-method status="PASS" signature="RoC(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="RoC" duration-ms="531566" started-at="2021-11-30T01:28:48Z" finished-at="2021-11-30T01:37:40Z">
+        <test-method status="PASS" signature="RoC(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="RoC" duration-ms="473877" started-at="2021-12-01T23:18:46Z" finished-at="2021-12-01T23:26:40Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[13]]>
+                <![CDATA[14]]>
               </value>
             </param>
           </params>
