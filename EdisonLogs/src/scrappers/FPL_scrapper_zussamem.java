@@ -136,6 +136,7 @@ public class FPL_scrapper_zussamem {
 		System.out.println("gw transfer -  " +gwTransfer);*/
 		String searchResult= fp +"~" + teamName +"~"+ playerName+"~" + overallPoints  +"~" + overallRank;
 	    System.out.println("Final ORPoints "+" are " + fp +" points ");
+	    r.setCellData(snj, "SXL", i, fp);
 	    r.setCellData(snj, "Latest Score", i, fp);
 		r.setCellData(snj, "Teams", i, teamName);
 		r.setCellData(snj, "manager_Name", i, playerName);
@@ -148,6 +149,7 @@ public class FPL_scrapper_zussamem {
 		
 		fwt.quitbrowser(driver);
 		
+
 		
 		return searchResult; // stores the value of searchResult in SR string  in teh iterator method
 		// for multiple return we can condense the the two varriable temp and coords in one and then split in the main mehtod.
