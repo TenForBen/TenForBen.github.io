@@ -7,7 +7,7 @@
     <classes>
       <class name="scrappers.FPL_scrapper_zussamem">
         <methods>
-          <include name="FPL6" invocation-numbers="0"/>
+          <include name="RoC" invocation-numbers="0"/>
         </methods>
       </class> <!-- scrappers.FPL_scrapper_zussamem -->
     </classes>
