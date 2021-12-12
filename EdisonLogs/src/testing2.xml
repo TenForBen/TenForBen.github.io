@@ -4,7 +4,7 @@
 <suite name= "FPL">
 <test name= "test1">
 
-							<parameter name="gameweek" value="14"></parameter>
+							<parameter name="gameweek" value="15"></parameter>
 			                <classes>
      
       
@@ -12,7 +12,7 @@
        			<methods>
        						
        						
-       						<include name="FPL6"></include>
+       						<include name="RoC"></include>
        						
        			</methods>
        </class>

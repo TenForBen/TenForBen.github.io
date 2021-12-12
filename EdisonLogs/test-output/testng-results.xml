@@ -2,22 +2,22 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="FPL" duration-ms="1371466" started-at="2021-12-03T23:18:24Z" finished-at="2021-12-03T23:41:15Z">
+  <suite name="FPL" duration-ms="519040" started-at="2021-12-12T22:25:34Z" finished-at="2021-12-12T22:34:13Z">
     <groups>
     </groups>
-    <test name="test1" duration-ms="1371466" started-at="2021-12-03T23:18:24Z" finished-at="2021-12-03T23:41:15Z">
+    <test name="test1" duration-ms="519040" started-at="2021-12-12T22:25:34Z" finished-at="2021-12-12T22:34:13Z">
       <class name="scrappers.FPL_scrapper_zussamem">
-        <test-method status="PASS" signature="FPL6(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="FPL6" duration-ms="1371403" started-at="2021-12-04T00:18:24Z" finished-at="2021-12-04T00:41:15Z">
+        <test-method status="PASS" signature="RoC(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="RoC" duration-ms="518999" started-at="2021-12-12T23:25:34Z" finished-at="2021-12-12T23:34:13Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[14]]>
+                <![CDATA[15]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- FPL6 -->
+        </test-method> <!-- RoC -->
       </class> <!-- scrappers.FPL_scrapper_zussamem -->
     </test> <!-- test1 -->
   </suite> <!-- FPL -->
