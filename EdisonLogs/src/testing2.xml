@@ -4,7 +4,7 @@
 <suite name= "FPL">
 <test name= "test1">
 
-							<parameter name="gameweek" value="15"></parameter>
+							<parameter name="gameweek" value="16"></parameter>
 			                <classes>
      
       
@@ -12,14 +12,15 @@
        			<methods>
        						
        						
-       						<include name="RoC"></include>
        						
+       						<include name="StarsSports"></include>
        			</methods>
        </class>
      
     </classes>
 </test>
 <!-- Test
+<include name="StarsSports"></include>
    <class name="com.parameters.datadrivenlogin"/>
       <class name="com.test.testlogin"/>
        <class name="com.test.ValidateLogin"/>
