@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="FPL" duration-ms="1376004" started-at="2021-12-13T22:04:38Z" finished-at="2021-12-13T22:27:34Z">
+  <suite name="FPL" duration-ms="1813186" started-at="2021-12-14T21:20:20Z" finished-at="2021-12-14T21:50:33Z">
     <groups>
     </groups>
-    <test name="test1" duration-ms="1376004" started-at="2021-12-13T22:04:38Z" finished-at="2021-12-13T22:27:34Z">
+    <test name="test1" duration-ms="1813186" started-at="2021-12-14T21:20:20Z" finished-at="2021-12-14T21:50:33Z">
       <class name="scrappers.FPL_scrapper_zussamem">
-        <test-method status="PASS" signature="StarsSports(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="StarsSports" duration-ms="1375973" started-at="2021-12-13T23:04:38Z" finished-at="2021-12-13T23:27:34Z">
+        <test-method status="PASS" signature="StarsSports(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="StarsSports" duration-ms="1813123" started-at="2021-12-14T22:20:20Z" finished-at="2021-12-14T22:50:33Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[16]]>
+                <![CDATA[17]]>
               </value>
             </param>
           </params>

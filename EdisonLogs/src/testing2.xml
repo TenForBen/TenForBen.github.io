@@ -4,16 +4,16 @@
 <suite name= "FPL">
 <test name= "test1">
 
-							<parameter name="gameweek" value="16"></parameter>
+							<parameter name="gameweek" value="17"></parameter>
 			                <classes>
      
       
        <class name="scrappers.FPL_scrapper_zussamem">
        			<methods>
        						
-       						
-       						
        						<include name="StarsSports"></include>
+       						
+       						
        			</methods>
        </class>
      
@@ -24,6 +24,8 @@
    <class name="com.parameters.datadrivenlogin"/>
       <class name="com.test.testlogin"/>
        <class name="com.test.ValidateLogin"/>
+       <include name="RoC"></include>
+       						<include name="comics"></include>
        <class name="scrappers.FPL_multinavigator"/>
        <class name="scrappers.FPL_scrapper_advanched"/>
       <class name="scrappers.FPL_RoC_Lge_Scrapper"/>
