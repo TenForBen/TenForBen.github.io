@@ -11,7 +11,7 @@
        <class name="scrappers.FPL_scrapper_zussamem">
        			<methods>
        						
-       						<include name="StarsSports"></include>
+       						<include name="FPL6"></include>
        						
        						
        			</methods>
@@ -31,5 +31,6 @@
       <class name="scrappers.FPL_RoC_Lge_Scrapper"/>
   <include name="test"></include>
   <include name="RoC"></include>
+  <include name="StarsSports"></include>
    -->
 </suite>
