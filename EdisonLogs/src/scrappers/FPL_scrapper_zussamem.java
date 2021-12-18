@@ -35,7 +35,7 @@ public class FPL_scrapper_zussamem {
 	
 	{
 		frameworktest fwt = new frameworktest();	
-		System.out.println("inside FPL Excle method");	
+		System.out.println("inside fplExcel  method");	
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
 		String snj =shitt;
 		int i = crete;
@@ -99,7 +99,7 @@ public class FPL_scrapper_zussamem {
 					//System.out.println("ramayana katte  " +yana);
 					if(yana>3)
 					{
-						System.out.println("Captain or Vice Captain @");
+						//System.out.println("Captain or Vice Captain @");
 						String xPath4SVG ="((//*[contains(@class, 'Pitch__PitchElementWrap-sc-1mctasb-4 bWWBeR notranslate')])["+(sp+1) +"]/*/*)[3]";
 						//((//*[contains(@class, 'Pitch__PitchElementWrap-sc-1mctasb-4 bWWBeR notranslate')])[10]/*/*)[3]
 						//List<WebElement> xpathxPath4SVG   = driver.findElements(By.xpath(xPath4SVG));
@@ -112,9 +112,10 @@ public class FPL_scrapper_zussamem {
 						if(varra.length>1)
 						{
 							impStuff = "" + impStuff +"$ captain";
+							System.out.println("Captain  is -----" +impStuff);
 						}
 						else {
-							 System.out.println("player is viceCaptain  -----" +impStuff);
+							 System.out.println("VeeP  is   -----" +impStuff);
 						}
 					 
 						
@@ -135,7 +136,7 @@ public class FPL_scrapper_zussamem {
 		System.out.println("overall points -  " +overallPoints);	
 		System.out.println("gw transfer -  " +gwTransfer);*/
 		String searchResult= fp +"~" + teamName +"~"+ playerName+"~" + overallPoints  +"~" + overallRank;
-	    System.out.println("Final ORPoints "+" are " + fp +" points ");
+	    System.out.println("Latest "+" are " + fp +" points ");
 	    r.setCellData(snj, "SXL", i, fp);
 	    r.setCellData(snj, "Latest Score", i, fp);
 		r.setCellData(snj, "Teams", i, teamName);
