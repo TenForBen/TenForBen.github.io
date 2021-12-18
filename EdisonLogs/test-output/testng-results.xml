@@ -2,22 +2,22 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="FPL" duration-ms="321426" started-at="2021-12-17T13:36:50Z" finished-at="2021-12-17T13:42:12Z">
+  <suite name="FPL" duration-ms="1017604" started-at="2021-12-18T21:04:54Z" finished-at="2021-12-18T21:21:52Z">
     <groups>
     </groups>
-    <test name="test1" duration-ms="321426" started-at="2021-12-17T13:36:50Z" finished-at="2021-12-17T13:42:12Z">
+    <test name="test1" duration-ms="1017604" started-at="2021-12-18T21:04:54Z" finished-at="2021-12-18T21:21:52Z">
       <class name="scrappers.FPL_scrapper_zussamem">
-        <test-method status="PASS" signature="comics(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="comics" duration-ms="321378" started-at="2021-12-17T14:36:50Z" finished-at="2021-12-17T14:42:12Z">
+        <test-method status="PASS" signature="FPL6(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="FPL6" duration-ms="1017556" started-at="2021-12-18T22:04:54Z" finished-at="2021-12-18T22:21:52Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[17]]>
+                <![CDATA[18]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- comics -->
+        </test-method> <!-- FPL6 -->
       </class> <!-- scrappers.FPL_scrapper_zussamem -->
     </test> <!-- test1 -->
   </suite> <!-- FPL -->
