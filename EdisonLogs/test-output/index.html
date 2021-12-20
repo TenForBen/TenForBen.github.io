@@ -23,7 +23,7 @@
     <div class="top-banner-root">
       <span class="top-banner-title-font">Test results</span>
       <br/>
-      <span class="top-banner-font-1">1 suite, 1 failed test</span>
+      <span class="top-banner-font-1">1 suite, 2 failed tests</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -90,7 +90,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">1 method, 1 failed,   </span>
+                    <span class="method-stats">3 methods, 2 failed,   1 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title failed">Failed methods</span>
@@ -101,10 +101,29 @@
                     <div class="method-list-content failed suite-FPL">
                       <span>
                         <img width="3%" src="failed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-FPL" title="scrappers.FPL_scrapper_zussamem" hash-for-method="comics(18)">comics(18)</a> <!-- method navigator-link -->
+                        <a href="#" class="method navigator-link" panel-name="suite-FPL" title="scrappers.FPL_scrapper_zussamem" hash-for-method="RoC(18)">RoC(18)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="failed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-FPL" title="scrappers.FPL_scrapper_zussamem" hash-for-method="StarsSports(18)">StarsSports(18)</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content failed suite-FPL -->
+                  </li>
+                  <li>
+                    <span class="method-list-title passed">Passed methods</span>
+                    <span class="show-or-hide-methods passed">
+                      <a href="#" panel-name="suite-FPL" class="hide-methods passed suite-FPL"> (hide)</a> <!-- hide-methods passed suite-FPL -->
+                      <a href="#" panel-name="suite-FPL" class="show-methods passed suite-FPL"> (show)</a> <!-- show-methods passed suite-FPL -->
+                    </span>
+                    <div class="method-list-content passed suite-FPL">
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-FPL" title="scrappers.FPL_scrapper_zussamem" hash-for-method="comics(18)">comics(18)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content passed suite-FPL -->
                   </li>
                 </ul>
               </div> <!-- suite-section-content -->
@@ -124,20 +143,20 @@
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="comics(18)">
-                  </a> <!-- comics(18) -->
-                  <span class="method-name">comics</span>
+                  <a name="RoC(18)">
+                  </a> <!-- RoC(18) -->
+                  <span class="method-name">RoC</span>
                   <span class="parameters">(18)</span>
                   <div class="stack-trace">org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//*[@id=&quot;root&quot;]/div[2]/div[2]/div[1]/div[3]/div/div[1]/div[1]/div/div &quot;}
   (Session info: chrome=96.0.4664.110)
   (Driver info: chromedriver=2.42.591088 (7b2b2dca23cca0862f674758c9a3933e685c27d5),platform=Windows NT 10.0.19043 x86_64) (WARNING: The server did not provide any stacktrace information)
-Command duration or timeout: 2.52 seconds
+Command duration or timeout: 2.72 seconds
 For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: &apos;2.53.0&apos;, revision: &apos;35ae25b&apos;, time: &apos;2016-03-15 17:00:58&apos;
 System info: host: &apos;Highbury&apos;, ip: &apos;192.168.1.168&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_211&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities [{mobileEmulationEnabled=false, hasTouchScreen=false, platform=XP, acceptSslCerts=false, goog:chromeOptions={debuggerAddress=localhost:52589}, acceptInsecureCerts=false, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, setWindowRect=true, unexpectedAlertBehaviour=, applicationCacheEnabled=false, rotatable=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.42.591088 (7b2b2dca23cca0862f674758c9a3933e685c27d5), userDataDir=C:\Users\Sibin\AppData\Local\Temp\scoped_dir8664_7128}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, version=96.0.4664.110, browserConnectionEnabled=false, nativeEvents=true, locationContextEnabled=true, cssSelectorsEnabled=true}]
-Session ID: 2c63a7653d6c45db07fb5a45aa7d542f
+Capabilities [{mobileEmulationEnabled=false, hasTouchScreen=false, platform=XP, acceptSslCerts=false, goog:chromeOptions={debuggerAddress=localhost:62545}, acceptInsecureCerts=false, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, setWindowRect=true, unexpectedAlertBehaviour=, applicationCacheEnabled=false, rotatable=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.42.591088 (7b2b2dca23cca0862f674758c9a3933e685c27d5), userDataDir=C:\Users\Sibin\AppData\Local\Temp\scoped_dir15444_23887}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, version=96.0.4664.110, browserConnectionEnabled=false, nativeEvents=true, locationContextEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 85bb96e4207c123337a81897fc7b5729
 *** Element info: {Using=xpath, value=//*[@id=&quot;root&quot;]/div[2]/div[2]/div[1]/div[3]/div/div[1]/div[1]/div/div }
 	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
 	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
@@ -147,13 +166,59 @@ Session ID: 2c63a7653d6c45db07fb5a45aa7d542f
 	at org.openqa.selenium.By$ByXPath.findElement(By.java:361)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:355)
 	at scrappers.FPL_scrapper_zussamem.fplExcel(FPL_scrapper_zussamem.java:58)
-	at scrappers.FPL_scrapper_zussamem.comics(FPL_scrapper_zussamem.java:183)
+	at scrappers.FPL_scrapper_zussamem.RoC(FPL_scrapper_zussamem.java:210)
+... Removed 28 stack frames
+</div> <!-- stack-trace -->
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="StarsSports(18)">
+                  </a> <!-- StarsSports(18) -->
+                  <span class="method-name">StarsSports</span>
+                  <span class="parameters">(18)</span>
+                  <div class="stack-trace">org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//*[@id=&quot;root&quot;]/div[2]/div[2]/div[1]/div[3]/div/div[1]/div[1]/div/div &quot;}
+  (Session info: chrome=96.0.4664.110)
+  (Driver info: chromedriver=2.42.591088 (7b2b2dca23cca0862f674758c9a3933e685c27d5),platform=Windows NT 10.0.19043 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 2.03 seconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: &apos;2.53.0&apos;, revision: &apos;35ae25b&apos;, time: &apos;2016-03-15 17:00:58&apos;
+System info: host: &apos;Highbury&apos;, ip: &apos;192.168.1.168&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_211&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{mobileEmulationEnabled=false, hasTouchScreen=false, platform=XP, acceptSslCerts=false, goog:chromeOptions={debuggerAddress=localhost:62811}, acceptInsecureCerts=false, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, setWindowRect=true, unexpectedAlertBehaviour=, applicationCacheEnabled=false, rotatable=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.42.591088 (7b2b2dca23cca0862f674758c9a3933e685c27d5), userDataDir=C:\Users\Sibin\AppData\Local\Temp\scoped_dir13224_4735}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, version=96.0.4664.110, browserConnectionEnabled=false, nativeEvents=true, locationContextEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 80cf11c84d22265ba1be372e1419cde3
+*** Element info: {Using=xpath, value=//*[@id=&quot;root&quot;]/div[2]/div[2]/div[1]/div[3]/div/div[1]/div[1]/div/div }
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:363)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:500)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:361)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:355)
+	at scrappers.FPL_scrapper_zussamem.fplExcel(FPL_scrapper_zussamem.java:58)
+	at scrappers.FPL_scrapper_zussamem.StarsSports(FPL_scrapper_zussamem.java:236)
 ... Removed 28 stack frames
 </div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
           </div> <!-- suite-FPL-class-failed -->
+          <div class="suite-FPL-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">scrappers.FPL_scrapper_zussamem</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="comics(18)">
+                  </a> <!-- comics(18) -->
+                  <span class="method-name">comics</span>
+                  <span class="parameters">(18)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-FPL-class-passed -->
         </div> <!-- panel FPL -->
         <div panel-name="test-xml-FPL" class="panel">
           <div class="main-panel-header rounded-window-top">
@@ -170,6 +235,8 @@ Session ID: 2c63a7653d6c45db07fb5a45aa7d542f
       &lt;class name=&quot;scrappers.FPL_scrapper_zussamem&quot;&gt;
         &lt;methods&gt;
           &lt;include name=&quot;comics&quot;/&gt;
+          &lt;include name=&quot;RoC&quot;/&gt;
+          &lt;include name=&quot;StarsSports&quot;/&gt;
         &lt;/methods&gt;
       &lt;/class&gt; &lt;!-- scrappers.FPL_scrapper_zussamem --&gt;
     &lt;/classes&gt;
@@ -211,16 +278,24 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(1);
+data.addRows(3);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'comics')
+data.setCell(0, 1, 'RoC')
 data.setCell(0, 2, 'scrappers.FPL_scrapper_zussamem')
-data.setCell(0, 3, 68117);
+data.setCell(0, 3, 341121);
+data.setCell(1, 0, 1)
+data.setCell(1, 1, 'comics')
+data.setCell(1, 2, 'scrappers.FPL_scrapper_zussamem')
+data.setCell(1, 3, 304598);
+data.setCell(2, 0, 2)
+data.setCell(2, 1, 'StarsSports')
+data.setCell(2, 2, 'scrappers.FPL_scrapper_zussamem')
+data.setCell(2, 3, 172346);
 window.suiteTableData['FPL']= { tableData: data, tableDiv: 'times-div-FPL'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 1 minutes</span>
+              <span class="suite-total-time">Total running time: 13 minutes</span>
               <div id="times-div-FPL">
               </div> <!-- times-div-FPL -->
             </div> <!-- times-div -->
@@ -235,19 +310,15 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-FPL" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">5 ignored methods</span>
+            <span class="header-content">3 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="ignored-class-div">
               <span class="ignored-class-name">scrappers.FPL_scrapper_zussamem</span>
               <div class="ignored-methods-div">
-                <span class="ignored-method-name">StarsSports</span>
-                <br/>
                 <span class="ignored-method-name">FPL6</span>
                 <br/>
                 <span class="ignored-method-name">test</span>
-                <br/>
-                <span class="ignored-method-name">RoC</span>
                 <br/>
                 <span class="ignored-method-name">randomGroup</span>
                 <br/>
@@ -263,10 +334,20 @@ return data;
             <div class="chronological-class">
               <div class="chronological-class-name">scrappers.FPL_scrapper_zussamem</div> <!-- chronological-class-name -->
               <div class="test-method">
-                <img src="failed.png">
-                </img>
                 <span class="method-name">comics(18)</span>
                 <span class="method-start">0 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <img src="failed.png">
+                </img>
+                <span class="method-name">RoC(18)</span>
+                <span class="method-start">304598 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <img src="failed.png">
+                </img>
+                <span class="method-name">StarsSports(18)</span>
+                <span class="method-start">645807 ms</span>
               </div> <!-- test-method -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
