@@ -12,7 +12,7 @@
        			<methods>
        						
        						
-       						<include name="comics"></include>
+       						
        						<include name="RoC"></include>
   <include name="StarsSports"></include>
        						
@@ -34,5 +34,6 @@
   <include name="test"></include>
   <include name="RoC"></include>
   <include name="StarsSports"></include>
+  <include name="comics"></include>
    -->
 </suite>

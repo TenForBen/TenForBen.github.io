@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+  <test thread-count="5" name="Test">
+    <classes>
+      <class name="openWeatherApp.ApiUiInt.barfTest">
+      			<methods>
+      		<parameter name="a" value="mirpur,BD"></parameter>
+      			<include name="countryCodeInclusionI"></include>
+      			
+      		</methods>
+      </class>
+    </classes>
+  </test> <!-- 
+  
+  Test -->
+</suite> <!-- Suite
+
+ <methods>
+      		<parameter name="a" value="mirpur,BD"></parameter>
+      			<include name="countryCodeInclusion"></include>
+      			<include name="countryCodeInclusionP"></include>
+      		</methods>
+ -->
