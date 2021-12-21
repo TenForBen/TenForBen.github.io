@@ -5,8 +5,8 @@
     <classes>
       <class name="openWeatherApp.ApiUiInt.barfTest">
       			<methods>
-      		<parameter name="a" value="mirpur,BD"></parameter>
-      			<include name="countryCodeInclusionI"></include>
+      		<parameter name="a" value="dhaka"></parameter>
+      			<include name="countryCodeInclusionP"></include>
       			
       		</methods>
       </class>
@@ -20,5 +20,6 @@
       		<parameter name="a" value="mirpur,BD"></parameter>
       			<include name="countryCodeInclusion"></include>
       			<include name="countryCodeInclusionP"></include>
+      			<include name="countryCodeInclusionI"></include>
       		</methods>
  -->
