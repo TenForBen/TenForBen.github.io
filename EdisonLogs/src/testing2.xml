@@ -4,22 +4,15 @@
 <suite name= "FPL">
 <test name= "test1">
 
-							<parameter name="gameweek" value="18"></parameter>
-			                <classes>
-     
-      
-       <class name="scrappers.FPL_scrapper_zussamem">
-       			<methods>
-       						
-       						
-       						
-       						<include name="RoC"></include>
-  <include name="StarsSports"></include>
-       						
-       			</methods>
-       </class>
-     
-    </classes>
+<parameter name="gameweek" value="19"></parameter>
+	<classes>
+	       <class name="scrappers.FPL_scrapper_zussamem">
+	       			<methods>
+	       						<include name="FPL6"></include>
+	
+	       			</methods>
+	       </class>
+	    </classes>
 </test>
 <!-- Test
 <include name="StarsSports"></include>
@@ -33,6 +26,7 @@
       <class name="scrappers.FPL_RoC_Lge_Scrapper"/>
   <include name="test"></include>
   <include name="RoC"></include>
+    <include name="StarsSports"></include>
   <include name="StarsSports"></include>
   <include name="comics"></include>
    -->
