@@ -92,6 +92,12 @@ public class FPL_scrapper_zussamem {
 					String PlyPoints=result[1];
 				   //String impStuff ="" +allInputElementsN .get(sp).getAttribute("innerText") +" " +allInputElementsV .get(sp).getAttribute("innerText");
 					String impStuff ="" +PlyName+" " +PlyPoints;
+					int Ast =Integer.parseInt(PlyPoints);
+					int AvgPerformer = 10;
+					if(Ast>AvgPerformer) 
+					{
+						System.out.println(" High performing player " +impStuff );
+					}
 					//(//*[contains(@class, 'Pitch__PitchElementWrap-sc-1mctasb-4 bWWBeR notranslate')])[10]/*/
 					String customxPath ="(//*[contains(@class, 'Pitch__PitchElementWrap-sc-1mctasb-4 bWWBeR notranslate')])["+(sp+1) +"]/*/*";
 					List<WebElement> rama   = driver.findElements(By.xpath(customxPath));
