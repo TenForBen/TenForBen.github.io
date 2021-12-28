@@ -4,11 +4,11 @@
 <suite name= "FPL">
 <test name= "test1">
 
-<parameter name="gameweek" value="19"></parameter>
+<parameter name="gameweek" value="20"></parameter>
 	<classes>
 	       <class name="scrappers.FPL_scrapper_zussamem">
 	       			<methods>
-	       						<include name="StarsSports"></include>
+	       						<include name="FPL6"></include>
 	
 	       			</methods>
 	       </class>
