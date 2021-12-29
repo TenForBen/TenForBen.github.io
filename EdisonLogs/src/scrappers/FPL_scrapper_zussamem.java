@@ -53,8 +53,9 @@ public class FPL_scrapper_zussamem {
 		String uri= "https://fantasy.premierleague.com/entry/" + ticker + "/event/"+ gameweek ;
 		System.out.println("URL formed -" +uri);
 		driver.get(uri);
-		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);		
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);		
 		String searchReq =place;
+		//String fp= "23";
 		String fp= driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div[1]/div[3]/div/div[1]/div[1]/div/div ")).getText() ;
 		// xpath extraction is leading to error in fp- reload points and reload texts are also coming up.. 
 		//best way IMO is using conventional className operator..
@@ -92,12 +93,7 @@ public class FPL_scrapper_zussamem {
 					String PlyPoints=result[1];
 				   //String impStuff ="" +allInputElementsN .get(sp).getAttribute("innerText") +" " +allInputElementsV .get(sp).getAttribute("innerText");
 					String impStuff ="" +PlyName+" " +PlyPoints;
-					int Ast =Integer.parseInt(PlyPoints);
-					int AvgPerformer = 10;
-					if(Ast>AvgPerformer) 
-					{
-						System.out.println(" High performing player " +impStuff );
-					}
+					
 					//(//*[contains(@class, 'Pitch__PitchElementWrap-sc-1mctasb-4 bWWBeR notranslate')])[10]/*/
 					String customxPath ="(//*[contains(@class, 'Pitch__PitchElementWrap-sc-1mctasb-4 bWWBeR notranslate')])["+(sp+1) +"]/*/*";
 					List<WebElement> rama   = driver.findElements(By.xpath(customxPath));

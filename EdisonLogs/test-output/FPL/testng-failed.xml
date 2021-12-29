@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite guice-stage="DEVELOPMENT" name="Failed suite [FPL]">
-  <parameter name="gameweek" value="19"/>
+  <parameter name="gameweek" value="20"/>
   <test name="test1(failed)">
-    <parameter name="gameweek" value="19"/>
+    <parameter name="gameweek" value="20"/>
     <classes>
       <class name="scrappers.FPL_scrapper_zussamem">
         <methods>
-          <include name="FPL6" invocation-numbers="0"/>
+          <include name="comics" invocation-numbers="0"/>
         </methods>
       </class> <!-- scrappers.FPL_scrapper_zussamem -->
     </classes>
