@@ -162,7 +162,7 @@ public class frameworktest {
        {
     	  
    		driver.quit();
-   		System.out.println("Program ends by closing the browser");
+   		System.out.println("Program ends by closing the browser -----------------THE END--------------------");
    		}
        
        

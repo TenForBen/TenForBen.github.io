@@ -35,7 +35,7 @@ public class FPL_scrapper_zussamem {
 	
 	{
 		frameworktest fwt = new frameworktest();	
-		System.out.println("inside fplExcel  method");	
+		System.out.println("--------------------------------- Start of new Iteration --------------------------");	
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
 		String snj =shitt;
 		int i = crete;
@@ -139,6 +139,7 @@ public class FPL_scrapper_zussamem {
 		System.out.println("gw transfer -  " +gwTransfer);*/
 		String searchResult= fp +"~" + teamName +"~"+ playerName+"~" + overallPoints  +"~" + overallRank;
 	    System.out.println("Latest points of  " + playerName +" is  " + fp +" points ");
+	    System.out.println("Total Transfers -- " + gwTransfer  +"  trxfrs ");
 	    r.setCellData(snj, "SXL", i, fp);
 	    r.setCellData(snj, "Latest Score", i, fp);
 		r.setCellData(snj, "Teams", i, teamName);
