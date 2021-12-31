@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="1" passed="1">
+<testng-results skipped="0" failed="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="FPL" duration-ms="488049" started-at="2021-12-30T22:38:38Z" finished-at="2021-12-30T22:46:46Z">
+  <suite name="FPL" duration-ms="1699965" started-at="2021-12-31T11:33:30Z" finished-at="2021-12-31T12:01:50Z">
     <groups>
     </groups>
-    <test name="test1" duration-ms="488049" started-at="2021-12-30T22:38:38Z" finished-at="2021-12-30T22:46:46Z">
+    <test name="test1" duration-ms="1699965" started-at="2021-12-31T11:33:30Z" finished-at="2021-12-31T12:01:50Z">
       <class name="scrappers.FPL_scrapper_zussamem">
-        <test-method status="PASS" signature="RoC(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="RoC" duration-ms="488018" started-at="2021-12-30T23:38:38Z" finished-at="2021-12-30T23:46:46Z">
+        <test-method status="PASS" signature="StarsSports(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="StarsSports" duration-ms="1443209" started-at="2021-12-31T12:33:30Z" finished-at="2021-12-31T12:57:33Z">
           <params>
             <param index="0">
               <value>
@@ -17,7 +17,18 @@
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- RoC -->
+        </test-method> <!-- StarsSports -->
+        <test-method status="PASS" signature="comics(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="comics" duration-ms="256714" started-at="2021-12-31T12:57:33Z" finished-at="2021-12-31T13:01:50Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[20]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- comics -->
       </class> <!-- scrappers.FPL_scrapper_zussamem -->
     </test> <!-- test1 -->
   </suite> <!-- FPL -->

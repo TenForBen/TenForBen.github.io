@@ -8,7 +8,9 @@
 	<classes>
 	       <class name="scrappers.FPL_scrapper_zussamem">
 	       			<methods>
-	       						<include name="RoC"></include>
+	       						
+	       						<include name="StarsSports"></include>
+ 								 <include name="comics"></include>
 	
 	       			</methods>
 	       </class>
@@ -20,6 +22,7 @@
       <class name="com.test.testlogin"/>
        <class name="com.test.ValidateLogin"/>
        <include name="RoC"></include>
+	    <include name="FPL6"></include>
        						<include name="comics"></include>
        <class name="scrappers.FPL_multinavigator"/>
        <class name="scrappers.FPL_scrapper_advanched"/>
