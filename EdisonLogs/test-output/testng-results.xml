@@ -2,12 +2,12 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="FPL" duration-ms="1037010" started-at="2022-01-01T14:32:24Z" finished-at="2022-01-01T14:49:41Z">
+  <suite name="FPL" duration-ms="1000040" started-at="2022-01-01T19:19:44Z" finished-at="2022-01-01T19:36:24Z">
     <groups>
     </groups>
-    <test name="test1" duration-ms="1037010" started-at="2022-01-01T14:32:24Z" finished-at="2022-01-01T14:49:41Z">
+    <test name="test1" duration-ms="1000040" started-at="2022-01-01T19:19:44Z" finished-at="2022-01-01T19:36:24Z">
       <class name="scrappers.FPL_scrapper_zussamem">
-        <test-method status="PASS" signature="FPL6(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="FPL6" duration-ms="1036936" started-at="2022-01-01T15:32:24Z" finished-at="2022-01-01T15:49:41Z">
+        <test-method status="PASS" signature="FPL6(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="FPL6" duration-ms="999984" started-at="2022-01-01T20:19:44Z" finished-at="2022-01-01T20:36:24Z">
           <params>
             <param index="0">
               <value>
