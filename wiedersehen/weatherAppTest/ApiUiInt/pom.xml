@@ -31,11 +31,25 @@
 
   <dependencies>
        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
-<dependency>
+<!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+	<dependency>
+	    <groupId>io.rest-assured</groupId>
+	    <artifactId>rest-assured</artifactId>
+	    <version>4.4.0</version>
+	    
+	</dependency>
+	<dependency>
     <groupId>org.testng</groupId>
     <artifactId>testng</artifactId>
     <version>7.4.0</version>
-    <scope>test</scope>
+    
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest -->
+<dependency>
+    <groupId>org.hamcrest</groupId>
+    <artifactId>hamcrest</artifactId>
+    <version>2.2</version>
+    
 </dependency>
 <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
 <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->

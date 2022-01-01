@@ -5,8 +5,16 @@
     <classes>
       <class name="openWeatherApp.ApiUiInt.barfTest">
       			<methods>
-      		<parameter name="a" value="St. Paul"></parameter>
+      		<parameter name="a" value="St. Pauli"></parameter>
       			<include name="countryCodeInclusionWithParams"></include>
+      			
+      		</methods>
+      </class>
+      
+      <class name="openWeatherApp.ApiUiInt.apeeTest">
+      			<methods>
+      		<parameter name="a" value="St. Pauli"></parameter>
+      			<include name="weatherWithMetrics"></include>
       			
       		</methods>
       </class>
@@ -21,5 +29,7 @@
       			<include name="countryCodeInclusion"></include>
       			<include name="countryCodeInclusionP"></include>
       			<include name="countryCodeInclusionI"></include>
+      			
+      			
       		</methods>
  -->
