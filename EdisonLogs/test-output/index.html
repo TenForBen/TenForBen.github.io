@@ -90,7 +90,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">1 method,   1 passed</span>
+                    <span class="method-stats">2 methods,   2 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -101,7 +101,12 @@
                     <div class="method-list-content passed suite-FPL">
                       <span>
                         <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-FPL" title="scrappers.FPL_scrapper_zussamem" hash-for-method="FPL6(21)">FPL6(21)</a> <!-- method navigator-link -->
+                        <a href="#" class="method navigator-link" panel-name="suite-FPL" title="scrappers.FPL_scrapper_zussamem" hash-for-method="StarsSports(21)">StarsSports(21)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-FPL" title="scrappers.FPL_scrapper_zussamem" hash-for-method="comics(21)">comics(21)</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-FPL -->
@@ -124,9 +129,17 @@
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="FPL6(21)">
-                  </a> <!-- FPL6(21) -->
-                  <span class="method-name">FPL6</span>
+                  <a name="StarsSports(21)">
+                  </a> <!-- StarsSports(21) -->
+                  <span class="method-name">StarsSports</span>
+                  <span class="parameters">(21)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="comics(21)">
+                  </a> <!-- comics(21) -->
+                  <span class="method-name">comics</span>
                   <span class="parameters">(21)</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
@@ -147,7 +160,8 @@
     &lt;classes&gt;
       &lt;class name=&quot;scrappers.FPL_scrapper_zussamem&quot;&gt;
         &lt;methods&gt;
-          &lt;include name=&quot;FPL6&quot;/&gt;
+          &lt;include name=&quot;StarsSports&quot;/&gt;
+          &lt;include name=&quot;comics&quot;/&gt;
         &lt;/methods&gt;
       &lt;/class&gt; &lt;!-- scrappers.FPL_scrapper_zussamem --&gt;
     &lt;/classes&gt;
@@ -189,16 +203,20 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(1);
+data.addRows(2);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'FPL6')
+data.setCell(0, 1, 'StarsSports')
 data.setCell(0, 2, 'scrappers.FPL_scrapper_zussamem')
-data.setCell(0, 3, 999984);
+data.setCell(0, 3, 1564368);
+data.setCell(1, 0, 1)
+data.setCell(1, 1, 'comics')
+data.setCell(1, 2, 'scrappers.FPL_scrapper_zussamem')
+data.setCell(1, 3, 310142);
 window.suiteTableData['FPL']= { tableData: data, tableDiv: 'times-div-FPL'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 16 minutes</span>
+              <span class="suite-total-time">Total running time: 31 minutes</span>
               <div id="times-div-FPL">
               </div> <!-- times-div-FPL -->
             </div> <!-- times-div -->
@@ -213,17 +231,15 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-FPL" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">5 ignored methods</span>
+            <span class="header-content">4 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="ignored-class-div">
               <span class="ignored-class-name">scrappers.FPL_scrapper_zussamem</span>
               <div class="ignored-methods-div">
-                <span class="ignored-method-name">StarsSports</span>
+                <span class="ignored-method-name">FPL6</span>
                 <br/>
                 <span class="ignored-method-name">test</span>
-                <br/>
-                <span class="ignored-method-name">comics</span>
                 <br/>
                 <span class="ignored-method-name">RoC</span>
                 <br/>
@@ -241,8 +257,12 @@ return data;
             <div class="chronological-class">
               <div class="chronological-class-name">scrappers.FPL_scrapper_zussamem</div> <!-- chronological-class-name -->
               <div class="test-method">
-                <span class="method-name">FPL6(21)</span>
+                <span class="method-name">StarsSports(21)</span>
                 <span class="method-start">0 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">comics(21)</span>
+                <span class="method-start">1564368 ms</span>
               </div> <!-- test-method -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
