@@ -3,23 +3,8 @@
 <suite name="Suite">
   <test thread-count="5" name="Test">
     <classes>
-      <class name="openWeatherApp.ApiUiInt.barfTest">
-      			<methods>
-      		<parameter name="a" value="dhaka"></parameter>
-      			<include name="countryCodeInclusionP"></include>
-      			
-      		</methods>
-      </class>
+      <class name="openWeatherApp.ApiUiInt.navigationTest"/>
+      <class name="openWeatherApp.ApiUiInt.barfTest"/>
     </classes>
-  </test> <!-- 
-  
-  Test -->
-</suite> <!-- Suite
-
- <methods>
-      		<parameter name="a" value="mirpur,BD"></parameter>
-      			<include name="countryCodeInclusion"></include>
-      			<include name="countryCodeInclusionP"></include>
-      			<include name="countryCodeInclusionI"></include>
-      		</methods>
- -->
+  </test> <!-- Test -->
+</suite> <!-- Suite -->

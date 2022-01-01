@@ -1,34 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="2" passed="2">
+<testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="FPL" duration-ms="1699965" started-at="2021-12-31T11:33:30Z" finished-at="2021-12-31T12:01:50Z">
+  <suite name="FPL" duration-ms="1037010" started-at="2022-01-01T14:32:24Z" finished-at="2022-01-01T14:49:41Z">
     <groups>
     </groups>
-    <test name="test1" duration-ms="1699965" started-at="2021-12-31T11:33:30Z" finished-at="2021-12-31T12:01:50Z">
+    <test name="test1" duration-ms="1037010" started-at="2022-01-01T14:32:24Z" finished-at="2022-01-01T14:49:41Z">
       <class name="scrappers.FPL_scrapper_zussamem">
-        <test-method status="PASS" signature="StarsSports(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="StarsSports" duration-ms="1443209" started-at="2021-12-31T12:33:30Z" finished-at="2021-12-31T12:57:33Z">
+        <test-method status="PASS" signature="FPL6(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="FPL6" duration-ms="1036936" started-at="2022-01-01T15:32:24Z" finished-at="2022-01-01T15:49:41Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[20]]>
+                <![CDATA[21]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- StarsSports -->
-        <test-method status="PASS" signature="comics(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="comics" duration-ms="256714" started-at="2021-12-31T12:57:33Z" finished-at="2021-12-31T13:01:50Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[20]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- comics -->
+        </test-method> <!-- FPL6 -->
       </class> <!-- scrappers.FPL_scrapper_zussamem -->
     </test> <!-- test1 -->
   </suite> <!-- FPL -->

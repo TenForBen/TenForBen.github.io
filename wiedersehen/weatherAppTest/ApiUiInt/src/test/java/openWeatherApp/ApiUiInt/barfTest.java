@@ -117,7 +117,7 @@ public class barfTest {
 	
 	@Parameters({"a"})
 	@Test
-	public void countryCodeInclusionP(String a) throws InterruptedException 
+	public void countryCodeInclusionWithParams(String a) throws InterruptedException 
 		{
 			System.out.println("------------Test3------------------this test is to test input value with City,countryCode------------------------------------------------");
 			frameworktest fwt = new frameworktest();
