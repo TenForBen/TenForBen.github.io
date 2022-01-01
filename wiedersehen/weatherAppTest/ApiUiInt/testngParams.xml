@@ -5,7 +5,7 @@
     <classes>
       <class name="openWeatherApp.ApiUiInt.barfTest">
       			<methods>
-      		<parameter name="a" value="gyor"></parameter>
+      		<parameter name="a" value="St. Paul"></parameter>
       			<include name="countryCodeInclusionWithParams"></include>
       			
       		</methods>
