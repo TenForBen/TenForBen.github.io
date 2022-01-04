@@ -2,12 +2,12 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="FPL" duration-ms="978593" started-at="2022-01-02T19:14:46Z" finished-at="2022-01-02T19:31:05Z">
+  <suite name="FPL" duration-ms="1564693" started-at="2022-01-03T12:09:48Z" finished-at="2022-01-03T12:35:53Z">
     <groups>
     </groups>
-    <test name="test1" duration-ms="978593" started-at="2022-01-02T19:14:46Z" finished-at="2022-01-02T19:31:05Z">
+    <test name="test1" duration-ms="1564693" started-at="2022-01-03T12:09:48Z" finished-at="2022-01-03T12:35:53Z">
       <class name="scrappers.FPL_scrapper_zussamem">
-        <test-method status="PASS" signature="FPL6(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="FPL6" duration-ms="978553" started-at="2022-01-02T20:14:46Z" finished-at="2022-01-02T20:31:05Z">
+        <test-method status="PASS" signature="StarsSports(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="StarsSports" duration-ms="1564631" started-at="2022-01-03T13:09:48Z" finished-at="2022-01-03T13:35:53Z">
           <params>
             <param index="0">
               <value>
@@ -17,7 +17,7 @@
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- FPL6 -->
+        </test-method> <!-- StarsSports -->
       </class> <!-- scrappers.FPL_scrapper_zussamem -->
     </test> <!-- test1 -->
   </suite> <!-- FPL -->

@@ -139,6 +139,7 @@ public class FPL_scrapper_zussamem {
 		System.out.println("gw transfer -  " +gwTransfer);*/
 		String searchResult= fp +"~" + teamName +"~"+ playerName+"~" + overallPoints  +"~" + overallRank;
 	    System.out.println("Latest points of  " + playerName +" is  " + fp +" points ");
+	    System.out.println("Overall Rank is  " + overallRank +" Overall points are  " + overallPoints +"  points ");
 	    System.out.println("Total Transfers -- " + gwTransfer  +"  trxfrs ");
 	    r.setCellData(snj, "SXL", i, fp);
 	    r.setCellData(snj, "Latest Score", i, fp);
