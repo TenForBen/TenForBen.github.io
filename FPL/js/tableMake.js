@@ -104,6 +104,9 @@ function loader4zero()
         //wordsArray = JSON.parse(worter);
         for (var i = 0; i < s.length; i++)
          {
+             s[i].pnl = Math.round(s[i].pnl);
+
+
             prepareTableCell3zero(s[i].tradingsymbol,s[i].realised_quantity,s[i].average_price,s[i].last_price,s[i].pnl,s[i].day_change,s[i].day_change_percentage);
          }
     }
