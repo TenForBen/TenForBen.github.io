@@ -109,9 +109,10 @@ function loader4zero()
              s[i].average_price = s[i].average_price.toFixed(2);
              
              s[i].day_change_percentage = s[i].day_change_percentage.toFixed(3);
+             var totalInvested = (s[i].realised_quantity * s[i].average_price )
 
 
-            prepareTableCell3zero(s[i].tradingsymbol,s[i].realised_quantity,s[i].average_price,s[i].last_price,s[i].pnl,s[i].day_change,s[i].day_change_percentage);
+            prepareTableCell3zero(s[i].tradingsymbol,s[i].realised_quantity,s[i].average_price,s[i].last_price,s[i].pnl,s[i].day_change,s[i].day_change_percentage,totalInvested);
          }
     }
     //tableShakers();
@@ -167,7 +168,7 @@ function prepareTableCell3mgw(Team,mN,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13
     
 }
 
-function prepareTableCell3zero(p1,p2,p3,p4,p5,p6,p7) 
+function prepareTableCell3zero(p1,p2,p3,p4,p5,p6,p7,p8) 
 {
     var table = document.getElementById("regtable");
     var row = table.insertRow();
@@ -179,6 +180,7 @@ function prepareTableCell3zero(p1,p2,p3,p4,p5,p6,p7)
     var pnl = row.insertCell(4);
     var day_change = row.insertCell(5);
     var day_change_percentage = row.insertCell(6);
+    var totalInvested = row.insertCell(6);
         
     tradingsymbol.innerHTML = p1;
     realised_quantity.innerHTML = p2;
@@ -187,7 +189,7 @@ function prepareTableCell3zero(p1,p2,p3,p4,p5,p6,p7)
     pnl.innerHTML = p5;
     day_change.innerHTML = p6;
     day_change_percentage.innerHTML = p7;
-    
+    totalInvested.innerHTML = p8;
     
 }
 function loader4mgwFPL6()
