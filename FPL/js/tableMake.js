@@ -105,6 +105,10 @@ function loader4zero()
         for (var i = 0; i < s.length; i++)
          {
              s[i].pnl = Math.round(s[i].pnl);
+             s[i].day_change = s[i].day_change.toFixed(2);
+             s[i].average_price = s[i].average_price.toFixed(2);
+             
+             s[i].day_change_percentage = s[i].day_change_percentage.toFixed(3);
 
 
             prepareTableCell3zero(s[i].tradingsymbol,s[i].realised_quantity,s[i].average_price,s[i].last_price,s[i].pnl,s[i].day_change,s[i].day_change_percentage);
