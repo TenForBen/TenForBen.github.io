@@ -19,7 +19,7 @@ var s =[
       "Player_15":"White 1",
       "SXL":"45",
       "Bench":"1131",
-      "Count  ":"1,376,227"
+      "Count  ":"1,404,569"
    },
    {
       "manager_Name":"Saurabh Tamang",
@@ -34,14 +34,14 @@ var s =[
       "Player_8":"Gallagher 0",
       "Player_9":"Bernardo 5",
       "Player_10":"Dennis 1",
-      "Player_11":"Ronaldo WOL (H)$ captain",
+      "Player_11":"Ronaldo 4$ captain",
       "Player_12":"Guaita 1",
       "Player_13":"Gray 2, LEI (H)",
       "Player_14":"Omobamidele WHU (A)",
       "Player_15":"Archer 0",
-      "SXL":"22",
-      "Bench":"1043",
-      "Count  ":"2,934,786"
+      "SXL":"26",
+      "Bench":"1047",
+      "Count  ":"2,901,886"
    },
    {
       "manager_Name":"Pranesh Sharma",
@@ -56,14 +56,14 @@ var s =[
       "Player_8":"Foden 0",
       "Player_9":"Antonio 14, NOR (H)$ captain",
       "Player_10":"Dennis 1",
-      "Player_11":"Ronaldo WOL (H)",
+      "Player_11":"Ronaldo 2",
       "Player_12":"Foster 0",
       "Player_13":"Gallagher 0",
       "Player_14":"White 1",
       "Player_15":"Smith Rowe 1",
-      "SXL":"38",
-      "Bench":"1203",
-      "Count  ":"531,084"
+      "SXL":"40",
+      "Bench":"1205",
+      "Count  ":"528,415"
    },
    {
       "manager_Name":"Sanjeev Kumar",
@@ -71,7 +71,7 @@ var s =[
       "Player_1":"Lloris 8",
       "Player_2":"Cancelo 2",
       "Player_3":"Alexander-Arnold 4",
-      "Player_4":"Dalot WOL (H)",
+      "Player_4":"Dalot 0",
       "Player_5":"Son 6",
       "Player_6":"Bowen 10, NOR (H)$ captain",
       "Player_7":"Jota 5",
@@ -85,7 +85,7 @@ var s =[
       "Player_15":"White 1",
       "SXL":"44",
       "Bench":"1196",
-      "Count  ":"593,108"
+      "Count  ":"608,485"
    },
    {
       "manager_Name":"Kumar Anku",
@@ -107,7 +107,7 @@ var s =[
       "Player_15":"Tsimikas 1",
       "SXL":"32",
       "Bench":"1124",
-      "Count  ":"1,488,295"
+      "Count  ":"1,517,760"
    },
    {
       "manager_Name":"Kushal Sahota",
@@ -122,14 +122,14 @@ var s =[
       "Player_8":"Gallagher 0",
       "Player_9":"Allan 5, LEI (H)",
       "Player_10":"Antonio 7, NOR (H)",
-      "Player_11":"Ronaldo WOL (H)$ captain",
+      "Player_11":"Ronaldo 4$ captain",
       "Player_12":"Steele 0",
       "Player_13":"Dennis 1",
       "Player_14":"Tsimikas 1",
       "Player_15":"Salah 7",
-      "SXL":"33",
-      "Bench":"1042",
-      "Count  ":"2,955,977"
+      "SXL":"37",
+      "Bench":"1046",
+      "Count  ":"2,923,233"
    },
    {
       "manager_Name":"Regean Lama",
@@ -144,14 +144,14 @@ var s =[
       "Player_8":"Salah 7",
       "Player_9":"Bowen 5, NOR (H)",
       "Player_10":"Antonio 14, NOR (H)$ captain",
-      "Player_11":"Ronaldo WOL (H)",
+      "Player_11":"Ronaldo 2",
       "Player_12":"Carson 0",
       "Player_13":"Veltman 2",
       "Player_14":"Ødegaard 2",
       "Player_15":"Scarlett 0",
-      "SXL":"49",
-      "Bench":"1186",
-      "Count  ":"690,389"
+      "SXL":"51",
+      "Bench":"1188",
+      "Count  ":"687,550"
    },
    {
       "manager_Name":"pranam rai",
@@ -165,15 +165,15 @@ var s =[
       "Player_7":"Maddison EVE (A)",
       "Player_8":"Højbjerg 3",
       "Player_9":"Dennis 1",
-      "Player_10":"Ronaldo WOL (H)",
+      "Player_10":"Ronaldo 2",
       "Player_11":"Antonio 7, NOR (H)",
       "Player_12":"Lloris 8",
       "Player_13":"Ødegaard 2",
       "Player_14":"Tsimikas 1",
       "Player_15":"Manquillo -",
-      "SXL":"35",
-      "Bench":"1201",
-      "Count  ":"546,069"
+      "SXL":"37",
+      "Bench":"1203",
+      "Count  ":"543,290"
    },
    {
       "manager_Name":"Ashim Lama",
@@ -187,15 +187,15 @@ var s =[
       "Player_7":"Gray 2, LEI (H)",
       "Player_8":"Son 6",
       "Player_9":"Antonio 7, NOR (H)",
-      "Player_10":"Ronaldo WOL (H)",
+      "Player_10":"Ronaldo 2",
       "Player_11":"Dennis 1",
       "Player_12":"Ward EVE (A)",
       "Player_13":"Martinelli 2",
       "Player_14":"Gabriel -3",
       "Player_15":"Gallagher 0",
-      "SXL":"48",
-      "Bench":"1134",
-      "Count  ":"1,332,334"
+      "SXL":"50",
+      "Bench":"1136",
+      "Count  ":"1,329,991"
    },
    {
       "manager_Name":"Vivek Pradhan",
@@ -217,7 +217,7 @@ var s =[
       "Player_15":"Pinnock 2, SOU (A)",
       "SXL":"49",
       "Bench":"1234",
-      "Count  ":"308,847"
+      "Count  ":"318,875"
    },
    {
       "manager_Name":"Sibin _",
@@ -235,11 +235,11 @@ var s =[
       "Player_11":"Toney 1, SOU (A)",
       "Player_12":"Ramsdale 1",
       "Player_13":"Cancelo 2",
-      "Player_14":"Hoever MUN (A)",
+      "Player_14":"Hoever 0",
       "Player_15":"Broja BRE (H)",
       "SXL":"47",
       "Bench":"1221",
-      "Count  ":"393,355"
+      "Count  ":"405,122"
    },
    {
       "manager_Name":"Omkar Subba",
@@ -249,19 +249,19 @@ var s =[
       "Player_3":"Alexander-Arnold 4",
       "Player_4":"Cancelo 2",
       "Player_5":"Benrahma 6, NOR (H)",
-      "Player_6":"Fred WOL (H)",
+      "Player_6":"Fred 0",
       "Player_7":"Bowen 10, NOR (H)$ captain",
       "Player_8":"Salah 7",
       "Player_9":"Toney 1, SOU (A)",
       "Player_10":"Dennis 1",
-      "Player_11":"Ronaldo WOL (H)",
+      "Player_11":"Ronaldo 2",
       "Player_12":"Ramsdale 1",
       "Player_13":"Rüdiger 1",
       "Player_14":"Højbjerg 3",
       "Player_15":"Tierney 4",
-      "SXL":"33",
-      "Bench":"1108",
-      "Count  ":"1,750,288"
+      "SXL":"35",
+      "Bench":"1110",
+      "Count  ":"1,749,565"
    },
    {
       "manager_Name":"Indrajeet Singh",
@@ -283,7 +283,7 @@ var s =[
       "Player_15":"Gilmour WHU (A)",
       "SXL":"50",
       "Bench":"1088",
-      "Count  ":"2,094,173"
+      "Count  ":"2,131,668"
    },
    {
       "manager_Name":"Rishi Thulung",
@@ -298,14 +298,14 @@ var s =[
       "Player_8":"Jota 5",
       "Player_9":"Antonio 7, NOR (H)",
       "Player_10":"Dennis 1",
-      "Player_11":"Ronaldo WOL (H)$ captain",
+      "Player_11":"Ronaldo 4$ captain",
       "Player_12":"Foster 0",
       "Player_13":"Smith Rowe 1",
       "Player_14":"Livramento BRE (H)",
       "Player_15":"James 0",
-      "SXL":"31",
-      "Bench":"1208",
-      "Count  ":"489,114"
+      "SXL":"35",
+      "Bench":"1212",
+      "Count  ":"470,656"
    },
    {
       "manager_Name":"Dipen Thapa",
@@ -321,13 +321,13 @@ var s =[
       "Player_9":"Dennis 1",
       "Player_10":"Antonio 14, NOR (H)$ captain",
       "Player_11":"Watkins 0",
-      "Player_12":"Sá MUN (A)",
+      "Player_12":"Sá 5",
       "Player_13":"Livramento BRE (H)",
       "Player_14":"Gallagher 0",
       "Player_15":"Tomiyasu 1",
       "SXL":"41",
       "Bench":"1185",
-      "Count  ":"698,574"
+      "Count  ":"715,971"
    },
    {
       "manager_Name":"Nishant Singh",
@@ -349,7 +349,7 @@ var s =[
       "Player_15":"Tomiyasu 1",
       "SXL":"48",
       "Bench":"1140",
-      "Count  ":"1,249,189"
+      "Count  ":"1,275,554"
    },
    {
       "manager_Name":"Ashish Subba",
@@ -363,20 +363,20 @@ var s =[
       "Player_7":"Bowen 5, NOR (H)",
       "Player_8":"Son 6",
       "Player_9":"Doucouré 2, LEI (H)",
-      "Player_10":"Ronaldo WOL (H)",
+      "Player_10":"Ronaldo 2",
       "Player_11":"Antonio 14, NOR (H)$ captain",
       "Player_12":"Carson 0",
       "Player_13":"Rüdiger 1",
       "Player_14":"Tierney 4",
       "Player_15":"Broja BRE (H)",
-      "SXL":"0",
-      "Bench":"1131",
-      "Count  ":"1,376,227"
+      "SXL":"41",
+      "Bench":"1133",
+      "Count  ":"1,374,144"
    },
    {
       "manager_Name":"Rohan Rai",
       "Teams":"False 9",
-      "Player_1":"de Gea WOL (H)",
+      "Player_1":"de Gea 3",
       "Player_2":"Coufal 1, NOR (H)",
       "Player_3":"Cancelo 2",
       "Player_4":"Reguilón 6",
@@ -391,14 +391,14 @@ var s =[
       "Player_13":"Jota 5",
       "Player_14":"Livramento BRE (H)",
       "Player_15":"Tomiyasu 1",
-      "SXL":"39",
-      "Bench":"1228",
-      "Count  ":"348,134"
+      "SXL":"42",
+      "Bench":"1231",
+      "Count  ":"340,004"
    },
    {
       "manager_Name":"Raj Kanango",
       "Teams":"Weightloss Coach",
-      "Player_1":"de Gea WOL (H)",
+      "Player_1":"de Gea 3",
       "Player_2":"Cancelo 2",
       "Player_3":"Alexander-Arnold 4",
       "Player_4":"Davies 6",
@@ -408,19 +408,19 @@ var s =[
       "Player_8":"Son 6",
       "Player_9":"Antonio 14, NOR (H)$ captain",
       "Player_10":"Dennis 1",
-      "Player_11":"Ronaldo WOL (H)",
+      "Player_11":"Ronaldo 2",
       "Player_12":"Carson 0",
       "Player_13":"Bissouma 2",
       "Player_14":"James 0",
       "Player_15":"Amartey EVE (A)",
-      "SXL":"46",
-      "Bench":"1204",
-      "Count  ":"525,360"
+      "SXL":"51",
+      "Bench":"1209",
+      "Count  ":"498,030"
    },
    {
       "manager_Name":"Gaurav Shrestha",
       "Teams":"Fußball-Mannschaft",
-      "Player_1":"de Gea WOL (H)",
+      "Player_1":"de Gea 3",
       "Player_2":"Alexander-Arnold 4",
       "Player_3":"Coufal 1, NOR (H)",
       "Player_4":"Cancelo 2",
@@ -429,20 +429,20 @@ var s =[
       "Player_7":"Foden 0",
       "Player_8":"Jota 5",
       "Player_9":"Antonio 14, NOR (H)$ captain",
-      "Player_10":"Ronaldo WOL (H)",
+      "Player_10":"Ronaldo 2",
       "Player_11":"Watkins 0",
       "Player_12":"Foster 0",
       "Player_13":"Livramento BRE (H)",
       "Player_14":"Tierney 4",
       "Player_15":"Gallagher 0",
-      "SXL":"33",
-      "Bench":"1274",
-      "Count  ":"127,960"
+      "SXL":"38",
+      "Bench":"1279",
+      "Count  ":"117,825"
    },
    {
       "manager_Name":"Bishal Rai",
       "Teams":"Gooner for Life 037",
-      "Player_1":"de Gea WOL (H)",
+      "Player_1":"de Gea 3",
       "Player_2":"Alexander-Arnold 4",
       "Player_3":"Coufal 1, NOR (H)",
       "Player_4":"Cancelo 2",
@@ -455,11 +455,11 @@ var s =[
       "Player_11":"Antonio 7, NOR (H)",
       "Player_12":"Ramsdale 1",
       "Player_13":"Rüdiger 1",
-      "Player_14":"Alonso 4",
+      "Player_14":"Alonso 6",
       "Player_15":"Richardson 0",
-      "SXL":"38",
-      "Bench":"1256",
-      "Count  ":"198,806"
+      "SXL":"41",
+      "Bench":"1259",
+      "Count  ":"193,418"
    },
    {
       "manager_Name":"RAJIYUNG Sun",
@@ -481,7 +481,7 @@ var s =[
       "Player_15":"White 1",
       "SXL":"45",
       "Bench":"1193",
-      "Count  ":"622,014"
+      "Count  ":"637,960"
    },
    {
       "manager_Name":"Ashish Rai",
@@ -494,16 +494,16 @@ var s =[
       "Player_6":"Mount 2",
       "Player_7":"Jota 5",
       "Player_8":"Bernardo 5",
-      "Player_9":"Jiménez MUN (A)",
+      "Player_9":"Jiménez 2",
       "Player_10":"Kane 2",
       "Player_11":"Antonio 14, NOR (H)$ captain",
       "Player_12":"Foster 0",
       "Player_13":"Smith Rowe 1",
       "Player_14":"Williams WHU (A)",
       "Player_15":"Livramento BRE (H)",
-      "SXL":"41",
-      "Bench":"1208",
-      "Count  ":"494,164"
+      "SXL":"43",
+      "Bench":"1210",
+      "Count  ":"491,340"
    },
    {
       "manager_Name":"prabin kumar",
@@ -520,12 +520,12 @@ var s =[
       "Player_10":"Toney 1, SOU (A)",
       "Player_11":"Antonio 14, NOR (H)$ captain",
       "Player_12":"Foster 0",
-      "Player_13":"Dalot WOL (H)",
+      "Player_13":"Dalot 0",
       "Player_14":"Scarlett 0",
       "Player_15":"Tsimikas 1",
       "SXL":"46",
       "Bench":"877",
-      "Count  ":"5,805,475"
+      "Count  ":"5,856,575"
    },
    {
       "manager_Name":"Ravish Verma",
@@ -540,19 +540,19 @@ var s =[
       "Player_8":"Gray 2, LEI (H)",
       "Player_9":"Antonio 7, NOR (H)",
       "Player_10":"King 2",
-      "Player_11":"Ronaldo WOL (H)",
+      "Player_11":"Ronaldo 2",
       "Player_12":"Ramsdale 1",
       "Player_13":"Gallagher 0",
       "Player_14":"Livramento BRE (H)",
       "Player_15":"White 1",
-      "SXL":"0",
-      "Bench":"1211",
-      "Count  ":"467,907"
+      "SXL":"37",
+      "Bench":"1213",
+      "Count  ":"465,561"
    },
    {
       "manager_Name":"Prayash Thapa",
       "Teams":"abcde FC",
-      "Player_1":"de Gea WOL (H)",
+      "Player_1":"de Gea 3",
       "Player_2":"Reguilón 6",
       "Player_3":"Cancelo 2",
       "Player_4":"Alexander-Arnold 4",
@@ -567,9 +567,9 @@ var s =[
       "Player_13":"Douglas Luiz 2",
       "Player_14":"James 0",
       "Player_15":"Laporte 6",
-      "SXL":"46",
-      "Bench":"1324",
-      "Count  ":"24,757"
+      "SXL":"49",
+      "Bench":"1327",
+      "Count  ":"23,879"
    },
    {
       "manager_Name":"Tenzing Ninjey",
@@ -584,41 +584,41 @@ var s =[
       "Player_8":"Jota 5",
       "Player_9":"Bowen 5, NOR (H)",
       "Player_10":"Antonio 14, NOR (H)$ captain",
-      "Player_11":"Ronaldo WOL (H)",
+      "Player_11":"Ronaldo 2",
       "Player_12":"Bachmann 5",
       "Player_13":"Reguilón 6",
       "Player_14":"Broja BRE (H)",
       "Player_15":"Livramento BRE (H)",
-      "SXL":"41",
-      "Bench":"1205",
-      "Count  ":"518,759"
+      "SXL":"43",
+      "Bench":"1207",
+      "Count  ":"516,206"
    },
    {
       "manager_Name":"Harsh Raval",
       "Teams":"Up the Bees",
-      "Player_1":"de Gea WOL (H)",
+      "Player_1":"de Gea 3",
       "Player_2":"Keane 1, LEI (H)",
       "Player_3":"Cancelo 2",
       "Player_4":"Alexander-Arnold 4",
       "Player_5":"Gray 2, LEI (H)",
       "Player_6":"Bowen 10, NOR (H)$ captain",
-      "Player_7":"Harrison 7",
+      "Player_7":"Harrison 9",
       "Player_8":"Jota 5",
       "Player_9":"Calvert-Lewin 0, LEI (H)",
       "Player_10":"Kane 2",
-      "Player_11":"Ronaldo WOL (H)",
+      "Player_11":"Ronaldo 2",
       "Player_12":"Foster 0",
       "Player_13":"Dias 2",
       "Player_14":"Tierney 4",
       "Player_15":"Ramsey 1",
-      "SXL":"33",
-      "Bench":"1263",
-      "Count  ":"169,207"
+      "SXL":"40",
+      "Bench":"1270",
+      "Count  ":"149,528"
    },
    {
       "manager_Name":"PRAYAS BAJGAI",
       "Teams":"MCFC@1894",
-      "Player_1":"de Gea WOL (H)",
+      "Player_1":"de Gea 3",
       "Player_2":"Alexander-Arnold 4",
       "Player_3":"Davies 6",
       "Player_4":"Cancelo 2",
@@ -628,19 +628,19 @@ var s =[
       "Player_8":"Gray 2, LEI (H)",
       "Player_9":"Antonio 7, NOR (H)",
       "Player_10":"Kane 2",
-      "Player_11":"Ronaldo WOL (H)",
+      "Player_11":"Ronaldo 2",
       "Player_12":"Foster 0",
       "Player_13":"Martinelli 2",
-      "Player_14":"Dalot WOL (H)",
+      "Player_14":"Dalot 0",
       "Player_15":"James 0",
-      "SXL":"0",
-      "Bench":"1279",
-      "Count  ":"113,463"
+      "SXL":"43",
+      "Bench":"1284",
+      "Count  ":"104,412"
    },
    {
       "manager_Name":"AVIJIT DAS",
       "Teams":"Roing FC",
-      "Player_1":"de Gea WOL (H)",
+      "Player_1":"de Gea 3",
       "Player_2":"Livramento BRE (H)",
       "Player_3":"Cancelo 2",
       "Player_4":"Alexander-Arnold 4",
@@ -650,14 +650,14 @@ var s =[
       "Player_8":"Gray 2, LEI (H)",
       "Player_9":"Watkins 0",
       "Player_10":"Dennis 1",
-      "Player_11":"Ronaldo WOL (H)",
+      "Player_11":"Ronaldo 2",
       "Player_12":"Foster 0",
       "Player_13":"Dier 6",
       "Player_14":"Smith Rowe 1",
       "Player_15":"James 0",
-      "SXL":"30",
-      "Bench":"1233",
-      "Count  ":"319,299"
+      "SXL":"35",
+      "Bench":"1238",
+      "Count  ":"299,830"
    },
    {
       "manager_Name":"Abhijeet Singh",
@@ -679,7 +679,7 @@ var s =[
       "Player_15":"Manquillo -",
       "SXL":"49",
       "Bench":"1282",
-      "Count  ":"103,325"
+      "Count  ":"108,908"
    },
    {
       "manager_Name":"SATYAM RAI",
@@ -693,14 +693,14 @@ var s =[
       "Player_7":"Son 6",
       "Player_8":"Bowen 10, NOR (H)$ captain",
       "Player_9":"Antonio 7, NOR (H)",
-      "Player_10":"Ronaldo WOL (H)",
+      "Player_10":"Ronaldo 2",
       "Player_11":"King 2",
       "Player_12":"Foster 0",
       "Player_13":"Gallagher 0",
       "Player_14":"Alonso 6",
       "Player_15":"James 0",
-      "SXL":"39",
-      "Bench":"1277",
-      "Count  ":"119,236"
+      "SXL":"41",
+      "Bench":"1279",
+      "Count  ":"118,870"
    }
 ]
