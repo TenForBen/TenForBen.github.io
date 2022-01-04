@@ -104,12 +104,13 @@ function loader4zero()
         //wordsArray = JSON.parse(worter);
         for (var i = 0; i < s.length; i++)
          {
+             var totalInvested = (s[i].realised_quantity * s[i].average_price )
              s[i].pnl = Math.round(s[i].pnl);
              s[i].day_change = s[i].day_change.toFixed(2);
              s[i].average_price = s[i].average_price.toFixed(2);
              
              s[i].day_change_percentage = s[i].day_change_percentage.toFixed(3);
-             var totalInvested = (s[i].realised_quantity * s[i].average_price )
+              totalInvested = totalInvested.toFixed(2);
 
 
             prepareTableCell3zero(s[i].tradingsymbol,s[i].realised_quantity,s[i].average_price,s[i].last_price,s[i].pnl,s[i].day_change,s[i].day_change_percentage,totalInvested);
@@ -180,7 +181,7 @@ function prepareTableCell3zero(p1,p2,p3,p4,p5,p6,p7,p8)
     var pnl = row.insertCell(4);
     var day_change = row.insertCell(5);
     var day_change_percentage = row.insertCell(6);
-    var totalInvested = row.insertCell(6);
+    var totalInvested = row.insertCell(7);
         
     tradingsymbol.innerHTML = p1;
     realised_quantity.innerHTML = p2;
