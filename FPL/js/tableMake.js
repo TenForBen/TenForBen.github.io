@@ -109,7 +109,8 @@ function loader4zero()
              s[i].day_change = s[i].day_change.toFixed(2);
              s[i].average_price = s[i].average_price.toFixed(2);
              
-             s[i].day_change_percentage = s[i].day_change_percentage.toFixed(3);
+             s[i].day_change_percentage = s[i].day_change_percentage.toFixed(2);
+              s[i].day_change_percentage = s[i].day_change_percentage +" % " // to be replaced with AfterLoad UI regulators in table
               totalInvested = totalInvested.toFixed(2);
 
 
