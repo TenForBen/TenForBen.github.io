@@ -3,18 +3,12 @@
 <suite name="Suite">
   <test thread-count="5" name="Test">
     <classes>
-      <class name="openWeatherApp.ApiUiInt.barfTest">
-      			<methods>
-      		<parameter name="a" value="St. Pauli"></parameter>
-      			<include name="countryCodeInclusionWithParams"></include>
-      			
-      		</methods>
-      </class>
+      
       
       <class name="openWeatherApp.ApiUiInt.apeeTest">
       			<methods>
-      		<parameter name="a" value="St. Pauli"></parameter>
-      			<include name="weatherWithMetrics"></include>
+      		<parameter name="a" value="koblenz"></parameter>
+      			
       			
       		</methods>
       </class>
@@ -29,7 +23,13 @@
       			<include name="countryCodeInclusion"></include>
       			<include name="countryCodeInclusionP"></include>
       			<include name="countryCodeInclusionI"></include>
+      			<class name="openWeatherApp.ApiUiInt.barfTest">
+      			<methods>
+      		<parameter name="a" value="St. Pauli"></parameter>
+      			<include name="countryCodeInclusionWithParams"></include>
       			
+      		</methods>
+      </class>
       			
       		</methods>
  -->

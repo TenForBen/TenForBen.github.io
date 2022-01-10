@@ -8,13 +8,9 @@
 	<classes>
 	       <class name="scrappers.FPL_scrapper_zussamem">
 	       			<methods>
-	       						
-	       						
  								 <include name="RoC"></include>
 	    							<include name="FPL6"></include>
-  	
-	
-	       			</methods>
+  	</methods>
 	       </class>
 	    </classes>
 </test>
