@@ -20,7 +20,7 @@ public class apeeTest {
 		then().log().all().assertThat().statusCode(200);
 	}
 	@Parameters({"a"})
-	@Test
+	
 	public void weatherWithMetrics (String a)
 	{
 		RestAssured.baseURI ="https://api.openweathermap.org";

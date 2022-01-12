@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 
 public class barfTest {
 
-	@Test
+	
 	public void countryCodeInclusion() throws InterruptedException 
 	{
 		System.out.println("-------------Test2-----------------this test is to test input value with City,countryCode------------------------------------------------");

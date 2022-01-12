@@ -7,9 +7,17 @@
       
       <class name="openWeatherApp.ApiUiInt.apeeTest">
       			<methods>
-      		<parameter name="a" value="koblenz"></parameter>
-      			
-      			
+      		<parameter name="a" value="gijon"></parameter>
+      				<include name="Metrics_coords"></include>
+      				
+      		</methods>
+      </class>
+      
+       <class name="openWeatherApp.ApiUiInt.barfTest">
+      			<methods>
+      		
+      				
+      				<include name="normalInput"></include>
       		</methods>
       </class>
     </classes>

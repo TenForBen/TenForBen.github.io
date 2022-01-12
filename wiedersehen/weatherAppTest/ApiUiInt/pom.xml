@@ -7,10 +7,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <profiles>
-  	<profile>
-  		<id>plan1</id>
-  			 <build>
+  <build>
 	    <pluginManagement>
 	      <plugins>
 	        <plugin>
@@ -26,8 +23,6 @@
 	      </plugins>
 	    </pluginManagement>
 	  </build>
-  	</profile>
-  	</profiles>
 
   <dependencies>
        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
