@@ -1,36 +1,68 @@
-package scrappers;
+package PoPoi_The_Sailor_Man;
 
-import java.sql.Timestamp;
-import java.util.Date;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.net.ntp.TimeStamp;
-import org.apache.poi.sl.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
-//import validationofdifferenttest;
 import org.testng.annotations.Test;
 
-import com.test.utility.Xls_Reader;
+import werkself.frameworktest;
+import werkself.Xls_Reader;
 
-import validationofdifferenttestcases.frameworktest;
+public class danzig {
 
-//gps -0001 to make the code adaptable to take from the last vacant row 
-// gps - 0002 to make the error handling incase the browser stops or fails in any of the iterations.
-// gps - 0003 to make another sheet available get the entries of all the searched places..
+	@Test
+	public void erste() throws IOException
+	{
+		
+FileInputStream fis =new FileInputStream("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx ");
+		
+		XSSFWorkbook workbook = new XSSFWorkbook(fis);
+		
+		int smpl = workbook.getNumberOfSheets();
+		System.out.println("number of sheets -  " + smpl);
+		for( int i=0;i<smpl;i++)
+		{
+			System.out.println("Sheet number " +"- " +(i+1)  +" is " + workbook.getSheetName(i)  );
+		}
 
-public class FPL_scrapper_zussamem {
+	}
 	
+	@Parameters({"gameweek"})
+	@Test
+	public void test(int gameweek) throws InterruptedException
+	{
+		
+		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
+		int gw=gameweek;	
+		String snj ="test";
+		System.out.println("League Scrapper - " +snj);	
+		int  LR =  r.getLastRwoNum(snj);
+		//System.out.println("The last row by method  " + LR);
+		int LRs=LR+1;
+		System.out.println("The last row count is LRs " + LRs);
+		int numVar = 2;
+		for( numVar =1;numVar<=1;numVar++)
+		{
+				for( int i =2;i<=LRs;i++)
+				{
+							String place =r.getCellData(snj, "Manager_iD", i);	
+							System.out.println("Places  at position------------------------------                     "+ i +"  -----------------is                   " + place);
+							String receivedValue=fplExcel(place,gw,snj,i);
+							String[] result = receivedValue.split("~");
+				}
+			Thread.sleep(100);
+		}
+	}
 	
-
-	
-
 	public  String  fplExcel(String place,int gw,String shitt,int crete)throws InterruptedException
 	
 	{
@@ -164,177 +196,4 @@ public class FPL_scrapper_zussamem {
 	
 	
 	
-	@Parameters({"gameweek"})
-	@Test
-	public void test(int gameweek) throws InterruptedException
-	{
-		
-		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		int gw=gameweek;	
-		String snj ="test";
-		System.out.println("League Scrapper - " +snj);	
-		int  LR =  r.getLastRwoNum(snj);
-		//System.out.println("The last row by method  " + LR);
-		int LRs=LR+1;
-		System.out.println("The last row count is LRs " + LRs);
-		int numVar = 2;
-		for( numVar =1;numVar<=1;numVar++)
-		{
-				for( int i =2;i<=LRs;i++)
-				{
-							String place =r.getCellData(snj, "Manager_iD", i);	
-							System.out.println("Places  at position------------------------------                     "+ i +"  -----------------is                   " + place);
-							String receivedValue=fplExcel(place,gw,snj,i);
-							String[] result = receivedValue.split("~");
-				}
-			Thread.sleep(100);
-		}
-	}
-	
-	
-	@Parameters({"gameweek"})
-	@Test
-public void comics(int gameweek) throws InterruptedException
-	{
-		
-		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		int gw=gameweek;	
-		String snj ="Comics";
-		System.out.println("League Scrapper - " +snj);	
-		int  LR =  r.getLastRwoNum(snj);
-		//System.out.println("The last row by method  " + LR);
-		int LRs=LR+1;
-		System.out.println("The last row count is LRs " + LRs);
-		int numVar = 2;
-		for( numVar =1;numVar<=1;numVar++)
-		{
-				for( int i =2;i<=LRs;i++)
-				{
-							String place =r.getCellData(snj, "Manager_iD", i);	
-							System.out.println("Places  at position------------------------------                     "+ i +"  -----------------is                   " + place);
-							String receivedValue=fplExcel(place,gw,snj,i);
-							String[] result = receivedValue.split("~");
-				}
-			Thread.sleep(100);
-		}
-	}
-	
-	@Parameters({"gameweek"})
-	@Test
-	public void RoC(int gameweek) throws InterruptedException
-	{
-		
-		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		int gw=gameweek;	
-		String snj ="RoC";
-		System.out.println("League Scrapper - " +snj);	
-		int  LR =  r.getLastRwoNum(snj);
-		//System.out.println("The last row by method  " + LR);
-		int LRs=LR+1;
-		System.out.println("The last row count is LRs " + LRs);
-		int numVar = 2;
-		for( numVar =1;numVar<=1;numVar++)
-		{
-				for( int i =2;i<=LRs;i++)
-				{
-							String place =r.getCellData(snj, "Manager_iD", i);	
-							System.out.println("Places  at position------------------------------                     "+ i +"  -----------------is                   " + place);
-							String receivedValue=fplExcel(place,gw,snj,i);
-							String[] result = receivedValue.split("~");
-				}
-			Thread.sleep(100);
-		}
-	}
-	
-	@Parameters({"gameweek"})
-	@Test
-	public void StarsSports(int gameweek) throws InterruptedException
-	{
-		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		int gw=gameweek;	
-		String snj ="StarsSports";
-		System.out.println("League Scrapper - " +snj);	
-		int  LR =  r.getLastRwoNum(snj);
-		//System.out.println("The last row by method  " + LR);
-		int LRs=LR+1;
-		System.out.println("The last row count is LRs " + LRs);
-		int numVar = 2;
-		for( numVar =1;numVar<=1;numVar++)
-		{
-				for( int i =2;i<=LRs;i++)
-				{
-							String place =r.getCellData(snj, "Manager_iD", i);	
-							System.out.println("Places  at position------------------------------                     "+ i +"  -----------------is                   " + place);
-							String receivedValue=fplExcel(place,gw,snj,i);
-							String[] result = receivedValue.split("~");
-				}
-			Thread.sleep(100);
-		}
-	}
-	
-	@Parameters({"gameweek"})
-	@Test
-	public void FPL6(int gameweek) throws InterruptedException
-	{
-		
-		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		int gw=gameweek;	
-		String snj ="FPL6";
-		System.out.println("League Scrapper - " +snj);	
-		int  LR =  r.getLastRwoNum(snj);
-		//System.out.println("The last row by method  " + LR);
-		int LRs=LR+1;
-		System.out.println("The last row count is LRs " + LRs);
-		int numVar = 2;
-			
-		for( numVar =1;numVar<=1;numVar++)
-		{
-				for( int i =2;i<=LRs;i++)
-				{
-							String place =r.getCellData(snj, "Manager_iD", i);	
-							System.out.println("Places  at position------------------------------                     "+ i +"  -----------------is                   " + place);
-							String receivedValue=fplExcel(place,gw,snj,i);
-							String[] result = receivedValue.split("~");
-				}
-			Thread.sleep(100);
-		}
-		String s1="Sheet1";
-		String s2="Sheet2";
-		 //swicherr(s1,s2);
-		
-		
-		
-		
-	}
-	
-	
-	
-	
-	
-	@Parameters({"gameweek"})
-	@Test
-	public void randomGroup(int gameweek) throws InterruptedException
-	{
-		
-		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
-		int gw=gameweek;	
-		String snj ="randomGroup";
-		System.out.println("League Scrapper - " +snj);	
-		int  LR =  r.getLastRwoNum(snj);
-		//System.out.println("The last row by method  " + LR);
-		int LRs=LR+1;
-		System.out.println("The last row count is LRs " + LRs);
-		int numVar = 2;
-		for( numVar =1;numVar<=1;numVar++)
-		{
-				for( int i =2;i<=LRs;i++)
-				{
-							String place =r.getCellData(snj, "Manager_iD", i);	
-							System.out.println("Places  at position------------------------------                     "+ i +"  -----------------is                   " + place);
-							String receivedValue=fplExcel(place,gw,snj,i);
-							String[] result = receivedValue.split("~");
-				}
-			Thread.sleep(100);
-		}
-	}
 }

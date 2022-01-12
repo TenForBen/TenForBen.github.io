@@ -16,7 +16,7 @@
 	          <version>3.0.0-M5</version>
 	          <configuration>
 	          <suiteXmlFiles>
-	            <suiteXmlFile>testngParams.xml</suiteXmlFile>
+	            <suiteXmlFile>testng.xml</suiteXmlFile>
 	          </suiteXmlFiles>
 	        </configuration>
 	        </plugin>
@@ -53,12 +53,14 @@
     <artifactId>poi</artifactId>
     <version>4.1.2</version>
 </dependency>
-<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-excelant -->
+
+<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
 <dependency>
     <groupId>org.apache.poi</groupId>
-    <artifactId>poi-excelant</artifactId>
-    <version>4.1.2</version>
+    <artifactId>poi-ooxml</artifactId>
+    <version>5.1.0</version>
 </dependency>
+
 
  <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
 <dependency>

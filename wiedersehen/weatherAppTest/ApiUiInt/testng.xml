@@ -2,9 +2,14 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite">
   <test thread-count="5" name="Test">
+    <parameter name="gameweek" value="21"></parameter>
     <classes>
-      <class name="openWeatherApp.ApiUiInt.navigationTest"/>
-      <class name="openWeatherApp.ApiUiInt.barfTest"/>
+      
+      <class name="PoPoi_The_Sailor_Man.danzig"/>
+      
+      
     </classes>
-  </test> <!-- Test -->
+  </test> <!-- T
+  
+  <class name="openWeatherApp.ApiUiInt.navigationTest"/>est -->
 </suite> <!-- Suite -->
