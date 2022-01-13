@@ -37,13 +37,14 @@ FileInputStream fis =new FileInputStream("H:\\vsos\\TenForBen.github.io\\EdisonL
 	}
 	
 	@Parameters({"gameweek"})
+	
 	@Test
 	public void test(int gameweek) throws InterruptedException
 	{
 		
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
 		int gw=gameweek;	
-		String snj ="test";
+		String snj ="FPL6";
 		System.out.println("League Scrapper - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
 		//System.out.println("The last row by method  " + LR);

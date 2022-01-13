@@ -3,6 +3,7 @@
 <suite name="Suite">
   <test thread-count="5" name="Test">
     <parameter name="gameweek" value="21"></parameter>
+    <parameter name="shiitName" value="RoC"></parameter>
     <classes>
       
       <class name="PoPoi_The_Sailor_Man.danzig"/>
