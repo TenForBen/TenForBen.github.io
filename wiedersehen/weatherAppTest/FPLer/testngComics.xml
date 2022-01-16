@@ -4,10 +4,9 @@
   <test thread-count="5" name="Test">
   <parameter name="gameweek" value="22"></parameter>
     <classes>
-    
       <class name="mann.sahiba">
       			<methods>
-      				<include name="test"></include>
+      				<include name="comics"></include>
       		</methods>
       </class>
     </classes>
