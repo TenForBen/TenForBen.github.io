@@ -49,6 +49,7 @@
 	    </pluginManagement>
 	  </build>
   	</profile>
+  	 <!-- randomGroup-->
   	<profile>
   		<id>randomGroup</id>
   			 <build>
@@ -68,6 +69,7 @@
 	    </pluginManagement>
 	  </build>
   	</profile>
+	  <!-- fpl6-->
 	 <profile>
 	  		<id>fpl6</id>
 	  			 <build>
@@ -87,7 +89,8 @@
 		    </pluginManagement>
 		  </build>
 	  	</profile>
-	  	 <profile>
+	 <!-- comics-->
+	  <profile>
 	  		<id>comics</id>
 	  			 <build>
 		    <pluginManagement>
@@ -106,6 +109,27 @@
 		    </pluginManagement>
 		  </build>
 	  	</profile>
+	  	 <!-- StarSports-->
+	  	<profile>
+	  		<id>StarSports</id>
+	  			 <build>
+		    <pluginManagement>
+		      <plugins>
+		        <plugin>
+		          <groupId>org.apache.maven.plugins</groupId>
+		          <artifactId>maven-surefire-plugin</artifactId>
+		          <version>3.0.0-M5</version>
+		          <configuration>
+		          <suiteXmlFiles>
+		            <suiteXmlFile>testngStarSports.xml</suiteXmlFile>
+		          </suiteXmlFiles>
+		        </configuration>
+		        </plugin>
+		      </plugins>
+		    </pluginManagement>
+		  </build>
+	  	</profile>
+ 
  
  </profiles>
 

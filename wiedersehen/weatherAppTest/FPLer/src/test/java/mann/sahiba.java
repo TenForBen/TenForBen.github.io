@@ -146,6 +146,34 @@ public class sahiba {
 		}
 	}
 	
+	
+	
+	@Parameters({"gameweek"})
+	@Test
+	public void StarSports(int gameweek) throws InterruptedException
+	{
+		
+		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
+		int gw=gameweek;	
+		String snj ="StarSports";
+		System.out.println("League Scrapper - " +snj);	
+		int  LR =  r.getLastRwoNum(snj);
+		//System.out.println("The last row by method  " + LR);
+		int LRs=LR+1;
+		System.out.println("The last row count is LRs " + LRs);
+		int numVar = 2;
+		for( numVar =1;numVar<=1;numVar++)
+		{
+				for( int i =2;i<=LRs;i++)
+				{
+							String place =r.getCellData(snj, "Manager_iD", i);	
+							System.out.println("Places  at position------------------------------                     "+ i +"  -----------------is                   " + place);
+							String receivedValue=fplExcel(place,gw,snj,i);
+							String[] result = receivedValue.split("~");
+				}
+			Thread.sleep(100);
+		}
+	}
 	public  String  fplExcel(String place,int gw,String shitt,int crete)throws InterruptedException
 	
 	{
