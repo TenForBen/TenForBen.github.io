@@ -6,11 +6,19 @@
     <parameter name="shiitName" value="RoC"></parameter>
     <classes>
       
-      <class name="PoPoi_The_Sailor_Man.danzig"/>
       
+      <class name="PoPoi_The_Sailor_Man.danzig">
+	       			<methods>
+ 								 <include name="test"></include>
+	    							
+  	</methods>
+	       </class>
       
     </classes>
   </test> <!-- T
   
   <class name="openWeatherApp.ApiUiInt.navigationTest"/>est -->
-</suite> <!-- Suite -->
+</suite> <!-- Su
+
+<class name="PoPoi_The_Sailor_Man.danzig"/>
+ite -->

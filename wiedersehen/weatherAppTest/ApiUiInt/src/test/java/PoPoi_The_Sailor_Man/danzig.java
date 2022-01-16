@@ -44,7 +44,7 @@ FileInputStream fis =new FileInputStream("H:\\vsos\\TenForBen.github.io\\EdisonL
 		
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
 		int gw=gameweek;	
-		String snj ="FPL6";
+		String snj ="StarsSports";
 		System.out.println("League Scrapper - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
 		//System.out.println("The last row by method  " + LR);
