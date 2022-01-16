@@ -2,12 +2,37 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>openWeatherApp</groupId>
-  <artifactId>ApiUiInt</artifactId>
+  <groupId>Profiler</groupId>
+  <artifactId>FPLer</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <build>
+  <name>FPLer</name>
+  <url>http://maven.apache.org</url>
+
+  <profiles>
+  	<profile>
+  		<id>testRun</id>
+  			 <build>
+	    <pluginManagement>
+	      <plugins>
+	        <plugin>
+	          <groupId>org.apache.maven.plugins</groupId>
+	          <artifactId>maven-surefire-plugin</artifactId>
+	          <version>3.0.0-M5</version>
+	          <configuration>
+	          <suiteXmlFiles>
+	            <suiteXmlFile>testngTest.xml</suiteXmlFile>
+	          </suiteXmlFiles>
+	        </configuration>
+	        </plugin>
+	      </plugins>
+	    </pluginManagement>
+	  </build>
+  	</profile>
+	<profile>
+  		<id>sheetCheck</id>
+  			 <build>
 	    <pluginManagement>
 	      <plugins>
 	        <plugin>
@@ -23,6 +48,10 @@
 	      </plugins>
 	    </pluginManagement>
 	  </build>
+  	</profile>
+ 
+ 
+ </profiles>
 
   <dependencies>
        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
@@ -71,6 +100,5 @@
  
   
   </dependencies>
-
 
 </project>
