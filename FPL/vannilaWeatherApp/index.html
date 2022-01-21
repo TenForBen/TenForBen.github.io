@@ -8,6 +8,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" type="image/x-icon" href="../../img\icons\weather.png">
+	<style>
+	.england_16_left {
+    background-position: 0 -1089px;
+}
+.flag_16 {
+    background-image: url("../../\img/\OpSo/\map.png");
+    background-repeat: no-repeat;
+}
+.left_16 {
+    padding-left: 20px;
+    background-position: left top;
+}
+	
+	
+	</style>
     <title>Weather Imperial</title>
   </head>
   <body>
@@ -28,9 +43,9 @@
         </div>
         <div class="container text-center mt-2">
             <button class="btn btn-primary" id="submit">Submit</button>
-			<a class="btn btn-danger" id="imp" href="imperial/index.html" >Imperial</a>
+			<a class="btn btn-danger" id="imp" href="imperial/index.html" >Imperial <span id="bild"> </a>
         </div>
-        
+        <!-- <a href="/players/jonathan-leko/422153/" class="flag_16 left_16 england_16_left">J. Leko</a></span> -->
 		
         <div id="content">
 
@@ -42,4 +57,7 @@
   <script src="fetch.js"></script>
   <script src="ui.js"></script>
   <script src="app.js"></script>
+  <script>
+		document.getElementsByTagName("link")[1].href="../../img/icons/fluidicon.png"
+  </script>
 </html>
