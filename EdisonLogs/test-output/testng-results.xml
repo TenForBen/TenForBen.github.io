@@ -1,23 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="1" passed="1">
+<testng-results skipped="0" failed="0" total="3" passed="3">
   <reporter-output>
   </reporter-output>
-  <suite name="FPL" duration-ms="149048" started-at="2022-01-12T23:25:33Z" finished-at="2022-01-12T23:28:02Z">
+  <suite name="FPL" duration-ms="1532296" started-at="2022-01-29T12:05:37Z" finished-at="2022-01-29T12:31:09Z">
     <groups>
     </groups>
-    <test name="test1" duration-ms="149048" started-at="2022-01-12T23:25:33Z" finished-at="2022-01-12T23:28:02Z">
+    <test name="test1" duration-ms="1532296" started-at="2022-01-29T12:05:37Z" finished-at="2022-01-29T12:31:09Z">
       <class name="scrappers.FPL_scrapper_zussamem">
-        <test-method status="PASS" signature="test(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="test" duration-ms="149001" started-at="2022-01-13T00:25:33Z" finished-at="2022-01-13T00:28:02Z">
+        <test-method status="PASS" signature="test(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="test" duration-ms="148399" started-at="2022-01-29T13:05:37Z" finished-at="2022-01-29T13:08:05Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[21]]>
+                <![CDATA[23]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
+        <test-method status="PASS" signature="RoC(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="RoC" duration-ms="464892" started-at="2022-01-29T13:08:05Z" finished-at="2022-01-29T13:15:50Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[23]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- RoC -->
+        <test-method status="PASS" signature="FPL6(int)[pri:0, instance:scrappers.FPL_scrapper_zussamem@20e2cbe0]" name="FPL6" duration-ms="918949" started-at="2022-01-29T13:15:50Z" finished-at="2022-01-29T13:31:09Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[23]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- FPL6 -->
       </class> <!-- scrappers.FPL_scrapper_zussamem -->
     </test> <!-- test1 -->
   </suite> <!-- FPL -->
