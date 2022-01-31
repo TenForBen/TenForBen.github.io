@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+  <test thread-count="5" name="Test">
+    <classes>
+      
+      <class name="PoPoi_The_Sailor_Man.appIDEA">
+      	<methods>
+      	<parameter name="lines" value="-2"></parameter>
+      <parameter name="ilat" value="51"></parameter>
+      			
+	      		
+	      		<include name="tenerLat"></include>
+	        </methods>
+      </class>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->

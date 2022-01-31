@@ -16,7 +16,7 @@
 	          <version>3.0.0-M5</version>
 	          <configuration>
 	          <suiteXmlFiles>
-	            <suiteXmlFile>testng.xml</suiteXmlFile>
+	            <suiteXmlFile>testngJson.xml</suiteXmlFile>
 	          </suiteXmlFiles>
 	        </configuration>
 	        </plugin>
