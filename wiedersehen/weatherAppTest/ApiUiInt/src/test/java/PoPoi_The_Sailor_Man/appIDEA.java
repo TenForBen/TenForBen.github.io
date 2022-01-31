@@ -72,7 +72,7 @@ public class appIDEA extends frameworktest {
 		String coundry = js.getString("sys.country");
 		System.out.println("                                the  Nation of    " +coundry + "\r\n");
 		double count = js.getDouble("main.temp");
-		
+		String mainTemp = js.getString("main.temp");
 		System.out.println("\n");
 		System.out.println("                                currentTemp   "+count + "\r\n");
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
@@ -81,10 +81,16 @@ public class appIDEA extends frameworktest {
 		System.out.println("League Scrapper - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
 		System.out.println("The last row by method  " + LR);
-		int LRs=LR+1;
+		int LRs=LR+2;
 		System.out.println("The last row count is LRs " + LRs);
 		//weatherWithMetrics(asliJagah);
 		r.setCellData(snj, "Places", LRs, asliJagah);
+		System.out.println("place updated in xl -  " + asliJagah);
+		r.setCellData(snj, "Country", LRs, coundry);
+		System.out.println("Country updated in xl -  " + coundry);
+		r.setCellData(snj, "Weather", LRs, mainTemp);
+		System.out.println("place updated in xl -  " + mainTemp);
+		
 		
 	}
 
