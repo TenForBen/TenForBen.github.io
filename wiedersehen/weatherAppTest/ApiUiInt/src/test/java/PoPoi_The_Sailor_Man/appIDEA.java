@@ -10,7 +10,8 @@ import org.testng.annotations.Test;
 
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-public class appIDEA {
+import werkself.frameworktest;
+public class appIDEA extends frameworktest {
 
 	
 	@Parameters({"lines","ilat"})
@@ -85,6 +86,23 @@ public class appIDEA {
 		int punkt=10;
 		int sbi=lat+punkt;
 		for(int i=lat;i<sbi;i++)
+		{
+			String latt=String.valueOf(i);
+			//rutherford(latt,lines);
+			latLoner(latt,lines);
+		}
+		
+	}
+	
+	@Parameters({"lines","ilat"})
+	@Test
+	public void onerLat (String ilat,String lines )
+	{
+		//int lat=20;
+		int lat=Integer.parseInt(ilat);
+		int punkt=0;
+		int sbi=lat+punkt;
+		for(int i=lat;i<=sbi;i++)
 		{
 			String latt=String.valueOf(i);
 			//rutherford(latt,lines);
