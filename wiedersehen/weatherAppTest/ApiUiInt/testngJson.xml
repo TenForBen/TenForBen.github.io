@@ -6,8 +6,8 @@
       
       <class name="PoPoi_The_Sailor_Man.appIDEA">
       	<methods>
-      	<parameter name="lines" value="-2"></parameter>
-      <parameter name="ilat" value="56"></parameter>
+      	<parameter name="lines" value="25"></parameter>
+      <parameter name="ilat" value="65"></parameter>
       			<include name="onerLat"></include>
 	      		
 	      		

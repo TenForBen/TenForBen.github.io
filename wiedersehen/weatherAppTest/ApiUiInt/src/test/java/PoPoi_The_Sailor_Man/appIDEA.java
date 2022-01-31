@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import werkself.frameworktest;
+import werkself.Xls_Reader;
 public class appIDEA extends frameworktest {
 
 	
@@ -74,8 +75,19 @@ public class appIDEA extends frameworktest {
 		
 		System.out.println("\n");
 		System.out.println("                                currentTemp   "+count + "\r\n");
+		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
+		//int gw=gameweek;	
+		String snj ="Sheet2";
+		System.out.println("League Scrapper - " +snj);	
+		int  LR =  r.getLastRwoNum(snj);
+		System.out.println("The last row by method  " + LR);
+		int LRs=LR+1;
+		System.out.println("The last row count is LRs " + LRs);
+		//weatherWithMetrics(asliJagah);
+		r.setCellData(snj, "Places", LRs, asliJagah);
 		
 	}
+
 	
 	@Parameters({"lines","ilat"})
 	@Test
@@ -109,5 +121,16 @@ public class appIDEA extends frameworktest {
 			latLoner(latt,lines);
 		}
 		
+	}
+	
+	@Parameters({"a"})
+	@Test
+	public void weatherWithMetrics (String a)
+	{
+		RestAssured.baseURI ="https://api.openweathermap.org";
+		given().log().all().
+		queryParam("q", a).queryParam("appid", "2b1fd2d7f77ccf1b7de9b441571b39b8").queryParam("units", "metric").
+		when().get("data/2.5/weather").
+		then().log().all().assertThat().statusCode(200);
 	}
 }
