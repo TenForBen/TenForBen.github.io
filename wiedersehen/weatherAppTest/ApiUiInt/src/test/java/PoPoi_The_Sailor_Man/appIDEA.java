@@ -58,12 +58,20 @@ public class appIDEA extends frameworktest {
 		RestAssured.baseURI ="https://api.openweathermap.org";
 		String jagah =
 		given().log().all().
-		queryParam("lat", latt).queryParam("lon", lines).queryParam("appid", "2b1fd2d7f77ccf1b7de9b441571b39b8").queryParam("lang", "de").queryParam("units", "metric").
+		queryParam("lat", latt).queryParam("lon", lines).
+		queryParam("appid", "2b1fd2d7f77ccf1b7de9b441571b39b8").
+		queryParam("lang", "de").queryParam("units", "metric").
 		when().get("data/2.5/weather").
 		then().assertThat().statusCode(200).extract().response().asString();
 		System.out.println("/n");
 		System.out.println("\n");
 		JsonPath js = new JsonPath(jagah);
+		String dt = js.getString("dt");
+		int ddt=Integer.parseInt(dt);
+		System.out.println("Raw date is   " + dt);
+		//java.util.Date time = new java.util.Date(dt);
+		java.util.Date time=new java.util.Date((long)ddt*1000);
+		System.out.println(" beutified date is  " + time);
 		String asliJagah=js.getString("name");
 		System.out.println("extracted place for  latitude " +latt +"  and longitude  " +lines +" is " +asliJagah);
 		//double count = js.getInt("main.temp");
@@ -90,7 +98,9 @@ public class appIDEA extends frameworktest {
 		System.out.println("Country updated in xl -  " + coundry);
 		r.setCellData(snj, "Weather", LRs, mainTemp);
 		System.out.println("place updated in xl -  " + mainTemp);
+		//Coordinates
 		
+		//Coordinates
 		
 	}
 
