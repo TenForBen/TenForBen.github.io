@@ -5,6 +5,9 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -78,6 +81,8 @@ public class appIDEA extends frameworktest {
 		System.out.println("in");
 		System.out.println("\n");
 		String coundry = js.getString("sys.country");
+		String rlat = js.getString("coord.lat");
+		String rlon = js.getString("coord.lon");
 		System.out.println("                                the  Nation of    " +coundry + "\r\n");
 		double count = js.getDouble("main.temp");
 		String mainTemp = js.getString("main.temp");
@@ -99,8 +104,14 @@ public class appIDEA extends frameworktest {
 		r.setCellData(snj, "Weather", LRs, mainTemp);
 		System.out.println("place updated in xl -  " + mainTemp);
 		//Coordinates
-		
-		//Coordinates
+		String Coordinates ="Lat : " +rlat + " long : " +rlon ;
+		r.setCellData(snj, "Coordinates", LRs, Coordinates);
+		System.out.println("Coordinates updated in xl -  " + Coordinates);
+		//timeStamp
+		 DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+         String strDate = dateFormat.format(time);  
+		r.setCellData(snj, "timeStamp", LRs, strDate);
+		System.out.println("time updated in xl -  " + strDate);
 		
 	}
 
