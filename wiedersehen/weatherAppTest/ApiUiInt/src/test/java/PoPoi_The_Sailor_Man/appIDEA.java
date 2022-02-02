@@ -90,7 +90,7 @@ public class appIDEA extends frameworktest {
 		System.out.println("                                currentTemp   "+count + "\r\n");
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
 		//int gw=gameweek;	
-		String snj ="Sheet2";
+		String snj ="lonMan";
 		System.out.println("League Scrapper - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
 		System.out.println("The last row by method  " + LR);
@@ -111,7 +111,8 @@ public class appIDEA extends frameworktest {
 		//timeStamp
 		 DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
          String strDate = dateFormat.format(time);  
-		r.setCellData(snj, "timeStamp", LRs, strDate);
+		//r.setCellData(snj, "timeStamp", LRs, strDate);
+		r.setCellData(snj, "timeStamp", LRs, dt);
 		System.out.println("time updated in xl -  " + strDate);
 		
 	}
@@ -169,7 +170,7 @@ public class appIDEA extends frameworktest {
 		
 		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
 		//int gw=gameweek;	
-		String snj ="Sheet2";
+		String snj ="lonMan";
 		System.out.println("SheetUsed - " +snj);	
 		int  LR =  r.getLastRwoNum(snj);
 		//System.out.println("The last row by method  " + LR);
