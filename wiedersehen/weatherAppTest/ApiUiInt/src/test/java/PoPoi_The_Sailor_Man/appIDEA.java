@@ -183,9 +183,12 @@ public class appIDEA extends frameworktest {
 		String slon=latestPoints[5];
 		System.out.println("slat " +slat +" slon "   + slon);
 		Double intslat =Double.parseDouble(slat);
-		intslat=intslat+1;
+		//intslat=intslat+1;
+		Double intslon =Double.parseDouble(slon);
+		intslon=intslon+1;
 		String StringSlat=String.valueOf(intslat);
-		latLoner(slon,StringSlat);
+		String StringSlon=String.valueOf(intslon);
+		latLoner(StringSlon,StringSlat);
 		//Lat : 46 long : 14
 
 		/*int lat=20;
