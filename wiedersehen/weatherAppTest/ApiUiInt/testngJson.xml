@@ -6,9 +6,9 @@
       
       <class name="PoPoi_The_Sailor_Man.appIDEA">
       	<methods>
-      	<parameter name="lines" value="14"></parameter>
-      <parameter name="ilat" value="46"></parameter>
-      			<include name="onerLat"></include>
+      	<parameter name="lines" value="7"></parameter>
+      <parameter name="ilat" value="51"></parameter>
+      			<include name="jenkinerStrasse"></include>
 	      		
 	      		
 	        </methods>
@@ -17,5 +17,6 @@
   </test> <!-- T
   <include name="tenerLat"></include>
   <include name="onerLat"></include>
+  <include name="jenkinerStrasse"></include>
   est -->
 </suite> <!-- Suite -->

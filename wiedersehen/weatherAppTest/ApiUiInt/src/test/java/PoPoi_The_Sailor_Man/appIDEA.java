@@ -105,6 +105,7 @@ public class appIDEA extends frameworktest {
 		System.out.println("place updated in xl -  " + mainTemp);
 		//Coordinates
 		String Coordinates ="Lat : " +rlat + " long : " +rlon ;
+		//String Coordinates ="Lat : " +rlat + " long : " +rlon ;
 		r.setCellData(snj, "Coordinates", LRs, Coordinates);
 		System.out.println("Coordinates updated in xl -  " + Coordinates);
 		//timeStamp
@@ -159,5 +160,47 @@ public class appIDEA extends frameworktest {
 		queryParam("q", a).queryParam("appid", "2b1fd2d7f77ccf1b7de9b441571b39b8").queryParam("units", "metric").
 		when().get("data/2.5/weather").
 		then().log().all().assertThat().statusCode(200);
+	}
+	
+	
+	@Test
+	public void jenkinerStrasse ()
+	{
+		
+		Xls_Reader r= new Xls_Reader("H:\\vsos\\TenForBen.github.io\\EdisonLogs\\weather.xlsx");
+		//int gw=gameweek;	
+		String snj ="Sheet2";
+		System.out.println("SheetUsed - " +snj);	
+		int  LR =  r.getLastRwoNum(snj);
+		//System.out.println("The last row by method  " + LR);
+		int LRs=LR+1;
+		System.out.println("The last row count is LRs " + LRs);
+		String place =r.getCellData(snj, "Coordinates",LRs);
+		System.out.println("Coords are            ~       " + place);
+		String[] latestPoints = place.split(" ");
+		//String fp=latestPoints[2];
+		String slat=latestPoints[2];
+		String slon=latestPoints[5];
+		System.out.println("slat " +slat +" slon "   + slon);
+		Double intslat =Double.parseDouble(slat);
+		intslat=intslat+1;
+		String StringSlat=String.valueOf(intslat);
+		latLoner(slon,StringSlat);
+		//Lat : 46 long : 14
+
+		/*int lat=20;
+				int lat=Integer.parseInt(ilat);
+				int punkt=0;
+				int sbi=lat+punkt;
+				for(int i=lat;i<=sbi;i++)
+				{
+					String latt=String.valueOf(i);
+					//rutherford(latt,lines);
+					latLoner(latt,lines);
+				}
+				
+				*/
+		
+		
 	}
 }
