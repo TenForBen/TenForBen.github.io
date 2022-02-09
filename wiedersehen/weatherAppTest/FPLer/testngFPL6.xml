@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite">
   <test thread-count="5" name="Test">
-    <parameter name="gameweek" value="23"></parameter>
+    <parameter name="gameweek" value="24"></parameter>
     <classes>
       <class name="mann.sahiba">
       			<methods>
