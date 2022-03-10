@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>FPL6-Players-GW-28</title>
+
+</head>
+<link rel="stylesheet" href="../../../../AufWiedersehen/BootMeister/css/bootstrap.min.css">
+<link rel="stylesheet" href="../../../../AufWiedersehen/css/lawrence.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<link rel="shortcut icon" type="image/x-icon" href="../../../../img\icons\EPL_blue.png">
+<script src="../../../../AufWiedersehen/js\jquery-3.1.1.min.js"></script>
+<script src="mgw.js"></script>
+<script src="../../../../js/tableMake.js"></script>
+<script src="pc4.js">
+    
+</script>
+<script src="../../../js/tableMake.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../css/bekal.css">
+<style>
+
+    .maine {
+  font-size: 100%;
+  color: red;
+}
+   
+</style>
+
+<!--<script src="js\localWalaStorage.js"></script>
+
+<link rel="stylesheet" href="carnegie.css" >-->
+<body onload='noMoreSameName4()' >
+    <p>Please click on the Count and Captain Count Table header to sort</p>
+<a id="barnes" class="btn btn-info" href="punkte.html" onclick="">CurrentStatus</a>
+<a id="prev" class="btn btn-info" href="punkte.html" onclick="">PrevButt</a>
+<a id="next" class="btn btn-info" href="punkte.html" onclick="">NextButt</a>
+<a href="../../../HoMe.html" id="boote"  class="btn btn-warning">FPL Home</a>
+    
+    
+    <table id="regtable" class="table table-hover table-bordered">
+        <thead>	
+            <tr>
+                <th>PlayerName</th>
+                <th class="maine" id="shit">Count</th>
+                <th  class="maine" id="Deepshit">CaptainCount</th>
+                <th>Captained managers</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    
+	
+</body>
+<script src="../../../js/jQ.js">
+</script>
+<script> 
+	var tt =document.getElementsByTagName('title')[0].innerText
+	  dm = tt.split("-")  
+	   var callum =dm[dm.length-1]
+	   var prevGW = callum-1
+	   var nextGW = parseInt(callum)
+	   nextGW=nextGW+1
+	   document.getElementById("prev").innerText= "Previous GW -> " + prevGW 
+	   document.getElementById("next").innerText= "Next GW <-> " + nextGW
+	   var prevHref = "../../GW" +prevGW +"/FPL6/playerCountNew.html"
+	   var nextHref = "../../GW" +nextGW +"/FPL6/playerCountNew.html"
+	   //GW11/FPL6/playerCountNew.html
+	   document.getElementById("prev").href=prevHref
+	   document.getElementById("next").href=nextHref
+</script>
+</html>
