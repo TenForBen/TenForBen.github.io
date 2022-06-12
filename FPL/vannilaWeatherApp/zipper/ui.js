@@ -56,7 +56,7 @@ class UI {
                       <h6 class="card-subtitle mb-2 text-muted">current Temperature <p id="cuwt">${data.main.temp}.</p> and feels like  ${data.main.feels_like}</h6>
                       <h6 class="card-subtitle mb-2 text-muted">Highs of ${data.main.temp_max}. Lows of ${data.main.temp_min}</h6>
                       <p class="card-text ">Weather conditions are described as: ${data.weather[0].description}</p>
-                      <p class="card-text ">Sunrise (as per localTime ) : ${formattedTime}  </p>
+                      <p class="card-text ">Sunrise (as per germanTime ) : ${formattedTime}  </p>
                       <p class="card-text " id="art"> ${data.name} , daylength is  ${formattedTime1}</p>
 
                       

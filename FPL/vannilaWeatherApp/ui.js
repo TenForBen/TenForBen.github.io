@@ -11,21 +11,40 @@ class UI {
     //add them to inner HTML
     
     var vbl =  data.sys.sunrise;
-      let unix_timestamp = vbl;
-    
-    //epocher(vbl);
-    var date = new Date(unix_timestamp * 1000);
-// Hours part from the timestamp
-var hours = date.getHours();
-// Minutes part from the timestamp
-var minutes = "0" + date.getMinutes();
-// Seconds part from the timestamp
-var seconds = "0" + date.getSeconds();
+               let unix_timestamp = vbl;
 
-// Will display time in 10:30:23 format
-var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-console.log(`sunrise at ${data.name} is ${vbl} which is ` );
-console.log(formattedTime);
+             //epocher(vbl);
+             var date = new Date(unix_timestamp * 1000);
+         // Hours part from the timestamp
+         var hours = date.getHours();
+         // Minutes part from the timestamp
+         var minutes = "0" + date.getMinutes();
+         // Seconds part from the timestamp
+         var seconds = "0" + date.getSeconds();
+
+         // Will display time in 10:30:23 format
+         var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+         console.log(`sunrise at ${data.name} is ${vbl} which is ` );
+         console.log(formattedTime);
+         var trans =data.sys.sunset;
+         console.log(` ${data.name} , sun sets at  is ${trans} which is `);
+         var dayLength = (trans-vbl)
+         console.log(` ${data.name} , daylength is  ${dayLength} `);
+         var vbl1 =  dayLength;
+               let unix_timestamp1 = vbl1;
+               //epocher(vbl);
+             var date = new Date(unix_timestamp1 * 1000);
+         // Hours part from the timestamp
+         var hours1 = date.getHours();
+         // Minutes part from the timestamp
+         var minutes1 = "0" + date.getMinutes();
+         // Seconds part from the timestamp
+         var seconds1 = "0" + date.getSeconds();
+         // Will display time in 10:30:23 format
+         var formattedTime1 = hours1 + ':' + minutes1.substr(-2) + ':' + seconds1.substr(-2);
+         console.log(` ${data.name} , daylength is  ${formattedTime1} `);
+
+//and daylength is ${formattedTime1}
 
     this.uiContainer.innerHTML = `
         
@@ -36,8 +55,8 @@ console.log(formattedTime);
                 <h6 class="card-subtitle mb-2 text-muted">current Temperature <p id="cuwt">${data.main.temp}.</p> and feels like  ${data.main.feels_like}</h6>
                 <h6 class="card-subtitle mb-2 text-muted">Highs of ${data.main.temp_max}. Lows of ${data.main.temp_min}</h6>
                 <p class="card-text ">Weather conditions are described as: ${data.weather[0].description}</p>
-                <p class="card-text ">Sunrise (as per localTime ) : ${formattedTime}  </p>
-                <p class="card-text " id="art"> latitude: ${data.coord.lat} AND longitude: ${data.coord.lon}</p>
+                <p class="card-text ">Sunrise (as per GermanTime ) : ${formattedTime}  </p>
+                <p class="card-text " id="art">  daylength is  ${formattedTime1}</p>
 
                 
             </div>
