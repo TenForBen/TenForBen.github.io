@@ -23,6 +23,38 @@ function tableShakers()
 
 		}	
 }
+
+
+function loader4Klima()
+{
+    if (s)
+     {
+        //wordsArray = JSON.parse(worter);
+        for (var i = 0; i < s.length; i++)
+         {
+            prepareTableCellKlima(s[i].City,s[i].Coords,s[i].Nation,s[i].temp);
+         }
+    }
+
+}
+
+function prepareTableCellKlima(p1,p2,p3,p4)
+{
+    var table = document.getElementById("regtable");
+    var row = table.insertRow();
+
+    var pp1 = row.insertCell(0);
+    var pp2 = row.insertCell(1);
+    var pp3 = row.insertCell(2);
+    var pp4 = row.insertCell(3);
+
+    pp1.innerHTML = p1;
+    pp2.innerHTML = p2;
+    pp3.innerHTML = p3;
+    pp4.innerHTML = p4;
+
+
+}
 function loader4()
 {
     if (s)
