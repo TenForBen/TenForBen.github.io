@@ -8,10 +8,7 @@
       	<methods>
       	<parameter name="lines" value="7"></parameter>
       <parameter name="ilat" value="51"></parameter>
-      			 <include name="jenkinerStrasse"></include>
-	      		
-	      		
-	        </methods>
+            <include name="HillerStrasse"></include> </methods>
       </class>
     </classes>
   </test> <!-- T
