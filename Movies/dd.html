@@ -1,13 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two YouTube Videos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .video-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .video {
+            width: 45%;
+        }
+        iframe {
+            width: 100%;
+            height: 315px;
+        }
+        .description {
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
 <body>
 
-<<iframe width="560" height="315" src="https://www.youtube.com/embed/Cp4RRAEgpeU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h1>Two Live Videos from Exotic places </h1>
 
-<div>
-
-git/\turf/\kas/\TenForBen.github.io
-
+<div class="video-container">
+    <div class="video">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/Cp4RRAEgpeU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+        <div class="description">
+            <p>Rovaniemi in Finland , Santa Claus Village.</p>
+        </div>
+    </div>
+    <div class="video">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/7NJT8qf5aLw?si=5YVZd1a_Jwd_HCeK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><div class="description">
+            <p>Reykjavik Live Cam location. </p>
+        </div>
+    </div>
 </div>
 
 </body>
