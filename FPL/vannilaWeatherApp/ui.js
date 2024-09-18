@@ -44,6 +44,21 @@ class UI {
          var formattedTime1 = hours1 + ':' + minutes1.substr(-2) + ':' + seconds1.substr(-2);
          console.log(` ${data.name} , daylength is  ${formattedTime1} `);
 
+          // Function to convert decimal degrees to degrees and minutes
+                 function convertToDegreesMinutes(coord, isLatitude) {
+                     const direction = isLatitude
+                         ? (coord >= 0 ? 'N' : 'S')
+                         : (coord >= 0 ? 'E' : 'W');
+                     const absoluteCoord = Math.abs(coord);
+                     const degrees = Math.floor(absoluteCoord);
+                     const minutes = ((absoluteCoord - degrees) * 60).toFixed(2);
+                     return `${degrees}°${minutes}' ${direction}`;
+                 }
+
+                  const latitude = convertToDegreesMinutes(data.coord.lat, true);
+                  const longitude = convertToDegreesMinutes(data.coord.lon, false);
+
+
 //and daylength is ${formattedTime1}
 
     this.uiContainer.innerHTML = `
@@ -51,7 +66,7 @@ class UI {
         <div class="card mx-auto mt-5" style="width: 20rem;">
             <div class="card-body justify-content-center">
                 <h5 class="card-title"><b id="placeName">${data.name}</b> , <u id="landen">  ${data.sys.country}</u>   </h5>
-                <p id="xPat">  ${data.coord.lat} , ${data.coord.lon}   </p>
+                <p id="xPat">  ${latitude}, ${longitude}  </p>
                 <h6 class="card-subtitle mb-2 text-muted">current Temperature <p id="cuwt">${data.main.temp}.</p> and feels like  ${data.main.feels_like}</h6>
                 <h6 class="card-subtitle mb-2 text-muted">Highs of ${data.main.temp_max}. Lows of ${data.main.temp_min}</h6>
                 <p class="card-text ">Weather conditions are described as: ${data.weather[0].description}</p>
