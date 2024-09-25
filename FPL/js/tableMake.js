@@ -418,6 +418,20 @@ function noMoreSameName()
     document.getElementById("uqPc").innerText=pcc.length
     //tableShakers();
 }
+function LeagueJson()
+{
+    if (s)
+     {
+        //wordsArray = JSON.parse(worter);
+        for (var i = 0; i < s.length; i++)
+         {
+            harryMaguire(s[i].manager_id,s[i].teamName);
+         }
+    }
+    sortTable1();
+    document.getElementById("uqPc").innerText=s.length
+    //tableShakers();
+}
 function harryMaguire(p1,p2) 
 {
     var table = document.getElementById("regtable");
