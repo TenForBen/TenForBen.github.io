@@ -158,8 +158,11 @@ function loader4mgw()
     }
     //tableShakers();
     // sorter
-     sortTable_col3();
-     captainSignRemovar();
+    // sortTable_col19()
+    document.getElementsByTagName('tr')[0].addEventListener('click', function() {
+                                    sortTable_col19();  // Execute abc() when the first <tr> is clicked
+                                });
+     //let isSorted = false;  // Track the sort state
 	 //colorCoder();
    //loader4zero
 }
