@@ -163,7 +163,7 @@ function loader4mgw()
                                     sortTable_col19();  // Execute abc() when the first <tr> is clicked
                                 });
      //let isSorted = false;  // Track the sort state
-	 //colorCoder();
+	 colorCoder(s.length);
    //loader4zero
 }
 
