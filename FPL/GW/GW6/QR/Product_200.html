@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .valid {
+            color: green;
+            font-size: 24px;
+        }
+        .invalid {
+            color: red;
+            font-size: 24px;
+        }
+    </style>
+    <script>
+        // Simulate fetching product validation from a server
+        function validateProduct() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('product_id');
+
+            // Example validation logic (in a real system, you'd query a database or API)
+            if (productId === "123456") {
+                document.getElementById('validation-message').innerHTML = '<p class="valid">This product is genuine and successfully validated.</p>';
+            } else {
+               document.getElementById('validation-message').innerHTML = '<p class="valid">This product is genuine and successfully validated.</p>';
+            }
+        }
+    </script>
+</head>
+<body onload="validateProduct()">
+    <h1>Product Validation</h1>
+    <div id="validation-message">
+        <!-- The validation message will be displayed here -->
+    </div>
+</body>
+</html>
