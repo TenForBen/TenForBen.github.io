@@ -18,36 +18,56 @@
             color: red;
             font-size: 24px;
         }
+        iframe {
+            margin-top: 20px;
+            width: 560px;
+            height: 315px;
+        }
+        @media (max-width: 600px) {
+            iframe {
+                width: 100%;
+                height: auto;
+            }
+        }
     </style>
     <script>
-        // Simulate fetching product validation from a server
         function validateProduct() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const productId = urlParams.get('product_id');
+            // Get the product_id from the URL if needed (this example ignores it)
+            let viewCount = localStorage.getItem('viewCount');
 
-            // Example validation logic (in a real system, you'd query a database or API)
-            if (productId === "123456") {
+            // If this is the first time, initialize viewCount to 0
+            if (!viewCount) {
+                viewCount = 0;
+            }
+
+            // Convert viewCount to a number and increment
+            viewCount = Number(viewCount) + 1;
+
+            // Store the updated viewCount back into localStorage
+            localStorage.setItem('viewCount', viewCount);
+
+            // Show different validation messages based on the view count
+            if (viewCount <= 1) {
                 document.getElementById('validation-message').innerHTML = '<p class="valid">This product is genuine and successfully validated.</p>';
             } else {
-               document.getElementById('validation-message').innerHTML = '<p class="valid">This product is genuine and successfully validated.</p>';
+                document.getElementById('validation-message').innerHTML = '<p class="invalid">Product validation failed. This product is not genuine.</p>';
             }
         }
     </script>
 </head>
 <body onload="validateProduct()">
-    <h1>Product Validation</h1>
-    <div id="validation-message">
-        <!-- The validation message will be displayed here -->
-    </div>
+<h1>Product Validation</h1>
+<div id="validation-message">
+    <!-- The validation message will be displayed here -->
+</div>
 
-    <!-- Embed YouTube Video -->
-    <iframe
-            src="https://www.youtube.com/embed/7cPAQhg-VDg?start=21"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-    </iframe>
-
+<!-- Embed YouTube Video -->
+<iframe
+        src="https://www.youtube.com/embed/7cPAQhg-VDg?start=21"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+</iframe>
 </body>
 </html>
