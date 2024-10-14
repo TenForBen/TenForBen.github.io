@@ -1,7 +1,7 @@
 var s = [
   {
     "manager_Name": "330580",
-    "Teams": "BLIND at the BACK",
+    "Teams": "BLIND at the BACK( Prayash Thapa )",
     "SXL": "IN",
     "Latp": "56",
     "Player_1": "Flekken\r 2",
@@ -22,7 +22,7 @@ var s = [
   },
   {
     "manager_Name": "1807936",
-    "Teams": "Mawat",
+    "Teams": "Mawat( Arwat Lyngdoh )",
     "SXL": "IN",
     "Latp": "51",
     "Player_1": "S\u00E1nchez\r 4",
@@ -43,7 +43,7 @@ var s = [
   },
   {
     "manager_Name": "1338765",
-    "Teams": "The Regista.",
+    "Teams": "The Regista.( Passang T Sherpa )",
     "SXL": "IN",
     "Latp": "51",
     "Player_1": "Pope\r 6",
@@ -64,7 +64,7 @@ var s = [
   },
   {
     "manager_Name": "141097",
-    "Teams": "Blue Brigade",
+    "Teams": "Blue Brigade( Bhuman Basnet )",
     "SXL": "IN",
     "Latp": "53",
     "Player_1": "Flekken\r 2",
@@ -85,7 +85,7 @@ var s = [
   },
   {
     "manager_Name": "388598",
-    "Teams": "Avijit@afc",
+    "Teams": "Avijit@afc( AVIJIT DAS )",
     "SXL": "IN",
     "Latp": "49",
     "Player_1": "Henderson\r 3",
@@ -106,7 +106,7 @@ var s = [
   },
   {
     "manager_Name": "3095962",
-    "Teams": "PR11",
+    "Teams": "PR11( pranam rai )",
     "SXL": "IN",
     "Latp": "44",
     "Player_1": "Raya\r 2",
@@ -127,7 +127,7 @@ var s = [
   },
   {
     "manager_Name": "342304",
-    "Teams": "Blue Moon X1\uFFFD",
+    "Teams": "Blue Moon X1\uFFFD( PRAYAS BAJGAI )",
     "SXL": "IN",
     "Latp": "47",
     "Player_1": "Raya\r 2",
@@ -148,7 +148,7 @@ var s = [
   },
   {
     "manager_Name": "3212600",
-    "Teams": "Imperial Blues FC",
+    "Teams": "Imperial Blues FC( Saurabh Tamang )",
     "SXL": "IN",
     "Latp": "72",
     "Player_1": "Raya\r 2",
@@ -169,7 +169,7 @@ var s = [
   },
   {
     "manager_Name": "3778429",
-    "Teams": "heregoesnothing11!!",
+    "Teams": "heregoesnothing11!!( Ashish Rai )",
     "SXL": "IN",
     "Latp": "41",
     "Player_1": "Raya\r 2",
@@ -190,7 +190,7 @@ var s = [
   },
   {
     "manager_Name": "3215788",
-    "Teams": "ZilchExpectationsXI",
+    "Teams": "ZilchExpectationsXI( Dipen Thapa )",
     "SXL": "IN",
     "Latp": "57",
     "Player_1": "Raya\r 2",
@@ -211,7 +211,7 @@ var s = [
   },
   {
     "manager_Name": "763135",
-    "Teams": "Bottled FC",
+    "Teams": "Bottled FC( Rishi Thulung )",
     "SXL": "IN",
     "Latp": "56",
     "Player_1": "Raya\r 2",
@@ -232,7 +232,7 @@ var s = [
   },
   {
     "manager_Name": "1713439",
-    "Teams": "\u2694\uFE0FFURY\u2694\uFE0F",
+    "Teams": "\u2694\uFE0FFURY\u2694\uFE0F( Ashim Lama )",
     "SXL": "IN",
     "Latp": "31",
     "Player_1": "S\u00E1nchez\r 4",
@@ -253,7 +253,7 @@ var s = [
   },
   {
     "manager_Name": "2723700",
-    "Teams": "FC ASSASSINS",
+    "Teams": "FC ASSASSINS( Kushal Sahota )",
     "SXL": "IN",
     "Latp": "41",
     "Player_1": "S\u00E1nchez\r 4",
@@ -274,7 +274,7 @@ var s = [
   },
   {
     "manager_Name": "5432357",
-    "Teams": "Jatin",
+    "Teams": "Jatin( Jatin Ghimiray )",
     "SXL": "IN",
     "Latp": "41",
     "Player_1": "Raya\r 2",
@@ -295,7 +295,7 @@ var s = [
   },
   {
     "manager_Name": "2526630",
-    "Teams": "nativ fc",
+    "Teams": "nativ fc( Monlom Rongong )",
     "SXL": "IN",
     "Latp": "54",
     "Player_1": "Henderson\r 3",
@@ -316,7 +316,7 @@ var s = [
   },
   {
     "manager_Name": "4478359",
-    "Teams": "Comet FC",
+    "Teams": "Comet FC( Pranesh Sharma )",
     "SXL": "IN",
     "Latp": "80",
     "Player_1": "S\u00E1nchez\r 4",
@@ -337,7 +337,7 @@ var s = [
   },
   {
     "manager_Name": "491564",
-    "Teams": "\uFFFD Fields FC",
+    "Teams": "\uFFFD Fields FC( Ravish Verma )",
     "SXL": "CA",
     "Latp": "48",
     "Player_1": "Flekken\r 2",
@@ -358,7 +358,7 @@ var s = [
   },
   {
     "manager_Name": "71633",
-    "Teams": "Last Season\u0027s Loser",
+    "Teams": "Last Season\u0027s Loser( \u00CFaraplang Pompyrthat )",
     "SXL": "IN",
     "Latp": "54",
     "Player_1": "Henderson\r 3",
@@ -379,7 +379,7 @@ var s = [
   },
   {
     "manager_Name": "3975997",
-    "Teams": "FOMO7 FC",
+    "Teams": "FOMO7 FC( Chaje Lokam )",
     "SXL": "IN",
     "Latp": "53",
     "Player_1": "Martinez\r 9",
@@ -400,7 +400,7 @@ var s = [
   },
   {
     "manager_Name": "833291",
-    "Teams": "Error404",
+    "Teams": "Error404( Duri Tadu )",
     "SXL": "IN",
     "Latp": "56",
     "Player_1": "Raya\r 2",
@@ -421,7 +421,7 @@ var s = [
   },
   {
     "manager_Name": "2954804",
-    "Teams": "Hooligans \u00B0\u00B024",
+    "Teams": "Hooligans \u00B0\u00B024( Pradhyumna Subba )",
     "SXL": "IN",
     "Latp": "57",
     "Player_1": "S\u00E1nchez\r 4",
@@ -442,7 +442,7 @@ var s = [
   },
   {
     "manager_Name": "849913",
-    "Teams": "FALSE 9",
+    "Teams": "FALSE 9( Rohan Rai )",
     "SXL": "IN",
     "Latp": "38",
     "Player_1": "Henderson\r 3",
@@ -463,7 +463,7 @@ var s = [
   },
   {
     "manager_Name": "311922",
-    "Teams": "Busby Babes",
+    "Teams": "Busby Babes( Pema Lepcha )",
     "SXL": "IN",
     "Latp": "39",
     "Player_1": "Raya\r 2",
@@ -484,7 +484,7 @@ var s = [
   },
   {
     "manager_Name": "1426835",
-    "Teams": "Fu\u00DFball-Mannschaft",
+    "Teams": "Fu\u00DFball-Mannschaft( Gaurav Shrestha )",
     "SXL": "IN",
     "Latp": "54",
     "Player_1": "Flekken\r 2",
@@ -505,7 +505,7 @@ var s = [
   },
   {
     "manager_Name": "4976703",
-    "Teams": "YFC Jb",
+    "Teams": "YFC Jb( Vivek Lama )",
     "SXL": "IN",
     "Latp": "52",
     "Player_1": "S\u00E1nchez\r 4",
@@ -526,7 +526,7 @@ var s = [
   },
   {
     "manager_Name": "12790",
-    "Teams": "The SAFfron Sword",
+    "Teams": "The SAFfron Sword( Milan Singh )",
     "SXL": "IN",
     "Latp": "59",
     "Player_1": "Flekken\r 2",
@@ -547,7 +547,7 @@ var s = [
   },
   {
     "manager_Name": "484232",
-    "Teams": "Darjeeling City",
+    "Teams": "Darjeeling City( Ruben Pradhan )",
     "SXL": "IN",
     "Latp": "47",
     "Player_1": "S\u00E1nchez\r 4",
@@ -568,7 +568,7 @@ var s = [
   },
   {
     "manager_Name": "1449015",
-    "Teams": "SibinZibin",
+    "Teams": "SibinZibin( Sibin _ )",
     "SXL": "IN",
     "Latp": "41",
     "Player_1": "Henderson\r 3",
@@ -589,7 +589,7 @@ var s = [
   },
   {
     "manager_Name": "2483601",
-    "Teams": "100 Yard Line Lords",
+    "Teams": "100 Yard Line Lords( Abhinay Pradhan )",
     "SXL": "IN",
     "Latp": "41",
     "Player_1": "S\u00E1nchez\r 4",
@@ -610,7 +610,7 @@ var s = [
   },
   {
     "manager_Name": "2687573",
-    "Teams": "Busby Baby",
+    "Teams": "Busby Baby( Regean Lama )",
     "SXL": "IN",
     "Latp": "32",
     "Player_1": "Henderson\r 3",
@@ -631,7 +631,7 @@ var s = [
   },
   {
     "manager_Name": "44126",
-    "Teams": "PINE",
+    "Teams": "PINE( SATYAM RAI )",
     "SXL": "IN",
     "Latp": "58",
     "Player_1": "Flekken\r 2",
@@ -652,7 +652,7 @@ var s = [
   },
   {
     "manager_Name": "2085334",
-    "Teams": "GustavousGooner",
+    "Teams": "GustavousGooner( Ashish Subba )",
     "SXL": "IN",
     "Latp": "58",
     "Player_1": "S\u00E1nchez\r 4",
@@ -673,7 +673,7 @@ var s = [
   },
   {
     "manager_Name": "6484260",
-    "Teams": "Mersali",
+    "Teams": "Mersali( Bishal Rai )",
     "SXL": "IN",
     "Latp": "50",
     "Player_1": "Raya\r 2",
@@ -694,7 +694,7 @@ var s = [
   },
   {
     "manager_Name": "4484261",
-    "Teams": "KungFuPandoos",
+    "Teams": "KungFuPandoos( Indrajeet Singh )",
     "SXL": "IN",
     "Latp": "38",
     "Player_1": "S\u00E1nchez\r 4",
@@ -715,7 +715,7 @@ var s = [
   },
   {
     "manager_Name": "3892796",
-    "Teams": "Dany11",
+    "Teams": "Dany11( Avinash DAniel Khawas )",
     "SXL": "IN",
     "Latp": "40",
     "Player_1": "Sels\r 3",
@@ -736,7 +736,7 @@ var s = [
   },
   {
     "manager_Name": "7743805",
-    "Teams": "Renga FC",
+    "Teams": "Renga FC( William Serto )",
     "SXL": "IN",
     "Latp": "41",
     "Player_1": "A.Becker\r 10",
@@ -757,7 +757,7 @@ var s = [
   },
   {
     "manager_Name": "3646022",
-    "Teams": "GUNNERS",
+    "Teams": "GUNNERS( Omkar Subba )",
     "SXL": "IN",
     "Latp": "58",
     "Player_1": "Raya\r 2",
@@ -778,7 +778,7 @@ var s = [
   },
   {
     "manager_Name": "6107457",
-    "Teams": "HEROES11",
+    "Teams": "HEROES11( Obed Hang Subba )",
     "SXL": "IN",
     "Latp": "59",
     "Player_1": "Pope\r 6",

@@ -164,7 +164,23 @@ function loader4mgw()
                                 });
      //let isSorted = false;  // Track the sort state
 	 colorCoder(s.length);
+	 updatePageTitle();
+	 newButtons();
    //loader4zero
+}
+
+function updatePageTitle() {
+    // Assume the original title is "Test"
+    const originalTitle = document.title;
+
+    // Extract the gwNumber from the URL
+    const url = window.location.href; // Get current URL
+    const parts = url.split('/');
+    const gwPart = parts[6]; // Extracts "GW6"
+    const gwNumber = gwPart.replace("GW", ""); // Removes "GW" to leave "6"
+
+    // Set the new title of the page
+    document.title = `${originalTitle}-GW-${gwNumber}`; // Sets title to "Test-GW-6"
 }
 
 function loader4zero()
@@ -789,6 +805,23 @@ function shenai()
 	   //GW11/FPL6/punkte.html
 	   document.getElementById("prev").href=prevHref
 	   document.getElementById("next").href=nextHref
+	}
+
+	function newButtons()
+	{
+		var tt =document.getElementsByTagName('title')[0].innerText
+		dm = tt.split("-")
+	   var callum =dm[dm.length-1]
+	   var prevGW = callum-1
+	   var nextGW = parseInt(callum)
+	   nextGW=nextGW+1
+	   document.getElementById("barnes").innerText= "Previous GW <- " + prevGW
+	   document.getElementById("lowton").innerText= "Next GW -> " + nextGW
+	   var prevHref = "GW" +prevGW +"/punkte_PovertyLeague.html"
+	   var nextHref = "../GW" +nextGW +"/punkte.html"
+	   //GW11/FPL6/punkte.html
+	   document.getElementById("barnes").href=prevHref
+	   document.getElementById("lowton").href=nextHref
 	}
 
 
