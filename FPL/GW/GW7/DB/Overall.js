@@ -1,7 +1,7 @@
 var s = [
   {
     "manager_Name": "3439448",
-    "Teams": "Mr . Awwad Shakshak",
+    "Teams": "Mr . Awwad Shakshak( Mr . Awwad Shakshak )",
     "SXL": "EG",
     "Latp": "66",
     "Player_1": "S\u00E1nchez\r 4",
@@ -22,7 +22,7 @@ var s = [
   },
   {
     "manager_Name": "442095",
-    "Teams": "Arne Klopp IF",
+    "Teams": "Arne Klopp IF( Jesper Sankell )",
     "SXL": "SE",
     "Latp": "73",
     "Player_1": "S\u00E1nchez\r 4",
@@ -43,7 +43,7 @@ var s = [
   },
   {
     "manager_Name": "322707",
-    "Teams": "ASG",
+    "Teams": "ASG( Auwal SG )",
     "SXL": "NG",
     "Latp": "69",
     "Player_1": "S\u00E1nchez\r 4",
@@ -64,7 +64,7 @@ var s = [
   },
   {
     "manager_Name": "1432938",
-    "Teams": "yeah buddy",
+    "Teams": "yeah buddy( tunjay ozer )",
     "SXL": "AU",
     "Latp": "59",
     "Player_1": "Flekken\r 2",
@@ -85,7 +85,7 @@ var s = [
   },
   {
     "manager_Name": "134031",
-    "Teams": "ToKyO",
+    "Teams": "ToKyO( \uD83C\uDDE9\uD83C\uDDFF\uD83C\uDDE9\uD83C\uDDFF \uD83C\uDDE9\uD83C\uDDFF\uD83C\uDDE9\uD83C\uDDFF )",
     "SXL": "DZ",
     "Latp": "66",
     "Player_1": "S\u00E1nchez\r 4",
@@ -106,7 +106,7 @@ var s = [
   },
   {
     "manager_Name": "81132",
-    "Teams": "Kemoo",
+    "Teams": "Kemoo( Kareem Amr )",
     "SXL": "EG",
     "Latp": "78",
     "Player_1": "Flekken\r 2",
@@ -127,7 +127,7 @@ var s = [
   },
   {
     "manager_Name": "5932784",
-    "Teams": "Ronaldinhovic",
+    "Teams": "Ronaldinhovic( Ajdin Selimovic )",
     "SXL": "NO",
     "Latp": "58",
     "Player_1": "Raya\r 2",
@@ -148,7 +148,7 @@ var s = [
   },
   {
     "manager_Name": "5303394",
-    "Teams": "#\u0645\u0646 \u064A\u0627\u062A\u0648 \u0646\u0627\u062D\u064A\u0629!!",
+    "Teams": "#\u0645\u0646 \u064A\u0627\u062A\u0648 \u0646\u0627\u062D\u064A\u0629!!( Ali Adlan )",
     "SXL": "SD",
     "Latp": "60",
     "Player_1": "Raya\r 2",
@@ -169,7 +169,7 @@ var s = [
   },
   {
     "manager_Name": "2222660",
-    "Teams": "Afternoon De Ligt",
+    "Teams": "Afternoon De Ligt( Matthew Baggaley )",
     "SXL": "EN",
     "Latp": "64",
     "Player_1": "Raya\r 2",
@@ -190,7 +190,7 @@ var s = [
   },
   {
     "manager_Name": "1415338",
-    "Teams": "ELGA7DEEN",
+    "Teams": "ELGA7DEEN( AhmedAlaa Alaa )",
     "SXL": "EG",
     "Latp": "58",
     "Player_1": "S\u00E1nchez\r 4",
@@ -211,7 +211,7 @@ var s = [
   },
   {
     "manager_Name": "743847",
-    "Teams": "Zita",
+    "Teams": "Zita( marwen zitouni\uD83C\uDDF5\uD83C\uDDF8 )",
     "SXL": "TN",
     "Latp": "65",
     "Player_1": "Muric\r 2",
@@ -232,7 +232,7 @@ var s = [
   },
   {
     "manager_Name": "2074334",
-    "Teams": "Esp\u00EDrito Allardyce",
+    "Teams": "Esp\u00EDrito Allardyce( Chris Lee )",
     "SXL": "US",
     "Latp": "71",
     "Player_1": "Raya\r 2",
@@ -253,7 +253,7 @@ var s = [
   },
   {
     "manager_Name": "2920605",
-    "Teams": "The Crabs",
+    "Teams": "The Crabs( Ryan Breen )",
     "SXL": "EN",
     "Latp": "66",
     "Player_1": "S\u00E1nchez\r 4",
@@ -274,7 +274,7 @@ var s = [
   },
   {
     "manager_Name": "5230985",
-    "Teams": "Elmazareta hadras",
+    "Teams": "Elmazareta hadras( Sayed Elqalashi )",
     "SXL": "EG",
     "Latp": "72",
     "Player_1": "Flekken\r 2",
@@ -295,7 +295,7 @@ var s = [
   },
   {
     "manager_Name": "524830",
-    "Teams": "\u0642\u0648\u0627\u062A \u0645\u0633\u0644\u062D\u0629 \u0633\u0648\u062F\u0627\u0646\u064A\u0629",
+    "Teams": "\u0642\u0648\u0627\u062A \u0645\u0633\u0644\u062D\u0629 \u0633\u0648\u062F\u0627\u0646\u064A\u0629( \u0627\u0644\u0643\u0648\u0644\u064A\u0632 \u0627\u0644\u0643\u0648\u0644\u064A\u0632 )",
     "SXL": "SD",
     "Latp": "53",
     "Player_1": "S\u00E1nchez\r 4",
@@ -316,7 +316,7 @@ var s = [
   },
   {
     "manager_Name": "7299374",
-    "Teams": "Quelle BUT",
+    "Teams": "Quelle BUT( Yahia Ltf )",
     "SXL": "DZ",
     "Latp": "83",
     "Player_1": "S\u00E1nchez\r 4",
@@ -337,7 +337,7 @@ var s = [
   },
   {
     "manager_Name": "2289854",
-    "Teams": "Im Sorry Nic Jackson",
+    "Teams": "Im Sorry Nic Jackson( Matthew Burton )",
     "SXL": "EN",
     "Latp": "48",
     "Player_1": "S\u00E1nchez\r 4",
@@ -358,7 +358,7 @@ var s = [
   },
   {
     "manager_Name": "4356025",
-    "Teams": "wind breaker",
+    "Teams": "wind breaker( Babak Namdari )",
     "SXL": "IR",
     "Latp": "80",
     "Player_1": "Pope\r 6",
@@ -379,7 +379,7 @@ var s = [
   },
   {
     "manager_Name": "2535211",
-    "Teams": "YOYAKEMALE",
+    "Teams": "YOYAKEMALE( Yosafa kemale )",
     "SXL": "EG",
     "Latp": "79",
     "Player_1": "Raya\r 2",
@@ -400,7 +400,7 @@ var s = [
   },
   {
     "manager_Name": "7537919",
-    "Teams": "Yanko Fc",
+    "Teams": "Yanko Fc( Yanick Njuh )",
     "SXL": "CM",
     "Latp": "77",
     "Player_1": "Raya\r 2",
@@ -421,7 +421,7 @@ var s = [
   },
   {
     "manager_Name": "632895",
-    "Teams": "Fc Derchi",
+    "Teams": "Fc Derchi( Demetre Tkeshe )",
     "SXL": "GE",
     "Latp": "66",
     "Player_1": "Flekken\r 2",
@@ -442,7 +442,7 @@ var s = [
   },
   {
     "manager_Name": "6053249",
-    "Teams": "\u0642\u0644\u0628 \u0627\u0644\u0628\u0627\u0628\u0627",
+    "Teams": "\u0642\u0644\u0628 \u0627\u0644\u0628\u0627\u0628\u0627( Omar Mohamed )",
     "SXL": "EG",
     "Latp": "68",
     "Player_1": "S\u00E1nchez\r 4",
@@ -463,7 +463,7 @@ var s = [
   },
   {
     "manager_Name": "4162284",
-    "Teams": "M/Fat7y11",
+    "Teams": "M/Fat7y11( Mohamed Fathy )",
     "SXL": "EG",
     "Latp": "70",
     "Player_1": "S\u00E1nchez\r 4",
@@ -484,7 +484,7 @@ var s = [
   },
   {
     "manager_Name": "395820",
-    "Teams": "Arsenal",
+    "Teams": "Arsenal( Comando Madried )",
     "SXL": "SD",
     "Latp": "74",
     "Player_1": "Flekken\r 2",
@@ -505,7 +505,7 @@ var s = [
   },
   {
     "manager_Name": "5889447",
-    "Teams": "maddumpu kappala",
+    "Teams": "maddumpu kappala( purnomo saputra )",
     "SXL": "ID",
     "Latp": "64",
     "Player_1": "Hermansen\r 6",
@@ -526,7 +526,7 @@ var s = [
   },
   {
     "manager_Name": "3316035",
-    "Teams": "\u0643\u062D\u0627\u0631 \u0627\u0644\u0647\u0631\u0643\u064A",
+    "Teams": "\u0643\u062D\u0627\u0631 \u0627\u0644\u0647\u0631\u0643\u064A( \u0648\u0627\u062D\u062F \u0639\u0631\u0627\u0642 )",
     "SXL": "IQ",
     "Latp": "68",
     "Player_1": "S\u00E1nchez\r 4",
@@ -547,7 +547,7 @@ var s = [
   },
   {
     "manager_Name": "3212728",
-    "Teams": "barham1234",
+    "Teams": "barham1234( Barham Jabara )",
     "SXL": "IQ",
     "Latp": "67",
     "Player_1": "Raya\r 2",
@@ -568,7 +568,7 @@ var s = [
   },
   {
     "manager_Name": "1547143",
-    "Teams": "JackyJack001",
+    "Teams": "JackyJack001( Jack Goldsworthy )",
     "SXL": "EN",
     "Latp": "55",
     "Player_1": "A.Becker\r 10",
@@ -589,7 +589,7 @@ var s = [
   },
   {
     "manager_Name": "291292",
-    "Teams": "\u0633\u0644\u0648\u0627\u0646 \uFFFD",
+    "Teams": "\u0633\u0644\u0648\u0627\u0646 \uFFFD( \u0633\u0644\u0648\u0627\u0646 \u0645\u062D\u0633\u0646 \uD83C\uDDEE\uD83C\uDDF6 )",
     "SXL": "IQ",
     "Latp": "52",
     "Player_1": "S\u00E1nchez\r 4",
@@ -610,7 +610,7 @@ var s = [
   },
   {
     "manager_Name": "915778",
-    "Teams": "MagicalGameMaster",
+    "Teams": "MagicalGameMaster( PiYUsH PaRmAr )",
     "SXL": "EN",
     "Latp": "68",
     "Player_1": "Martinez\r 9",
@@ -631,7 +631,7 @@ var s = [
   },
   {
     "manager_Name": "5043466",
-    "Teams": "T@piro12",
+    "Teams": "T@piro12( Tzlil Shafir )",
     "SXL": "IL",
     "Latp": "73",
     "Player_1": "S\u00E1nchez\r 4",
@@ -652,7 +652,7 @@ var s = [
   },
   {
     "manager_Name": "4366880",
-    "Teams": "This Year Champion",
+    "Teams": "This Year Champion( M DF )",
     "SXL": "MY",
     "Latp": "85",
     "Player_1": "S\u00E1nchez\r 4",
@@ -673,7 +673,7 @@ var s = [
   },
   {
     "manager_Name": "3240879",
-    "Teams": "Hayerka United",
+    "Teams": "Hayerka United( Grzegorz Miku\u0142a )",
     "SXL": "PL",
     "Latp": "59",
     "Player_1": "S\u00E1nchez\r 4",
@@ -694,7 +694,7 @@ var s = [
   },
   {
     "manager_Name": "851673",
-    "Teams": "ALMeer94Fc",
+    "Teams": "ALMeer94Fc( Mohamed ALMeer \uD83C\uDDE7\uD83C\uDDED )",
     "SXL": "BH",
     "Latp": "59",
     "Player_1": "S\u00E1nchez\r 4",
@@ -715,7 +715,7 @@ var s = [
   },
   {
     "manager_Name": "6242",
-    "Teams": "FC BARCOlona",
+    "Teams": "FC BARCOlona( Artur Juszczyk )",
     "SXL": "PL",
     "Latp": "59",
     "Player_1": "S\u00E1nchez\r 4",
@@ -736,7 +736,7 @@ var s = [
   },
   {
     "manager_Name": "5186187",
-    "Teams": "massipa tu mbo",
+    "Teams": "massipa tu mbo( obang jamil )",
     "SXL": "ID",
     "Latp": "59",
     "Player_1": "Hermansen\r 6",
@@ -757,7 +757,7 @@ var s = [
   },
   {
     "manager_Name": "897442",
-    "Teams": "Stella Rosa",
+    "Teams": "Stella Rosa( Kristijan Anicic )",
     "SXL": "BA",
     "Latp": "67",
     "Player_1": "S\u00E1nchez\r 4",
@@ -778,7 +778,7 @@ var s = [
   },
   {
     "manager_Name": "2730294",
-    "Teams": "\u0627\u0644\u0623\u0633\u062A\u0627\u0630 \u0639\u0648\u0627\u062F \u0634\u0643\u0634\u0643",
+    "Teams": "\u0627\u0644\u0623\u0633\u062A\u0627\u0630 \u0639\u0648\u0627\u062F \u0634\u0643\u0634\u0643( Mr. Awwad Shakshak )",
     "SXL": "EG",
     "Latp": "62",
     "Player_1": "Henderson\r 3",
@@ -799,7 +799,7 @@ var s = [
   },
   {
     "manager_Name": "6979514",
-    "Teams": "Essam jubran",
+    "Teams": "Essam jubran( Jubran Jubran )",
     "SXL": "PS",
     "Latp": "76",
     "Player_1": "Flekken\r 2",
@@ -820,7 +820,7 @@ var s = [
   },
   {
     "manager_Name": "3113192",
-    "Teams": "\u0635\u06C1\u0670\u0627\u062D\u06C1\u0670\u0628\u0670\u0670 \u0627\u0644\u064F\u0650\u06AA\u0648\u064F\u0631\u0629",
+    "Teams": "\u0635\u06C1\u0670\u0627\u062D\u06C1\u0670\u0628\u0670\u0670 \u0627\u0644\u064F\u0650\u06AA\u0648\u064F\u0631\u0629( \u0639\u0645\u0631 \u0623\u0628\u0648\u062D\u0643\u064A\u0645 )",
     "SXL": "EG",
     "Latp": "73",
     "Player_1": "Pope\r 6",
@@ -841,7 +841,7 @@ var s = [
   },
   {
     "manager_Name": "105234",
-    "Teams": "Manchester still \uFFFD",
+    "Teams": "Manchester still \uFFFD( nejm boukhres )",
     "SXL": "TN",
     "Latp": "55",
     "Player_1": "Raya\r 2",
@@ -862,7 +862,7 @@ var s = [
   },
   {
     "manager_Name": "1559263",
-    "Teams": "king lakanting",
+    "Teams": "king lakanting( bosing Ynwa )",
     "SXL": "MY",
     "Latp": "83",
     "Player_1": "Sels\r 3",
@@ -883,7 +883,7 @@ var s = [
   },
   {
     "manager_Name": "2944621",
-    "Teams": "The joker \uFFFD",
+    "Teams": "The joker \uFFFD( F K )",
     "SXL": "TZ",
     "Latp": "72",
     "Player_1": "S\u00E1nchez\r 4",
@@ -904,7 +904,7 @@ var s = [
   },
   {
     "manager_Name": "509840",
-    "Teams": "\u0645\u062D\u0645\u062F \u0645\u0628\u0627\u0631\u0643 \u0627\u0644\u0646\u0632\u0627\u0644",
+    "Teams": "\u0645\u062D\u0645\u062F \u0645\u0628\u0627\u0631\u0643 \u0627\u0644\u0646\u0632\u0627\u0644( M7md Alnazal )",
     "SXL": "KW",
     "Latp": "58",
     "Player_1": "S\u00E1nchez\r 4",
@@ -925,7 +925,7 @@ var s = [
   },
   {
     "manager_Name": "8372982",
-    "Teams": "Obito",
+    "Teams": "Obito( Y Y )",
     "SXL": "EG",
     "Latp": "59",
     "Player_1": "S\u00E1nchez\r 4",
@@ -946,7 +946,7 @@ var s = [
   },
   {
     "manager_Name": "3099398",
-    "Teams": "BPobf",
+    "Teams": "BPobf( Munyaradzi Mukura )",
     "SXL": "ZW",
     "Latp": "56",
     "Player_1": "S\u00E1nchez\r 4",
@@ -967,7 +967,7 @@ var s = [
   },
   {
     "manager_Name": "360255",
-    "Teams": "khalid habib",
+    "Teams": "khalid habib( khaled habib )",
     "SXL": "EG",
     "Latp": "42",
     "Player_1": "S\u00E1nchez\r 4",
@@ -988,7 +988,7 @@ var s = [
   },
   {
     "manager_Name": "150438",
-    "Teams": "Yahaha FC",
+    "Teams": "Yahaha FC( Xiaoning Jiang )",
     "SXL": "SG",
     "Latp": "47",
     "Player_1": "Flekken\r 2",
@@ -1009,7 +1009,7 @@ var s = [
   },
   {
     "manager_Name": "7074326",
-    "Teams": "Elite Team",
+    "Teams": "Elite Team( Elite T )",
     "SXL": "AE",
     "Latp": "62",
     "Player_1": "S\u00E1nchez\r 4",
@@ -1030,7 +1030,7 @@ var s = [
   },
   {
     "manager_Name": "123841",
-    "Teams": "Kobbie Dobbie Doo",
+    "Teams": "Kobbie Dobbie Doo( Oliver Thompson )",
     "SXL": "EN",
     "Latp": "53",
     "Player_1": "Henderson\r 3",

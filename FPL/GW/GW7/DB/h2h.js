@@ -1,7 +1,7 @@
 var s = [
   {
     "manager_Name": "886750",
-    "Teams": "#SorareMarin",
+    "Teams": "#SorareMarin( Marin Jano )",
     "SXL": "AL",
     "Latp": "68",
     "Player_1": "Areola\r 2",
@@ -22,7 +22,7 @@ var s = [
   },
   {
     "manager_Name": "787113",
-    "Teams": "Jelly Flood",
+    "Teams": "Jelly Flood( Lorin Minxhozi )",
     "SXL": "EN",
     "Latp": "46",
     "Player_1": "Ederson M.\r 0",
@@ -43,7 +43,7 @@ var s = [
   },
   {
     "manager_Name": "4708604",
-    "Teams": "Supercampeones",
+    "Teams": "Supercampeones( Ronny Nelkenbaum )",
     "SXL": "FR",
     "Latp": "55",
     "Player_1": "Flekken\r 2",
@@ -64,7 +64,7 @@ var s = [
   },
   {
     "manager_Name": "14191",
-    "Teams": "Humbesi",
+    "Teams": "Humbesi( ~ Kopi ~ )",
     "SXL": "AL",
     "Latp": "61",
     "Player_1": "Raya\r 2",
@@ -85,7 +85,7 @@ var s = [
   },
   {
     "manager_Name": "3629676",
-    "Teams": "Wiggler FC",
+    "Teams": "Wiggler FC( Andrew Carr )",
     "SXL": "EN",
     "Latp": "66",
     "Player_1": "Henderson\r 3",
@@ -106,7 +106,7 @@ var s = [
   },
   {
     "manager_Name": "1972148",
-    "Teams": "Sniper",
+    "Teams": "Sniper( Florian Toslluku )",
     "SXL": "AL",
     "Latp": "30",
     "Player_1": "Ederson M.\r 0",
@@ -127,7 +127,7 @@ var s = [
   },
   {
     "manager_Name": "1316450",
-    "Teams": "Enter Team Name",
+    "Teams": "Enter Team Name( teo teo )",
     "SXL": "IT",
     "Latp": "27",
     "Player_1": "S\u00E1nchez\r 4",
@@ -148,7 +148,7 @@ var s = [
   },
   {
     "manager_Name": "54284",
-    "Teams": "Kokeqethurit",
+    "Teams": "Kokeqethurit( Daver Berberi )",
     "SXL": "AL",
     "Latp": "58",
     "Player_1": "Raya\r 2",
@@ -169,7 +169,7 @@ var s = [
   },
   {
     "manager_Name": "1933691",
-    "Teams": "Iwobi Wan-Kenobi",
+    "Teams": "Iwobi Wan-Kenobi( Sunit Patel )",
     "SXL": "EN",
     "Latp": "57",
     "Player_1": "Raya\r 2",
@@ -190,7 +190,7 @@ var s = [
   },
   {
     "manager_Name": "156071",
-    "Teams": "Herr Direktor",
+    "Teams": "Herr Direktor( Roger Shehu )",
     "SXL": "NL",
     "Latp": "72",
     "Player_1": "Raya\r 2",
@@ -211,7 +211,7 @@ var s = [
   },
   {
     "manager_Name": "906801",
-    "Teams": "Tokenized Maxi \u26A1\uFE0F",
+    "Teams": "Tokenized Maxi \u26A1\uFE0F( Eni Shtini )",
     "SXL": "AL",
     "Latp": "57",
     "Player_1": "Martinez\r 9",
@@ -232,7 +232,7 @@ var s = [
   },
   {
     "manager_Name": "1902849",
-    "Teams": "5-D",
+    "Teams": "5-D( Erald Haxhiu )",
     "SXL": "US",
     "Latp": "50",
     "Player_1": "Onana\r 6",
@@ -253,7 +253,7 @@ var s = [
   },
   {
     "manager_Name": "6188430",
-    "Teams": "Data Crisis",
+    "Teams": "Data Crisis( Camilla Nurkhanov )",
     "SXL": "EN",
     "Latp": "48",
     "Player_1": "Raya\r 2",
@@ -274,7 +274,7 @@ var s = [
   },
   {
     "manager_Name": "4807350",
-    "Teams": "RoboKoop",
+    "Teams": "RoboKoop( Enio Minxhozi )",
     "SXL": "AL",
     "Latp": "35",
     "Player_1": "Vicario\r 1",
@@ -295,7 +295,7 @@ var s = [
   },
   {
     "manager_Name": "864408",
-    "Teams": "Leftisti",
+    "Teams": "Leftisti( Magi Muco )",
     "SXL": "AL",
     "Latp": "36",
     "Player_1": "Areola\r 2",
@@ -316,7 +316,7 @@ var s = [
   },
   {
     "manager_Name": "1320996",
-    "Teams": "Blue Boys \uFFFD",
+    "Teams": "Blue Boys \uFFFD( Ilir B )",
     "SXL": "EN",
     "Latp": "35",
     "Player_1": "S\u00E1nchez\r 4",
@@ -337,7 +337,7 @@ var s = [
   },
   {
     "manager_Name": "1287413",
-    "Teams": "Inceneratori",
+    "Teams": "Inceneratori( Geri Muho )",
     "SXL": "US",
     "Latp": "50",
     "Player_1": "Ederson M.\r 0",
@@ -358,7 +358,7 @@ var s = [
   },
   {
     "manager_Name": "5577281",
-    "Teams": "Ibis Warriors",
+    "Teams": "Ibis Warriors( Harmeet Chana )",
     "SXL": "EN",
     "Latp": "45",
     "Player_1": "Raya\r 2",
@@ -379,7 +379,7 @@ var s = [
   },
   {
     "manager_Name": "1449015",
-    "Teams": "SibinZibin",
+    "Teams": "SibinZibin( Sibin _ )",
     "SXL": "IN",
     "Latp": "41",
     "Player_1": "Henderson\r 3",
@@ -400,7 +400,7 @@ var s = [
   },
   {
     "manager_Name": "5502539",
-    "Teams": "Yaya",
+    "Teams": "Yaya( Bardhyl Minxhozi )",
     "SXL": "AL",
     "Latp": "26",
     "Player_1": "Ederson M.\r 0",

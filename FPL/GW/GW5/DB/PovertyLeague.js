@@ -1,7 +1,7 @@
 var s = [
   {
     "manager_Name": "499196",
-    "Teams": "yoo",
+    "Teams": "yoo( Nishant Singh )",
     "SXL": "IN",
     "Latp": "66",
     "Player_1": "Henderson\r 9",
@@ -21,29 +21,8 @@ var s = [
     "Player_15": "Andersen\r 2"
   },
   {
-    "manager_Name": "3731402",
-    "Teams": "WMB",
-    "SXL": "IN",
-    "Latp": "61",
-    "Player_1": "Henderson\r 9",
-    "Player_11": "Watkins\r 6",
-    "Player_10": "Haaland\r 9",
-    "Player_12": "Matthews\r 0",
-    "Player_13": "Faes\r 2",
-    "Player_14": "Winks\r 2",
-    "Player_7": "M.Salah\r 12",
-    "Player_2": "Bednarek\r 2",
-    "Player_5": "Saliba\r 1",
-    "Player_6": "Saka\r 4",
-    "Player_3": "Konat\u00E9\r 8",
-    "Player_4": "Robertson\r 6",
-    "Player_8": "Amad\r 3",
-    "Player_9": "Jo\u00E3o Pedro\r 1",
-    "Player_15": "Moder\r 0"
-  },
-  {
     "manager_Name": "4998051",
-    "Teams": "Weightloss Coach",
+    "Teams": "Weightloss Coach( Abhijeet Singh )",
     "SXL": "IN",
     "Latp": "67",
     "Player_1": "Henderson\r 9",
@@ -63,8 +42,29 @@ var s = [
     "Player_15": "Barco\r 0"
   },
   {
+    "manager_Name": "3731402",
+    "Teams": "WMB( Raj Kanango )",
+    "SXL": "IN",
+    "Latp": "61",
+    "Player_1": "Henderson\r 9",
+    "Player_11": "Watkins\r 6",
+    "Player_10": "Haaland\r 9",
+    "Player_12": "Matthews\r 0",
+    "Player_13": "Faes\r 2",
+    "Player_14": "Winks\r 2",
+    "Player_7": "M.Salah\r 12",
+    "Player_2": "Bednarek\r 2",
+    "Player_5": "Saliba\r 1",
+    "Player_6": "Saka\r 4",
+    "Player_3": "Konat\u00E9\r 8",
+    "Player_4": "Robertson\r 6",
+    "Player_8": "Amad\r 3",
+    "Player_9": "Jo\u00E3o Pedro\r 1",
+    "Player_15": "Moder\r 0"
+  },
+  {
     "manager_Name": "1449015",
-    "Teams": "SibinZibin",
+    "Teams": "SibinZibin( Sibin _ )",
     "SXL": "IN",
     "Latp": "60",
     "Player_1": "Henderson\r 9",
@@ -85,7 +85,7 @@ var s = [
   },
   {
     "manager_Name": "3394695",
-    "Teams": "Danapur United",
+    "Teams": "Danapur United( Nitesh Kumar Singh )",
     "SXL": "IN",
     "Latp": "69",
     "Player_1": "Henderson\r 9",
@@ -106,7 +106,7 @@ var s = [
   },
   {
     "manager_Name": "5233883",
-    "Teams": "Bihar 11",
+    "Teams": "Bihar 11( Sanjeev Kumar )",
     "SXL": "IN",
     "Latp": "59",
     "Player_1": "Henderson\r 9",
@@ -127,7 +127,7 @@ var s = [
   },
   {
     "manager_Name": "6080785",
-    "Teams": "Prabin Singh",
+    "Teams": "Prabin Singh( Prabin Singh )",
     "SXL": "IN",
     "Latp": "52",
     "Player_1": "Ederson M.\r 0",
