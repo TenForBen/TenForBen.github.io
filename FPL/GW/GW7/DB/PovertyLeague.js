@@ -1,6 +1,6 @@
 var s = [
   {
-    "manager_Name": "499196",
+    "manager_Name": "449( 876,880 ) TotalXfr : 5",
     "Teams": "yoo( Nishant Singh )",
     "SXL": "IN",
     "Latp": "57",
@@ -21,7 +21,7 @@ var s = [
     "Player_15": "Stewart\r 1"
   },
   {
-    "manager_Name": "4998051",
+    "manager_Name": "437( 1,520,458 ) TotalXfr : 6",
     "Teams": "Weightloss Coach( Abhijeet Singh )",
     "SXL": "IN",
     "Latp": "66",
@@ -42,7 +42,7 @@ var s = [
     "Player_15": "Faes\r 6"
   },
   {
-    "manager_Name": "3731402",
+    "manager_Name": "430( 1,960,270 ) TotalXfr : 5",
     "Teams": "WMB( Raj Kanango )",
     "SXL": "IN",
     "Latp": "45",
@@ -63,7 +63,7 @@ var s = [
     "Player_15": "Amad\r 0"
   },
   {
-    "manager_Name": "1449015",
+    "manager_Name": "410( 3,466,225 ) TotalXfr : 5",
     "Teams": "SibinZibin( Sibin _ )",
     "SXL": "IN",
     "Latp": "41",
@@ -84,7 +84,7 @@ var s = [
     "Player_15": "Wheatley\r 0"
   },
   {
-    "manager_Name": "3394695",
+    "manager_Name": "399( 4,303,753 ) TotalXfr : 3",
     "Teams": "Danapur United( Nitesh Kumar Singh )",
     "SXL": "IN",
     "Latp": "43",
@@ -105,7 +105,7 @@ var s = [
     "Player_15": "Amo-Ameyaw\r 0"
   },
   {
-    "manager_Name": "5233883",
+    "manager_Name": "378( 5,775,240 ) TotalXfr : 3",
     "Teams": "Bihar 11( Sanjeev Kumar )",
     "SXL": "IN",
     "Latp": "30",
@@ -126,7 +126,7 @@ var s = [
     "Player_15": "Barco\r 0"
   },
   {
-    "manager_Name": "6080785",
+    "manager_Name": "302( 8,801,586 ) TotalXfr : 0",
     "Teams": "Prabin Singh( Prabin Singh )",
     "SXL": "IN",
     "Latp": "32",
