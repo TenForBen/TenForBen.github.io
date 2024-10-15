@@ -1,6 +1,6 @@
 var s = [
   {
-    "manager_Name": "886750",
+    "manager_Name": "476( 163,835 ) TotalXfr : 4",
     "Teams": "#SorareMarin( Marin Jano )",
     "SXL": "AL",
     "Latp": "68",
@@ -21,7 +21,7 @@ var s = [
     "Player_15": "Fraser\r 0"
   },
   {
-    "manager_Name": "787113",
+    "manager_Name": "419( 2,780,931 ) TotalXfr : 6",
     "Teams": "Jelly Flood( Lorin Minxhozi )",
     "SXL": "EN",
     "Latp": "46",
@@ -42,7 +42,7 @@ var s = [
     "Player_15": "Greaves\r 0"
   },
   {
-    "manager_Name": "4708604",
+    "manager_Name": "414( 3,143,762 ) TotalXfr : 4",
     "Teams": "Supercampeones( Ronny Nelkenbaum )",
     "SXL": "FR",
     "Latp": "55",
@@ -63,7 +63,7 @@ var s = [
     "Player_15": "Mazraoui\r 1"
   },
   {
-    "manager_Name": "14191",
+    "manager_Name": "471( 237,103 ) TotalXfr : 5",
     "Teams": "Humbesi( ~ Kopi ~ )",
     "SXL": "AL",
     "Latp": "61",
@@ -84,7 +84,7 @@ var s = [
     "Player_15": "Greaves\r 0"
   },
   {
-    "manager_Name": "3629676",
+    "manager_Name": "441( 1,287,089 ) TotalXfr : 6",
     "Teams": "Wiggler FC( Andrew Carr )",
     "SXL": "EN",
     "Latp": "66",
@@ -105,7 +105,7 @@ var s = [
     "Player_15": "Bednarek\r 0"
   },
   {
-    "manager_Name": "1972148",
+    "manager_Name": "427( 2,170,825 ) TotalXfr : 5",
     "Teams": "Sniper( Florian Toslluku )",
     "SXL": "AL",
     "Latp": "30",
@@ -126,7 +126,7 @@ var s = [
     "Player_15": "Jo\u00E3o Pedro\r 0"
   },
   {
-    "manager_Name": "1316450",
+    "manager_Name": "410( 3,481,317 ) TotalXfr : 6",
     "Teams": "Enter Team Name( teo teo )",
     "SXL": "IT",
     "Latp": "27",
@@ -147,7 +147,7 @@ var s = [
     "Player_15": "Dalot\r 6"
   },
   {
-    "manager_Name": "54284",
+    "manager_Name": "431( 1,882,468 ) TotalXfr : 4",
     "Teams": "Kokeqethurit( Daver Berberi )",
     "SXL": "AL",
     "Latp": "58",
@@ -168,7 +168,7 @@ var s = [
     "Player_15": "Konsa\r 1"
   },
   {
-    "manager_Name": "1933691",
+    "manager_Name": "401( 4,193,173 ) TotalXfr : 7",
     "Teams": "Iwobi Wan-Kenobi( Sunit Patel )",
     "SXL": "EN",
     "Latp": "57",
@@ -189,7 +189,7 @@ var s = [
     "Player_15": "Greaves\r 0"
   },
   {
-    "manager_Name": "156071",
+    "manager_Name": "417( 2,920,100 ) TotalXfr : 5",
     "Teams": "Herr Direktor( Roger Shehu )",
     "SXL": "NL",
     "Latp": "72",
@@ -210,7 +210,7 @@ var s = [
     "Player_15": "Bednarek\r 0"
   },
   {
-    "manager_Name": "906801",
+    "manager_Name": "410( 3,466,225 ) TotalXfr : 5",
     "Teams": "Tokenized Maxi \u26A1\uFE0F( Eni Shtini )",
     "SXL": "AL",
     "Latp": "57",
@@ -231,7 +231,7 @@ var s = [
     "Player_15": "Mosquera\r 0"
   },
   {
-    "manager_Name": "1902849",
+    "manager_Name": "410( 3,504,563 ) TotalXfr : 8",
     "Teams": "5-D( Erald Haxhiu )",
     "SXL": "US",
     "Latp": "50",
@@ -252,7 +252,7 @@ var s = [
     "Player_15": "Mykolenko\r 0"
   },
   {
-    "manager_Name": "6188430",
+    "manager_Name": "399( 4,344,154 ) TotalXfr : 7",
     "Teams": "Data Crisis( Camilla Nurkhanov )",
     "SXL": "EN",
     "Latp": "48",
@@ -273,7 +273,7 @@ var s = [
     "Player_15": "Andreas\r 8"
   },
   {
-    "manager_Name": "4807350",
+    "manager_Name": "391( 4,882,813 ) TotalXfr : 0",
     "Teams": "RoboKoop( Enio Minxhozi )",
     "SXL": "AL",
     "Latp": "35",
@@ -294,7 +294,7 @@ var s = [
     "Player_15": "A.Phillips\r 0"
   },
   {
-    "manager_Name": "864408",
+    "manager_Name": "410( 3,496,709 ) TotalXfr : 7",
     "Teams": "Leftisti( Magi Muco )",
     "SXL": "AL",
     "Latp": "36",
@@ -315,7 +315,7 @@ var s = [
     "Player_15": "Harwood-Bellis\r 1"
   },
   {
-    "manager_Name": "1320996",
+    "manager_Name": "404( 3,924,647 ) TotalXfr : 4",
     "Teams": "Blue Boys \uFFFD( Ilir B )",
     "SXL": "EN",
     "Latp": "35",
@@ -336,7 +336,7 @@ var s = [
     "Player_15": "O\u0027Shea\r 0"
   },
   {
-    "manager_Name": "1287413",
+    "manager_Name": "384( 5,369,325 ) TotalXfr : 0",
     "Teams": "Inceneratori( Geri Muho )",
     "SXL": "US",
     "Latp": "50",
@@ -357,7 +357,7 @@ var s = [
     "Player_15": "Chiwome\r 0"
   },
   {
-    "manager_Name": "5577281",
+    "manager_Name": "411( 3,418,974 ) TotalXfr : 7",
     "Teams": "Ibis Warriors( Harmeet Chana )",
     "SXL": "EN",
     "Latp": "45",
@@ -378,7 +378,7 @@ var s = [
     "Player_15": "Barco\r 0"
   },
   {
-    "manager_Name": "1449015",
+    "manager_Name": "410( 3,466,225 ) TotalXfr : 5",
     "Teams": "SibinZibin( Sibin _ )",
     "SXL": "IN",
     "Latp": "41",
@@ -399,7 +399,7 @@ var s = [
     "Player_15": "Wheatley\r 0"
   },
   {
-    "manager_Name": "5502539",
+    "manager_Name": "313( 8,563,773 ) TotalXfr : 7",
     "Teams": "Yaya( Bardhyl Minxhozi )",
     "SXL": "AL",
     "Latp": "26",

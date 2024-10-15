@@ -1,6 +1,6 @@
 var s = [
   {
-    "manager_Name": "1432938",
+    "manager_Name": "581( 4 ) TotalXfr : 6",
     "Teams": "yeah buddy( tunjay ozer )",
     "SXL": "AU",
     "Latp": "59",
@@ -21,7 +21,7 @@ var s = [
     "Player_15": "Aina\r 2"
   },
   {
-    "manager_Name": "5932784",
+    "manager_Name": "569( 7 ) TotalXfr : 4",
     "Teams": "Ronaldinhovic( Ajdin Selimovic )",
     "SXL": "NO",
     "Latp": "58",
@@ -42,7 +42,7 @@ var s = [
     "Player_15": "Dibling\r 1"
   },
   {
-    "manager_Name": "524830",
+    "manager_Name": "565( 14 ) TotalXfr : 5",
     "Teams": "\u0642\u0648\u0627\u062A \u0645\u0633\u0644\u062D\u0629 \u0633\u0648\u062F\u0627\u0646\u064A\u0629( \u0627\u0644\u0643\u0648\u0644\u064A\u0632 \u0627\u0644\u0643\u0648\u0644\u064A\u0632 )",
     "SXL": "SD",
     "Latp": "53",
@@ -63,7 +63,7 @@ var s = [
     "Player_15": "Robinson\r 1"
   },
   {
-    "manager_Name": "7299374",
+    "manager_Name": "564( 16 ) TotalXfr : 3",
     "Teams": "Quelle BUT( Yahia Ltf )",
     "SXL": "DZ",
     "Latp": "83",
@@ -84,7 +84,7 @@ var s = [
     "Player_15": "Chiwome\r 0"
   },
   {
-    "manager_Name": "7537919",
+    "manager_Name": "563( 20 ) TotalXfr : 6",
     "Teams": "Yanko Fc( Yanick Njuh )",
     "SXL": "CM",
     "Latp": "77",
@@ -105,7 +105,7 @@ var s = [
     "Player_15": "Mazraoui\r 1"
   },
   {
-    "manager_Name": "6053249",
+    "manager_Name": "562( 22 ) TotalXfr : 5",
     "Teams": "\u0642\u0644\u0628 \u0627\u0644\u0628\u0627\u0628\u0627( Omar Mohamed )",
     "SXL": "EG",
     "Latp": "68",
@@ -126,7 +126,7 @@ var s = [
     "Player_15": "Moder\r 0"
   },
   {
-    "manager_Name": "395820",
+    "manager_Name": "561( 24 ) TotalXfr : 3",
     "Teams": "Arsenal( Comando Madried )",
     "SXL": "SD",
     "Latp": "74",
@@ -147,7 +147,7 @@ var s = [
     "Player_15": "Bednarek\r 0"
   },
   {
-    "manager_Name": "3212728",
+    "manager_Name": "560( 27 ) TotalXfr : 4",
     "Teams": "barham1234( Barham Jabara )",
     "SXL": "IQ",
     "Latp": "67",
@@ -168,7 +168,7 @@ var s = [
     "Player_15": "Yarmoliuk\r 1"
   },
   {
-    "manager_Name": "897442",
+    "manager_Name": "557( 36 ) TotalXfr : 4",
     "Teams": "Stella Rosa( Kristijan Anicic )",
     "SXL": "BA",
     "Latp": "67",
@@ -189,7 +189,7 @@ var s = [
     "Player_15": "Fraser\r 0"
   },
   {
-    "manager_Name": "6979514",
+    "manager_Name": "557( 39 ) TotalXfr : 5",
     "Teams": "Essam jubran( Jubran Jubran )",
     "SXL": "PS",
     "Latp": "76",
@@ -210,7 +210,7 @@ var s = [
     "Player_15": "Winks\r 0"
   },
   {
-    "manager_Name": "3113192",
+    "manager_Name": "557( 40 ) TotalXfr : 6",
     "Teams": "\u0635\u06C1\u0670\u0627\u062D\u06C1\u0670\u0628\u0670\u0670 \u0627\u0644\u064F\u0650\u06AA\u0648\u064F\u0631\u0629( \u0639\u0645\u0631 \u0623\u0628\u0648\u062D\u0643\u064A\u0645 )",
     "SXL": "EG",
     "Latp": "73",
@@ -231,7 +231,7 @@ var s = [
     "Player_15": "A.Phillips\r 0"
   },
   {
-    "manager_Name": "1160256",
+    "manager_Name": "555( 50 ) TotalXfr : 4",
     "Teams": "\u0627\u0644\u0648\u0632\u0627\u0646( Elwazzan Elwazzan )",
     "SXL": "EG",
     "Latp": "46",
@@ -252,7 +252,7 @@ var s = [
     "Player_15": "M.Fran\u00E7a\r 0"
   },
   {
-    "manager_Name": "3860569",
+    "manager_Name": "555( 54 ) TotalXfr : 8",
     "Teams": "GoodBoy Gunner \uFFFD( Hridesh Wagle )",
     "SXL": "NP",
     "Latp": "59",
@@ -273,7 +273,7 @@ var s = [
     "Player_15": "Winks\r 0"
   },
   {
-    "manager_Name": "2603624",
+    "manager_Name": "553( 60 ) TotalXfr : 4",
     "Teams": "Gunnersaurus( Adrian Johansen )",
     "SXL": "NO",
     "Latp": "71",
@@ -294,7 +294,7 @@ var s = [
     "Player_15": "Harwood-Bellis\r 1"
   },
   {
-    "manager_Name": "3826899",
+    "manager_Name": "553( 64 ) TotalXfr : 6",
     "Teams": "Heemo Elect33( Abdalrhim mohamed )",
     "SXL": "SD",
     "Latp": "87",
@@ -315,7 +315,7 @@ var s = [
     "Player_15": "Johnson\r 0"
   },
   {
-    "manager_Name": "4960334",
+    "manager_Name": "552( 66 ) TotalXfr : 3",
     "Teams": "Felix FC( Seth Stillman )",
     "SXL": "US",
     "Latp": "66",
@@ -336,7 +336,7 @@ var s = [
     "Player_15": "Harwood-Bellis\r 1"
   },
   {
-    "manager_Name": "1636078",
+    "manager_Name": "552( 75 ) TotalXfr : 8",
     "Teams": "SexyMan( Jan Popel\u00EDnsk\u00FD )",
     "SXL": "CZ",
     "Latp": "59",
@@ -357,7 +357,7 @@ var s = [
     "Player_15": "Stewart\r 1"
   },
   {
-    "manager_Name": "6139538",
+    "manager_Name": "551( 79 ) TotalXfr : 5",
     "Teams": "\u0627\u0644\u0646\u0635\u0631 \u0644\u062D\u0645\u0627\u0627\u0633( Khalil Nasreddin )",
     "SXL": "DZ",
     "Latp": "53",
@@ -378,7 +378,7 @@ var s = [
     "Player_15": "Robinson\r 1"
   },
   {
-    "manager_Name": "2023857",
+    "manager_Name": "551( 86 ) TotalXfr : 8",
     "Teams": "RONEL F.C( Ronell Asare )",
     "SXL": "GH",
     "Latp": "56",
@@ -399,7 +399,7 @@ var s = [
     "Player_15": "Archer\r 7"
   },
   {
-    "manager_Name": "999726",
+    "manager_Name": "550( 89 ) TotalXfr : 4",
     "Teams": "alghareeb( khaled Alghareeb )",
     "SXL": "KW",
     "Latp": "75",
@@ -420,7 +420,7 @@ var s = [
     "Player_15": "Lankshear\r 0"
   },
   {
-    "manager_Name": "8605004",
+    "manager_Name": "550( 95 ) TotalXfr : 5",
     "Teams": "Nizar( Nizar Kurdi )",
     "SXL": "IQ",
     "Latp": "86",
@@ -441,7 +441,7 @@ var s = [
     "Player_15": "Robinson\r 1"
   },
   {
-    "manager_Name": "4784115",
+    "manager_Name": "549( 104 ) TotalXfr : 4",
     "Teams": "Livin\u2019 Saliba Loca( Matt Clay )",
     "SXL": "WA",
     "Latp": "69",
@@ -462,7 +462,7 @@ var s = [
     "Player_15": "Barco\r 0"
   },
   {
-    "manager_Name": "8007796",
+    "manager_Name": "549( 108 ) TotalXfr : 5",
     "Teams": "FRANKLIN SAINT( Ahmed Misbah )",
     "SXL": "MV",
     "Latp": "70",
@@ -483,7 +483,7 @@ var s = [
     "Player_15": "Yarmoliuk\r 1"
   },
   {
-    "manager_Name": "5068090",
+    "manager_Name": "549( 108 ) TotalXfr : 5",
     "Teams": "Invisibles\u26BD\uFE0F( Ikenna Godslove )",
     "SXL": "NG",
     "Latp": "82",
@@ -504,7 +504,7 @@ var s = [
     "Player_15": "Wheatley\r 0"
   },
   {
-    "manager_Name": "5863704",
+    "manager_Name": "548( 116 ) TotalXfr : 4",
     "Teams": "silemankurdi( Sileman Harki )",
     "SXL": "IQ",
     "Latp": "47",
@@ -525,7 +525,7 @@ var s = [
     "Player_15": "Bednarek\r 0"
   },
   {
-    "manager_Name": "2721999",
+    "manager_Name": "548( 121 ) TotalXfr : 6",
     "Teams": "Ustebessa team( ana ana )",
     "SXL": "DZ",
     "Latp": "88",
@@ -546,7 +546,7 @@ var s = [
     "Player_15": "Harwood-Bellis\r 1"
   },
   {
-    "manager_Name": "982356",
+    "manager_Name": "547( 126 ) TotalXfr : 3",
     "Teams": "\u0627\u0644\u0634\u0631\u0642\u0627\u0648\u064A( \u0645\u062D\u0645\u062F \u0627\u0644\u0634\u0631\u0642\u0627\u0648\u064A )",
     "SXL": "EG",
     "Latp": "74",
@@ -567,7 +567,7 @@ var s = [
     "Player_15": "Tuanzebe\r 0"
   },
   {
-    "manager_Name": "752817",
+    "manager_Name": "547( 129 ) TotalXfr : 5",
     "Teams": "korzos men( Luke Korzeniowski )",
     "SXL": "AU",
     "Latp": "66",
@@ -588,7 +588,7 @@ var s = [
     "Player_15": "Rogers\r 3"
   },
   {
-    "manager_Name": "6753586",
+    "manager_Name": "547( 137 ) TotalXfr : 6",
     "Teams": "Stinelee( Augustine Ebubeogu )",
     "SXL": "CA",
     "Latp": "65",
@@ -609,7 +609,7 @@ var s = [
     "Player_15": "Ladapo\r 0"
   },
   {
-    "manager_Name": "6122626",
+    "manager_Name": "547( 137 ) TotalXfr : 6",
     "Teams": "Gunners( Basil Abdullah )",
     "SXL": "SA",
     "Latp": "75",
@@ -630,7 +630,7 @@ var s = [
     "Player_15": "Andersen\r 1"
   },
   {
-    "manager_Name": "628608",
+    "manager_Name": "547( 137 ) TotalXfr : 6",
     "Teams": "AnUbiS( Ahmed Saied )",
     "SXL": "EG",
     "Latp": "57",
@@ -651,7 +651,7 @@ var s = [
     "Player_15": "Dunk\r 1"
   },
   {
-    "manager_Name": "3360895",
+    "manager_Name": "547( 137 ) TotalXfr : 6",
     "Teams": "M.C. OPTIMISTIC( danny Markman )",
     "SXL": "IL",
     "Latp": "65",
@@ -672,7 +672,7 @@ var s = [
     "Player_15": "Andersen\r 1"
   },
   {
-    "manager_Name": "6919136",
+    "manager_Name": "546( 148 ) TotalXfr : 4",
     "Teams": "Calafiori Cheese( Josh Henson )",
     "SXL": "EN",
     "Latp": "77",
@@ -693,7 +693,7 @@ var s = [
     "Player_15": "Harwood-Bellis\r 1"
   },
   {
-    "manager_Name": "5571303",
+    "manager_Name": "546( 151 ) TotalXfr : 5",
     "Teams": "milano( Alaa Elmasry )",
     "SXL": "EG",
     "Latp": "61",
@@ -714,7 +714,7 @@ var s = [
     "Player_15": "Dunk\r 1"
   },
   {
-    "manager_Name": "2489812",
+    "manager_Name": "545( 171 ) TotalXfr : 5",
     "Teams": "FC Bendtnerlona( Erik Pettersson )",
     "SXL": "SE",
     "Latp": "60",
@@ -735,7 +735,7 @@ var s = [
     "Player_15": "Sangar\u00E9\r 0"
   },
   {
-    "manager_Name": "7301283",
+    "manager_Name": "545( 171 ) TotalXfr : 5",
     "Teams": "S11Eva2( Jy Khor )",
     "SXL": "MY",
     "Latp": "63",
@@ -756,7 +756,7 @@ var s = [
     "Player_15": "Ui-jo\r 0"
   },
   {
-    "manager_Name": "835802",
+    "manager_Name": "545( 178 ) TotalXfr : 7",
     "Teams": "Harimau Malaya FC( TC Chong )",
     "SXL": "HK",
     "Latp": "67",
@@ -777,7 +777,7 @@ var s = [
     "Player_15": "Cresswell\r 1"
   },
   {
-    "manager_Name": "413857",
+    "manager_Name": "545( 179 ) TotalXfr : 9",
     "Teams": "Hamrawa( walid Hamrawa )",
     "SXL": "DZ",
     "Latp": "74",
@@ -798,7 +798,7 @@ var s = [
     "Player_15": "Adama\r 2"
   },
   {
-    "manager_Name": "6964169",
+    "manager_Name": "544( 181 ) TotalXfr : 3",
     "Teams": "izzy( Isaac Lo )",
     "SXL": "EN",
     "Latp": "72",
@@ -819,7 +819,7 @@ var s = [
     "Player_15": "Bednarek\r 0"
   },
   {
-    "manager_Name": "621924",
+    "manager_Name": "544( 188 ) TotalXfr : 5",
     "Teams": "MoeyDvD( Mohamed Ali )",
     "SXL": "EG",
     "Latp": "72",
@@ -840,7 +840,7 @@ var s = [
     "Player_15": "Dunk\r 1"
   },
   {
-    "manager_Name": "6222926",
+    "manager_Name": "544( 188 ) TotalXfr : 5",
     "Teams": "Lanesra( Giorgi Tkabladze )",
     "SXL": "GE",
     "Latp": "72",
@@ -861,7 +861,7 @@ var s = [
     "Player_15": "Ui-jo\r 0"
   },
   {
-    "manager_Name": "59921",
+    "manager_Name": "543( 203 ) TotalXfr : 3",
     "Teams": "Mosqueraing the Bros( Aaron Claridge )",
     "SXL": "EN",
     "Latp": "47",
@@ -882,7 +882,7 @@ var s = [
     "Player_15": "Robinson\r 1"
   },
   {
-    "manager_Name": "1691656",
+    "manager_Name": "543( 204 ) TotalXfr : 4",
     "Teams": "What\u2019s Rob Holding( Leo Cattley )",
     "SXL": "EN",
     "Latp": "78",
@@ -903,7 +903,7 @@ var s = [
     "Player_15": "Nedeljkovic\r 0"
   },
   {
-    "manager_Name": "4510871",
+    "manager_Name": "543( 210 ) TotalXfr : 5",
     "Teams": "Sayed.samy( sayed samy )",
     "SXL": "EG",
     "Latp": "61",
@@ -924,7 +924,7 @@ var s = [
     "Player_15": "Jo\u00E3o Pedro\r 0"
   },
   {
-    "manager_Name": "7147689",
+    "manager_Name": "543( 223 ) TotalXfr : 7",
     "Teams": "\u062D\u0645\u0648\u062F\u064A \u0646\u064A\u062F\u0641\u064A\u062F \u0627\u0645 \u0642\u0635\u0631( \u0645\u062D\u0645\u062F \u0642\u064A\u0633 )",
     "SXL": "IQ",
     "Latp": "74",
@@ -945,7 +945,7 @@ var s = [
     "Player_15": "Chiwome\r 0"
   },
   {
-    "manager_Name": "727128",
+    "manager_Name": "542( 235 ) TotalXfr : 5",
     "Teams": "Cobra Kai Havertz( Louis Kapur )",
     "SXL": "EN",
     "Latp": "74",
@@ -966,7 +966,7 @@ var s = [
     "Player_15": "Ladapo\r 0"
   },
   {
-    "manager_Name": "2916637",
+    "manager_Name": "542( 235 ) TotalXfr : 5",
     "Teams": "azedine( azedine rezig )",
     "SXL": "DZ",
     "Latp": "75",
@@ -987,7 +987,7 @@ var s = [
     "Player_15": "Aina\r 2"
   },
   {
-    "manager_Name": "5104848",
+    "manager_Name": "542( 240 ) TotalXfr : 6",
     "Teams": "HAV IT( Callum Whiteoak )",
     "SXL": "EN",
     "Latp": "81",
@@ -1008,7 +1008,7 @@ var s = [
     "Player_15": "Barco\r 0"
   },
   {
-    "manager_Name": "6599461",
+    "manager_Name": "542( 240 ) TotalXfr : 6",
     "Teams": "Jimmy Sallivinho( anthony fennell )",
     "SXL": "IE",
     "Latp": "65",
@@ -1029,7 +1029,7 @@ var s = [
     "Player_15": "Andersen\r 1"
   },
   {
-    "manager_Name": "7734356",
+    "manager_Name": "542( 240 ) TotalXfr : 6",
     "Teams": "\u0627\u0644\u0632\u0639\u064A\u0645( \u062F\u0644\u064A\u0645\u064A \u062F\u0644\u064A\u0645\u064A )",
     "SXL": "IQ",
     "Latp": "75",
