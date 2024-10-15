@@ -1,6 +1,6 @@
 var s = [
   {
-    "manager_Name": "969003",
+    "manager_Name": "500( 23,542 )TotalXfr : 4",
     "Teams": "The Bees( Tove Ronneb\u00E4ck )",
     "SXL": "MT",
     "Latp": "66",
@@ -21,7 +21,7 @@ var s = [
     "Player_15": "Barco\r 0"
   },
   {
-    "manager_Name": "49451",
+    "manager_Name": "499( 26,117 )TotalXfr : 5",
     "Teams": "ThereWeLand( Haykel Mansour )",
     "SXL": "MT",
     "Latp": "59",
@@ -42,7 +42,7 @@ var s = [
     "Player_15": "Nedeljkovic\r 0"
   },
   {
-    "manager_Name": "6988076",
+    "manager_Name": "483( 97,804 )TotalXfr : 5",
     "Teams": "Lorrainesson( Lorraine Busuttil )",
     "SXL": "MT",
     "Latp": "59",
@@ -63,7 +63,7 @@ var s = [
     "Player_15": "Cannon\r 0"
   },
   {
-    "manager_Name": "331260",
+    "manager_Name": "478( 146,418 )TotalXfr : 6",
     "Teams": "Fantasikonungen( Albin Jonsson )",
     "SXL": "MT",
     "Latp": "54",
@@ -84,7 +84,7 @@ var s = [
     "Player_15": "Barco\r 0"
   },
   {
-    "manager_Name": "4912864",
+    "manager_Name": "473( 213,824 )TotalXfr : 7",
     "Teams": "FC Pek( Erik Lindberg )",
     "SXL": "SE",
     "Latp": "48",
@@ -105,7 +105,7 @@ var s = [
     "Player_15": "Stewart\r 1"
   },
   {
-    "manager_Name": "4394165",
+    "manager_Name": "465( 352,958 )TotalXfr : 5",
     "Teams": "klopp notch( Tobias Nocke )",
     "SXL": "SE",
     "Latp": "56",
@@ -126,7 +126,7 @@ var s = [
     "Player_15": "Harwood-Bellis\r 1"
   },
   {
-    "manager_Name": "5875924",
+    "manager_Name": "464( 372,164 )TotalXfr : 4",
     "Teams": "Ctrl Alt De Ligt( Marlon Vella )",
     "SXL": "MT",
     "Latp": "47",
@@ -147,7 +147,7 @@ var s = [
     "Player_15": "Jo\u00E3o Pedro\r 0"
   },
   {
-    "manager_Name": "3356721",
+    "manager_Name": "463( 407,232 )TotalXfr : 6",
     "Teams": "Guglielmo( Jonas Megert )",
     "SXL": "SE",
     "Latp": "44",
@@ -168,7 +168,7 @@ var s = [
     "Player_15": "Taylor\r 1"
   },
   {
-    "manager_Name": "782635",
+    "manager_Name": "460( 475,989 )TotalXfr : 4",
     "Teams": "MainooInTheBank( Thanasis Fouras )",
     "SXL": "GR",
     "Latp": "66",
@@ -189,7 +189,7 @@ var s = [
     "Player_15": "Barco\r 0"
   },
   {
-    "manager_Name": "7552906",
+    "manager_Name": "460( 475,989 )TotalXfr : 4",
     "Teams": "BienRayados( Luis Ricardo J\u00E1uregui V )",
     "SXL": "EN",
     "Latp": "74",
@@ -210,7 +210,7 @@ var s = [
     "Player_15": "Ra\u00FAl\r 5"
   },
   {
-    "manager_Name": "769163",
+    "manager_Name": "460( 498,457 )TotalXfr : 8",
     "Teams": "Starship( Olumide Okedusi )",
     "SXL": "EE",
     "Latp": "51",
@@ -231,7 +231,7 @@ var s = [
     "Player_15": "Robinson\r 1"
   },
   {
-    "manager_Name": "6735231",
+    "manager_Name": "457( 564,473 )TotalXfr : 3",
     "Teams": "Matteo fc( Matteo Vella )",
     "SXL": "MT",
     "Latp": "56",
@@ -252,7 +252,7 @@ var s = [
     "Player_15": "Burn\r 8"
   },
   {
-    "manager_Name": "6786028",
+    "manager_Name": "455( 634,423 )TotalXfr : 4",
     "Teams": "Nachos( Melvin Xuereb )",
     "SXL": "MT",
     "Latp": "34",
@@ -273,7 +273,7 @@ var s = [
     "Player_15": "Faes\r 6"
   },
   {
-    "manager_Name": "2807659",
+    "manager_Name": "454( 685,609 )TotalXfr : 6",
     "Teams": "Udogie\u0027s Doggies( Claude Taliana )",
     "SXL": "MT",
     "Latp": "51",
@@ -294,7 +294,7 @@ var s = [
     "Player_15": "Winks\r 0"
   },
   {
-    "manager_Name": "1557468",
+    "manager_Name": "453( 704,817 )TotalXfr : 3",
     "Teams": "Los Blancos( Eamonn Mifsud )",
     "SXL": "MT",
     "Latp": "56",
@@ -315,7 +315,7 @@ var s = [
     "Player_15": "Dibling\r 1"
   },
   {
-    "manager_Name": "2805592",
+    "manager_Name": "452( 772,195 )TotalXfr : 7",
     "Teams": "Im Sorry Nic Jackson( Jon Briscoe White )",
     "SXL": "MT",
     "Latp": "49",
@@ -336,7 +336,7 @@ var s = [
     "Player_15": "Roerslev\r 1"
   },
   {
-    "manager_Name": "4477323",
+    "manager_Name": "451( 785,880 )TotalXfr : 4",
     "Teams": "Joga Bonito( Christophe Peixoto )",
     "SXL": "HU",
     "Latp": "50",
@@ -357,7 +357,7 @@ var s = [
     "Player_15": "Faes\r 6"
   },
   {
-    "manager_Name": "842891",
+    "manager_Name": "449( 870,299 )TotalXfr : 4",
     "Teams": "Lallish United( Melwin Holst )",
     "SXL": "SE",
     "Latp": "56",
@@ -378,7 +378,7 @@ var s = [
     "Player_15": "Dibling\r 1"
   },
   {
-    "manager_Name": "4231397",
+    "manager_Name": "447( 960,677 )TotalXfr : 4",
     "Teams": "Biancoverde Utd 4.0( Michael Keramas )",
     "SXL": "GR",
     "Latp": "53",
@@ -399,7 +399,7 @@ var s = [
     "Player_15": "Johnson\r 0"
   },
   {
-    "manager_Name": "7756032",
+    "manager_Name": "447( 979,600 )TotalXfr : 6",
     "Teams": "Rolling Fernander( Adam Ruggier )",
     "SXL": "MT",
     "Latp": "45",
@@ -420,7 +420,7 @@ var s = [
     "Player_15": "Sangar\u00E9\r 0"
   },
   {
-    "manager_Name": "1027218",
+    "manager_Name": "446( 1,039,054 )TotalXfr : 7",
     "Teams": "Salahvation Army( Tom Atkinson )",
     "SXL": "MT",
     "Latp": "41",
@@ -441,7 +441,7 @@ var s = [
     "Player_15": "Johnson\r 0"
   },
   {
-    "manager_Name": "2820859",
+    "manager_Name": "444( 1,114,430 )TotalXfr : 5",
     "Teams": "NoHopeFC( John Maguire )",
     "SXL": "MT",
     "Latp": "53",
@@ -462,7 +462,7 @@ var s = [
     "Player_15": "Harwood-Bellis\r 1"
   },
   {
-    "manager_Name": "4855940",
+    "manager_Name": "442( 1,207,618 )TotalXfr : 3",
     "Teams": "JDT Out( Filip Larsson )",
     "SXL": "MT",
     "Latp": "58",
@@ -483,7 +483,7 @@ var s = [
     "Player_15": "Greaves\r 0"
   },
   {
-    "manager_Name": "8398224",
+    "manager_Name": "441( 1,273,608 )TotalXfr : 5",
     "Teams": "St Peters FC( Clayton Borda )",
     "SXL": "MT",
     "Latp": "54",
@@ -504,7 +504,7 @@ var s = [
     "Player_15": "Kristiansen\r 6"
   },
   {
-    "manager_Name": "3289954",
+    "manager_Name": "439( 1,401,161 )TotalXfr : 6",
     "Teams": "FC Qvantas( Johan Hammarstrom )",
     "SXL": "SE",
     "Latp": "47",
@@ -525,7 +525,7 @@ var s = [
     "Player_15": "Andersen\r 1"
   },
   {
-    "manager_Name": "7558577",
+    "manager_Name": "437( 1,497,405 )TotalXfr : 4",
     "Teams": "Maniacs( Alvaro Garcia )",
     "SXL": "MT",
     "Latp": "48",
@@ -546,7 +546,7 @@ var s = [
     "Player_15": "\u00D8degaard\r 0"
   },
   {
-    "manager_Name": "745564",
+    "manager_Name": "437( 1,506,128 )TotalXfr : 5",
     "Teams": "Red Tigers FC( George Vepkhvadze )",
     "SXL": "GE",
     "Latp": "64",
@@ -567,7 +567,7 @@ var s = [
     "Player_15": "Greaves\r 0"
   },
   {
-    "manager_Name": "4922577",
+    "manager_Name": "435( 1,629,581 )TotalXfr : 5",
     "Teams": "Kinder Mbeumo( Gerson Seguna )",
     "SXL": "MT",
     "Latp": "35",
@@ -588,7 +588,7 @@ var s = [
     "Player_15": "Andersen\r 1"
   },
   {
-    "manager_Name": "6028456",
+    "manager_Name": "434( 1,684,277 )TotalXfr : 4",
     "Teams": "Gambit( Nicola Frasca )",
     "SXL": "MT",
     "Latp": "60",
@@ -609,7 +609,7 @@ var s = [
     "Player_15": "Jo\u00E3o Pedro\r 0"
   },
   {
-    "manager_Name": "2042103",
+    "manager_Name": "434( 1,708,446 )TotalXfr : 6",
     "Teams": "Gidia KK( Aggelos Flamiatos )",
     "SXL": "GR",
     "Latp": "45",
@@ -630,7 +630,7 @@ var s = [
     "Player_15": "Jo\u00E3o Pedro\r 0"
   },
   {
-    "manager_Name": "3632679",
+    "manager_Name": "428( 2,100,012 )TotalXfr : 5",
     "Teams": "Hakuna Mateta( Jason Evans )",
     "SXL": "MT",
     "Latp": "39",
@@ -651,7 +651,7 @@ var s = [
     "Player_15": "Thomas\r 0"
   },
   {
-    "manager_Name": "1409235",
+    "manager_Name": "428( 2,131,489 )TotalXfr : 7",
     "Teams": "Blue Core( Avinash Chatlani )",
     "SXL": "MT",
     "Latp": "40",
@@ -672,7 +672,7 @@ var s = [
     "Player_15": "Vestergaard\r 0"
   },
   {
-    "manager_Name": "7588615",
+    "manager_Name": "426( 2,220,493 )TotalXfr : 0",
     "Teams": "KAMACIO FC( Francisco Camacho )",
     "SXL": "MT",
     "Latp": "59",
@@ -693,7 +693,7 @@ var s = [
     "Player_15": "Mykolenko\r 0"
   },
   {
-    "manager_Name": "3651325",
+    "manager_Name": "422( 2,527,746 )TotalXfr : 4",
     "Teams": "FC Lokomotiv Sliema( Philip H\u00E5kansson )",
     "SXL": "MT",
     "Latp": "48",
@@ -714,7 +714,7 @@ var s = [
     "Player_15": "Harwood-Bellis\r 1"
   },
   {
-    "manager_Name": "5874199",
+    "manager_Name": "421( 2,589,165 )TotalXfr : 0",
     "Teams": "Pierosson( Pietro Ramellini )",
     "SXL": "MT",
     "Latp": "50",
@@ -735,7 +735,7 @@ var s = [
     "Player_15": "Isak\r 0"
   },
   {
-    "manager_Name": "5918453",
+    "manager_Name": "421( 2,597,612 )TotalXfr : 3",
     "Teams": "Unseen Academicals( Kurt Bugeja Coster )",
     "SXL": "MT",
     "Latp": "47",
@@ -756,7 +756,7 @@ var s = [
     "Player_15": "Onana\r 0"
   },
   {
-    "manager_Name": "5347345",
+    "manager_Name": "421( 2,644,879 )TotalXfr : 7",
     "Teams": "Mimz( Emma Zammit )",
     "SXL": "MT",
     "Latp": "60",
@@ -777,7 +777,7 @@ var s = [
     "Player_15": "Taylor\r 1"
   },
   {
-    "manager_Name": "6579232",
+    "manager_Name": "420( 2,669,892 )TotalXfr : 2",
     "Teams": "Notified( Edd Eddie )",
     "SXL": "KE",
     "Latp": "63",
@@ -798,7 +798,7 @@ var s = [
     "Player_15": "Kudus\r 7"
   },
   {
-    "manager_Name": "7856085",
+    "manager_Name": "416( 3,044,691 )TotalXfr : 10",
     "Teams": "kabana( Sebastian Agius )",
     "SXL": "MT",
     "Latp": "38",
@@ -819,7 +819,7 @@ var s = [
     "Player_15": "Ugochukwu\r 0"
   },
   {
-    "manager_Name": "5875917",
+    "manager_Name": "415( 3,090,888 )TotalXfr : 6",
     "Teams": "Crvena Zvezda( Dejan Mrdanov )",
     "SXL": "MT",
     "Latp": "53",
@@ -840,7 +840,7 @@ var s = [
     "Player_15": "Tarkowski\r 8"
   },
   {
-    "manager_Name": "7446205",
+    "manager_Name": "413( 3,221,913 )TotalXfr : 4",
     "Teams": "Seaside Hotspurs( Jostein Grodum )",
     "SXL": "MT",
     "Latp": "57",
@@ -861,7 +861,7 @@ var s = [
     "Player_15": "Aina\r 2"
   },
   {
-    "manager_Name": "128215",
+    "manager_Name": "412( 3,309,630 )TotalXfr : 5",
     "Teams": "Rekegutt United( Eirik Presttun )",
     "SXL": "MT",
     "Latp": "41",
@@ -882,7 +882,7 @@ var s = [
     "Player_15": "Taylor\r 1"
   },
   {
-    "manager_Name": "1449015",
+    "manager_Name": "410( 3,466,225 )TotalXfr : 5",
     "Teams": "SibinZibin( Sibin _ )",
     "SXL": "IN",
     "Latp": "41",
@@ -903,7 +903,7 @@ var s = [
     "Player_15": "Wheatley\r 0"
   },
   {
-    "manager_Name": "5874863",
+    "manager_Name": "410( 3,496,709 )TotalXfr : 7",
     "Teams": "grenbenzen( Gren Kallasmaa )",
     "SXL": "EE",
     "Latp": "45",
@@ -924,7 +924,7 @@ var s = [
     "Player_15": "Martinez\r 0"
   },
   {
-    "manager_Name": "8287552",
+    "manager_Name": "407( 3,700,384 )TotalXfr : 5",
     "Teams": "Nketiah_\u0393\u03B1\u03C1\u03BC\u03C0\u03AE( Dimitris Tselikas )",
     "SXL": "GR",
     "Latp": "39",
@@ -945,7 +945,7 @@ var s = [
     "Player_15": "Barco\r 0"
   },
   {
-    "manager_Name": "5903070",
+    "manager_Name": "407( 3,700,384 )TotalXfr : 5",
     "Teams": "Bruno Fernax FC( Chris Zammit )",
     "SXL": "MT",
     "Latp": "36",
@@ -966,7 +966,7 @@ var s = [
     "Player_15": "Harwood-Bellis\r 1"
   },
   {
-    "manager_Name": "6361708",
+    "manager_Name": "406( 3,793,175 )TotalXfr : 6",
     "Teams": "HUNdorito( Adam Rajki )",
     "SXL": "HU",
     "Latp": "27",
@@ -987,7 +987,7 @@ var s = [
     "Player_15": "Ra\u00FAl\r 5"
   },
   {
-    "manager_Name": "6006251",
+    "manager_Name": "406( 3,793,175 )TotalXfr : 6",
     "Teams": "Korta All Stars( Magnus Hammerstad )",
     "SXL": "MT",
     "Latp": "40",
@@ -1008,7 +1008,7 @@ var s = [
     "Player_15": "Robinson\r 1"
   },
   {
-    "manager_Name": "2789466",
+    "manager_Name": "406( 3,808,341 )TotalXfr : 7",
     "Teams": "LxFxC( Ervin Rigo )",
     "SXL": "MT",
     "Latp": "58",
@@ -1029,7 +1029,7 @@ var s = [
     "Player_15": "Veltman\r 1"
   },
   {
-    "manager_Name": "6213702",
+    "manager_Name": "406( 3,815,982 )TotalXfr : 8",
     "Teams": "Ajax CT( Dimitrios Siderakis )",
     "SXL": "MT",
     "Latp": "35",
