@@ -817,8 +817,12 @@ function shenai()
 	   nextGW=nextGW+1
 	   document.getElementById("barnes").innerText= "Previous GW <- " + prevGW
 	   document.getElementById("lowton").innerText= "Next GW -> " + nextGW
-	   var prevHref = "GW" +prevGW +"/punkte_PovertyLeague.html"
-	   var nextHref = "../GW" +nextGW +"/punkte.html"
+	   // Get the pathname from the current page's URL
+       const path = window.location.pathname;
+       // Split by "/" and get the last part
+       const fileName = path.split('/').pop();
+	   var prevHref = "../GW" +prevGW + "/" +fileName
+	   var nextHref = "../GW" +nextGW + "/" +fileName
 	   //GW11/FPL6/punkte.html
 	   document.getElementById("barnes").href=prevHref
 	   document.getElementById("lowton").href=nextHref
