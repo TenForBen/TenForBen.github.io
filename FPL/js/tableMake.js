@@ -174,10 +174,8 @@ function updatePageTitle() {
     const originalTitle = document.title;
 
     // Extract the gwNumber from the URL
-    const url = window.location.href; // Get current URL
-    const parts = url.split('/');
-    const gwPart = parts[6]; // Extracts "GW6"
-    const gwNumber = gwPart.replace("GW", ""); // Removes "GW" to leave "6"
+    const path = window.location.href; // Get current URL
+    const gwNumber = path.split("/FPL/GW/GW")[1].split('/')[0];
 
     // Set the new title of the page
     document.title = `${originalTitle}-GW-${gwNumber}`; // Sets title to "Test-GW-6"
