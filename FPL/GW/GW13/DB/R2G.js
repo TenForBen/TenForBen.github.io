@@ -322,7 +322,7 @@ var s = [
     "Player_1": "Onana\r 6",
     "Player_11": "Cunha\r 2",
     "Player_10": "Ra\u00FAl\r 2",
-    "Player_12": "Kelleher\r 6",
+    "Player_12": "Kelleher\r 7",
     "Player_13": "Caicedo\r 3",
     "Player_14": "Keane\r 0",
     "Player_7": "M.Salah\r 11",
