@@ -1,9 +1,9 @@
 var s = [
   {
-    "manager_Name": "1,185( 514,058 ) TotalXfr : 18",
+    "manager_Name": "1,198( 434,834 ) TotalXfr : 18",
     "Teams": "WMB( Raj Kanango )",
     "SXL": "India",
-    "Latp": "91",
+    "Latp": "94",
     "Player_1": "Henderson\r 2",
     "Player_11": "Wood\r 12",
     "Player_10": "Cunha\r 1",
@@ -17,11 +17,11 @@ var s = [
     "Player_3": "Alexander-Arnold\r 15",
     "Player_4": "Pedro Porro\r 4",
     "Player_8": "M.Salah\r 32",
-    "Player_9": "G.Jesus\r 9",
+    "Player_9": "G.Jesus\r 12",
     "Player_15": "B.Fernandes\r 0"
   },
   {
-    "manager_Name": "1,172( 704,579 ) TotalXfr : 21",
+    "manager_Name": "1,174( 780,612 ) TotalXfr : 21",
     "Teams": "yoo( Nishant Singh )",
     "SXL": "India",
     "Latp": "81",
@@ -42,10 +42,10 @@ var s = [
     "Player_15": "Greaves\r 6"
   },
   {
-    "manager_Name": "1,134( 1,444,627 ) TotalXfr : 17",
+    "manager_Name": "1,149( 1,258,300 ) TotalXfr : 17",
     "Teams": "Bihar 11( Sanjeev Kumar )",
     "SXL": "India",
-    "Latp": "66",
+    "Latp": "69",
     "Player_1": "Onana\r 1",
     "Player_11": "N.Jackson\r 1",
     "Player_10": "Isak\r 7",
@@ -59,17 +59,17 @@ var s = [
     "Player_3": "Robinson\r 4",
     "Player_4": "J.Timber\r 1",
     "Player_8": "Semenyo\r 5",
-    "Player_9": "G.Jesus\r 9",
+    "Player_9": "G.Jesus\r 12",
     "Player_15": "O\u0027Shea\r 5"
   },
   {
-    "manager_Name": "1,125( 1,670,382 ) TotalXfr : 20",
+    "manager_Name": "1,140( 1,472,539 ) TotalXfr : 20",
     "Teams": "SibinZibin( Sibin _ )",
     "SXL": "India",
-    "Latp": "72",
+    "Latp": "75",
     "Player_1": "Henderson\r 2",
     "Player_11": "Cunha\r 1",
-    "Player_10": "G.Jesus\r 9",
+    "Player_10": "G.Jesus\r 12",
     "Player_12": "Fabianski\r 0",
     "Player_13": "B.Fernandes\r 0",
     "Player_14": "Kluivert\r 0",
@@ -84,13 +84,13 @@ var s = [
     "Player_15": "Armstrong\r 5"
   },
   {
-    "manager_Name": "1,112( 2,009,519 ) TotalXfr : 23",
+    "manager_Name": "1,126( 1,824,144 ) TotalXfr : 23",
     "Teams": "Weightloss Coach( Abhijeet Singh )",
     "SXL": "India",
-    "Latp": "81",
+    "Latp": "84",
     "Player_1": "D\u00FAbravka\r 6",
     "Player_11": "Cunha\r 1",
-    "Player_10": "G.Jesus\r 9",
+    "Player_10": "G.Jesus\r 12",
     "Player_12": "Fabianski\r 0",
     "Player_13": "Greaves\r 6",
     "Player_14": "Faes\r 0",
@@ -105,7 +105,7 @@ var s = [
     "Player_15": "McNeil\r 0"
   },
   {
-    "manager_Name": "958( 6,232,923 ) TotalXfr : 18",
+    "manager_Name": "958( 6,422,311 ) TotalXfr : 18",
     "Teams": "Danapur United( Nitesh Kumar Singh )",
     "SXL": "India",
     "Latp": "70",
@@ -126,24 +126,24 @@ var s = [
     "Player_15": "Keane\r 0"
   },
   {
-    "manager_Name": "771( 9,410,347 ) TotalXfr : 0",
+    "manager_Name": "814( 9,056,847 ) TotalXfr : 0",
     "Teams": "Prabin Singh( Prabin Singh )",
     "SXL": "India",
-    "Latp": "31",
-    "Player_1": "Ederson M.\r 0",
+    "Latp": "57",
+    "Player_1": "A.Becker\r 6",
     "Player_11": "Isak\r 7",
-    "Player_10": "Darwin\r 0",
-    "Player_12": "A.Becker\r 6",
-    "Player_13": "Gvardiol\r 6",
-    "Player_14": "Eze\r 10",
-    "Player_7": "Sterling\r 0",
+    "Player_10": "Mateta\r 2",
+    "Player_12": "Ederson M.\r 0",
+    "Player_13": "Sterling\r 0",
+    "Player_14": "Rashford\r 0",
+    "Player_7": "Martinelli\r 9",
     "Player_2": "Walker\r 1",
     "Player_5": "Virgil\r 6",
-    "Player_6": "Martinelli\r 7",
+    "Player_6": "Gvardiol\r 6",
     "Player_3": "Gabriel\r 2",
     "Player_4": "Calafiori\r 1",
     "Player_8": "Mbeumo\r 7",
-    "Player_9": "Rashford\r 0",
-    "Player_15": "Mateta\r 2"
+    "Player_9": "Eze\r 10",
+    "Player_15": "Darwin\r 0"
   }
 ];
