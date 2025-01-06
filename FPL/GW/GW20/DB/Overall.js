@@ -1,6 +1,6 @@
 var s = [
   {
-    "manager_Name": "1,217( 1,001,042 ) TotalXfr : 21",
+    "manager_Name": "1,221( 957,313 ) TotalXfr : 21",
     "Teams": "Ruben\u0027s Ammonition( Aditya Desai )",
     "SXL": "India",
     "Latp": "62",
@@ -21,18 +21,18 @@ var s = [
     "Player_15": "Amad 9"
   },
   {
-    "manager_Name": "1,167( 2,172,042 ) TotalXfr : 19",
+    "manager_Name": "1,171( 2,109,567 ) TotalXfr : 19",
     "Teams": "Lavia ka Baal( The Banat )",
     "SXL": "India",
-    "Latp": "63",
-    "Player_1": "Sels WOL (A)",
+    "Latp": "82",
+    "Player_1": "Sels 7",
     "Player_11": "Ra\u00FAl 13",
-    "Player_10": "Wood WOL (A)",
+    "Player_10": "Wood 6",
     "Player_12": "Raya 3",
     "Player_13": "Dibling 2",
     "Player_14": "Faes 1",
     "Player_7": "Palmer 10",
-    "Player_2": "Aina WOL (A)",
+    "Player_2": "Aina 6",
     "Player_5": "M.Salah 14",
     "Player_6": "Maddison 1",
     "Player_3": "Saliba 2",
@@ -42,7 +42,7 @@ var s = [
     "Player_15": "Greaves 1"
   },
   {
-    "manager_Name": "1,166( 2,198,663 ) TotalXfr : 19",
+    "manager_Name": "1,170( 2,136,226 ) TotalXfr : 19",
     "Teams": "Mateta Vada( Amogh Ranadive )",
     "SXL": "India",
     "Latp": "74",
@@ -63,7 +63,7 @@ var s = [
     "Player_15": "Rogers 0"
   },
   {
-    "manager_Name": "1,162( 2,312,111 ) TotalXfr : 21",
+    "manager_Name": "1,163( 2,330,524 ) TotalXfr : 21",
     "Teams": "AmPaduDhaan( Aravind SA )",
     "SXL": "India",
     "Latp": "48",
@@ -84,10 +84,10 @@ var s = [
     "Player_15": "Stewart 0"
   },
   {
-    "manager_Name": "1,134( 3,086,705 ) TotalXfr : 17",
+    "manager_Name": "1,135( 3,105,821 ) TotalXfr : 17",
     "Teams": "Change Name( \u010C\u022B\u0271\u03FB\u04D1\u1D28\u0257\u03AD\u01A6 \u010A\u00F6\u0159\u024D\u0268\u03AC\u1D70\u1E0B\u1E17\u0212 )",
     "SXL": "India",
-    "Latp": "45",
+    "Latp": "57",
     "Player_1": "Flekken 6",
     "Player_11": "G.Jesus 2",
     "Player_10": "Isak 7",
@@ -99,13 +99,13 @@ var s = [
     "Player_5": "M.Salah 14",
     "Player_6": "\u00D8degaard 1",
     "Player_3": "Hall 2",
-    "Player_4": "Milenkovi\u0107 WOL (A)",
+    "Player_4": "Milenkovi\u0107 6",
     "Player_8": "Smith Rowe 1",
-    "Player_9": "Wood WOL (A)",
+    "Player_9": "Wood 6",
     "Player_15": "Rogers 0"
   },
   {
-    "manager_Name": "1,040( 5,645,275 ) TotalXfr : 4",
+    "manager_Name": "1,040( 5,684,406 ) TotalXfr : 4",
     "Teams": "RicePlate( Tushar Abhichandani )",
     "SXL": "India",
     "Latp": "53",
