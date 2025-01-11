@@ -1,6 +1,6 @@
 var s = [
   {
-    "manager_Name": "1,221( 957,313 ) TotalXfr : 21",
+    "manager_Name": "1,221( 1,143,208 ) TotalXfr : 21",
     "Teams": "Ruben\u0027s Ammonition( Aditya Desai )",
     "SXL": "India",
     "Latp": "62",
@@ -21,13 +21,13 @@ var s = [
     "Player_15": "Amad 9"
   },
   {
-    "manager_Name": "1,171( 2,109,567 ) TotalXfr : 19",
+    "manager_Name": "1,194( 1,757,883 ) TotalXfr : 19",
     "Teams": "Lavia ka Baal( The Banat )",
     "SXL": "India",
-    "Latp": "82",
-    "Player_1": "Sels 7",
+    "Latp": "86",
+    "Player_1": "Sels 9",
     "Player_11": "Ra\u00FAl 13",
-    "Player_10": "Wood 6",
+    "Player_10": "Wood 8",
     "Player_12": "Raya 3",
     "Player_13": "Dibling 2",
     "Player_14": "Faes 1",
@@ -42,7 +42,7 @@ var s = [
     "Player_15": "Greaves 1"
   },
   {
-    "manager_Name": "1,170( 2,136,226 ) TotalXfr : 19",
+    "manager_Name": "1,170( 2,390,370 ) TotalXfr : 19",
     "Teams": "Mateta Vada( Amogh Ranadive )",
     "SXL": "India",
     "Latp": "74",
@@ -63,7 +63,7 @@ var s = [
     "Player_15": "Rogers 0"
   },
   {
-    "manager_Name": "1,163( 2,330,524 ) TotalXfr : 21",
+    "manager_Name": "1,163( 2,588,591 ) TotalXfr : 21",
     "Teams": "AmPaduDhaan( Aravind SA )",
     "SXL": "India",
     "Latp": "48",
@@ -84,10 +84,10 @@ var s = [
     "Player_15": "Stewart 0"
   },
   {
-    "manager_Name": "1,135( 3,105,821 ) TotalXfr : 17",
+    "manager_Name": "1,149( 2,970,912 ) TotalXfr : 17",
     "Teams": "Change Name( \u010C\u022B\u0271\u03FB\u04D1\u1D28\u0257\u03AD\u01A6 \u010A\u00F6\u0159\u024D\u0268\u03AC\u1D70\u1E0B\u1E17\u0212 )",
     "SXL": "India",
-    "Latp": "57",
+    "Latp": "59",
     "Player_1": "Flekken 6",
     "Player_11": "G.Jesus 2",
     "Player_10": "Isak 7",
@@ -101,28 +101,28 @@ var s = [
     "Player_3": "Hall 2",
     "Player_4": "Milenkovi\u0107 6",
     "Player_8": "Smith Rowe 1",
-    "Player_9": "Wood 6",
+    "Player_9": "Wood 8",
     "Player_15": "Rogers 0"
   },
   {
-    "manager_Name": "1,040( 5,684,406 ) TotalXfr : 4",
+    "manager_Name": "1,041( 5,854,469 ) TotalXfr : 4",
     "Teams": "RicePlate( Tushar Abhichandani )",
     "SXL": "India",
-    "Latp": "53",
+    "Latp": "54",
     "Player_1": "Raya 3",
-    "Player_11": "Isak 7",
-    "Player_10": "Haaland 26",
+    "Player_11": "Beto 1",
+    "Player_10": "Isak 7",
     "Player_12": "Matthews 0",
     "Player_13": "Barco 0",
     "Player_14": "Rogers 0",
-    "Player_7": "Onana 0",
+    "Player_7": "Diogo J. 1",
     "Player_2": "Pedro Porro 4",
-    "Player_5": "Bernardo 2",
-    "Player_6": "M.Salah 7",
+    "Player_5": "M.Salah 7",
+    "Player_6": "Onana 0",
     "Player_3": "Gvardiol 2",
-    "Player_4": "Quansah 0",
-    "Player_8": "Diogo J. 1",
-    "Player_9": "Beto 1",
-    "Player_15": "Robinson 1"
+    "Player_4": "Robinson 1",
+    "Player_8": "Bernardo 2",
+    "Player_9": "Haaland 26",
+    "Player_15": "Quansah 0"
   }
 ];
