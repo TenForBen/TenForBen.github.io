@@ -1,6 +1,6 @@
 var s = [
   {
-    "manager_Name": "1,305( 124,531 ) TotalXfr : 18",
+    "manager_Name": "1,305( 124,531 ) TotalXfr : 20",
     "Teams": "BLIND at the BACK( Prayash Thapa )",
     "SXL": "India",
     "Latp": "61",
@@ -21,7 +21,7 @@ var s = [
     "Player_15": "Rogers 0"
   },
   {
-    "manager_Name": "1,291( 202,461 ) TotalXfr : 19",
+    "manager_Name": "1,291( 202,461 ) TotalXfr : 20",
     "Teams": "Blue Brigade( Bhuman Basnet )",
     "SXL": "India",
     "Latp": "56",
@@ -42,7 +42,7 @@ var s = [
     "Player_15": "Greaves 1"
   },
   {
-    "manager_Name": "1,270( 381,319 ) TotalXfr : 21",
+    "manager_Name": "1,270( 381,319 ) TotalXfr : 22",
     "Teams": "Blue Moon X1\uFFFD( PRAYAS BAJGAI )",
     "SXL": "India",
     "Latp": "85",
@@ -84,7 +84,7 @@ var s = [
     "Player_15": "Greaves 1"
   },
   {
-    "manager_Name": "1,263( 456,743 ) TotalXfr : 19",
+    "manager_Name": "1,263( 456,743 ) TotalXfr : 20",
     "Teams": "FC ASSASSINS( Kushal Sahota )",
     "SXL": "India",
     "Latp": "85",
@@ -105,7 +105,7 @@ var s = [
     "Player_15": "Faes 1"
   },
   {
-    "manager_Name": "1,252( 600,749 ) TotalXfr : 20",
+    "manager_Name": "1,252( 600,749 ) TotalXfr : 21",
     "Teams": "Last Season\u0027s Loser( \u00CFaraplang Pompyrthat )",
     "SXL": "India",
     "Latp": "51",
@@ -147,7 +147,7 @@ var s = [
     "Player_15": "Colwill 1"
   },
   {
-    "manager_Name": "1,238( 817,570 ) TotalXfr : 19",
+    "manager_Name": "1,238( 817,570 ) TotalXfr : 20",
     "Teams": "Error404( Duri Tadu )",
     "SXL": "India",
     "Latp": "57",
@@ -168,7 +168,7 @@ var s = [
     "Player_15": "Faes 1"
   },
   {
-    "manager_Name": "1,230( 966,624 ) TotalXfr : 22",
+    "manager_Name": "1,230( 966,624 ) TotalXfr : 23",
     "Teams": "Avijit@afc( AVIJIT DAS )",
     "SXL": "India",
     "Latp": "62",
@@ -210,7 +210,7 @@ var s = [
     "Player_15": "Rogers 0"
   },
   {
-    "manager_Name": "1,228( 1,009,321 ) TotalXfr : 31",
+    "manager_Name": "1,228( 1,009,321 ) TotalXfr : 33",
     "Teams": "GUNNERS( Omkar Subba )",
     "SXL": "India",
     "Latp": "57",
@@ -252,7 +252,7 @@ var s = [
     "Player_15": "Burgess 0"
   },
   {
-    "manager_Name": "1,224( 1,074,717 ) TotalXfr : 18",
+    "manager_Name": "1,224( 1,074,717 ) TotalXfr : 20",
     "Teams": "Mawat( Arwat Lyngdoh )",
     "SXL": "India",
     "Latp": "75",
@@ -273,7 +273,7 @@ var s = [
     "Player_15": "Mu\u00F1oz 2"
   },
   {
-    "manager_Name": "1,220( 1,162,053 ) TotalXfr : 20",
+    "manager_Name": "1,220( 1,162,053 ) TotalXfr : 22",
     "Teams": "Bottled FC( Rishi Thulung )",
     "SXL": "India",
     "Latp": "91",
@@ -294,7 +294,7 @@ var s = [
     "Player_15": "Winks 2"
   },
   {
-    "manager_Name": "1,218( 1,207,126 ) TotalXfr : 22",
+    "manager_Name": "1,218( 1,207,126 ) TotalXfr : 24",
     "Teams": "KungFuPandoos( Indrajeet Singh )",
     "SXL": "India",
     "Latp": "66",
@@ -336,7 +336,7 @@ var s = [
     "Player_15": "Cunha 0"
   },
   {
-    "manager_Name": "1,202( 1,562,531 ) TotalXfr : 19",
+    "manager_Name": "1,202( 1,562,531 ) TotalXfr : 20",
     "Teams": "nativ fc( Monlom Rongong )",
     "SXL": "India",
     "Latp": "73",
@@ -357,7 +357,7 @@ var s = [
     "Player_15": "Cunha 0"
   },
   {
-    "manager_Name": "1,197( 1,680,231 ) TotalXfr : 18",
+    "manager_Name": "1,197( 1,680,231 ) TotalXfr : 19",
     "Teams": "100 Yard Line Lords( Abhinay Pradhan )",
     "SXL": "India",
     "Latp": "66",
@@ -378,7 +378,7 @@ var s = [
     "Player_15": "Cunha 0"
   },
   {
-    "manager_Name": "1,196( 1,712,970 ) TotalXfr : 21",
+    "manager_Name": "1,196( 1,712,970 ) TotalXfr : 22",
     "Teams": "SibinZibin( Sibin _ )",
     "SXL": "India",
     "Latp": "56",
@@ -399,7 +399,7 @@ var s = [
     "Player_15": "J.Timber 0"
   },
   {
-    "manager_Name": "1,182( 2,067,143 ) TotalXfr : 19",
+    "manager_Name": "1,182( 2,067,143 ) TotalXfr : 22",
     "Teams": "The Regista.( Passang T Sherpa )",
     "SXL": "India",
     "Latp": "70",
@@ -462,7 +462,7 @@ var s = [
     "Player_15": "Wan-Bissaka 0"
   },
   {
-    "manager_Name": "1,173( 2,301,766 ) TotalXfr : 16",
+    "manager_Name": "1,173( 2,301,766 ) TotalXfr : 19",
     "Teams": "FOMO7 FC( Chaje Lokam )",
     "SXL": "India",
     "Latp": "78",
@@ -504,7 +504,7 @@ var s = [
     "Player_15": "Jebbison 0"
   },
   {
-    "manager_Name": "1,170( 2,398,367 ) TotalXfr : 23",
+    "manager_Name": "1,170( 2,398,367 ) TotalXfr : 25",
     "Teams": "YFC Jb( Vivek Lama )",
     "SXL": "India",
     "Latp": "60",
@@ -525,7 +525,7 @@ var s = [
     "Player_15": "Dalot 0"
   },
   {
-    "manager_Name": "1,165( 2,524,682 ) TotalXfr : 18",
+    "manager_Name": "1,165( 2,524,682 ) TotalXfr : 19",
     "Teams": "Imperial Blues FC( Saurabh Tamang )",
     "SXL": "India",
     "Latp": "56",
@@ -546,7 +546,7 @@ var s = [
     "Player_15": "Rogers 0"
   },
   {
-    "manager_Name": "1,165( 2,537,396 ) TotalXfr : 24",
+    "manager_Name": "1,165( 2,537,396 ) TotalXfr : 26",
     "Teams": "heregoesnothing11!!( Ashish Rai )",
     "SXL": "India",
     "Latp": "71",
@@ -567,7 +567,7 @@ var s = [
     "Player_15": "Wheatley 0"
   },
   {
-    "manager_Name": "1,158( 2,723,169 ) TotalXfr : 19",
+    "manager_Name": "1,158( 2,723,169 ) TotalXfr : 20",
     "Teams": "\u2694\uFE0FFURY\u2694\uFE0F( Ashim Lama )",
     "SXL": "India",
     "Latp": "57",
@@ -651,7 +651,7 @@ var s = [
     "Player_15": "Chalobah 0"
   },
   {
-    "manager_Name": "1,134( 3,404,709 ) TotalXfr : 21",
+    "manager_Name": "1,134( 3,404,709 ) TotalXfr : 23",
     "Teams": "\uFFFD Fields FC( Ravish Verma )",
     "SXL": "Canada",
     "Latp": "55",
@@ -672,7 +672,7 @@ var s = [
     "Player_15": "O\u0027Shea 0"
   },
   {
-    "manager_Name": "1,119( 3,833,961 ) TotalXfr : 29",
+    "manager_Name": "1,119( 3,833,961 ) TotalXfr : 31",
     "Teams": "Comet FC( Pranesh Sharma )",
     "SXL": "India",
     "Latp": "54",
@@ -735,7 +735,7 @@ var s = [
     "Player_15": "Dibling 2"
   },
   {
-    "manager_Name": "1,087( 4,687,493 ) TotalXfr : 11",
+    "manager_Name": "1,087( 4,687,493 ) TotalXfr : 20",
     "Teams": "Dany11( Avinash DAniel Khawas )",
     "SXL": "India",
     "Latp": "45",
@@ -756,7 +756,7 @@ var s = [
     "Player_15": "Welbeck 0"
   },
   {
-    "manager_Name": "1,086( 4,733,133 ) TotalXfr : 34",
+    "manager_Name": "1,086( 4,733,133 ) TotalXfr : 35",
     "Teams": "Busby Babes( Pema Lepcha )",
     "SXL": "India",
     "Latp": "64",
@@ -777,7 +777,7 @@ var s = [
     "Player_15": "Wan-Bissaka 0"
   },
   {
-    "manager_Name": "922( 8,288,767 ) TotalXfr : 23",
+    "manager_Name": "922( 8,288,767 ) TotalXfr : 26",
     "Teams": "HEROES11( Obed Hang Subba )",
     "SXL": "India",
     "Latp": "48",

@@ -1,6 +1,6 @@
 var s = [
   {
-    "manager_Name": "1,292( 196,933 ) TotalXfr : 20",
+    "manager_Name": "1,292( 196,933 ) TotalXfr : 21",
     "Teams": "Humbesi( ~ Kopi ~ )",
     "SXL": "Albania",
     "Latp": "49",
@@ -21,7 +21,7 @@ var s = [
     "Player_15": "Mykolenko 2"
   },
   {
-    "manager_Name": "1,283( 262,993 ) TotalXfr : 23",
+    "manager_Name": "1,283( 262,993 ) TotalXfr : 24",
     "Teams": "Jelly Flood( Lorin Minxhozi )",
     "SXL": "England",
     "Latp": "84",
@@ -42,7 +42,7 @@ var s = [
     "Player_15": "Rogers 0"
   },
   {
-    "manager_Name": "1,203( 1,535,521 ) TotalXfr : 18",
+    "manager_Name": "1,203( 1,535,521 ) TotalXfr : 19",
     "Teams": "#SorareMarin( Marin Jano )",
     "SXL": "Albania",
     "Latp": "66",
@@ -63,7 +63,7 @@ var s = [
     "Player_15": "Chiwome 0"
   },
   {
-    "manager_Name": "1,168( 2,449,909 ) TotalXfr : 21",
+    "manager_Name": "1,168( 2,449,909 ) TotalXfr : 22",
     "Teams": "Supercampeones( Ronny Nelkenbaum )",
     "SXL": "France",
     "Latp": "70",
@@ -126,7 +126,7 @@ var s = [
     "Player_15": "Bednarek 0"
   },
   {
-    "manager_Name": "1,196( 1,712,970 ) TotalXfr : 21",
+    "manager_Name": "1,196( 1,712,970 ) TotalXfr : 22",
     "Teams": "SibinZibin( Sibin _ )",
     "SXL": "India",
     "Latp": "56",
@@ -273,7 +273,7 @@ var s = [
     "Player_15": "Barco 0"
   },
   {
-    "manager_Name": "1,134( 3,400,477 ) TotalXfr : 19",
+    "manager_Name": "1,134( 3,400,477 ) TotalXfr : 22",
     "Teams": "Herr Direktor( Roger Shehu )",
     "SXL": "Netherlands",
     "Latp": "69",
@@ -357,7 +357,7 @@ var s = [
     "Player_15": "Mosquera 0"
   },
   {
-    "manager_Name": "923( 8,272,279 ) TotalXfr : 21",
+    "manager_Name": "923( 8,272,279 ) TotalXfr : 22",
     "Teams": "Yaya( Bardhyl Minxhozi )",
     "SXL": "Albania",
     "Latp": "48",

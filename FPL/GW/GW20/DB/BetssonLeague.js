@@ -21,7 +21,7 @@ var s = [
     "Player_15": "J.Timber 0"
   },
   {
-    "manager_Name": "1,316( 81,365 ) TotalXfr : 14",
+    "manager_Name": "1,316( 81,365 ) TotalXfr : 16",
     "Teams": "The Bees( Tove Ronneb\u00E4ck )",
     "SXL": "Malta",
     "Latp": "53",
@@ -42,7 +42,7 @@ var s = [
     "Player_15": "Rogers 0"
   },
   {
-    "manager_Name": "1,308( 111,678 ) TotalXfr : 18",
+    "manager_Name": "1,308( 111,678 ) TotalXfr : 19",
     "Teams": "Udogie\u0027s Doggies( Claude Taliana )",
     "SXL": "Malta",
     "Latp": "89",
@@ -84,7 +84,7 @@ var s = [
     "Player_15": "Rogers 0"
   },
   {
-    "manager_Name": "1,276( 319,984 ) TotalXfr : 19",
+    "manager_Name": "1,276( 319,984 ) TotalXfr : 20",
     "Teams": "NoHopeFC( John Maguire )",
     "SXL": "Malta",
     "Latp": "84",
@@ -105,7 +105,7 @@ var s = [
     "Player_15": "Rogers 0"
   },
   {
-    "manager_Name": "1,255( 554,122 ) TotalXfr : 17",
+    "manager_Name": "1,255( 554,122 ) TotalXfr : 18",
     "Teams": "Ajax CT( Dimitrios Siderakis )",
     "SXL": "Malta",
     "Latp": "83",
@@ -168,7 +168,7 @@ var s = [
     "Player_15": "Rogers 0"
   },
   {
-    "manager_Name": "1,227( 1,015,467 ) TotalXfr : 18",
+    "manager_Name": "1,227( 1,015,467 ) TotalXfr : 19",
     "Teams": "FC Pek( Erik Lindberg )",
     "SXL": "Sweden",
     "Latp": "45",
@@ -210,7 +210,7 @@ var s = [
     "Player_15": "Harwood-Bellis -1"
   },
   {
-    "manager_Name": "1,224( 1,074,717 ) TotalXfr : 18",
+    "manager_Name": "1,224( 1,074,717 ) TotalXfr : 19",
     "Teams": "JDT Out( Filip Larsson )",
     "SXL": "Malta",
     "Latp": "55",
@@ -231,7 +231,7 @@ var s = [
     "Player_15": "J.Timber 0"
   },
   {
-    "manager_Name": "1,222( 1,118,159 ) TotalXfr : 19",
+    "manager_Name": "1,222( 1,118,159 ) TotalXfr : 20",
     "Teams": "\u0106umura\u0161i( Aleksandar Deletic )",
     "SXL": "Serbia",
     "Latp": "90",
@@ -243,7 +243,7 @@ var s = [
     "Player_14": "Cunha 0",
     "Player_7": "Palmer 10",
     "Player_2": "Virgil 1",
-    "Player_5": "S\u00E1vio 13",
+    "Player_5": "Savinho 13",
     "Player_6": "M.Salah 14",
     "Player_3": "Gabriel 2",
     "Player_4": "Digne 2",
@@ -273,7 +273,7 @@ var s = [
     "Player_15": "Dibling 2"
   },
   {
-    "manager_Name": "1,216( 1,238,737 ) TotalXfr : 17",
+    "manager_Name": "1,216( 1,238,737 ) TotalXfr : 18",
     "Teams": "Lallish United( Melwin Holst )",
     "SXL": "Sweden",
     "Latp": "61",
@@ -294,7 +294,7 @@ var s = [
     "Player_15": "Rogers 0"
   },
   {
-    "manager_Name": "1,216( 1,243,802 ) TotalXfr : 19",
+    "manager_Name": "1,216( 1,243,802 ) TotalXfr : 20",
     "Teams": "Tourinho FC( Alexis Touris )",
     "SXL": "Greece",
     "Latp": "73",
@@ -315,7 +315,7 @@ var s = [
     "Player_15": "Dalot 0"
   },
   {
-    "manager_Name": "1,215( 1,265,553 ) TotalXfr : 19",
+    "manager_Name": "1,215( 1,265,553 ) TotalXfr : 20",
     "Teams": "Joga Bonito( Christophe Peixoto )",
     "SXL": "Hungary",
     "Latp": "41",
@@ -336,7 +336,7 @@ var s = [
     "Player_15": "Jo\u00E3o Pedro 9"
   },
   {
-    "manager_Name": "1,205( 1,496,495 ) TotalXfr : 21",
+    "manager_Name": "1,205( 1,496,495 ) TotalXfr : 22",
     "Teams": "LxFxC( Ervin Rigo )",
     "SXL": "Malta",
     "Latp": "85",
@@ -357,7 +357,7 @@ var s = [
     "Player_15": "Pedro Porro 4"
   },
   {
-    "manager_Name": "1,203( 1,533,250 ) TotalXfr : 17",
+    "manager_Name": "1,203( 1,533,250 ) TotalXfr : 20",
     "Teams": "Fantasikonungen( Albin Jonsson )",
     "SXL": "Malta",
     "Latp": "39",
@@ -378,7 +378,7 @@ var s = [
     "Player_15": "Bowen 0"
   },
   {
-    "manager_Name": "1,203( 1,545,204 ) TotalXfr : 22",
+    "manager_Name": "1,203( 1,545,204 ) TotalXfr : 24",
     "Teams": "Im Sorry Nic Jackson( Jon Briscoe White )",
     "SXL": "Malta",
     "Latp": "61",
@@ -399,7 +399,7 @@ var s = [
     "Player_15": "Mu\u00F1oz 2"
   },
   {
-    "manager_Name": "1,203( 1,547,622 ) TotalXfr : 24",
+    "manager_Name": "1,203( 1,547,622 ) TotalXfr : 25",
     "Teams": "Biancoverde Utd 4.0( Michael Keramas )",
     "SXL": "Greece",
     "Latp": "67",
@@ -420,7 +420,7 @@ var s = [
     "Player_15": "Rogers 0"
   },
   {
-    "manager_Name": "1,201( 1,583,130 ) TotalXfr : 18",
+    "manager_Name": "1,201( 1,583,130 ) TotalXfr : 20",
     "Teams": "Crvena Zvezda( Dejan Mrdanov )",
     "SXL": "Malta",
     "Latp": "75",
@@ -441,7 +441,7 @@ var s = [
     "Player_15": "Tarkowski 2"
   },
   {
-    "manager_Name": "1,200( 1,618,342 ) TotalXfr : 23",
+    "manager_Name": "1,200( 1,618,342 ) TotalXfr : 25",
     "Teams": "klopp notch( Tobias Nocke )",
     "SXL": "Sweden",
     "Latp": "53",
@@ -483,7 +483,7 @@ var s = [
     "Player_15": "Jo\u00E3o Pedro 9"
   },
   {
-    "manager_Name": "1,196( 1,702,467 ) TotalXfr : 17",
+    "manager_Name": "1,196( 1,702,467 ) TotalXfr : 19",
     "Teams": "MainooInTheBank( Thanasis Fouras )",
     "SXL": "Greece",
     "Latp": "55",
@@ -504,7 +504,7 @@ var s = [
     "Player_15": "Greaves 1"
   },
   {
-    "manager_Name": "1,196( 1,712,970 ) TotalXfr : 21",
+    "manager_Name": "1,196( 1,712,970 ) TotalXfr : 22",
     "Teams": "SibinZibin( Sibin _ )",
     "SXL": "India",
     "Latp": "56",
@@ -546,7 +546,7 @@ var s = [
     "Player_15": "Faes 1"
   },
   {
-    "manager_Name": "1,185( 1,995,119 ) TotalXfr : 22",
+    "manager_Name": "1,185( 1,995,119 ) TotalXfr : 23",
     "Teams": "Gidia KK( Aggelos Flamiatos )",
     "SXL": "Greece",
     "Latp": "83",
@@ -567,7 +567,7 @@ var s = [
     "Player_15": "Rogers 0"
   },
   {
-    "manager_Name": "1,183( 2,037,457 ) TotalXfr : 18",
+    "manager_Name": "1,183( 2,037,457 ) TotalXfr : 19",
     "Teams": "FC Qvantas( Johan Hammarstrom )",
     "SXL": "Sweden",
     "Latp": "62",
@@ -588,7 +588,7 @@ var s = [
     "Player_15": "Rogers 0"
   },
   {
-    "manager_Name": "1,169( 2,411,987 ) TotalXfr : 17",
+    "manager_Name": "1,169( 2,411,987 ) TotalXfr : 19",
     "Teams": "Cursed Technique( Ini Etienam )",
     "SXL": "Estonia",
     "Latp": "67",
@@ -651,7 +651,7 @@ var s = [
     "Player_15": "Pau 0"
   },
   {
-    "manager_Name": "1,157( 2,751,194 ) TotalXfr : 19",
+    "manager_Name": "1,157( 2,751,194 ) TotalXfr : 20",
     "Teams": "20x MU( John Tiltmann )",
     "SXL": "Malta",
     "Latp": "63",
@@ -693,7 +693,7 @@ var s = [
     "Player_15": "Cunha 0"
   },
   {
-    "manager_Name": "1,145( 3,083,610 ) TotalXfr : 17",
+    "manager_Name": "1,145( 3,083,610 ) TotalXfr : 18",
     "Teams": "Hakuna Mateta( Jason Evans )",
     "SXL": "Malta",
     "Latp": "60",
@@ -714,7 +714,7 @@ var s = [
     "Player_15": "Thomas 1"
   },
   {
-    "manager_Name": "1,139( 3,251,092 ) TotalXfr : 15",
+    "manager_Name": "1,139( 3,251,092 ) TotalXfr : 17",
     "Teams": "HUNdorito( Adam Rajki )",
     "SXL": "Hungary",
     "Latp": "64",
@@ -735,7 +735,7 @@ var s = [
     "Player_15": "Cunha 0"
   },
   {
-    "manager_Name": "1,130( 3,510,612 ) TotalXfr : 18",
+    "manager_Name": "1,130( 3,510,612 ) TotalXfr : 19",
     "Teams": "Starship( Olumide Okedusi )",
     "SXL": "Estonia",
     "Latp": "59",
@@ -777,7 +777,7 @@ var s = [
     "Player_15": "A\u00EFt-Nouri 1"
   },
   {
-    "manager_Name": "1,129( 3,538,808 ) TotalXfr : 18",
+    "manager_Name": "1,129( 3,538,808 ) TotalXfr : 19",
     "Teams": "Red Tigers FC( George Vepkhvadze )",
     "SXL": "Georgia",
     "Latp": "66",
@@ -819,7 +819,7 @@ var s = [
     "Player_15": "Havertz 0"
   },
   {
-    "manager_Name": "1,107( 4,148,393 ) TotalXfr : 16",
+    "manager_Name": "1,107( 4,148,393 ) TotalXfr : 19",
     "Teams": "FC Lokomotiv Sliema( Philip H\u00E5kansson )",
     "SXL": "Malta",
     "Latp": "61",
@@ -861,7 +861,7 @@ var s = [
     "Player_15": "Smith Rowe 1"
   },
   {
-    "manager_Name": "1,100( 4,345,810 ) TotalXfr : 19",
+    "manager_Name": "1,100( 4,345,810 ) TotalXfr : 21",
     "Teams": "ThereWeLand( Haykel Mansour )",
     "SXL": "Malta",
     "Latp": "63",
@@ -903,7 +903,7 @@ var s = [
     "Player_15": "McAteer 0"
   },
   {
-    "manager_Name": "1,081( 4,854,199 ) TotalXfr : 18",
+    "manager_Name": "1,081( 4,854,199 ) TotalXfr : 20",
     "Teams": "Rekegutt United( Eirik Presttun )",
     "SXL": "Malta",
     "Latp": "64",
