@@ -84,7 +84,7 @@ var s = [
     "Player_15": "J.Murphy 5"
   },
   {
-    "manager_Name": "1,296( 173,204 ) TotalXfr : 21",
+    "manager_Name": "1,296( 173,204 ) TotalXfr : 22",
     "Teams": "amp( Aditya Patil )",
     "SXL": "India",
     "Latp": "55",
@@ -105,7 +105,7 @@ var s = [
     "Player_15": "Rogers 0"
   },
   {
-    "manager_Name": "1,295( 179,771 ) TotalXfr : 23",
+    "manager_Name": "1,295( 179,771 ) TotalXfr : 24",
     "Teams": "Gooner_Psy( Saiprasad Shankar )",
     "SXL": "India",
     "Latp": "73",
@@ -126,7 +126,7 @@ var s = [
     "Player_15": "Mazraoui 1"
   },
   {
-    "manager_Name": "1,290( 209,950 ) TotalXfr : 20",
+    "manager_Name": "1,290( 209,950 ) TotalXfr : 21",
     "Teams": "DangerDon( Rohit Nate )",
     "SXL": "India",
     "Latp": "59",
@@ -168,7 +168,7 @@ var s = [
     "Player_15": "Faes 1"
   },
   {
-    "manager_Name": "1,280( 286,694 ) TotalXfr : 21",
+    "manager_Name": "1,280( 286,694 ) TotalXfr : 22",
     "Teams": "Holding Ream Cash( Karan Thorat )",
     "SXL": "India",
     "Latp": "58",
@@ -210,7 +210,7 @@ var s = [
     "Player_15": "Harwood-Bellis -1"
   },
   {
-    "manager_Name": "1,262( 471,500 ) TotalXfr : 21",
+    "manager_Name": "1,262( 471,500 ) TotalXfr : 22",
     "Teams": "lakaka( Kabeer Bhagat )",
     "SXL": "India",
     "Latp": "68",
@@ -231,7 +231,7 @@ var s = [
     "Player_15": "J.Timber 0"
   },
   {
-    "manager_Name": "1,261( 482,518 ) TotalXfr : 20",
+    "manager_Name": "1,261( 482,518 ) TotalXfr : 21",
     "Teams": "TYSM11( Tasdique Yasin )",
     "SXL": "India",
     "Latp": "79",
@@ -294,7 +294,7 @@ var s = [
     "Player_15": "Lavia 0"
   },
   {
-    "manager_Name": "1,245( 706,646 ) TotalXfr : 21",
+    "manager_Name": "1,245( 706,646 ) TotalXfr : 22",
     "Teams": "Change Name( Puneet Gupta )",
     "SXL": "India",
     "Latp": "86",
@@ -315,7 +315,7 @@ var s = [
     "Player_15": "Harwood-Bellis -1"
   },
   {
-    "manager_Name": "1,243( 739,305 ) TotalXfr : 22",
+    "manager_Name": "1,243( 739,305 ) TotalXfr : 25",
     "Teams": "Mushrooms of Europe( Nicholas Neyt )",
     "SXL": "Belgium",
     "Latp": "58",
@@ -336,7 +336,7 @@ var s = [
     "Player_15": "Bergvall 2"
   },
   {
-    "manager_Name": "1,242( 757,990 ) TotalXfr : 26",
+    "manager_Name": "1,242( 757,990 ) TotalXfr : 29",
     "Teams": "Captain\u00D8( Jebarwocky JD )",
     "SXL": "USA",
     "Latp": "89",
@@ -378,7 +378,7 @@ var s = [
     "Player_15": "Colwill 1"
   },
   {
-    "manager_Name": "1,238( 824,288 ) TotalXfr : 24",
+    "manager_Name": "1,238( 824,288 ) TotalXfr : 25",
     "Teams": "Kounde Bhajji( Ronak Kapadia )",
     "SXL": "India",
     "Latp": "59",
@@ -420,7 +420,7 @@ var s = [
     "Player_15": "Cunha 0"
   },
   {
-    "manager_Name": "1,226( 1,037,806 ) TotalXfr : 19",
+    "manager_Name": "1,226( 1,037,806 ) TotalXfr : 21",
     "Teams": "Danzig( Engelbert Dsilva )",
     "SXL": "Chinese Taipei",
     "Latp": "54",
@@ -462,7 +462,7 @@ var s = [
     "Player_15": "Okoli 1"
   },
   {
-    "manager_Name": "1,225( 1,057,580 ) TotalXfr : 19",
+    "manager_Name": "1,225( 1,057,580 ) TotalXfr : 20",
     "Teams": "Kishore\u2019s Rascals( Nandakishore K )",
     "SXL": "India",
     "Latp": "82",
@@ -525,7 +525,7 @@ var s = [
     "Player_15": "A\u00EFt-Nouri 1"
   },
   {
-    "manager_Name": "1,220( 1,165,441 ) TotalXfr : 22",
+    "manager_Name": "1,220( 1,165,441 ) TotalXfr : 23",
     "Teams": "Jurgen\u0027s Kop( Prathamesh Manjrekar )",
     "SXL": "India",
     "Latp": "80",
@@ -567,7 +567,7 @@ var s = [
     "Player_15": "Greaves 1"
   },
   {
-    "manager_Name": "1,218( 1,207,126 ) TotalXfr : 22",
+    "manager_Name": "1,218( 1,207,126 ) TotalXfr : 23",
     "Teams": "Kamada Dragons( Rohan Kapre )",
     "SXL": "India",
     "Latp": "80",
@@ -588,7 +588,7 @@ var s = [
     "Player_15": "Tuanzebe 0"
   },
   {
-    "manager_Name": "1,217( 1,224,962 ) TotalXfr : 20",
+    "manager_Name": "1,217( 1,224,962 ) TotalXfr : 21",
     "Teams": "Amigo\u0027s_13( Rakesh Dake )",
     "SXL": "India",
     "Latp": "64",
@@ -609,7 +609,7 @@ var s = [
     "Player_15": "Mu\u00F1oz 2"
   },
   {
-    "manager_Name": "1,216( 1,254,337 ) TotalXfr : 28",
+    "manager_Name": "1,216( 1,254,337 ) TotalXfr : 29",
     "Teams": "Shadows FC( Altab Rahi )",
     "SXL": "India",
     "Latp": "83",
@@ -672,7 +672,7 @@ var s = [
     "Player_15": "Mykolenko 2"
   },
   {
-    "manager_Name": "1,213( 1,318,804 ) TotalXfr : 25",
+    "manager_Name": "1,213( 1,318,804 ) TotalXfr : 28",
     "Teams": "EniObankeAraFC( Specs Fad )",
     "SXL": "Nigeria",
     "Latp": "87",
@@ -693,7 +693,7 @@ var s = [
     "Player_15": "Harwood-Bellis -1"
   },
   {
-    "manager_Name": "1,212( 1,334,354 ) TotalXfr : 20",
+    "manager_Name": "1,212( 1,334,354 ) TotalXfr : 21",
     "Teams": "Blistering Barnacles( Sushanta Mondal )",
     "SXL": "India",
     "Latp": "65",
@@ -735,7 +735,7 @@ var s = [
     "Player_15": "Harwood-Bellis -1"
   },
   {
-    "manager_Name": "1,209( 1,395,789 ) TotalXfr : 18",
+    "manager_Name": "1,209( 1,395,789 ) TotalXfr : 19",
     "Teams": "kalafiori( Adarsh Pakala )",
     "SXL": "Hong Kong",
     "Latp": "69",
@@ -756,7 +756,7 @@ var s = [
     "Player_15": "Van Hecke 2"
   },
   {
-    "manager_Name": "1,208( 1,426,620 ) TotalXfr : 21",
+    "manager_Name": "1,208( 1,426,620 ) TotalXfr : 22",
     "Teams": "Leothrix FC( Tanmay Dey )",
     "SXL": "India",
     "Latp": "82",
@@ -777,7 +777,7 @@ var s = [
     "Player_15": "Rogers 0"
   },
   {
-    "manager_Name": "1,207( 1,447,465 ) TotalXfr : 20",
+    "manager_Name": "1,207( 1,447,465 ) TotalXfr : 21",
     "Teams": "Ashburton Grove FC( Zafar Khan )",
     "SXL": "India",
     "Latp": "50",
@@ -798,7 +798,7 @@ var s = [
     "Player_15": "Rogers 0"
   },
   {
-    "manager_Name": "1,206( 1,480,525 ) TotalXfr : 31",
+    "manager_Name": "1,206( 1,480,525 ) TotalXfr : 33",
     "Teams": "Nawaz\u0027s balls \u26BD( Nawaz Ahmed )",
     "SXL": "United Arab Emirates",
     "Latp": "53",
@@ -840,7 +840,7 @@ var s = [
     "Player_15": "Greaves 1"
   },
   {
-    "manager_Name": "1,200( 1,613,157 ) TotalXfr : 20",
+    "manager_Name": "1,200( 1,613,157 ) TotalXfr : 21",
     "Teams": "Don\u2019t Jimmy Me Jules( Raunak Lamsal )",
     "SXL": "Nepal",
     "Latp": "77",
@@ -861,7 +861,7 @@ var s = [
     "Player_15": "Greaves 1"
   },
   {
-    "manager_Name": "1,200( 1,618,342 ) TotalXfr : 23",
+    "manager_Name": "1,200( 1,618,342 ) TotalXfr : 25",
     "Teams": "miskharege fc( Jordan D\u0027Almeida )",
     "SXL": "India",
     "Latp": "59",
@@ -882,7 +882,7 @@ var s = [
     "Player_15": "Stewart 0"
   },
   {
-    "manager_Name": "1,200( 1,621,099 ) TotalXfr : 26",
+    "manager_Name": "1,200( 1,621,099 ) TotalXfr : 27",
     "Teams": "XGALX( Dhearika Ramadhanty )",
     "SXL": "Indonesia",
     "Latp": "83",
@@ -903,7 +903,7 @@ var s = [
     "Player_15": "Young 2"
   },
   {
-    "manager_Name": "1,199( 1,631,553 ) TotalXfr : 18",
+    "manager_Name": "1,199( 1,631,553 ) TotalXfr : 19",
     "Teams": "Pep\u2019s Boys( Kayaan Shah )",
     "SXL": "India",
     "Latp": "73",
@@ -924,7 +924,7 @@ var s = [
     "Player_15": "Mykolenko 2"
   },
   {
-    "manager_Name": "1,199( 1,631,553 ) TotalXfr : 18",
+    "manager_Name": "1,199( 1,631,553 ) TotalXfr : 19",
     "Teams": "Here for Beer( Gaurav K )",
     "SXL": "India",
     "Latp": "64",
@@ -966,7 +966,7 @@ var s = [
     "Player_15": "Johnson 1"
   },
   {
-    "manager_Name": "1,198( 1,659,170 ) TotalXfr : 19",
+    "manager_Name": "1,198( 1,659,170 ) TotalXfr : 21",
     "Teams": "Slumdog Mignolet( Xerxes Khambatta )",
     "SXL": "India",
     "Latp": "50",
@@ -987,7 +987,7 @@ var s = [
     "Player_15": "Rogers 0"
   },
   {
-    "manager_Name": "1,198( 1,669,061 ) TotalXfr : 25",
+    "manager_Name": "1,198( 1,669,061 ) TotalXfr : 26",
     "Teams": "Y2K( Yatnesh Kamat )",
     "SXL": "India",
     "Latp": "80",
@@ -1033,20 +1033,20 @@ var s = [
     "Teams": "kopside( Hemanth SD )",
     "SXL": "India",
     "Latp": "60",
-    "Player_1": "A.Becker 1",
-    "Player_11": "Isak 7",
-    "Player_10": "N.Jackson 2",
-    "Player_12": "Valdimarsson 0",
-    "Player_13": "Jo\u00E3o Pedro 9",
-    "Player_14": "Amad 9",
-    "Player_7": "J.Murphy 5",
-    "Player_2": "Virgil 1",
-    "Player_5": "Kerkez 12",
-    "Player_6": "Palmer 10",
-    "Player_3": "Pedro Porro 4",
-    "Player_4": "Gabriel 2",
-    "Player_8": "M.Salah 14",
-    "Player_9": "Iwobi 2",
-    "Player_15": "Colwill 1"
+    "Player_1": "A.Becker -",
+    "Player_11": "Isak -",
+    "Player_10": "N.Jackson -",
+    "Player_12": "Valdimarsson -",
+    "Player_13": "Jo\u00E3o Pedro -",
+    "Player_14": "Amad -",
+    "Player_7": "J.Murphy -",
+    "Player_2": "Virgil -",
+    "Player_5": "Kerkez -",
+    "Player_6": "Palmer -",
+    "Player_3": "Pedro Porro -",
+    "Player_4": "Gabriel -",
+    "Player_8": "M.Salah -",
+    "Player_9": "Iwobi -",
+    "Player_15": "Colwill -"
   }
 ];
