@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>FPL5-GW-23</title>
+<title>FPL R2G 9</title>
 
 </head>
 <link rel="stylesheet" href="../../../AufWiedersehen/BootMeister/css/bootstrap.min.css">
@@ -14,7 +14,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 <script src="../../../AufWiedersehen/js\jquery-3.1.1.min.js"></script>
 
-<script src="mgw.js"></script>
+<script src="DB/R2G.js"></script>
 <script src="../../js/tableMake.js"></script>
 <link rel="stylesheet" type="text/css" href="../../css/bekal.css">
 <style>
@@ -26,14 +26,28 @@
 </script>
 <link rel="stylesheet" href="carnegie.css" >-->
 <body onload='loader4mgw()' onclick="myFunction(event)">
-    
-    
+
+<div>
+    <a id="barnes" class="btn btn-info" onclick="">Table button</a>
+    <a id="lowton" class="btn btn-success" onclick="">Table toggler</a>
+</div>
+<a id="h2h" class="btn btn-info" href="punkte_h2h.html" onclick="">H2h</a>
+<a id="ome" class="btn btn-info" href="punkte.html" onclick="">Holme</a>
+<a id="obg" class="btn btn-info" href="punkte_BetssonLeague.html" onclick="">BetssonLeague</a>
+<a id="Poverty" class="btn btn-info" href="punkte_PovertyLeague.html" onclick="">PovertyLeague</a>
+<a id="punkte_FPLwire" class="btn btn-info" href="punkte_FPLwire.html" onclick="">punkte_FPLwire</a>
+<a id="Ovrl" class="btn btn-info" href="punkte_Overall.html" onclick="">Overall</a>
+<a id="Gunner" class="btn btn-info" href="punkte_Arsenal.html" onclick="">Arsenal</a>
+<a id="FPLpod" class="btn btn-info" href="punkte_FPLpod.html" onclick="">FPLpod</a>
+<a id="KasbyLeague" class="btn btn-info" href="punkte_KasbyLeague.html" onclick="">Kasby</a>
+<a id="FFMLeague" class="btn btn-info" href="punkte_FFMLeague.html" onclick="">FFMLeague</a>
+<a id="FPLCLLeague" class="btn btn-info" href="punkte_FPLCLLeague.html" onclick="">FPLCLLeague</a>
     <table id="regtable" class="table table-hover table-bordered">
         <thead>	
             <tr>
                 <th>TeamName</th>
-                <th>ManagerName</th>
-                <th>Starting xl</th>
+                <th>ManagerId</th>
+                <th>Nation</th>
                 <th>Player_1</th>
                 <th>Player_2</th>
                 <th>Player_3</th>
@@ -45,24 +59,15 @@
                 <th>Player_9</th>
                 <th>Player_10</th>
                 <th>Player_11</th>
-                
                 <th>Player_12</th>
                 <th>Player_13</th>
                 <th>Player_14</th>
-                <th>Player_15</th>             
-                <th>bench xl</th>
-                
-                
-
-                
-                
-                
+                <th>Player_15</th>
+                <th>Latest points</th>
             </tr>
         </thead>
         <tbody></tbody>
     </table>
-	<button id="barnes" class="btn btn-info" onclick="">Table button</button>
-	<button id="lowton" class="btn btn-success" onclick="">Table toggler</button>
 	
 </body>
 </html>
