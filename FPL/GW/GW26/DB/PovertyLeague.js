@@ -1,6 +1,6 @@
 var s = [
   {
-    "manager_Name": "1,704( 294,835 ) TotalXfr : 28",
+    "manager_Name": "1,799( 391,517 ) TotalXfr : 29",
     "Teams": "WMB( Raj Kanango )",
     "SXL": "countryCode",
     "Latp": "65",
@@ -21,7 +21,7 @@ var s = [
     "Player_15": "Mykolenko 1"
   },
   {
-    "manager_Name": "1,687( 429,352 ) TotalXfr : 32",
+    "manager_Name": "1,797( 409,487 ) TotalXfr : 33",
     "Teams": "yoo( Nishant Singh )",
     "SXL": "countryCode",
     "Latp": "75",
@@ -42,7 +42,7 @@ var s = [
     "Player_15": "Mykolenko 1"
   },
   {
-    "manager_Name": "1,634( 1,076,397 ) TotalXfr : 32",
+    "manager_Name": "1,739( 1,094,681 ) TotalXfr : 33",
     "Teams": "Weightloss Coach( Abhijeet Singh )",
     "SXL": "countryCode",
     "Latp": "69",
@@ -63,7 +63,7 @@ var s = [
     "Player_15": "Ndiaye 0"
   },
   {
-    "manager_Name": "1,604( 1,586,697 ) TotalXfr : 25",
+    "manager_Name": "1,732( 1,196,217 ) TotalXfr : 25",
     "Teams": "Bihar 11( Sanjeev Kumar )",
     "SXL": "countryCode",
     "Latp": "67",
@@ -84,7 +84,7 @@ var s = [
     "Player_15": "Amad 0"
   },
   {
-    "manager_Name": "1,568( 2,314,842 ) TotalXfr : 30",
+    "manager_Name": "1,678( 2,199,360 ) TotalXfr : 30",
     "Teams": "SibinZibin( Sibin _ )",
     "SXL": "countryCode",
     "Latp": "63",
@@ -105,7 +105,7 @@ var s = [
     "Player_15": "Iroegbunam 1"
   },
   {
-    "manager_Name": "1,367( 6,094,459 ) TotalXfr : 25",
+    "manager_Name": "1,454( 6,178,336 ) TotalXfr : 26",
     "Teams": "Danapur United( Nitesh Kumar Singh )",
     "SXL": "countryCode",
     "Latp": "56",
@@ -126,24 +126,24 @@ var s = [
     "Player_15": "Strand Larsen 1"
   },
   {
-    "manager_Name": "1,136( 9,117,551 ) TotalXfr : 0",
+    "manager_Name": "1,220( 9,043,686 ) TotalXfr : 0",
     "Teams": "Prabin Singh( Prabin Singh )",
     "SXL": "countryCode",
-    "Latp": "47",
-    "Player_1": "Ederson M. 1",
+    "Latp": "57",
+    "Player_1": "Ederson M. 2",
     "Player_11": "Isak 13",
-    "Player_10": "Darwin 0",
+    "Player_10": "Mateta 5",
     "Player_12": "A.Becker 8",
-    "Player_13": "Gvardiol 1",
-    "Player_14": "Eze 3",
+    "Player_13": "Walker 0",
+    "Player_14": "Martinelli 0",
     "Player_7": "Sterling 1",
-    "Player_2": "Walker 0",
+    "Player_2": "Gvardiol 1",
     "Player_5": "Virgil 6",
-    "Player_6": "Martinelli 0",
+    "Player_6": "Eze 3",
     "Player_3": "Gabriel 2",
     "Player_4": "Calafiori 1",
     "Player_8": "Mbeumo 14",
     "Player_9": "Rashford 9",
-    "Player_15": "Mateta 5"
+    "Player_15": "Darwin 0"
   }
 ];
