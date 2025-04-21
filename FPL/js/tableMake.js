@@ -446,7 +446,7 @@ function noMoreSameName_airline()
             harryMaguire_airline(i+1,s[i].PriceValue,s[i].Departure,s[i].Arrival);
          }
     }
-    sortTable();
+    //sortTable();
     document.getElementById("uqPc").innerText=s.length
     //tableShakers();
 }

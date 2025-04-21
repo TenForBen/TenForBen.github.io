@@ -14,8 +14,21 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 <script src="../../../../../AufWiedersehen/js\jquery-3.1.1.min.js"></script>
 
-<script src="PSR_2025-05-01.js"></script>
+<script src="STN_2025-05-01.js"></script>
 <script src="../../../js/tableMake.js"></script>
+<script>
+    // Find all script elements
+    const scripts = document.querySelectorAll('script[src]');
+
+    // Look for a script with "_" in its src
+    const targetScript = Array.from(scripts).find(script => script.src.includes('_'));
+
+    // If found, set the title of the page
+    if (targetScript) {
+      const srcValue = targetScript.src.split('/').pop(); // Extract the file name
+      document.title = srcValue;
+    }
+</script>
 <link rel="stylesheet" type="text/css" href="../../../css/bekal.css">
 <style>
 </style>
