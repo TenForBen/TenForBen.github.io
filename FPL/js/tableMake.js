@@ -487,8 +487,9 @@ function noMoreSameName_airline()
          }
     }
     //sortTable();
-    document.getElementById("uqPc").innerText=s.length
+    //document.getElementById("uqPc").innerText=s.length
     //tableShakers();
+    updateDateColumn();
 }
 function LeagueJson()
 {
@@ -748,7 +749,21 @@ function loader4grocery()
 
 
 }
-
+ // Function to update the date column with date and day
+    function updateDateColumn() {
+        const rows = document.querySelectorAll('tr');
+        rows.forEach(row => {
+            const dateCell = row.cells[0]; // Assuming the first column contains the date
+            if (dateCell) {
+                const dateValue = dateCell.textContent.trim();
+                const dateObj = new Date(dateValue);
+                if (!isNaN(dateObj)) {
+                    const dayName = dateObj.toLocaleString('en-US', { weekday: 'long' });
+                    dateCell.textContent = `${dateValue} (${dayName})`;
+                }
+            }
+        });
+    }
 function prepareTableCellgrocery(p1,p2,p3,p4,p5,p6) 
 {
     var table = document.getElementById("regtable");
