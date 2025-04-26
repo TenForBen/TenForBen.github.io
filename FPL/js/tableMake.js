@@ -24,6 +24,46 @@ function tableShakers()
 		}	
 }
 
+function moveToNextMonth() {
+                               // Find the current script element
+                               const currentScript = document.querySelector('script[src*="_"]');
+                               if (currentScript) {
+                                   // Extract the current month and year from the script's src
+                                   const srcParts = currentScript.src.split('/');
+                                   const currentFile = srcParts.pop();
+                                   const [baseName, date] = currentFile.split('_');
+                                   const [year, month, day] = date.split('-');
+
+                                   // Increment the month
+                                   let nextMonth = parseInt(month, 10) + 1;
+                                   let nextYear = parseInt(year, 10);
+
+                                   // Handle year rollover
+                                   if (nextMonth > 12) {
+                                       nextMonth = 1;
+                                       nextYear += 1;
+                                   }
+
+                                   // Format the new month and date
+                                   const formattedMonth = nextMonth.toString().padStart(2, '0');
+                                   const newFileName = `${baseName}_${nextYear}-${formattedMonth}-${day}`;
+                                   const newSrc = [...srcParts, newFileName].join('/');
+
+                                   // Create a new script element
+                                   const newScript = document.createElement('script');
+                                   newScript.src = newSrc;
+
+                                   // Update the page title and content after the new script is loaded
+                                   newScript.onload = () => {
+                                       document.title = newFileName;
+                                       // Optionally, update other parts of the page here
+                                   };
+
+                                   // Append the new script to the document head
+                                   document.head.appendChild(newScript);
+                               }
+                           }
+
 
 function loader4Klima()
 {
@@ -435,6 +475,21 @@ function noMoreSameName()
     document.getElementById("uqPc").innerText=pcc.length
     //tableShakers();
 }
+
+function noMoreSameName_airline()
+{
+    if (s)
+     {
+        //wordsArray = JSON.parse(worter);
+        for (var i = 0; i < s.length; i++)
+         {
+            harryMaguire_airline(s[i].Day,s[i].PriceValue,s[i].Departure,s[i].Arrival);
+         }
+    }
+    //sortTable();
+    document.getElementById("uqPc").innerText=s.length
+    //tableShakers();
+}
 function LeagueJson()
 {
     if (s)
@@ -473,14 +528,28 @@ function noMoreSameName4()
     document.getElementById("uqPc").innerText=pcc.length
     //tableShakers();
 }
-function harryMaguire4(p1,p2,p3,p4) 
+function harryMaguire_airline(p1,p2,p3,p4)
+{
+    var table = document.getElementById("regtable");
+    var row = table.insertRow();
+    var Day = row.insertCell(0);
+    var PriceValue = row.insertCell(1);
+    var Departure = row.insertCell(2);
+    var Arrival = row.insertCell(3);
+    Day.innerHTML = p1;
+    PriceValue.innerHTML = p2;
+    Departure.innerHTML = p3;
+    Arrival.innerHTML = p4;
+}
+
+function harryMaguire4(p1,p2,p3,p4)
 {
     var table = document.getElementById("regtable");
     var row = table.insertRow();
     var teamName = row.insertCell(0);
-    var manager_Name = row.insertCell(1);   
+    var manager_Name = row.insertCell(1);
     var capC = row.insertCell(2);
-    var Cap_manager_Name = row.insertCell(3);   
+    var Cap_manager_Name = row.insertCell(3);
     teamName.innerHTML = p1;
     manager_Name.innerHTML = p2;
     capC.innerHTML = p3;
