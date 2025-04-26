@@ -24,6 +24,46 @@ function tableShakers()
 		}	
 }
 
+function moveToNextMonth() {
+                               // Find the current script element
+                               const currentScript = document.querySelector('script[src*="_"]');
+                               if (currentScript) {
+                                   // Extract the current month and year from the script's src
+                                   const srcParts = currentScript.src.split('/');
+                                   const currentFile = srcParts.pop();
+                                   const [baseName, date] = currentFile.split('_');
+                                   const [year, month, day] = date.split('-');
+
+                                   // Increment the month
+                                   let nextMonth = parseInt(month, 10) + 1;
+                                   let nextYear = parseInt(year, 10);
+
+                                   // Handle year rollover
+                                   if (nextMonth > 12) {
+                                       nextMonth = 1;
+                                       nextYear += 1;
+                                   }
+
+                                   // Format the new month and date
+                                   const formattedMonth = nextMonth.toString().padStart(2, '0');
+                                   const newFileName = `${baseName}_${nextYear}-${formattedMonth}-${day}`;
+                                   const newSrc = [...srcParts, newFileName].join('/');
+
+                                   // Create a new script element
+                                   const newScript = document.createElement('script');
+                                   newScript.src = newSrc;
+
+                                   // Update the page title and content after the new script is loaded
+                                   newScript.onload = () => {
+                                       document.title = newFileName;
+                                       // Optionally, update other parts of the page here
+                                   };
+
+                                   // Append the new script to the document head
+                                   document.head.appendChild(newScript);
+                               }
+                           }
+
 
 function loader4Klima()
 {
@@ -443,7 +483,7 @@ function noMoreSameName_airline()
         //wordsArray = JSON.parse(worter);
         for (var i = 0; i < s.length; i++)
          {
-            harryMaguire_airline(i+1,s[i].PriceValue,s[i].Departure,s[i].Arrival);
+            harryMaguire_airline(s[i].Day,s[i].PriceValue,s[i].Departure,s[i].Arrival);
          }
     }
     //sortTable();
