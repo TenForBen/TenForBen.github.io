@@ -749,21 +749,32 @@ function loader4grocery()
 
 
 }
- // Function to update the date column with date and day
-    function updateDateColumn() {
-        const rows = document.querySelectorAll('tr');
-        rows.forEach(row => {
-            const dateCell = row.cells[0]; // Assuming the first column contains the date
-            if (dateCell) {
-                const dateValue = dateCell.textContent.trim();
-                const dateObj = new Date(dateValue);
-                if (!isNaN(dateObj)) {
-                    const dayName = dateObj.toLocaleString('en-US', { weekday: 'long' });
-                    dateCell.textContent = `${dateValue} (${dayName})`;
-                }
-            }
-        });
-    }
+ function updateDateColumn() {
+     const rows = document.querySelectorAll('tr');
+     rows.forEach(row => {
+         const dateCell = row.cells[0]; // Assuming the first column contains the date
+         if (dateCell) {
+             const dateValue = dateCell.textContent.trim();
+             const dateObj = new Date(dateValue);
+             if (!isNaN(dateObj)) {
+                 const dayName = dateObj.toLocaleString('en-US', { weekday: 'long' });
+                 dateCell.textContent = `${dateValue} (${dayName})`;
+             }
+         }
+
+         // Process the 3rd and 4th columns (index 2 and 3)
+         [2, 3].forEach(colIndex => {
+             const cell = row.cells[colIndex];
+             if (cell) {
+                 const cellValue = cell.textContent.trim();
+                 const timePart = cellValue.split('T')[1]; // Extract time after 'T'
+                 if (timePart) {
+                     cell.textContent = timePart; // Update cell with time only
+                 }
+             }
+         });
+     });
+ }
 function prepareTableCellgrocery(p1,p2,p3,p4,p5,p6) 
 {
     var table = document.getElementById("regtable");
