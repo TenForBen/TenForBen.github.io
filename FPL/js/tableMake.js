@@ -490,7 +490,36 @@ function noMoreSameName_airline()
     //document.getElementById("uqPc").innerText=s.length
     //tableShakers();
     updateDateColumn();
+    // Call the function to update the row 1.
+    updateThWithTime();
 }
+function updateThWithTime() {
+    // Find all script elements
+    const scripts = document.querySelectorAll('script[src]');
+
+    // Look for a script with "_" in its src
+    const targetScript = Array.from(scripts).find(script => script.src.includes('_'));
+
+    // If found, set the title of the page and update the <th> element
+    if (targetScript) {
+        const srcValue = targetScript.src.split('/').pop(); // Extract the file name
+        document.title = srcValue;
+
+        const thElement = document.querySelector('th');
+        if (thElement) {
+            const derivedValue = srcValue.split('_').pop().split('.')[0]; // Extract the last part before ".js"
+            const unixTime = parseInt(derivedValue, 10); // Convert the derived value to an integer
+            const date = new Date(unixTime * 1000); // Convert Unix time to milliseconds
+            const hours = String(date.getUTCHours()).padStart(2, '0');
+            const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+            const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+            const timeHHMMSS = `${hours} : ${minutes} : ${seconds}`;
+            thElement.textContent = `Day @ ${timeHHMMSS}`;
+        }
+    }
+}
+
+
 function LeagueJson()
 {
     if (s)
@@ -749,21 +778,32 @@ function loader4grocery()
 
 
 }
- // Function to update the date column with date and day
-    function updateDateColumn() {
-        const rows = document.querySelectorAll('tr');
-        rows.forEach(row => {
-            const dateCell = row.cells[0]; // Assuming the first column contains the date
-            if (dateCell) {
-                const dateValue = dateCell.textContent.trim();
-                const dateObj = new Date(dateValue);
-                if (!isNaN(dateObj)) {
-                    const dayName = dateObj.toLocaleString('en-US', { weekday: 'long' });
-                    dateCell.textContent = `${dateValue} (${dayName})`;
-                }
-            }
-        });
-    }
+ function updateDateColumn() {
+     const rows = document.querySelectorAll('tr');
+     rows.forEach(row => {
+         const dateCell = row.cells[0]; // Assuming the first column contains the date
+         if (dateCell) {
+             const dateValue = dateCell.textContent.trim();
+             const dateObj = new Date(dateValue);
+             if (!isNaN(dateObj)) {
+                 const dayName = dateObj.toLocaleString('en-US', { weekday: 'long' });
+                 dateCell.textContent = `${dateValue} (${dayName})`;
+             }
+         }
+
+         // Process the 3rd and 4th columns (index 2 and 3)
+         [2, 3].forEach(colIndex => {
+             const cell = row.cells[colIndex];
+             if (cell) {
+                 const cellValue = cell.textContent.trim();
+                 const timePart = cellValue.split('T')[1]; // Extract time after 'T'
+                 if (timePart) {
+                     cell.textContent = timePart; // Update cell with time only
+                 }
+             }
+         });
+     });
+ }
 function prepareTableCellgrocery(p1,p2,p3,p4,p5,p6) 
 {
     var table = document.getElementById("regtable");
