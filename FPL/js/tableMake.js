@@ -510,15 +510,11 @@ function updateThWithTime() {
             const derivedValue = srcValue.split('_').pop().split('.')[0]; // Extract the last part before ".js"
             const unixTime = parseInt(derivedValue, 10); // Convert the derived value to an integer
             const date = new Date(unixTime * 1000); // Convert Unix time to milliseconds
-            const hours = String(date.getUTCHours()).padStart(2, '0');
-            const minutes = String(date.getUTCMinutes()).padStart(2, '0');
-            const seconds = String(date.getUTCSeconds()).padStart(2, '0');
-            const timeHHMMSS = `${hours} : ${minutes} : ${seconds}`;
-            thElement.textContent = `Day @ ${timeHHMMSS}`;
+            const dateTime = date.toLocaleString(); // Convert to local time zone string
+            thElement.textContent = `Day @ ${dateTime}`;
         }
     }
 }
-
 
 function LeagueJson()
 {
