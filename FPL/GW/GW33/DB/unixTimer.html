@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unix Timestamp Converter with Time Zones</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 40px;
+          background-color: #f9f9f9;
+          color: #333;
+        }
+        h1 {
+          color: #444;
+        }
+        input, button {
+          padding: 10px;
+          margin: 5px 0;
+          font-size: 1em;
+        }
+        .container {
+          max-width: 500px;
+          background: #fff;
+          padding: 20px;
+          border-radius: 12px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.08);
+        }
+        .timezone {
+          margin-left: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Unix Timestamp Converter (Assumes UTC)</h1>
+
+    <h3>Convert Unix Timestamp (UTC) to Date</h3>
+    <input type="number" id="timestampInput" placeholder="Enter Unix timestamp">
+    <button onclick="convertToDate()">Convert</button>
+    <div id="dateOutput"></div>
+
+    <hr>
+
+    <h3>Convert Date to Unix Timestamp (UTC)</h3>
+    <input type="datetime-local" id="dateInput">
+    <button onclick="convertToTimestamp()">Convert</button>
+    <p id="timestampOutput"></p>
+</div>
+
+<script>
+    function convertToDate() {
+      const timestamp = document.getElementById('timestampInput').value;
+      const output = document.getElementById('dateOutput');
+      output.innerHTML = '';
+
+      if (timestamp) {
+        // Create Date from Unix timestamp (assumed in UTC)
+        const dateUTC = new Date(timestamp * 1000);
+
+        // UTC Time
+        output.innerHTML += `<p><strong>UTC:</strong> ${dateUTC.toUTCString()}</p>`;
+
+        // Local Time
+        output.innerHTML += `<p><strong>Local Time:</strong> ${dateUTC.toLocaleString()}</p>`;
+
+        // PDT
+        const pdtOptions = { timeZone: 'America/Los_Angeles', timeZoneName: 'short' };
+        output.innerHTML += `<p><strong>PDT:</strong> ${dateUTC.toLocaleString('en-US', pdtOptions)}</p>`;
+
+        // CEST
+        const cestOptions = { timeZone: 'Europe/Berlin', timeZoneName: 'short' };
+        output.innerHTML += `<p><strong>CEST:</strong> ${dateUTC.toLocaleString('en-GB', cestOptions)}</p>`;
+
+        // IST
+        const istOptions = { timeZone: 'Asia/Kolkata', timeZoneName: 'short' };
+        output.innerHTML += `<p><strong>IST:</strong> ${dateUTC.toLocaleString('en-IN', istOptions)}</p>`;
+
+      } else {
+        output.innerHTML = '<p>Please enter a valid timestamp.</p>';
+      }
+    }
+
+    function convertToTimestamp() {
+      const dateInput = document.getElementById('dateInput').value;
+      const output = document.getElementById('timestampOutput');
+
+      if (dateInput) {
+        // Date string is assumed in local time — converting to UTC timestamp
+        const date = new Date(dateInput);
+        const timestamp = Math.floor(date.getTime() / 1000);
+        output.textContent = 'Unix Timestamp (UTC): ' + timestamp;
+      } else {
+        output.textContent = 'Please select a date and time.';
+      }
+    }
+</script>
+</body>
+</html>
