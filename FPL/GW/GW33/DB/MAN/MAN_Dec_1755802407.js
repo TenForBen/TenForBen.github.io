@@ -1,0 +1,920 @@
+var s = [
+  {
+    "Day": "2025-08-01",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-08-02",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-08-03",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-08-04",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-08-05",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-08-06",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-08-07",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-08-08",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-08-09",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-08-10",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-08-11",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-08-12",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-08-13",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-08-14",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-08-15",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-08-16",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-08-17",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-08-18",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-08-19",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-08-20",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-08-21",
+    "PriceValue": "222.01",
+    "Arrival": "2025-08-21T23:00:00",
+    "Departure": "2025-08-21T20:30:00"
+  },
+  {
+    "Day": "2025-08-22",
+    "PriceValue": "154.32",
+    "Arrival": "2025-08-23T01:05:00",
+    "Departure": "2025-08-22T22:35:00"
+  },
+  {
+    "Day": "2025-08-23",
+    "PriceValue": "314.37",
+    "Arrival": "2025-08-23T13:35:00",
+    "Departure": "2025-08-23T11:05:00"
+  },
+  {
+    "Day": "2025-08-24",
+    "PriceValue": "345.64",
+    "Arrival": "2025-08-24T08:35:00",
+    "Departure": "2025-08-24T06:05:00"
+  },
+  {
+    "Day": "2025-08-25",
+    "PriceValue": "294.71",
+    "Arrival": "2025-08-26T00:30:00",
+    "Departure": "2025-08-25T22:00:00"
+  },
+  {
+    "Day": "2025-08-26",
+    "PriceValue": "294.71",
+    "Arrival": "2025-08-26T18:45:00",
+    "Departure": "2025-08-26T16:15:00"
+  },
+  {
+    "Day": "2025-08-27",
+    "PriceValue": "240.29",
+    "Arrival": "2025-08-27T22:45:00",
+    "Departure": "2025-08-27T20:15:00"
+  },
+  {
+    "Day": "2025-08-28",
+    "PriceValue": "290.74",
+    "Arrival": "2025-08-28T23:00:00",
+    "Departure": "2025-08-28T20:30:00"
+  },
+  {
+    "Day": "2025-08-29",
+    "PriceValue": "234.70",
+    "Arrival": "2025-08-30T01:05:00",
+    "Departure": "2025-08-29T22:35:00"
+  },
+  {
+    "Day": "2025-08-30",
+    "PriceValue": "310.09",
+    "Arrival": "2025-08-30T13:35:00",
+    "Departure": "2025-08-30T11:05:00"
+  },
+  {
+    "Day": "2025-08-31",
+    "PriceValue": "238.99",
+    "Arrival": "2025-08-31T08:35:00",
+    "Departure": "2025-08-31T06:05:00"
+  },
+  {
+    "Day": "2025-09-01",
+    "PriceValue": "266.45",
+    "Arrival": "2025-09-02T00:30:00",
+    "Departure": "2025-09-01T22:00:00"
+  },
+  {
+    "Day": "2025-09-02",
+    "PriceValue": "127.29",
+    "Arrival": "2025-09-02T18:45:00",
+    "Departure": "2025-09-02T16:15:00"
+  },
+  {
+    "Day": "2025-09-03",
+    "PriceValue": "80.47",
+    "Arrival": "2025-09-03T22:45:00",
+    "Departure": "2025-09-03T20:15:00"
+  },
+  {
+    "Day": "2025-09-04",
+    "PriceValue": "81.27",
+    "Arrival": "2025-09-04T23:00:00",
+    "Departure": "2025-09-04T20:30:00"
+  },
+  {
+    "Day": "2025-09-05",
+    "PriceValue": "171.00",
+    "Arrival": "2025-09-06T01:05:00",
+    "Departure": "2025-09-05T22:35:00"
+  },
+  {
+    "Day": "2025-09-06",
+    "PriceValue": "128.40",
+    "Arrival": "2025-09-06T13:35:00",
+    "Departure": "2025-09-06T11:05:00"
+  },
+  {
+    "Day": "2025-09-07",
+    "PriceValue": "121.99",
+    "Arrival": "2025-09-07T08:35:00",
+    "Departure": "2025-09-07T06:05:00"
+  },
+  {
+    "Day": "2025-09-08",
+    "PriceValue": "220.43",
+    "Arrival": "2025-09-09T00:30:00",
+    "Departure": "2025-09-08T22:00:00"
+  },
+  {
+    "Day": "2025-09-09",
+    "PriceValue": "131.14",
+    "Arrival": "2025-09-09T18:45:00",
+    "Departure": "2025-09-09T16:15:00"
+  },
+  {
+    "Day": "2025-09-10",
+    "PriceValue": "116.70",
+    "Arrival": "2025-09-10T22:45:00",
+    "Departure": "2025-09-10T20:15:00"
+  },
+  {
+    "Day": "2025-09-11",
+    "PriceValue": "149.55",
+    "Arrival": "2025-09-11T23:00:00",
+    "Departure": "2025-09-11T20:30:00"
+  },
+  {
+    "Day": "2025-09-12",
+    "PriceValue": "144.69",
+    "Arrival": "2025-09-13T01:05:00",
+    "Departure": "2025-09-12T22:35:00"
+  },
+  {
+    "Day": "2025-09-13",
+    "PriceValue": "149.55",
+    "Arrival": "2025-09-13T13:35:00",
+    "Departure": "2025-09-13T11:05:00"
+  },
+  {
+    "Day": "2025-09-14",
+    "PriceValue": "160.99",
+    "Arrival": "2025-09-14T08:35:00",
+    "Departure": "2025-09-14T06:05:00"
+  },
+  {
+    "Day": "2025-09-15",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-09-16",
+    "PriceValue": "160.99",
+    "Arrival": "2025-09-16T18:45:00",
+    "Departure": "2025-09-16T16:15:00"
+  },
+  {
+    "Day": "2025-09-17",
+    "PriceValue": "226.55",
+    "Arrival": "2025-09-17T22:45:00",
+    "Departure": "2025-09-17T20:15:00"
+  },
+  {
+    "Day": "2025-09-18",
+    "PriceValue": "168.34",
+    "Arrival": "2025-09-18T23:00:00",
+    "Departure": "2025-09-18T20:30:00"
+  },
+  {
+    "Day": "2025-09-19",
+    "PriceValue": "223.29",
+    "Arrival": "2025-09-20T01:05:00",
+    "Departure": "2025-09-19T22:35:00"
+  },
+  {
+    "Day": "2025-09-20",
+    "PriceValue": "186.70",
+    "Arrival": "2025-09-20T13:35:00",
+    "Departure": "2025-09-20T11:05:00"
+  },
+  {
+    "Day": "2025-09-21",
+    "PriceValue": "153.84",
+    "Arrival": "2025-09-21T08:35:00",
+    "Departure": "2025-09-21T06:05:00"
+  },
+  {
+    "Day": "2025-09-22",
+    "PriceValue": "218.40",
+    "Arrival": "2025-09-23T00:30:00",
+    "Departure": "2025-09-22T22:00:00"
+  },
+  {
+    "Day": "2025-09-23",
+    "PriceValue": "114.67",
+    "Arrival": "2025-09-23T18:45:00",
+    "Departure": "2025-09-23T16:15:00"
+  },
+  {
+    "Day": "2025-09-24",
+    "PriceValue": "106.92",
+    "Arrival": "2025-09-24T22:45:00",
+    "Departure": "2025-09-24T20:15:00"
+  },
+  {
+    "Day": "2025-09-25",
+    "PriceValue": "103.35",
+    "Arrival": "2025-09-25T23:00:00",
+    "Departure": "2025-09-25T20:30:00"
+  },
+  {
+    "Day": "2025-09-26",
+    "PriceValue": "66.72",
+    "Arrival": "2025-09-27T01:05:00",
+    "Departure": "2025-09-26T22:35:00"
+  },
+  {
+    "Day": "2025-09-27",
+    "PriceValue": "132.97",
+    "Arrival": "2025-09-27T13:35:00",
+    "Departure": "2025-09-27T11:05:00"
+  },
+  {
+    "Day": "2025-09-28",
+    "PriceValue": "120.77",
+    "Arrival": "2025-09-28T08:35:00",
+    "Departure": "2025-09-28T06:05:00"
+  },
+  {
+    "Day": "2025-09-29",
+    "PriceValue": "131.14",
+    "Arrival": "2025-09-30T00:30:00",
+    "Departure": "2025-09-29T22:00:00"
+  },
+  {
+    "Day": "2025-09-30",
+    "PriceValue": "105.64",
+    "Arrival": "2025-09-30T18:45:00",
+    "Departure": "2025-09-30T16:15:00"
+  },
+  {
+    "Day": "2025-10-01",
+    "PriceValue": "75.47",
+    "Arrival": "2025-10-01T22:45:00",
+    "Departure": "2025-10-01T20:15:00"
+  },
+  {
+    "Day": "2025-10-02",
+    "PriceValue": "86.99",
+    "Arrival": "2025-10-02T23:00:00",
+    "Departure": "2025-10-02T20:30:00"
+  },
+  {
+    "Day": "2025-10-03",
+    "PriceValue": "111.77",
+    "Arrival": "2025-10-04T01:05:00",
+    "Departure": "2025-10-03T22:35:00"
+  },
+  {
+    "Day": "2025-10-04",
+    "PriceValue": "150.04",
+    "Arrival": "2025-10-04T13:35:00",
+    "Departure": "2025-10-04T11:05:00"
+  },
+  {
+    "Day": "2025-10-05",
+    "PriceValue": "97.72",
+    "Arrival": "2025-10-05T08:35:00",
+    "Departure": "2025-10-05T06:05:00"
+  },
+  {
+    "Day": "2025-10-06",
+    "PriceValue": "97.72",
+    "Arrival": "2025-10-07T00:30:00",
+    "Departure": "2025-10-06T22:00:00"
+  },
+  {
+    "Day": "2025-10-07",
+    "PriceValue": "92.00",
+    "Arrival": "2025-10-07T18:45:00",
+    "Departure": "2025-10-07T16:15:00"
+  },
+  {
+    "Day": "2025-10-08",
+    "PriceValue": "111.77",
+    "Arrival": "2025-10-08T22:45:00",
+    "Departure": "2025-10-08T20:15:00"
+  },
+  {
+    "Day": "2025-10-09",
+    "PriceValue": "49.99",
+    "Arrival": "2025-10-09T23:00:00",
+    "Departure": "2025-10-09T20:30:00"
+  },
+  {
+    "Day": "2025-10-10",
+    "PriceValue": "66.72",
+    "Arrival": "2025-10-11T01:05:00",
+    "Departure": "2025-10-10T22:35:00"
+  },
+  {
+    "Day": "2025-10-11",
+    "PriceValue": "83.67",
+    "Arrival": "2025-10-11T13:35:00",
+    "Departure": "2025-10-11T11:05:00"
+  },
+  {
+    "Day": "2025-10-12",
+    "PriceValue": "85.60",
+    "Arrival": "2025-10-12T08:35:00",
+    "Departure": "2025-10-12T06:05:00"
+  },
+  {
+    "Day": "2025-10-13",
+    "PriceValue": "111.77",
+    "Arrival": "2025-10-14T00:30:00",
+    "Departure": "2025-10-13T22:00:00"
+  },
+  {
+    "Day": "2025-10-14",
+    "PriceValue": "55.15",
+    "Arrival": "2025-10-14T18:45:00",
+    "Departure": "2025-10-14T16:15:00"
+  },
+  {
+    "Day": "2025-10-15",
+    "PriceValue": "87.52",
+    "Arrival": "2025-10-15T22:45:00",
+    "Departure": "2025-10-15T20:15:00"
+  },
+  {
+    "Day": "2025-10-16",
+    "PriceValue": "97.72",
+    "Arrival": "2025-10-16T23:00:00",
+    "Departure": "2025-10-16T20:30:00"
+  },
+  {
+    "Day": "2025-10-17",
+    "PriceValue": "111.77",
+    "Arrival": "2025-10-18T01:05:00",
+    "Departure": "2025-10-17T22:35:00"
+  },
+  {
+    "Day": "2025-10-18",
+    "PriceValue": "109.47",
+    "Arrival": "2025-10-18T13:35:00",
+    "Departure": "2025-10-18T11:05:00"
+  },
+  {
+    "Day": "2025-10-19",
+    "PriceValue": "111.77",
+    "Arrival": "2025-10-19T08:35:00",
+    "Departure": "2025-10-19T06:05:00"
+  },
+  {
+    "Day": "2025-10-20",
+    "PriceValue": "109.47",
+    "Arrival": "2025-10-21T00:30:00",
+    "Departure": "2025-10-20T22:00:00"
+  },
+  {
+    "Day": "2025-10-21",
+    "PriceValue": "138.47",
+    "Arrival": "2025-10-21T18:45:00",
+    "Departure": "2025-10-21T16:15:00"
+  },
+  {
+    "Day": "2025-10-22",
+    "PriceValue": "97.72",
+    "Arrival": "2025-10-22T22:45:00",
+    "Departure": "2025-10-22T20:15:00"
+  },
+  {
+    "Day": "2025-10-23",
+    "PriceValue": "63.81",
+    "Arrival": "2025-10-23T23:00:00",
+    "Departure": "2025-10-23T20:30:00"
+  },
+  {
+    "Day": "2025-10-24",
+    "PriceValue": "77.17",
+    "Arrival": "2025-10-25T01:05:00",
+    "Departure": "2025-10-24T22:35:00"
+  },
+  {
+    "Day": "2025-10-25",
+    "PriceValue": "186.73",
+    "Arrival": "2025-10-25T13:35:00",
+    "Departure": "2025-10-25T11:05:00"
+  },
+  {
+    "Day": "2025-10-26",
+    "PriceValue": "164.92",
+    "Arrival": "2025-10-26T18:40:00",
+    "Departure": "2025-10-26T16:10:00"
+  },
+  {
+    "Day": "2025-10-27",
+    "PriceValue": "46.07",
+    "Arrival": "2025-10-27T08:15:00",
+    "Departure": "2025-10-27T05:45:00"
+  },
+  {
+    "Day": "2025-10-28",
+    "PriceValue": "186.73",
+    "Arrival": "2025-10-28T19:20:00",
+    "Departure": "2025-10-28T16:50:00"
+  },
+  {
+    "Day": "2025-10-29",
+    "PriceValue": "135.72",
+    "Arrival": "2025-10-29T16:50:00",
+    "Departure": "2025-10-29T14:20:00"
+  },
+  {
+    "Day": "2025-10-30",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-10-31",
+    "PriceValue": "175.99",
+    "Arrival": "2025-10-31T16:00:00",
+    "Departure": "2025-10-31T13:30:00"
+  },
+  {
+    "Day": "2025-11-01",
+    "PriceValue": "284.78",
+    "Arrival": "2025-11-01T13:15:00",
+    "Departure": "2025-11-01T10:45:00"
+  },
+  {
+    "Day": "2025-11-02",
+    "PriceValue": "256.99",
+    "Arrival": "2025-11-02T18:40:00",
+    "Departure": "2025-11-02T16:10:00"
+  },
+  {
+    "Day": "2025-11-03",
+    "PriceValue": "146.99",
+    "Arrival": "2025-11-03T08:15:00",
+    "Departure": "2025-11-03T05:45:00"
+  },
+  {
+    "Day": "2025-11-04",
+    "PriceValue": "146.99",
+    "Arrival": "2025-11-04T19:20:00",
+    "Departure": "2025-11-04T16:50:00"
+  },
+  {
+    "Day": "2025-11-05",
+    "PriceValue": "110.99",
+    "Arrival": "2025-11-05T16:50:00",
+    "Departure": "2025-11-05T14:20:00"
+  },
+  {
+    "Day": "2025-11-06",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-11-07",
+    "PriceValue": "111.77",
+    "Arrival": "2025-11-07T08:40:00",
+    "Departure": "2025-11-07T06:10:00"
+  },
+  {
+    "Day": "2025-11-08",
+    "PriceValue": "146.83",
+    "Arrival": "2025-11-08T13:15:00",
+    "Departure": "2025-11-08T10:45:00"
+  },
+  {
+    "Day": "2025-11-09",
+    "PriceValue": "163.72",
+    "Arrival": "2025-11-09T18:40:00",
+    "Departure": "2025-11-09T16:10:00"
+  },
+  {
+    "Day": "2025-11-10",
+    "PriceValue": "111.77",
+    "Arrival": "2025-11-10T08:15:00",
+    "Departure": "2025-11-10T05:45:00"
+  },
+  {
+    "Day": "2025-11-11",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-11-12",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-11-13",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-11-14",
+    "PriceValue": "66.99",
+    "Arrival": "2025-11-14T16:00:00",
+    "Departure": "2025-11-14T13:30:00"
+  },
+  {
+    "Day": "2025-11-15",
+    "PriceValue": "97.99",
+    "Arrival": "2025-11-15T13:15:00",
+    "Departure": "2025-11-15T10:45:00"
+  },
+  {
+    "Day": "2025-11-16",
+    "PriceValue": "181.01",
+    "Arrival": "2025-11-16T18:40:00",
+    "Departure": "2025-11-16T16:10:00"
+  },
+  {
+    "Day": "2025-11-17",
+    "PriceValue": "87.52",
+    "Arrival": "2025-11-17T08:15:00",
+    "Departure": "2025-11-17T05:45:00"
+  },
+  {
+    "Day": "2025-11-18",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-11-19",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-11-20",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-11-21",
+    "PriceValue": "136.63",
+    "Arrival": "2025-11-21T16:00:00",
+    "Departure": "2025-11-21T13:30:00"
+  },
+  {
+    "Day": "2025-11-22",
+    "PriceValue": "107.17",
+    "Arrival": "2025-11-22T13:15:00",
+    "Departure": "2025-11-22T10:45:00"
+  },
+  {
+    "Day": "2025-11-23",
+    "PriceValue": "138.47",
+    "Arrival": "2025-11-23T18:40:00",
+    "Departure": "2025-11-23T16:10:00"
+  },
+  {
+    "Day": "2025-11-24",
+    "PriceValue": "99.86",
+    "Arrival": "2025-11-24T08:15:00",
+    "Departure": "2025-11-24T05:45:00"
+  },
+  {
+    "Day": "2025-11-25",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-11-26",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-11-27",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-11-28",
+    "PriceValue": "77.17",
+    "Arrival": "2025-11-28T08:40:00",
+    "Departure": "2025-11-28T06:10:00"
+  },
+  {
+    "Day": "2025-11-29",
+    "PriceValue": "125.67",
+    "Arrival": "2025-11-29T13:15:00",
+    "Departure": "2025-11-29T10:45:00"
+  },
+  {
+    "Day": "2025-11-30",
+    "PriceValue": "62.36",
+    "Arrival": "2025-11-30T18:40:00",
+    "Departure": "2025-11-30T16:10:00"
+  },
+  {
+    "Day": "2025-12-01",
+    "PriceValue": "99.86",
+    "Arrival": "2025-12-01T08:15:00",
+    "Departure": "2025-12-01T05:45:00"
+  },
+  {
+    "Day": "2025-12-02",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-12-03",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-12-04",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-12-05",
+    "PriceValue": "63.81",
+    "Arrival": "2025-12-05T08:40:00",
+    "Departure": "2025-12-05T06:10:00"
+  },
+  {
+    "Day": "2025-12-06",
+    "PriceValue": "57.73",
+    "Arrival": "2025-12-06T13:15:00",
+    "Departure": "2025-12-06T10:45:00"
+  },
+  {
+    "Day": "2025-12-07",
+    "PriceValue": "87.52",
+    "Arrival": "2025-12-07T18:40:00",
+    "Departure": "2025-12-07T16:10:00"
+  },
+  {
+    "Day": "2025-12-08",
+    "PriceValue": "41.99",
+    "Arrival": "2025-12-08T08:15:00",
+    "Departure": "2025-12-08T05:45:00"
+  },
+  {
+    "Day": "2025-12-09",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-12-10",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-12-11",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-12-12",
+    "PriceValue": "83.20",
+    "Arrival": "2025-12-12T16:00:00",
+    "Departure": "2025-12-12T13:30:00"
+  },
+  {
+    "Day": "2025-12-13",
+    "PriceValue": "41.99",
+    "Arrival": "2025-12-13T13:15:00",
+    "Departure": "2025-12-13T10:45:00"
+  },
+  {
+    "Day": "2025-12-14",
+    "PriceValue": "70.95",
+    "Arrival": "2025-12-14T18:40:00",
+    "Departure": "2025-12-14T16:10:00"
+  },
+  {
+    "Day": "2025-12-15",
+    "PriceValue": "44.37",
+    "Arrival": "2025-12-15T08:15:00",
+    "Departure": "2025-12-15T05:45:00"
+  },
+  {
+    "Day": "2025-12-16",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-12-17",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-12-18",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-12-19",
+    "PriceValue": "44.37",
+    "Arrival": "2025-12-19T08:40:00",
+    "Departure": "2025-12-19T06:10:00"
+  },
+  {
+    "Day": "2025-12-20",
+    "PriceValue": "48.11",
+    "Arrival": "2025-12-20T13:15:00",
+    "Departure": "2025-12-20T10:45:00"
+  },
+  {
+    "Day": "2025-12-21",
+    "PriceValue": "56.44",
+    "Arrival": "2025-12-21T18:40:00",
+    "Departure": "2025-12-21T16:10:00"
+  },
+  {
+    "Day": "2025-12-22",
+    "PriceValue": "65.27",
+    "Arrival": "2025-12-22T08:15:00",
+    "Departure": "2025-12-22T05:45:00"
+  },
+  {
+    "Day": "2025-12-23",
+    "PriceValue": "86.99",
+    "Arrival": "2025-12-23T13:10:00",
+    "Departure": "2025-12-23T10:40:00"
+  },
+  {
+    "Day": "2025-12-24",
+    "PriceValue": "66.99",
+    "Arrival": "2025-12-24T08:15:00",
+    "Departure": "2025-12-24T05:45:00"
+  },
+  {
+    "Day": "2025-12-25",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2025-12-26",
+    "PriceValue": "163.13",
+    "Arrival": "2025-12-26T16:00:00",
+    "Departure": "2025-12-26T13:30:00"
+  },
+  {
+    "Day": "2025-12-27",
+    "PriceValue": "150.04",
+    "Arrival": "2025-12-27T13:15:00",
+    "Departure": "2025-12-27T10:45:00"
+  },
+  {
+    "Day": "2025-12-28",
+    "PriceValue": "175.29",
+    "Arrival": "2025-12-28T18:40:00",
+    "Departure": "2025-12-28T16:10:00"
+  },
+  {
+    "Day": "2025-12-29",
+    "PriceValue": "123.22",
+    "Arrival": "2025-12-29T08:15:00",
+    "Departure": "2025-12-29T05:45:00"
+  },
+  {
+    "Day": "2025-12-30",
+    "PriceValue": "168.50",
+    "Arrival": "2025-12-30T13:10:00",
+    "Departure": "2025-12-30T10:40:00"
+  },
+  {
+    "Day": "2025-12-31",
+    "PriceValue": "110.99",
+    "Arrival": "2025-12-31T08:15:00",
+    "Departure": "2025-12-31T05:45:00"
+  }
+];
