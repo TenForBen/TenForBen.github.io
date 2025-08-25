@@ -939,8 +939,8 @@ function shenai()
        const path = window.location.pathname;
        // Split by "/" and get the last part
        const fileName = path.split('/').pop();
-	   var prevHref = "../GW" +prevGW + "/" +fileName
-	   var nextHref = "../GW" +nextGW + "/" +fileName
+	   var prevHref = "../../GW" +prevGW + "/new/" +fileName
+	   var nextHref = "../../GW" +nextGW + "/new/" +fileName
 	   //GW11/FPL6/punkte.html
 	   document.getElementById("barnes").href=prevHref
 	   document.getElementById("lowton").href=nextHref
