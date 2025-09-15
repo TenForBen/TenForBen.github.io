@@ -1,6 +1,6 @@
 var s = [
   {
-    "manager_Name": "214( 1,593,596 )",
+    "manager_Name": "235( 2,039,766 )",
     "Teams": "yoo( Nishant Singh )",
     "SXL": "IND",
     "Latp": "72",
@@ -21,7 +21,7 @@ var s = [
     "Player_15": "Caicedo 12"
   },
   {
-    "manager_Name": "184( 5,438,338 )",
+    "manager_Name": "213( 4,865,105 )",
     "Teams": "WMB( Raj Kanango )",
     "SXL": "IND",
     "Latp": "64",
@@ -42,28 +42,7 @@ var s = [
     "Player_15": "Reinildo 6"
   },
   {
-    "manager_Name": "169( 7,214,329 )",
-    "Teams": "DUFC( Nitesh Kumar Singh )",
-    "SXL": "IND",
-    "Latp": "51",
-    "Player_1": "Pickford 6",
-    "Player_11": "Watkins 2",
-    "Player_10": "Welbeck 2",
-    "Player_12": "Foderingham 0",
-    "Player_13": "Mu\u00F1oz 5",
-    "Player_14": "J.Murphy 6",
-    "Player_7": "Mbeumo 2",
-    "Player_2": "Mings 9",
-    "Player_5": "Collins 3",
-    "Player_6": "M.Salah 18",
-    "Player_3": "Milenkovi\u0107 1",
-    "Player_4": "Mitchell 6",
-    "Player_8": "Elanga 1",
-    "Player_9": "Wood 1",
-    "Player_15": "Tavernier 2"
-  },
-  {
-    "manager_Name": "167( 7,394,530 )",
+    "manager_Name": "199( 6,600,389 )",
     "Teams": "F95( Sibin - )",
     "SXL": "IND",
     "Latp": "62",
@@ -82,5 +61,26 @@ var s = [
     "Player_8": "Reijnders 3",
     "Player_9": "L.Paquet\u00E1 2",
     "Player_15": "Gudmundsson 0"
+  },
+  {
+    "manager_Name": "189( 7,635,110 )",
+    "Teams": "DUFC( Nitesh Kumar Singh )",
+    "SXL": "IND",
+    "Latp": "51",
+    "Player_1": "Pickford 6",
+    "Player_11": "Watkins 2",
+    "Player_10": "Welbeck 2",
+    "Player_12": "Foderingham 0",
+    "Player_13": "Mu\u00F1oz 5",
+    "Player_14": "J.Murphy 6",
+    "Player_7": "Mbeumo 2",
+    "Player_2": "Mings 9",
+    "Player_5": "Collins 3",
+    "Player_6": "M.Salah 18",
+    "Player_3": "Milenkovi\u0107 1",
+    "Player_4": "Mitchell 6",
+    "Player_8": "Elanga 1",
+    "Player_9": "Wood 1",
+    "Player_15": "Tavernier 2"
   }
 ];
