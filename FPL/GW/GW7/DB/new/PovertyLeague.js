@@ -1,6 +1,6 @@
 var s = [
   {
-    "manager_Name": "395( 995,954 )",
+    "manager_Name": "400( 2,205,811 )",
     "Teams": "yoo( Nishant Singh )",
     "SXL": "IND",
     "Latp": "79",
@@ -21,7 +21,7 @@ var s = [
     "Player_15": "Mbeumo 6 points 6"
   },
   {
-    "manager_Name": "365( 2,772,548 )",
+    "manager_Name": "397( 2,380,730 )",
     "Teams": "WMB( Raj Kanango )",
     "SXL": "IND",
     "Latp": "75",
@@ -42,7 +42,7 @@ var s = [
     "Player_15": "Barnes 0 points 0"
   },
   {
-    "manager_Name": "303( 7,642,336 )",
+    "manager_Name": "324( 7,569,354 )",
     "Teams": "F95( Sibin - )",
     "SXL": "IND",
     "Latp": "47",
@@ -63,18 +63,18 @@ var s = [
     "Player_15": "L.Paquet\u00E1 1 points 1"
   },
   {
-    "manager_Name": "290( 8,431,133 )",
+    "manager_Name": "310( 8,386,678 )",
     "Teams": "DUFC( Nitesh Kumar Singh )",
     "SXL": "IND",
-    "Latp": "42",
+    "Latp": "50",
     "Player_1": "Pickford 3 points 3",
     "Player_11": "Jo\u00E3o Pedro 2 points 2",
     "Player_10": "Welbeck 1 points 1",
     "Player_12": "Foderingham 0 points 0",
-    "Player_13": "Mu\u00F1oz 8 points 8",
+    "Player_13": "Mings 0 points 0",
     "Player_14": "J.Murphy 1 points 1",
     "Player_7": "Mbeumo 6 points 6",
-    "Player_2": "Mings 0 points 0",
+    "Player_2": "Mu\u00F1oz 8 points 8",
     "Player_5": "Collins 2 points 2",
     "Player_6": "M.Salah 4 points 4",
     "Player_3": "Milenkovi\u0107 3 points 3",
