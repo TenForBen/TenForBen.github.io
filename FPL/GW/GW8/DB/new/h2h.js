@@ -1,6 +1,6 @@
 var s = [
   {
-    "manager_Name": "498( 507,550 )",
+    "manager_Name": "498( 658,114 )",
     "Teams": "\u00C7er\u00E7izi Jeshil( Armando Lula )",
     "SXL": "ALB",
     "Latp": "75",
@@ -21,7 +21,7 @@ var s = [
     "Player_15": "Tarkowski 3"
   },
   {
-    "manager_Name": "503( 389,890 )",
+    "manager_Name": "505( 469,064 )",
     "Teams": "Tepelena( Joan Hasanmema )",
     "SXL": "ALB",
     "Latp": "61",
@@ -42,7 +42,7 @@ var s = [
     "Player_15": "Senesi 2"
   },
   {
-    "manager_Name": "481( 1,007,485 )",
+    "manager_Name": "484( 1,119,469 )",
     "Teams": "Renaissance( Sidrit Minxhozi )",
     "SXL": "DNK",
     "Latp": "61",
@@ -63,7 +63,7 @@ var s = [
     "Player_15": "Est\u00E8ve 8"
   },
   {
-    "manager_Name": "463( 1,823,475 )",
+    "manager_Name": "467( 1,930,945 )",
     "Teams": "5-D( Erald Haxhiu )",
     "SXL": "USA",
     "Latp": "55",
@@ -84,15 +84,15 @@ var s = [
     "Player_15": "Mukiele 17"
   },
   {
-    "manager_Name": "447( 2,649,656 )",
+    "manager_Name": "450( 2,841,900 )",
     "Teams": "BlueBoys( Ilir Bazaiti )",
     "SXL": "ENG",
     "Latp": "50",
     "Player_1": "D\u00FAbravka 9",
     "Player_11": "Richarlison 1",
     "Player_10": "Jo\u00E3o Pedro",
-    "Player_12": "Areola BRE",
-    "Player_13": "Diouf BRE",
+    "Player_12": "Areola 2",
+    "Player_13": "Diouf 1",
     "Player_14": "L.Miley 4",
     "Player_7": "Semenyo 4",
     "Player_2": "Senesi 2",
@@ -105,10 +105,10 @@ var s = [
     "Player_15": "Tuanzebe 8"
   },
   {
-    "manager_Name": "439( 3,136,394 )",
+    "manager_Name": "441( 3,403,121 )",
     "Teams": "Team name( Sunit Patel )",
     "SXL": "ENG",
-    "Latp": "75",
+    "Latp": "77",
     "Player_1": "Raya 6",
     "Player_11": "Haaland 26",
     "Player_10": "Jo\u00E3o Pedro",
@@ -122,11 +122,11 @@ var s = [
     "Player_3": "Senesi 2",
     "Player_4": "Rodon 1",
     "Player_8": "Kudus 2",
-    "Player_9": "Bowen BRE",
+    "Player_9": "Bowen 2",
     "Player_15": "Andersen 1"
   },
   {
-    "manager_Name": "471( 1,442,306 )",
+    "manager_Name": "472( 1,678,796 )",
     "Teams": "\uFFFD( Magi Muco )",
     "SXL": "ALB",
     "Latp": "55",
@@ -147,7 +147,7 @@ var s = [
     "Player_15": "Rodon 1"
   },
   {
-    "manager_Name": "477( 1,168,869 )",
+    "manager_Name": "481( 1,249,411 )",
     "Teams": "MAGA( Eni Shtini )",
     "SXL": "ALB",
     "Latp": "71",
@@ -168,7 +168,7 @@ var s = [
     "Player_15": "Est\u00E8ve 8"
   },
   {
-    "manager_Name": "450( 2,515,958 )",
+    "manager_Name": "457( 2,474,193 )",
     "Teams": "Glasner all over!( Ben Bushby )",
     "SXL": "ENG",
     "Latp": "51",
@@ -189,10 +189,10 @@ var s = [
     "Player_15": "A.Ramsey 0"
   },
   {
-    "manager_Name": "466( 1,667,084 )",
+    "manager_Name": "469( 1,819,612 )",
     "Teams": "Supercampeones( Ronny Nelkenbaum )",
     "SXL": "FRA",
-    "Latp": "65",
+    "Latp": "66",
     "Player_1": "D\u00FAbravka 9",
     "Player_11": "Haaland 26",
     "Player_10": "Jo\u00E3o Pedro",
@@ -202,7 +202,7 @@ var s = [
     "Player_7": "Reijnders 1",
     "Player_2": "Pedro Porro",
     "Player_5": "Alderete 6",
-    "Player_6": "Diouf BRE",
+    "Player_6": "Diouf 1",
     "Player_3": "J.Timber 6",
     "Player_4": "Cucurella 8",
     "Player_8": "Kudus 2",
@@ -210,19 +210,19 @@ var s = [
     "Player_15": "A.Ramsey 0"
   },
   {
-    "manager_Name": "447( 2,652,063 )",
+    "manager_Name": "468( 1,847,754 )",
     "Teams": "Park The Bus( Lorin Minxhozi )",
     "SXL": "ENG",
-    "Latp": "74",
+    "Latp": "79",
     "Player_1": "Raya 6",
     "Player_11": "Gy\u00F6keres 2",
     "Player_10": "Mateta 17",
     "Player_12": "D\u00FAbravka 9",
     "Player_13": "Senesi 2",
     "Player_14": "Gudmundsson 1",
-    "Player_7": "Mbeumo 7",
+    "Player_7": "Mbeumo 9",
     "Player_2": "Pedro Porro",
-    "Player_5": "B.Fernandes 5",
+    "Player_5": "B.Fernandes 8",
     "Player_6": "Semenyo 4",
     "Player_3": "Virgil 3",
     "Player_4": "Burn 2",
@@ -231,10 +231,10 @@ var s = [
     "Player_15": "King 2"
   },
   {
-    "manager_Name": "374( 6,896,986 )",
+    "manager_Name": "379( 7,106,985 )",
     "Teams": "F95( Sibin - )",
     "SXL": "IND",
-    "Latp": "55",
+    "Latp": "63",
     "Player_1": "Raya 6",
     "Player_11": "Haaland 26",
     "Player_10": "Gy\u00F6keres 2",
@@ -244,15 +244,15 @@ var s = [
     "Player_7": "Reijnders 1",
     "Player_2": "Gabriel 12",
     "Player_5": "Gudmundsson 1",
-    "Player_6": "L.Paquet\u00E1 BRE",
+    "Player_6": "L.Paquet\u00E1 2",
     "Player_3": "Virgil 3",
     "Player_4": "Senesi 2",
     "Player_8": "M.Salah 2",
-    "Player_9": "Thiago WHU",
+    "Player_9": "Thiago 6",
     "Player_15": "Andersen 1"
   },
   {
-    "manager_Name": "483( 959,152 )",
+    "manager_Name": "485( 1,106,491 )",
     "Teams": "Zhampagne Football( Camilla Nurkhanov )",
     "SXL": "ENG",
     "Latp": "63",
@@ -273,7 +273,7 @@ var s = [
     "Player_15": "Konsa 2"
   },
   {
-    "manager_Name": "453( 2,329,168 )",
+    "manager_Name": "459( 2,340,943 )",
     "Teams": "Kokeqethurit( Daver Berberi )",
     "SXL": "ALB",
     "Latp": "58",
@@ -294,10 +294,10 @@ var s = [
     "Player_15": "Marc Guiu"
   },
   {
-    "manager_Name": "507( 313,117 )",
+    "manager_Name": "522( 185,672 )",
     "Teams": "robby_baggio( Marin Jano )",
     "SXL": "ALB",
-    "Latp": "93",
+    "Latp": "95",
     "Player_1": "Raya 6",
     "Player_11": "Haaland 26",
     "Player_10": "Jo\u00E3o Pedro",
@@ -310,12 +310,12 @@ var s = [
     "Player_6": "Kudus 2",
     "Player_3": "Virgil 3",
     "Player_4": "Pedro Porro",
-    "Player_8": "Mbeumo 7",
+    "Player_8": "Mbeumo 9",
     "Player_9": "Semenyo 4",
     "Player_15": "Est\u00E8ve 8"
   },
   {
-    "manager_Name": "402( 5,311,248 )",
+    "manager_Name": "405( 5,587,645 )",
     "Teams": "Wiggler FC( Andrew Carr )",
     "SXL": "ENG",
     "Latp": "62",
@@ -336,7 +336,7 @@ var s = [
     "Player_15": "Dewsbury-Hall 2"
   },
   {
-    "manager_Name": "397( 5,626,673 )",
+    "manager_Name": "401( 5,853,313 )",
     "Teams": "FantaRog( Roger Shehu )",
     "SXL": "NLD",
     "Latp": "78",
@@ -357,10 +357,10 @@ var s = [
     "Player_15": "Est\u00E8ve 8"
   },
   {
-    "manager_Name": "311( 9,713,199 )",
+    "manager_Name": "328( 9,480,518 )",
     "Teams": "mayuluuu 5-0( Enio Minxhozi )",
     "SXL": "ALB",
-    "Latp": "57",
+    "Latp": "63",
     "Player_1": "Vicario 1",
     "Player_11": "Haaland 13",
     "Player_10": "Woltemade 8",
@@ -370,7 +370,7 @@ var s = [
     "Player_7": "Semenyo 4",
     "Player_2": "R\u00FAben 6",
     "Player_5": "Eze 3",
-    "Player_6": "B.Fernandes 10",
+    "Player_6": "B.Fernandes 16",
     "Player_3": "Cucurella 8",
     "Player_4": "Trippier 1",
     "Player_8": "Elanga 1",
@@ -378,23 +378,23 @@ var s = [
     "Player_15": "Young 0"
   },
   {
-    "manager_Name": "288( 10,339,723 )",
+    "manager_Name": "305( 10,166,711 )",
     "Teams": "Albi alexander( Bardhyl Minxhozi )",
     "SXL": "ALB",
-    "Latp": "32",
+    "Latp": "36",
     "Player_1": "Raya 6",
     "Player_11": "Jo\u00E3o Pedro",
     "Player_10": "Broja 0",
     "Player_12": "A.Becker 0",
     "Player_13": "Konsa 2",
     "Player_14": "Hoever 1",
-    "Player_7": "L.Paquet\u00E1 BRE",
+    "Player_7": "L.Paquet\u00E1 2",
     "Player_2": "Gvardiol 0",
     "Player_5": "Elanga 1",
     "Player_6": "M.Salah 4",
     "Player_3": "Cucurella 8",
     "Player_4": "Virgil 3",
-    "Player_8": "Mbeumo 7",
+    "Player_8": "Mbeumo 9",
     "Player_9": "Johnson 1",
     "Player_15": "Muniz 0"
   }
