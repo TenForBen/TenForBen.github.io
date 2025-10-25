@@ -1,6 +1,6 @@
 var s = [
   {
-    "manager_Name": "461( 2,230,381 )",
+    "manager_Name": "461( 2,343,453 )",
     "Teams": "WMB( Raj Kanango )",
     "SXL": "IND",
     "Latp": "64",
@@ -21,7 +21,7 @@ var s = [
     "Player_15": "Barnes 1"
   },
   {
-    "manager_Name": "459( 2,352,328 )",
+    "manager_Name": "459( 2,468,276 )",
     "Teams": "yoo( Nishant Singh )",
     "SXL": "IND",
     "Latp": "63",
@@ -42,10 +42,10 @@ var s = [
     "Player_15": "N.Williams 1"
   },
   {
-    "manager_Name": "379( 7,106,985 )",
+    "manager_Name": "389( 6,733,168 )",
     "Teams": "F95( Sibin - )",
     "SXL": "IND",
-    "Latp": "63",
+    "Latp": "65",
     "Player_1": "Raya 6",
     "Player_11": "Haaland 26",
     "Player_10": "Gy\u00F6keres 2",
@@ -59,14 +59,14 @@ var s = [
     "Player_3": "Virgil 3",
     "Player_4": "Senesi 2",
     "Player_8": "M.Salah 2",
-    "Player_9": "Thiago 6",
+    "Player_9": "Thiago 8",
     "Player_15": "Andersen 1"
   },
   {
-    "manager_Name": "351( 8,542,569 )",
+    "manager_Name": "360( 8,312,622 )",
     "Teams": "DUFC( Nitesh Kumar Singh )",
     "SXL": "IND",
-    "Latp": "49",
+    "Latp": "50",
     "Player_1": "Pickford 2",
     "Player_11": "Jo\u00E3o Pedro",
     "Player_10": "Welbeck 13",
@@ -75,7 +75,7 @@ var s = [
     "Player_14": "J.Murphy 1",
     "Player_7": "Mbeumo 9",
     "Player_2": "Gu\u00E9hi 4",
-    "Player_5": "Collins 8",
+    "Player_5": "Collins 9",
     "Player_6": "M.Salah 4",
     "Player_3": "Milenkovi\u0107 1",
     "Player_4": "Mitchell 1",
