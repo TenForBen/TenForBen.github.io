@@ -492,6 +492,19 @@ function noMoreSameName_airline()
     updateDateColumn();
     // Call the function to update the row 1.
     updateThWithTime();
+    airlineTable();
+}
+
+function airlineTable() {
+   if (s)
+   {
+               for (var i = 0; i < s.length; i++)
+                {
+                   if(i%2)
+                       document.getElementsByTagName("tr")[i].bgColor="silver"
+                }
+                document.getElementsByTagName("tr")[0].bgColor="Lime"
+  }
 }
 function updateThWithTime() {
     // Find all script elements
