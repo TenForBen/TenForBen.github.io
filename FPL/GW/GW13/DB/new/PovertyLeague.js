@@ -1,9 +1,9 @@
 var s = [
   {
-    "manager_Name": "671( 1,860,900 )",
+    "manager_Name": "697( 1,488,943 )",
     "Teams": "yoo( Nishant Singh )",
     "SXL": "IND",
-    "Latp": "26",
+    "Latp": "29",
     "Player_1": "Donnarumma 5",
     "Player_11": "Haaland 4",
     "Player_10": "Watkins WOL",
@@ -17,19 +17,19 @@ var s = [
     "Player_3": "J.Timber CHE",
     "Player_4": "O\u2019Reilly 4",
     "Player_8": "Schade 3",
-    "Player_9": "Thiago 10",
+    "Player_9": "Thiago 13",
     "Player_15": "Dowman CHE"
   },
   {
-    "manager_Name": "653( 2,710,817 )",
+    "manager_Name": "678( 2,286,809 )",
     "Teams": "WMB( Raj Kanango )",
     "SXL": "IND",
-    "Latp": "25",
+    "Latp": "28",
     "Player_1": "Donnarumma 5",
     "Player_11": "Haaland 4",
-    "Player_10": "Thiago 10",
+    "Player_10": "Thiago 13",
     "Player_12": "D\u00FAbravka 1",
-    "Player_13": "Reijnders 2",
+    "Player_13": "Reijnders 3",
     "Player_14": "Gudmundsson 1",
     "Player_7": "Cullen 2",
     "Player_2": "J.Timber CHE",
@@ -42,13 +42,13 @@ var s = [
     "Player_15": "Barnes 0"
   },
   {
-    "manager_Name": "604( 5,367,044 )",
+    "manager_Name": "625( 4,989,389 )",
     "Teams": "F95( Sibin - )",
     "SXL": "IND",
-    "Latp": "21",
+    "Latp": "24",
     "Player_1": "Raya CHE",
     "Player_11": "Haaland 4",
-    "Player_10": "Thiago 10",
+    "Player_10": "Thiago 13",
     "Player_12": "D\u00FAbravka 1",
     "Player_13": "Jo\u00E3o Pedro",
     "Player_14": "Gudmundsson 1",
@@ -60,10 +60,10 @@ var s = [
     "Player_4": "Senesi 2",
     "Player_8": "Rice CHE",
     "Player_9": "L.Paquet\u00E1 LIV",
-    "Player_15": "L.Miley 4"
+    "Player_15": "L.Miley 15"
   },
   {
-    "manager_Name": "590( 6,101,798 )",
+    "manager_Name": "601( 6,207,017 )",
     "Teams": "DUFC( Nitesh Kumar Singh )",
     "SXL": "IND",
     "Latp": "11",
