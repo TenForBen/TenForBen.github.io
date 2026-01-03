@@ -1,6 +1,6 @@
 var s = [
   {
-    "manager_Name": "1,053( 1,458,053 )",
+    "manager_Name": "1,065( 1,751,584 )",
     "Teams": "yoo( Nishant Singh )",
     "SXL": "IND",
     "Latp": "32",
@@ -21,7 +21,7 @@ var s = [
     "Player_15": "Marc Guiu"
   },
   {
-    "manager_Name": "1,021( 2,487,520 )",
+    "manager_Name": "1,041( 2,568,269 )",
     "Teams": "WMB( Raj Kanango )",
     "SXL": "IND",
     "Latp": "47",
@@ -42,7 +42,7 @@ var s = [
     "Player_15": "Van den"
   },
   {
-    "manager_Name": "980( 4,045,915 )",
+    "manager_Name": "995( 4,346,560 )",
     "Teams": "F95( Sibin - )",
     "SXL": "IND",
     "Latp": "43",
@@ -63,7 +63,7 @@ var s = [
     "Player_15": "L.Miley 2"
   },
   {
-    "manager_Name": "920( 6,295,306 )",
+    "manager_Name": "944( 6,256,522 )",
     "Teams": "DUFC( Nitesh Kumar Singh )",
     "SXL": "IND",
     "Latp": "32",
