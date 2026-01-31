@@ -1,9 +1,9 @@
 var s = [
   {
-    "manager_Name": "1,257( 1,386,889 )",
+    "manager_Name": "26( \u00A3102.7m )",
     "Teams": "yoo( Nishant Singh )",
     "SXL": "IND",
-    "Latp": "40",
+    "Latp": "44",
     "Player_1": "Donnarumma 8",
     "Player_11": "Haaland 1",
     "Player_10": "Thiago 4",
@@ -15,13 +15,13 @@ var s = [
     "Player_5": "Mukiele 4",
     "Player_6": "Rogers 8",
     "Player_3": "Gabriel 1",
-    "Player_4": "Tarkowski LEE",
+    "Player_4": "Tarkowski 4",
     "Player_8": "Cherki 3",
     "Player_9": "Watkins 8",
     "Player_15": "Devenny 0"
   },
   {
-    "manager_Name": "1,250( 1,585,269 )",
+    "manager_Name": "28( \u00A3100.2m )",
     "Teams": "WMB( Raj Kanango )",
     "SXL": "IND",
     "Latp": "68",
@@ -42,7 +42,7 @@ var s = [
     "Player_15": "Cullen 0"
   },
   {
-    "manager_Name": "1,153( 4,937,086 )",
+    "manager_Name": "27( \u00A3102.0m )",
     "Teams": "F95( Sibin - )",
     "SXL": "IND",
     "Latp": "20",
@@ -60,27 +60,27 @@ var s = [
     "Player_4": "Chalobah 4",
     "Player_8": "Rice 1",
     "Player_9": "Ekitik\u00E9 1",
-    "Player_15": "Stach EVE"
+    "Player_15": "Stach 8"
   },
   {
-    "manager_Name": "1,113( 6,298,462 )",
+    "manager_Name": "26( \u00A398.1m )",
     "Teams": "DUFC( Nitesh Kumar Singh )",
     "SXL": "IND",
-    "Latp": "22",
-    "Player_1": "Pickford LEE",
-    "Player_11": "Richarlison 0",
-    "Player_10": "Woltemade 1",
+    "Latp": "36",
+    "Player_1": "Pickford 3",
+    "Player_11": "Woltemade 1",
+    "Player_10": "Haaland 2",
     "Player_12": "D\u00FAbravka 5",
-    "Player_13": "Mitchell 1",
+    "Player_13": "Bruno G.",
     "Player_14": "Tavernier 0",
-    "Player_7": "Bruno G.",
+    "Player_7": "Garner 2",
     "Player_2": "Gu\u00E9hi 6",
-    "Player_5": "Foden 1",
-    "Player_6": "Rogers 8",
-    "Player_3": "Chalobah 4",
-    "Player_4": "Tarkowski LEE",
-    "Player_8": "Garner LEE",
-    "Player_9": "Haaland 2",
-    "Player_15": "Mukiele 4"
+    "Player_5": "Mitchell 1",
+    "Player_6": "Mukiele 4",
+    "Player_3": "Tarkowski 4",
+    "Player_4": "Chalobah 4",
+    "Player_8": "Foden 1",
+    "Player_9": "Rogers 8",
+    "Player_15": "Richarlison 0"
   }
 ];
