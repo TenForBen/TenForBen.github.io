@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Convert ordinary numbers (1–3999) into Roman numerals." />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/minty/bootstrap.min.css"
+    />
+    <title>Roman Numeral Converter</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-primary mb-3">
+      <div class="container">
+        <a href="index.html" class="navbar-brand">Weather.JS</a>
+      </div>
+    </nav>
+
+    <div class="container searchContainer">
+      <div class="search card card-body">
+        <h1>Roman Numeral Converter</h1>
+        <p class="lead">Enter a whole number between 1 and 3999</p>
+        <input
+          type="number"
+          id="numberInput"
+          class="form-control"
+          placeholder="e.g. 2026"
+          min="1"
+          max="3999"
+        />
+      </div>
+
+      <br />
+      <div id="result"></div>
+    </div>
+
+    <div class="container text-center mt-2">
+      <button class="btn btn-primary" id="convertBtn">Convert</button>
+      <a class="btn btn-danger" href="index.html">Weather</a>
+      <a class="btn btn-primary" href="home.html">Home</a>
+    </div>
+
+    <footer class="mt-5 p-3 text-center bg-light">Weather.js &copy;</footer>
+
+    <!-- Logic lives in an external file, exactly like fetch.js / ui.js / app.js -->
+    <script src="roman.js"></script>
+  </body>
+</html>
