@@ -505,29 +505,32 @@ function airlineTable() {
                 }
                 document.getElementsByTagName("tr")[0].bgColor="Lime"
   }
-}
-function updateThWithTime() {
-    // Find all script elements
-    const scripts = document.querySelectorAll('script[src]');
+}function updateThWithTime() {
+     // Find all script elements
+     const scripts = document.querySelectorAll('script[src]');
 
-    // Look for a script with "_" in its src
-    const targetScript = Array.from(scripts).find(script => script.src.includes('_'));
+     // Look for a script with "_" in its src
+     const targetScript = Array.from(scripts).find(script => script.src.includes('_'));
 
-    // If found, set the title of the page and update the <th> element
-    if (targetScript) {
-        const srcValue = targetScript.src.split('/').pop(); // Extract the file name
-        document.title = srcValue;
+     // If found, set the title of the page and update the <th> element
+     if (targetScript) {
+         const srcValue = targetScript.src.split('/').pop(); // Extract the file name, e.g. "CRL_Dec_1783209487.js"
+         const parts = srcValue.split('_'); // ["CRL", "Dec", "1783209487.js"]
+         const airportCode = parts[0]; // "CRL"
 
-        const thElement = document.querySelector('th');
-        if (thElement) {
-            const derivedValue = srcValue.split('_').pop().split('.')[0]; // Extract the last part before ".js"
-            const unixTime = parseInt(derivedValue, 10); // Convert the derived value to an integer
-            const date = new Date(unixTime * 1000); // Convert Unix time to milliseconds
-            const dateTime = date.toLocaleString(); // Convert to local time zone string
-            thElement.textContent = `Day @ ${dateTime}`;
-        }
-    }
-}
+         const thElement = document.querySelector('th');
+         if (thElement) {
+             const derivedValue = srcValue.split('_').pop().split('.')[0]; // Extract the last part before ".js"
+             const unixTime = parseInt(derivedValue, 10); // Convert the derived value to an integer
+             const date = new Date(unixTime * 1000); // Convert Unix time to milliseconds
+             const dateTime = date.toLocaleString(); // Convert to local time zone string
+             const dateOnly = date.toLocaleDateString('en-GB'); // e.g. "04/07/2026"
+
+             thElement.textContent = `Day @ ${dateTime}`;
+             document.title = `${airportCode}-${dateOnly}`; // e.g. "CRL-04/07/2026"
+         }
+     }
+ }
 
 function LeagueJson()
 {
