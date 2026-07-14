@@ -31,13 +31,14 @@ class UI {
     const longitude = convertToDegreesMinutes(data.coord.lon, false);
 
     const temp = Math.round(data.main.temp);
+    const tempF = toFahrenheit(data.main.temp); // shown beside the °C hero number
 
     this.uiContainer.innerHTML = `
       <div class="card mx-auto mt-5" style="width: 20rem;">
         <div class="card-body justify-content-center">
           <h5 class="card-title"><b id="placeName">${data.name}</b> , <u id="landen">${data.sys.country}</u></h5>
           <p id="xPat">${latitude}, ${longitude}</p>
-          <h6 class="card-subtitle mb-2 text-muted">current Temperature <p id="cuwt">${temp}&deg;C</p> and feels like ${Math.round(data.main.feels_like)}&deg;C</h6>
+          <h6 class="card-subtitle mb-2 text-muted">current Temperature <p id="cuwt">${temp}&deg;C <span style="font-size: 40%;">/ ${tempF}&deg;F</span></p> and feels like ${Math.round(data.main.feels_like)}&deg;C</h6>
           <h6 class="card-subtitle mb-2 text-muted">Highs of ${Math.round(data.main.temp_max)}&deg;C. Lows of ${Math.round(data.main.temp_min)}&deg;C</h6>
           <p class="card-text">Weather conditions are described as: ${data.weather[0].description}</p>
           <p class="card-text">Sunrise (local time): ${sunrise}</p>
@@ -112,6 +113,12 @@ function formatLocalTime(unixSeconds, tzOffsetSeconds) {
 }
 
 const SECONDS_PER_DAY = 86400;
+
+// Celsius -> Fahrenheit, rounded. The API is queried with units=metric,
+// so data.main.temp is already Celsius.
+function toFahrenheit(celsius) {
+  return Math.round(celsius * 9 / 5 + 32);
+}
 
 // Works out whether this location currently has an ordinary sunrise/sunset,
 // or is in midnight sun / polar night.
