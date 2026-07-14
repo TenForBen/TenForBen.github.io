@@ -30,17 +30,26 @@ class UI {
     const latitude = convertToDegreesMinutes(data.coord.lat, true);
     const longitude = convertToDegreesMinutes(data.coord.lon, false);
 
+    // Google Maps wants raw decimals; the DMS strings above are display-only.
+    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${data.coord.lat},${data.coord.lon}`;
+
     const temp = Math.round(data.main.temp);
     const tempF = toFahrenheit(data.main.temp); // shown beside the °C hero number
+
+    // Wall-clock time AT the searched location, for the moment of this reading.
+    // data.dt is the observation's UTC timestamp; formatLocalTime applies the
+    // city's own timezone offset.
+    const localTime = data.dt ? formatLocalTime(data.dt, tz) : "\u2014";
 
     this.uiContainer.innerHTML = `
       <div class="card mx-auto mt-5" style="width: 20rem;">
         <div class="card-body justify-content-center">
           <h5 class="card-title"><b id="placeName">${data.name}</b> , <u id="landen">${data.sys.country}</u></h5>
-          <p id="xPat">${latitude}, ${longitude}</p>
+          <p id="xPat"><a href="${mapsUrl}" target="_blank" rel="noopener" title="Open in Google Maps">${latitude}, ${longitude}</a></p>
           <h6 class="card-subtitle mb-2 text-muted">current Temperature <p id="cuwt">${temp}&deg;C <span style="font-size: 40%;">/ ${tempF}&deg;F</span></p> and feels like ${Math.round(data.main.feels_like)}&deg;C</h6>
           <h6 class="card-subtitle mb-2 text-muted">Highs of ${Math.round(data.main.temp_max)}&deg;C. Lows of ${Math.round(data.main.temp_min)}&deg;C</h6>
           <p class="card-text">Weather conditions are described as: ${data.weather[0].description}</p>
+          <p class="card-text">Local time: ${localTime}</p>
           <p class="card-text">Sunrise (local time): ${sunrise}</p>
           <p class="card-text">Sunset (local time): ${sunset}</p>
           <p class="card-text" id="art">${daylight.kind === "normal" ? `daylength is ${dayLength}` : dayLength}</p>
