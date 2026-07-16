@@ -3,9 +3,14 @@ class UI {
     this.uiContainer = document.getElementById("content");
     this.city;
     this.defaultCity = "London";
+    this.clockTimer = null; // handle for the live local-time interval
   }
 
   populateUI(data) {
+    // Any previous card's live clock must be torn down before we render a new
+    // one, or intervals silently stack up (a memory leak + duplicate ticks).
+    this.stopClock();
+
     // Defence in depth: never try to render a failed or empty response.
     // app.js already guards against this, but this keeps populateUI safe
     // no matter who calls it.
@@ -36,10 +41,10 @@ class UI {
     const temp = Math.round(data.main.temp);
     const tempF = toFahrenheit(data.main.temp); // shown beside the °C hero number
 
-    // Wall-clock time AT the searched location, for the moment of this reading.
-    // data.dt is the observation's UTC timestamp; formatLocalTime applies the
-    // city's own timezone offset.
-    const localTime = data.dt ? formatLocalTime(data.dt, tz) : "\u2014";
+    // data.dt is the observation's UTC timestamp — i.e. when the reading was
+    // taken, which can lag a few minutes behind real time. It is NOT "now".
+    // The true current local time is derived live below from the browser clock.
+    const readingTime = data.dt ? formatLocalTime(data.dt, tz) : "\u2014";
 
     this.uiContainer.innerHTML = `
       <div class="card mx-auto mt-5" style="width: 20rem;">
@@ -49,7 +54,8 @@ class UI {
           <h6 class="card-subtitle mb-2 text-muted">current Temperature <p id="cuwt">${temp}&deg;C <span style="font-size: 40%;">/ ${tempF}&deg;F</span></p> and feels like ${Math.round(data.main.feels_like)}&deg;C</h6>
           <h6 class="card-subtitle mb-2 text-muted">Highs of ${Math.round(data.main.temp_max)}&deg;C. Lows of ${Math.round(data.main.temp_min)}&deg;C</h6>
           <p class="card-text">Weather conditions are described as: ${data.weather[0].description}</p>
-          <p class="card-text">Local time: ${localTime}</p>
+          <p class="card-text">Local time: <span id="liveClock">${nowAtLocation(tz)}</span></p>
+          <p class="card-text text-muted" style="font-size: 85%;">reading taken at ${readingTime}</p>
           <p class="card-text">Sunrise (local time): ${sunrise}</p>
           <p class="card-text">Sunset (local time): ${sunset}</p>
           <p class="card-text" id="art">${daylight.kind === "normal" ? `daylength is ${dayLength}` : dayLength}</p>
@@ -67,13 +73,42 @@ class UI {
     // temperature-driven colour — exactly one band applies now
     applyTempStyling(temp);
 
+    // begin ticking the true current local time for this city
+    this.startClock(tz);
+
     // clear the search box, ready for the next lookup
     const searchBox = document.getElementById("searchUser");
     if (searchBox) searchBox.value = "";
   }
 
+  // Ticks #liveClock every second with the *real* current time at the city,
+  // derived from the browser clock + the city's UTC offset (not from data.dt).
+  startClock(tzOffsetSeconds) {
+    this.stopClock(); // never allow two timers at once
+
+    const tick = () => {
+      const el = document.getElementById("liveClock");
+      if (!el) {
+        this.stopClock(); // card was replaced — stop ticking into thin air
+        return;
+      }
+      el.textContent = nowAtLocation(tzOffsetSeconds);
+    };
+
+    tick(); // paint immediately so there's no 1-second blank
+    this.clockTimer = setInterval(tick, 1000);
+  }
+
+  stopClock() {
+    if (this.clockTimer) {
+      clearInterval(this.clockTimer);
+      this.clockTimer = null;
+    }
+  }
+
   // Renders an error into the same spot the weather card normally occupies.
   showError(message) {
+    this.stopClock(); // an error replaces the card, so kill any running clock
     this.uiContainer.innerHTML = `
       <div class="alert alert-danger text-center mx-auto mt-4" style="max-width: 20rem;">
         ${message}
@@ -81,6 +116,7 @@ class UI {
   }
 
   clearUI() {
+    this.stopClock();
     this.uiContainer.innerHTML = ""; // was `uiContainer` (undefined) before
   }
 
@@ -108,6 +144,15 @@ class UI {
 }
 
 // ---- Helpers (kept outside the class so they're easy to reuse and test) ----
+
+// The TRUE current wall-clock time at a location, derived from the browser's
+// live UTC clock plus the city's offset. Unlike formatLocalTime(data.dt, ...),
+// this is "now", not the (possibly stale) moment the reading was taken.
+function nowAtLocation(tzOffsetSeconds) {
+  const d = new Date(Date.now() + tzOffsetSeconds * 1000);
+  const p = (n) => String(n).padStart(2, "0");
+  return `${p(d.getUTCHours())}:${p(d.getUTCMinutes())}:${p(d.getUTCSeconds())}`;
+}
 
 // Wall-clock time at the searched location.
 // OpenWeather returns sunrise/sunset as UTC epoch seconds and a `timezone`
