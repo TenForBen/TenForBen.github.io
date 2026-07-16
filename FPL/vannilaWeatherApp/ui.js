@@ -19,6 +19,17 @@ class UI {
       return;
     }
 
+    // What did the user search? The API never echoes it back (for a
+    // zip/postcode lookup it only names the resolved city), so we grab it
+    // ourselves. This function already owns the search box — it clears it
+    // below — so we read straight from the DOM; no need for app.js to pass it.
+    // A fresh search has text in the box; a page-reload restore does not, so
+    // fall back to the last query we stashed, and persist fresh ones.
+    const searchBox = document.getElementById("searchUser");
+    const typed = searchBox ? searchBox.value.trim() : "";
+    const query = typed || localStorage.getItem("cityQuery") || "";
+    if (typed) localStorage.setItem("cityQuery", typed);
+
     const tz = data.timezone || 0; // offset in seconds from UTC for THIS city
 
     // Above the Arctic / below the Antarctic Circle the sun may not rise or
@@ -50,6 +61,7 @@ class UI {
       <div class="card mx-auto mt-5" style="width: 20rem;">
         <div class="card-body justify-content-center">
           <h5 class="card-title"><b id="placeName">${data.name}</b> , <u id="landen">${data.sys.country}</u></h5>
+          ${query ? `<p class="card-text text-muted" style="font-size: 90%;">Searched: <b>${escapeHtml(query)}</b></p>` : ""}
           <p id="xPat"><a href="${mapsUrl}" target="_blank" rel="noopener" title="Open in Google Maps">${latitude}, ${longitude}</a></p>
           <h6 class="card-subtitle mb-2 text-muted">current Temperature <p id="cuwt">${temp}&deg;C <span style="font-size: 40%;">/ ${tempF}&deg;F</span></p> and feels like ${Math.round(data.main.feels_like)}&deg;C</h6>
           <h6 class="card-subtitle mb-2 text-muted">Highs of ${Math.round(data.main.temp_max)}&deg;C. Lows of ${Math.round(data.main.temp_min)}&deg;C</h6>
@@ -77,7 +89,6 @@ class UI {
     this.startClock(tz);
 
     // clear the search box, ready for the next lookup
-    const searchBox = document.getElementById("searchUser");
     if (searchBox) searchBox.value = "";
   }
 
@@ -144,6 +155,19 @@ class UI {
 }
 
 // ---- Helpers (kept outside the class so they're easy to reuse and test) ----
+
+// Escapes user-supplied text before it goes into innerHTML, so a query like
+// `<img onerror=…>` renders as literal characters instead of live markup.
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, (ch) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  })[ch]);
+}
+
 
 // The TRUE current wall-clock time at a location, derived from the browser's
 // live UTC clock plus the city's offset. Unlike formatLocalTime(data.dt, ...),
