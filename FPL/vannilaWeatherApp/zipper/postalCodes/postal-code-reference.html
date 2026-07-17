@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Postal Code Format Reference</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #2c3e50;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            border-bottom: 4px solid #764ba2;
+        }
+
+        header h1 {
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            font-size: 1em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            padding: 25px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e3e8;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+            min-width: 250px;
+            align-items: center;
+        }
+
+        input[type="text"],
+        select {
+            padding: 10px 15px;
+            border: 1px solid #d0d4dc;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        select {
+            cursor: pointer;
+            min-width: 150px;
+        }
+
+        .control-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #5a6c7d;
+            white-space: nowrap;
+        }
+
+        .stats {
+            font-size: 13px;
+            color: #5a6c7d;
+            padding: 10px 15px;
+            background: #f0f2f7;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .stats strong {
+            color: #667eea;
+            font-weight: 700;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        thead {
+            background: #f8f9fa;
+            border-bottom: 2px solid #e0e3e8;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 700;
+            color: #2c3e50;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s ease;
+            white-space: nowrap;
+        }
+
+        th:hover {
+            background: #eff1f7;
+        }
+
+        th.sortable::after {
+            content: " ⇅";
+            opacity: 0.4;
+            margin-left: 6px;
+        }
+
+        th.sorted-asc::after {
+            content: " ↑";
+            opacity: 1;
+            color: #667eea;
+        }
+
+        th.sorted-desc::after {
+            content: " ↓";
+            opacity: 1;
+            color: #667eea;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #e8ecf1;
+            transition: background 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: #f8f9fb;
+        }
+
+        tbody tr.highlight {
+            background: #fef9e7;
+        }
+
+        td {
+            padding: 14px 16px;
+            vertical-align: middle;
+        }
+
+        td:first-child {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .format-code {
+            font-family: "Monaco", "Courier New", monospace;
+            background: #f0f2f7;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #764ba2;
+            font-weight: 500;
+        }
+
+        .sample-code {
+            font-family: "Monaco", "Courier New", monospace;
+            background: #e8f5e9;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #2e7d32;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            user-select: all;
+            transition: all 0.2s ease;
+            border: 1px solid #c8e6c9;
+        }
+
+        .sample-code:hover {
+            background: #c8e6c9;
+            box-shadow: 0 2px 8px rgba(46, 125, 50, 0.2);
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            opacity: 0.6;
+            transition: opacity 0.2s ease;
+            padding: 0;
+            display: inline;
+        }
+
+        .copy-btn:hover {
+            opacity: 1;
+        }
+
+        .caveat-text {
+            font-size: 13px;
+            color: #d32f2f;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .no-caveat {
+            color: #90a4ae;
+            font-style: italic;
+        }
+
+        .na-value {
+            color: #ef5350;
+            font-weight: 600;
+        }
+
+        footer {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e3e8;
+            text-align: center;
+            font-size: 12px;
+            color: #5a6c7d;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 30px;
+            color: #90a4ae;
+        }
+
+        .no-results-icon {
+            font-size: 48px;
+            opacity: 0.3;
+            margin-bottom: 15px;
+        }
+
+        .no-results p {
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.6em;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .control-group {
+                flex-direction: column;
+            }
+
+            input[type="text"],
+            select {
+                width: 100%;
+            }
+
+            th {
+                padding: 12px;
+                font-size: 13px;
+            }
+
+            td {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+
+            .format-code,
+            .sample-code {
+                font-size: 12px;
+            }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #90a4ae;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌍 Global Postal Code Formats</h1>
+            <p>Weather app ready! Click any sample to copy in format: <code style="background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 3px;">sample,COUNTRYCODE</code></p>
+        </header>
+
+        <div class="controls">
+            <div class="control-group">
+                <span class="control-label">🔍 Search</span>
+                <input type="text" id="searchInput" placeholder="Search by country name..." autocomplete="off">
+            </div>
+            <div class="control-group">
+                <span class="control-label">Filter</span>
+                <select id="filterSelect">
+                    <option value="">All Countries</option>
+                    <option value="has-caveat">Has Caveats</option>
+                    <option value="no-code">No Formal Postal Code</option>
+                    <option value="simple">Simple (≤5 digits)</option>
+                    <option value="complex">Complex Format</option>
+                </select>
+            </div>
+            <div class="stats">
+                Showing <strong id="visibleCount">0</strong> of <strong id="totalCount">0</strong>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <table id="postalTable">
+                <thead>
+                    <tr>
+                        <th class="sortable" data-column="country">Country Name</th>
+                        <th class="sortable" data-column="format">Zip Code Format</th>
+                        <th class="sortable" data-column="sample">Sample Zip Code</th>
+                        <th data-column="caveat">Caveat</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <tr class="loading">
+                        <td colspan="4">Loading data...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="noResults" class="no-results" style="display: none;">
+            <div class="no-results-icon">✋</div>
+            <p>No countries match your search criteria.</p>
+        </div>
+
+        <footer>
+            <p>📝 Data source: Global postal code systems | Last updated: July 2026 | Maintain this reference by editing the accompanying <code>postalCodeData.js</code> file</p>
+        </footer>
+    </div>
+
+    <script>
+        // Embed the data directly or load from external file
+        // For this version, the data is embedded. You can modify to load postalCodeData.js instead
+        
+        const postalCodeDatabase = [
+  { country: "Afghanistan", code: "AF", format: "4 digits", sample: "1001", caveat: "" },
+  { country: "Albania", code: "AL", format: "4 digits", sample: "1001", caveat: "" },
+  { country: "Algeria", code: "DZ", format: "5 digits", sample: "16000", caveat: "" },
+  { country: "Andorra", code: "AD", format: "AD + 3 digits + 3 digits", sample: "AD500", caveat: "" },
+  { country: "Argentina", code: "AR", format: "4 digits + optional letter", sample: "1636", caveat: "Capital city (C) can be appended" },
+  { country: "Australia", code: "AU", format: "4 digits", sample: "2000", caveat: "" },
+  { country: "Austria", code: "AT", format: "4 digits", sample: "1010", caveat: "" },
+  { country: "Azerbaijan", code: "AZ", format: "4 digits (+ optional letter code)", sample: "1000", caveat: "" },
+  { country: "Bahamas", code: "BS", format: "No formal postal code system", sample: "N/A", caveat: "Uses street addresses and district names" },
+  { country: "Bahrain", code: "BH", format: "3 or 4 digits + 3 digits", sample: "428", caveat: "" },
+  { country: "Bangladesh", code: "BD", format: "4 digits", sample: "1100", caveat: "" },
+  { country: "Barbados", code: "BB", format: "No formal postal code system", sample: "N/A", caveat: "Uses parish and place names" },
+  { country: "Belarus", code: "BY", format: "6 digits", sample: "220000", caveat: "" },
+  { country: "Belgium", code: "BE", format: "4 digits", sample: "1000", caveat: "" },
+  { country: "Belize", code: "BZ", format: "No formal postal code system", sample: "N/A", caveat: "Uses place names and P.O. boxes" },
+  { country: "Benin", code: "BJ", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Bhutan", code: "BT", format: "5 digits", sample: "11001", caveat: "" },
+  { country: "Bolivia", code: "BO", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Bosnia and Herzegovina", code: "BA", format: "5 digits", sample: "71000", caveat: "" },
+  { country: "Botswana", code: "BW", format: "3 letters + 4 digits", sample: "CRD0001", caveat: "" },
+  { country: "Brazil", code: "BR", format: "5 digits + hyphen + 3 digits", sample: "20040020", caveat: "Format: XXXXX-XXX" },
+  { country: "Brunei", code: "BN", format: "4 digits", sample: "2112", caveat: "" },
+  { country: "Bulgaria", code: "BG", format: "4 digits", sample: "1000", caveat: "" },
+  { country: "Burkina Faso", code: "BF", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Burundi", code: "BI", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Cambodia", code: "KH", format: "No formal postal code system", sample: "N/A", caveat: "Uses district/commune names" },
+  { country: "Canada", code: "CA", format: "Letter-Digit-Letter Digit-Letter-Digit", sample: "K1A0B1", caveat: "Format: ANA NAN (space in middle). Varies by province" },
+  { country: "Cape Verde", code: "CV", format: "4 digits", sample: "1001", caveat: "" },
+  { country: "Central African Republic", code: "CF", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Chad", code: "TD", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Chile", code: "CL", format: "8 digits (7 digits + region)", sample: "8320198", caveat: "Region codes vary by area" },
+  { country: "China", code: "CN", format: "6 digits", sample: "100000", caveat: "Each province/municipality has designated ranges" },
+  { country: "Colombia", code: "CO", format: "6 digits", sample: "050001", caveat: "" },
+  { country: "Comoros", code: "KM", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Congo", code: "CG", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Costa Rica", code: "CR", format: "5 digits or 5+4 digit format", sample: "10101", caveat: "Newer format: XXXXX-XXXX for greater specificity" },
+  { country: "Croatia", code: "HR", format: "5 digits", sample: "10000", caveat: "" },
+  { country: "Cuba", code: "CU", format: "5 digits", sample: "10100", caveat: "" },
+  { country: "Cyprus", code: "CY", format: "4 digits", sample: "1001", caveat: "" },
+  { country: "Czech Republic", code: "CZ", format: "3 digits + space + 2 digits", sample: "11000", caveat: "Format: XXX XX" },
+  { country: "Denmark", code: "DK", format: "4 digits", sample: "1000", caveat: "" },
+  { country: "Djibouti", code: "DJ", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Dominica", code: "DM", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Dominican Republic", code: "DO", format: "5 digits", sample: "10101", caveat: "" },
+  { country: "Ecuador", code: "EC", format: "6 digits or EC + 6 digits", sample: "170101", caveat: "Province-District-Sector-Consecutive" },
+  { country: "Egypt", code: "EG", format: "5 digits", sample: "11111", caveat: "" },
+  { country: "El Salvador", code: "SV", format: "CP + 4 digits + hyphen + 4 digits", sample: "1101", caveat: "" },
+  { country: "Equatorial Guinea", code: "GQ", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Eritrea", code: "ER", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Estonia", code: "EE", format: "5 digits", sample: "10001", caveat: "" },
+  { country: "Eswatini", code: "SZ", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Ethiopia", code: "ET", format: "4 digits", sample: "1110", caveat: "" },
+  { country: "Fiji", code: "FJ", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Finland", code: "FI", format: "5 digits", sample: "00100", caveat: "" },
+  { country: "France", code: "FR", format: "5 digits", sample: "75001", caveat: "First 2 digits = department, varies by region" },
+  { country: "Gabon", code: "GA", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Gambia", code: "GM", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Georgia", code: "GE", format: "4 digits", sample: "0100", caveat: "" },
+  { country: "Germany", code: "DE", format: "5 digits", sample: "10115", caveat: "First digit = delivery area (region)" },
+  { country: "Ghana", code: "GH", format: "No formal postal code system (new system emerging)", sample: "N/A", caveat: "" },
+  { country: "Greece", code: "GR", format: "3 digits + space + 3 digits", sample: "10000", caveat: "Format: XXX XX (urban/rural codes)" },
+  { country: "Grenada", code: "GD", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Guatemala", code: "GT", format: "5 digits or no postal code", sample: "01001", caveat: "Limited postal code usage" },
+  { country: "Guinea", code: "GN", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Guinea-Bissau", code: "GW", format: "4 digits", sample: "1000", caveat: "" },
+  { country: "Guyana", code: "GY", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Haiti", code: "HT", format: "4 digits (postal prefixes)", sample: "6110", caveat: "Limited usage; format varies" },
+  { country: "Honduras", code: "HN", format: "5 digits", sample: "01001", caveat: "" },
+  { country: "Hong Kong", code: "HK", format: "No formal postal code system", sample: "N/A", caveat: "Uses District names (e.g., Central, Wan Chai)" },
+  { country: "Hungary", code: "HU", format: "4 digits", sample: "1011", caveat: "" },
+  { country: "Iceland", code: "IS", format: "3 digits", sample: "101", caveat: "" },
+  { country: "India", code: "IN", format: "6 digits (PIN code)", sample: "673522", caveat: "Region codes vary by state/postal circle" },
+  { country: "Indonesia", code: "ID", format: "5 digits", sample: "10110", caveat: "Province code + district designation" },
+  { country: "Iran", code: "IR", format: "10 digits (with hyphen)", sample: "1591634711", caveat: "" },
+  { country: "Iraq", code: "IQ", format: "5 digits", sample: "10001", caveat: "" },
+  { country: "Ireland", code: "IE", format: "Eircode: 2 characters + 1 digit + 1 space + 1 digit + 2 characters", sample: "D01F5X2", caveat: "Format: A65 F4E2 (unique per address)" },
+  { country: "Israel", code: "IL", format: "5 or 7 digits", sample: "91000", caveat: "Format varies; newer system uses 7 digits" },
+  { country: "Italy", code: "IT", format: "5 digits", sample: "00100", caveat: "First digit = region, varies by province" },
+  { country: "Jamaica", code: "JM", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Japan", code: "JP", format: "7 digits (hyphen format)", sample: "1000001", caveat: "Format: XXX-XXXX (prefecture-municipality-section)" },
+  { country: "Jordan", code: "JO", format: "5 digits", sample: "11118", caveat: "" },
+  { country: "Kazakhstan", code: "KZ", format: "6 digits", sample: "050000", caveat: "" },
+  { country: "Kenya", code: "KE", format: "5 digits", sample: "00100", caveat: "" },
+  { country: "Kiribati", code: "KI", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Kuwait", code: "KW", format: "5 digits", sample: "13001", caveat: "" },
+  { country: "Kyrgyzstan", code: "KG", format: "6 digits", sample: "720000", caveat: "" },
+  { country: "Laos", code: "LA", format: "5 digits", sample: "01000", caveat: "" },
+  { country: "Latvia", code: "LV", format: "4 digits", sample: "1001", caveat: "" },
+  { country: "Lebanon", code: "LB", format: "4 digits + 4 digits", sample: "11072838", caveat: "Format: XXXX XXXX" },
+  { country: "Lesotho", code: "LS", format: "3 digits", sample: "100", caveat: "" },
+  { country: "Liberia", code: "LR", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Libya", code: "LY", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Liechtenstein", code: "LI", format: "4 digits", sample: "9490", caveat: "" },
+  { country: "Lithuania", code: "LT", format: "5 digits", sample: "01100", caveat: "" },
+  { country: "Luxembourg", code: "LU", format: "4 digits", sample: "1010", caveat: "" },
+  { country: "Macao", code: "MO", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Madagascar", code: "MG", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Malawi", code: "MW", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Malaysia", code: "MY", format: "5 digits", sample: "50000", caveat: "State-level codes vary (01-14)" },
+  { country: "Maldives", code: "MV", format: "5 digits", sample: "20026", caveat: "" },
+  { country: "Mali", code: "ML", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Malta", code: "MT", format: "2 letters + 2 digits + 1 space + 3 letters", sample: "VLT1431", caveat: "Format: AAA 1234 (geographic locality codes)" },
+  { country: "Marshall Islands", code: "MH", format: "5 digits (US format)", sample: "96960", caveat: "" },
+  { country: "Mauritania", code: "MR", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Mauritius", code: "MU", format: "5 digits", sample: "20001", caveat: "" },
+  { country: "Mexico", code: "MX", format: "5 digits", sample: "01000", caveat: "State/municipality codes vary" },
+  { country: "Micronesia", code: "FM", format: "5 digits (US format)", sample: "96941", caveat: "" },
+  { country: "Moldova", code: "MD", format: "4 digits", sample: "2001", caveat: "" },
+  { country: "Monaco", code: "MC", format: "5 digits", sample: "98000", caveat: "98000-98099 range" },
+  { country: "Mongolia", code: "MN", format: "6 digits", sample: "100001", caveat: "" },
+  { country: "Montenegro", code: "ME", format: "5 digits", sample: "81000", caveat: "" },
+  { country: "Morocco", code: "MA", format: "5 digits", sample: "10000", caveat: "" },
+  { country: "Mozambique", code: "MZ", format: "4 digits", sample: "1100", caveat: "" },
+  { country: "Myanmar", code: "MM", format: "5 digits", sample: "11111", caveat: "" },
+  { country: "Namibia", code: "NA", format: "9 digits (optional)", sample: "9000", caveat: "Limited postal code system" },
+  { country: "Nauru", code: "NR", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Nepal", code: "NP", format: "5 digits", sample: "44600", caveat: "District codes vary" },
+  { country: "Netherlands", code: "NL", format: "4 digits + 2 letters", sample: "1012SJ", caveat: "Format: XXXX XX (no 'SA' combinations)" },
+  { country: "New Zealand", code: "NZ", format: "4 digits", sample: "1010", caveat: "" },
+  { country: "Nicaragua", code: "NI", format: "5 digits", sample: "10100", caveat: "" },
+  { country: "Niger", code: "NE", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Nigeria", code: "NG", format: "6 digits (NNPC code)", sample: "110001", caveat: "Postal code system not widely used" },
+  { country: "North Korea", code: "KP", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "North Macedonia", code: "MK", format: "4 digits", sample: "1000", caveat: "" },
+  { country: "Norway", code: "NO", format: "4 digits", sample: "0100", caveat: "" },
+  { country: "Oman", code: "OM", format: "3 digits + space + 3 digits", sample: "100", caveat: "Format: XXX XXX" },
+  { country: "Pakistan", code: "PK", format: "5 digits", sample: "75000", caveat: "City codes vary by region" },
+  { country: "Palau", code: "PW", format: "5 digits (US format)", sample: "96940", caveat: "" },
+  { country: "Palestine", code: "PS", format: "3 digits + 3 digits", sample: "000000", caveat: "" },
+  { country: "Panama", code: "PA", format: "No formal postal code system", sample: "N/A", caveat: "Uses area/sector names" },
+  { country: "Papua New Guinea", code: "PG", format: "3 digits", sample: "111", caveat: "" },
+  { country: "Paraguay", code: "PY", format: "4 digits", sample: "1101", caveat: "" },
+  { country: "Peru", code: "PE", format: "5 digits or 6 digits", sample: "15001", caveat: "Department/province codes vary" },
+  { country: "Philippines", code: "PH", format: "4 digits", sample: "1000", caveat: "Region codes vary" },
+  { country: "Poland", code: "PL", format: "2 digits + hyphen + 3 digits", sample: "00001", caveat: "Format: XX-XXX" },
+  { country: "Portugal", code: "PT", format: "4 digits + hyphen + 3 digits", sample: "1000001", caveat: "Format: XXXX-XXX" },
+  { country: "Qatar", code: "QA", format: "4 digits + 4 digits", sample: "22011234", caveat: "" },
+  { country: "Romania", code: "RO", format: "6 digits", sample: "010001", caveat: "" },
+  { country: "Russia", code: "RU", format: "6 digits", sample: "101000", caveat: "Regional codes vary; extensive system" },
+  { country: "Rwanda", code: "RW", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Saint Kitts and Nevis", code: "KN", format: "5 digits", sample: "KN0101", caveat: "" },
+  { country: "Saint Lucia", code: "LC", format: "3 letters + 3 digits", sample: "LC01001", caveat: "" },
+  { country: "Saint Vincent and the Grenadines", code: "VC", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Samoa", code: "WS", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "San Marino", code: "SM", format: "5 digits", sample: "47890", caveat: "" },
+  { country: "Sao Tome and Principe", code: "ST", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Saudi Arabia", code: "SA", format: "5 digits or 5 digits + 4 digits", sample: "11564", caveat: "Format varies; newer format XXXXX-XXXX" },
+  { country: "Senegal", code: "SN", format: "5 digits", sample: "18250", caveat: "" },
+  { country: "Serbia", code: "RS", format: "5 digits or 5 digits + 4 digits", sample: "11000", caveat: "" },
+  { country: "Seychelles", code: "SC", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Sierra Leone", code: "SL", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Singapore", code: "SG", format: "6 digits", sample: "018956", caveat: "" },
+  { country: "Slovakia", code: "SK", format: "3 digits + space + 3 digits", sample: "81101", caveat: "Format: XXX XX" },
+  { country: "Slovenia", code: "SI", format: "4 digits", sample: "1000", caveat: "" },
+  { country: "Solomon Islands", code: "SB", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Somalia", code: "SO", format: "5 digits", sample: "10100", caveat: "" },
+  { country: "South Africa", code: "ZA", format: "4 digits", sample: "0001", caveat: "" },
+  { country: "South Korea", code: "KR", format: "5 digits (hyphenated)", sample: "03144", caveat: "Format: XXXXX (recently updated from 6-digit format)" },
+  { country: "South Sudan", code: "SS", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Spain", code: "ES", format: "5 digits", sample: "28001", caveat: "First 2 digits = province, varies by region" },
+  { country: "Sri Lanka", code: "LK", format: "5 digits", sample: "10100", caveat: "" },
+  { country: "Sudan", code: "SD", format: "5 digits", sample: "15111", caveat: "" },
+  { country: "Suriname", code: "SR", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Sweden", code: "SE", format: "5 digits (spaced format)", sample: "10000", caveat: "Format: XXX XX (space optional)" },
+  { country: "Switzerland", code: "CH", format: "4 digits", sample: "8001", caveat: "" },
+  { country: "Syria", code: "SY", format: "4 digits + 2 digits", sample: "111111", caveat: "" },
+  { country: "Taiwan", code: "TW", format: "5 digits or 3+2+3 format", sample: "10001", caveat: "Format: XXXXX or XXX-XX-XXX" },
+  { country: "Tajikistan", code: "TJ", format: "6 digits", sample: "100000", caveat: "" },
+  { country: "Tanzania", code: "TZ", format: "5 digits", sample: "11101", caveat: "" },
+  { country: "Thailand", code: "TH", format: "5 digits", sample: "10110", caveat: "Province codes vary (01-77)" },
+  { country: "Timor-Leste", code: "TL", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Togo", code: "TG", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Tonga", code: "TO", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Trinidad and Tobago", code: "TT", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Tunisia", code: "TN", format: "4 digits", sample: "1000", caveat: "" },
+  { country: "Turkey", code: "TR", format: "5 digits", sample: "34340", caveat: "First 2 digits = province code" },
+  { country: "Turkmenistan", code: "TM", format: "6 digits", sample: "744000", caveat: "" },
+  { country: "Tuvalu", code: "TV", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Uganda", code: "UG", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Ukraine", code: "UA", format: "5 digits", sample: "01001", caveat: "" },
+  { country: "United Arab Emirates", code: "AE", format: "Emirate code + 4 digits (optional)", sample: "N/A", caveat: "Formal system emerging; emirate name often used" },
+  { country: "United Kingdom", code: "GB", format: "Variable: 6-7 characters (alphanumeric)", sample: "N5", caveat: "Format varies widely (outward/inward codes); England/Scotland/Wales/NI differ" },
+  { country: "United States", code: "US", format: "5 digits or 5+4 format", sample: "74008", caveat: "Zip+4 format (XXXXX-XXXX) available for greater specificity; varies by state" },
+  { country: "Uruguay", code: "UY", format: "5 digits", sample: "11100", caveat: "" },
+  { country: "Uzbekistan", code: "UZ", format: "6 digits", sample: "700000", caveat: "" },
+  { country: "Vanuatu", code: "VU", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Vatican City", code: "VA", format: "5 digits (00120)", sample: "00120", caveat: "Single postal code for entire country" },
+  { country: "Venezuela", code: "VE", format: "4 digits", sample: "1010", caveat: "" },
+  { country: "Vietnam", code: "VN", format: "6 digits", sample: "100000", caveat: "Province/city codes vary" },
+  { country: "Yemen", code: "YE", format: "No formal postal code system", sample: "N/A", caveat: "" },
+  { country: "Zambia", code: "ZM", format: "5 digits", sample: "10101", caveat: "" },
+  { country: "Zimbabwe", code: "ZW", format: "4 digits", sample: "0263", caveat: "" }
+        ];
+
+        let filteredData = postalCodeDatabase;
+        let sortColumn = 'country';
+        let sortDirection = 'asc';
+
+        function renderTable() {
+            const tableBody = document.getElementById('tableBody');
+            const noResults = document.getElementById('noResults');
+            const visibleCount = document.getElementById('visibleCount');
+            const totalCount = document.getElementById('totalCount');
+
+            totalCount.textContent = postalCodeDatabase.length;
+            visibleCount.textContent = filteredData.length;
+
+            if (filteredData.length === 0) {
+                tableBody.innerHTML = '';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            noResults.style.display = 'none';
+            tableBody.innerHTML = filteredData.map((item, idx) => {
+                const formattedSample = item.sample === 'N/A' ? 'N/A' : `${item.sample},${item.code}`;
+                return `
+                    <tr>
+                        <td>${item.country}</td>
+                        <td><span class="format-code">${item.format}</span></td>
+                        <td onclick="copySample('${formattedSample}')" title="Click to copy">
+                            <span class="sample-code">
+                                ${formattedSample}
+                                <span class="copy-btn">📋</span>
+                            </span>
+                        </td>
+                        <td>${item.caveat ? `<span class="caveat-text">${item.caveat}</span>` : '<span class="no-caveat">—</span>'}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function copySample(text) {
+            if (text === 'N/A') return;
+            navigator.clipboard.writeText(text).then(() => {
+                // Show brief visual feedback
+                const event = new CustomEvent('sampleCopied', { detail: { text } });
+                document.dispatchEvent(event);
+            }).catch(err => console.error('Failed to copy:', err));
+        }
+
+        // Optional: Show toast feedback when copied
+        document.addEventListener('sampleCopied', (e) => {
+            const originalTitle = event.target.title;
+            event.target.title = '✓ Copied!';
+            setTimeout(() => {
+                event.target.title = 'Click to copy';
+            }, 1500);
+        });
+
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filterValue = document.getElementById('filterSelect').value;
+
+            filteredData = postalCodeDatabase.filter(item => {
+                const matchesSearch = item.country.toLowerCase().includes(searchTerm);
+
+                let matchesFilter = true;
+                if (filterValue === 'has-caveat') {
+                    matchesFilter = item.caveat !== '';
+                } else if (filterValue === 'no-code') {
+                    matchesFilter = item.sample === 'N/A';
+                } else if (filterValue === 'simple') {
+                    matchesFilter = /^\d{1,5}$/.test(item.sample);
+                } else if (filterValue === 'complex') {
+                    matchesFilter = !/^\d{1,5}$/.test(item.sample) && item.sample !== 'N/A';
+                }
+
+                return matchesSearch && matchesFilter;
+            });
+
+            sortData();
+            renderTable();
+        }
+
+        function sortData() {
+            filteredData.sort((a, b) => {
+                let aVal = a[sortColumn];
+                let bVal = b[sortColumn];
+
+                if (typeof aVal === 'string') {
+                    aVal = aVal.toLowerCase();
+                    bVal = bVal.toLowerCase();
+                }
+
+                if (sortDirection === 'asc') {
+                    return aVal > bVal ? 1 : -1;
+                } else {
+                    return aVal < bVal ? 1 : -1;
+                }
+            });
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
+        document.getElementById('filterSelect').addEventListener('change', applyFilters);
+
+        document.querySelectorAll('th.sortable').forEach(th => {
+            th.addEventListener('click', () => {
+                const column = th.dataset.column;
+                document.querySelectorAll('th').forEach(h => h.classList.remove('sorted-asc', 'sorted-desc'));
+
+                if (sortColumn === column) {
+                    sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+                } else {
+                    sortColumn = column;
+                    sortDirection = 'asc';
+                }
+
+                th.classList.add(`sorted-${sortDirection}`);
+                applyFilters();
+            });
+        });
+
+        // Initial render
+        renderTable();
+    </script>
+</body>
+</html>
