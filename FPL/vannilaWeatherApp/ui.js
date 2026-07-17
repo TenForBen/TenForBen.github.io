@@ -57,6 +57,12 @@ class UI {
     // The true current local time is derived live below from the browser clock.
     const readingTime = data.dt ? formatLocalTime(data.dt, tz) : "\u2014";
 
+    // Timezone label (UTC±X) for this city, plus how far ahead/behind Malta it
+    // is. Malta's own offset is derived live so it stays correct across DST.
+    const utcLabel = formatUtcOffset(tz);
+    const maltaOffset = getOffsetSeconds("Europe/Malta");
+    const diffLabel = formatTimeDiff(tz - maltaOffset);
+
     this.uiContainer.innerHTML = `
       <div class="card mx-auto mt-5" style="width: 20rem;">
         <div class="card-body justify-content-center">
@@ -66,7 +72,7 @@ class UI {
           <h6 class="card-subtitle mb-2 text-muted">current Temperature <p id="cuwt">${temp}&deg;C <span style="font-size: 40%;">/ ${tempF}&deg;F</span></p> and feels like ${Math.round(data.main.feels_like)}&deg;C</h6>
           <h6 class="card-subtitle mb-2 text-muted">Highs of ${Math.round(data.main.temp_max)}&deg;C. Lows of ${Math.round(data.main.temp_min)}&deg;C</h6>
           <p class="card-text">Weather conditions are described as: ${data.weather[0].description}</p>
-          <p class="card-text">Local time: <span id="liveClock">${nowAtLocation(tz)}</span></p>
+          <p class="card-text">Local time: <span id="liveClock">${nowAtLocation(tz)}</span> | ${utcLabel} | ${diffLabel}</p>
           <p class="card-text text-muted" style="font-size: 85%;">reading taken at ${readingTime}</p>
           <p class="card-text">Sunrise (local time): ${sunrise}</p>
           <p class="card-text">Sunset (local time): ${sunset}</p>
@@ -168,6 +174,49 @@ function escapeHtml(str) {
   })[ch]);
 }
 
+
+// Formats a UTC offset (in seconds) as "UTC+2", "UTC+5:30", "UTC-8", "UTC".
+function formatUtcOffset(offsetSeconds) {
+  if (!offsetSeconds) return "UTC";
+  const sign = offsetSeconds > 0 ? "+" : "-";
+  const abs = Math.abs(offsetSeconds);
+  const h = Math.floor(abs / 3600);
+  const m = Math.floor((abs % 3600) / 60);
+  return m ? `UTC${sign}${h}:${String(m).padStart(2, "0")}` : `UTC${sign}${h}`;
+}
+
+// Current UTC offset (seconds) of a named IANA timezone, e.g. "Europe/Malta".
+// Derived live via Intl so it tracks daylight-saving automatically. Falls back
+// to the viewer's own offset (correct for a Malta-based user) if Intl fails.
+function getOffsetSeconds(timeZone, date = new Date()) {
+  try {
+    const dtf = new Intl.DateTimeFormat("en-US", {
+      timeZone,
+      hourCycle: "h23",
+      year: "numeric", month: "2-digit", day: "2-digit",
+      hour: "2-digit", minute: "2-digit", second: "2-digit",
+    });
+    const p = {};
+    for (const part of dtf.formatToParts(date)) p[part.type] = part.value;
+    const asUTC = Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second);
+    return Math.round((asUTC - date.getTime()) / 1000);
+  } catch (e) {
+    return -date.getTimezoneOffset() * 60;
+  }
+}
+
+// Human-readable gap from Malta, e.g. "3 hrs 30 min ahead of Malta".
+function formatTimeDiff(diffSeconds) {
+  if (diffSeconds === 0) return "same time as Malta";
+  const ahead = diffSeconds > 0;
+  const abs = Math.abs(diffSeconds);
+  const h = Math.floor(abs / 3600);
+  const m = Math.floor((abs % 3600) / 60);
+  const hPart = h ? `${h} hr${h === 1 ? "" : "s"}` : "";
+  const mPart = m ? `${m} min` : "";
+  const hm = [hPart, mPart].filter(Boolean).join(" ") || "0 hrs";
+  return `${hm} ${ahead ? "ahead of" : "behind"} Malta`;
+}
 
 // The TRUE current wall-clock time at a location, derived from the browser's
 // live UTC clock plus the city's offset. Unlike formatLocalTime(data.dt, ...),
