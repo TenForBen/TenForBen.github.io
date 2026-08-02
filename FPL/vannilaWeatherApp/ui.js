@@ -4,9 +4,12 @@ class UI {
     this.city;
     this.defaultCity = "London";
     this.clockTimer = null; // handle for the live local-time interval
+    this.history = this.loadHistory(); // last N searches {q, data}, newest first
+    this.historyIndex = 0; // which history entry is currently on screen
+    this.setupNav(); // builds a persistent nav bar above the weather card
   }
 
-  populateUI(data) {
+  populateUI(data, queryOverride) {
     // Any previous card's live clock must be torn down before we render a new
     // one, or intervals silently stack up (a memory leak + duplicate ticks).
     this.stopClock();
@@ -21,14 +24,17 @@ class UI {
 
     // What did the user search? The API never echoes it back (for a
     // zip/postcode lookup it only names the resolved city), so we grab it
-    // ourselves. This function already owns the search box — it clears it
-    // below — so we read straight from the DOM; no need for app.js to pass it.
-    // A fresh search has text in the box; a page-reload restore does not, so
-    // fall back to the last query we stashed, and persist fresh ones.
+    // ourselves. On a live search we read the box (and stash it); when
+    // replaying a history entry we're handed that entry's stored query.
     const searchBox = document.getElementById("searchUser");
-    const typed = searchBox ? searchBox.value.trim() : "";
-    const query = typed || localStorage.getItem("cityQuery") || "";
-    if (typed) localStorage.setItem("cityQuery", typed);
+    let query;
+    if (queryOverride !== undefined) {
+      query = queryOverride; // history replay: don't touch the input or LS
+    } else {
+      const typed = searchBox ? searchBox.value.trim() : "";
+      query = typed || localStorage.getItem("cityQuery") || "";
+      if (typed) localStorage.setItem("cityQuery", typed);
+    }
 
     const tz = data.timezone || 0; // offset in seconds from UTC for THIS city
 
@@ -139,6 +145,10 @@ class UI {
 
   saveToLS(data) {
     localStorage.setItem("city", JSON.stringify(data));
+    // Also record it in the rolling history. cityQuery was just set by the
+    // preceding populateUI call, so it's the right label for this entry.
+    const q = localStorage.getItem("cityQuery") || data.name || "";
+    this.pushHistory(data, q);
   }
 
   // Returns the last saved weather object, or null if there's nothing
@@ -155,8 +165,105 @@ class UI {
     return this.city;
   }
 
+  // ---- Search history (last 10 results, newest first) --------------------
+
+  loadHistory() {
+    try {
+      const raw = localStorage.getItem("history");
+      const arr = raw ? JSON.parse(raw) : [];
+      return Array.isArray(arr) ? arr : [];
+    } catch (e) {
+      return []; // corrupt entry — start clean
+    }
+  }
+
+  persistHistory() {
+    try {
+      localStorage.setItem("history", JSON.stringify(this.history));
+    } catch (e) {
+      /* storage full or blocked — history is best-effort */
+    }
+  }
+
+  // Adds a result to the front, de-duplicating by query so the same place
+  // doesn't fill all ten slots, and caps the list at 10.
+  pushHistory(data, query) {
+    const q = (query || data.name || "").trim();
+    this.history = this.history.filter(
+      (h) => (h.q || "").toLowerCase() !== q.toLowerCase()
+    );
+    this.history.unshift({ q, data });
+    if (this.history.length > 10) this.history.length = 10;
+    this.historyIndex = 0; // the new search is now the one on screen
+    this.persistHistory();
+    this.updateNav();
+  }
+
+  // Re-renders the card from a stored entry (no new fetch, no re-push).
+  viewHistory(index) {
+    if (index < 0 || index >= this.history.length) return;
+    this.historyIndex = index;
+    const entry = this.history[index];
+    this.populateUI(entry.data, entry.q); // override query with the stored one
+    this.updateNav();
+  }
+
+  // Creates the persistent nav bar once, sitting just above the weather card,
+  // and wires delegated handlers so they survive every re-render.
+  setupNav() {
+    if (!this.uiContainer || !this.uiContainer.parentNode) return;
+    this.navContainer = document.createElement("div");
+    this.navContainer.id = "historyNav";
+    this.uiContainer.parentNode.insertBefore(this.navContainer, this.uiContainer);
+
+    this.navContainer.addEventListener("click", (e) => {
+      if (e.target.closest("#histPrev")) this.viewHistory(this.historyIndex - 1);
+      else if (e.target.closest("#histNext")) this.viewHistory(this.historyIndex + 1);
+    });
+    this.navContainer.addEventListener("change", (e) => {
+      if (e.target.id === "histSelect") this.viewHistory(Number(e.target.value));
+    });
+
+    this.updateNav();
+  }
+
+  // Rebuilds the nav bar's contents to reflect the current history + index.
+  // Hidden until there are at least two results to move between.
+  updateNav() {
+    if (!this.navContainer) return;
+    const len = this.history.length;
+    if (len < 2) {
+      this.navContainer.innerHTML = "";
+      return;
+    }
+    const idx = this.historyIndex;
+    const options = this.history
+      .map(
+        (h, i) =>
+          `<option value="${i}" ${i === idx ? "selected" : ""}>${escapeHtml(
+            h.q || h.data.name
+          )}</option>`
+      )
+      .join("");
+
+    this.navContainer.innerHTML = `
+      <div class="d-flex justify-content-center align-items-center mt-4" style="gap: 8px; flex-wrap: wrap;">
+        <button id="histPrev" class="btn btn-sm btn-outline-primary" ${idx === 0 ? "disabled" : ""}>&#9664; Newer</button>
+        <select id="histSelect" class="form-control form-control-sm" style="width: auto; display: inline-block;">
+          ${options}
+        </select>
+        <button id="histNext" class="btn btn-sm btn-outline-primary" ${idx === len - 1 ? "disabled" : ""}>Older &#9654;</button>
+      </div>
+      <p class="text-center text-muted" style="font-size: 80%; margin-top: 4px;">
+        Showing ${idx + 1} of ${len} recent searches
+      </p>`;
+  }
+
   clearLS() {
     localStorage.clear();
+    this.history = [];
+    this.historyIndex = 0;
+    this.updateNav();
   }
 }
 
@@ -199,7 +306,11 @@ function getOffsetSeconds(timeZone, date = new Date()) {
     const p = {};
     for (const part of dtf.formatToParts(date)) p[part.type] = part.value;
     const asUTC = Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second);
-    return Math.round((asUTC - date.getTime()) / 1000);
+    // Round to whole minutes. Every real IANA offset is a whole number of
+    // minutes, and this removes the sub-second jitter that otherwise appears
+    // because Intl reports only whole seconds while date.getTime() carries
+    // milliseconds — which was making a clean 6h read as "5 hrs 59 min".
+    return Math.round((asUTC - date.getTime()) / 60000) * 60;
   } catch (e) {
     return -date.getTimezoneOffset() * 60;
   }
