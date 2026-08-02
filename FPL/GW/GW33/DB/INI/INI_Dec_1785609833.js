@@ -1,0 +1,920 @@
+var s = [
+  {
+    "Day": "2026-08-01",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-08-02",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-08-03",
+    "PriceValue": "169.99",
+    "Arrival": "2026-08-03T09:00:00",
+    "Departure": "2026-08-03T07:05:00"
+  },
+  {
+    "Day": "2026-08-04",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-08-05",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-08-06",
+    "PriceValue": "188.99",
+    "Arrival": "2026-08-06T17:25:00",
+    "Departure": "2026-08-06T15:30:00"
+  },
+  {
+    "Day": "2026-08-07",
+    "PriceValue": "191.99",
+    "Arrival": "2026-08-07T12:05:00",
+    "Departure": "2026-08-07T10:10:00"
+  },
+  {
+    "Day": "2026-08-08",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-08-09",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-08-10",
+    "PriceValue": "256.99",
+    "Arrival": "2026-08-10T09:00:00",
+    "Departure": "2026-08-10T07:05:00"
+  },
+  {
+    "Day": "2026-08-11",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-08-12",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-08-13",
+    "PriceValue": "126.99",
+    "Arrival": "2026-08-13T17:25:00",
+    "Departure": "2026-08-13T15:30:00"
+  },
+  {
+    "Day": "2026-08-14",
+    "PriceValue": "127.99",
+    "Arrival": "2026-08-14T12:05:00",
+    "Departure": "2026-08-14T10:10:00"
+  },
+  {
+    "Day": "2026-08-15",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-08-16",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-08-17",
+    "PriceValue": "102.99",
+    "Arrival": "2026-08-17T09:00:00",
+    "Departure": "2026-08-17T07:05:00"
+  },
+  {
+    "Day": "2026-08-18",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-08-19",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-08-20",
+    "PriceValue": "121.99",
+    "Arrival": "2026-08-20T17:25:00",
+    "Departure": "2026-08-20T15:30:00"
+  },
+  {
+    "Day": "2026-08-21",
+    "PriceValue": "116.71",
+    "Arrival": "2026-08-21T12:05:00",
+    "Departure": "2026-08-21T10:10:00"
+  },
+  {
+    "Day": "2026-08-22",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-08-23",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-08-24",
+    "PriceValue": "72.99",
+    "Arrival": "2026-08-24T09:00:00",
+    "Departure": "2026-08-24T07:05:00"
+  },
+  {
+    "Day": "2026-08-25",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-08-26",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-08-27",
+    "PriceValue": "76.99",
+    "Arrival": "2026-08-27T17:25:00",
+    "Departure": "2026-08-27T15:30:00"
+  },
+  {
+    "Day": "2026-08-28",
+    "PriceValue": "118.43",
+    "Arrival": "2026-08-28T12:05:00",
+    "Departure": "2026-08-28T10:10:00"
+  },
+  {
+    "Day": "2026-08-29",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-08-30",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-08-31",
+    "PriceValue": "42.99",
+    "Arrival": "2026-08-31T09:00:00",
+    "Departure": "2026-08-31T07:05:00"
+  },
+  {
+    "Day": "2026-09-01",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-09-02",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-09-03",
+    "PriceValue": "35.99",
+    "Arrival": "2026-09-03T17:25:00",
+    "Departure": "2026-09-03T15:30:00"
+  },
+  {
+    "Day": "2026-09-04",
+    "PriceValue": "38.99",
+    "Arrival": "2026-09-04T12:05:00",
+    "Departure": "2026-09-04T10:10:00"
+  },
+  {
+    "Day": "2026-09-05",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-09-06",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-09-07",
+    "PriceValue": "42.99",
+    "Arrival": "2026-09-07T09:00:00",
+    "Departure": "2026-09-07T07:05:00"
+  },
+  {
+    "Day": "2026-09-08",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-09-09",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-09-10",
+    "PriceValue": "49.99",
+    "Arrival": "2026-09-10T17:25:00",
+    "Departure": "2026-09-10T15:30:00"
+  },
+  {
+    "Day": "2026-09-11",
+    "PriceValue": "61.99",
+    "Arrival": "2026-09-11T12:05:00",
+    "Departure": "2026-09-11T10:10:00"
+  },
+  {
+    "Day": "2026-09-12",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-09-13",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-09-14",
+    "PriceValue": "55.99",
+    "Arrival": "2026-09-14T09:00:00",
+    "Departure": "2026-09-14T07:05:00"
+  },
+  {
+    "Day": "2026-09-15",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-09-16",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-09-17",
+    "PriceValue": "40.99",
+    "Arrival": "2026-09-17T17:25:00",
+    "Departure": "2026-09-17T15:30:00"
+  },
+  {
+    "Day": "2026-09-18",
+    "PriceValue": "45.99",
+    "Arrival": "2026-09-18T12:05:00",
+    "Departure": "2026-09-18T10:10:00"
+  },
+  {
+    "Day": "2026-09-19",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-09-20",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-09-21",
+    "PriceValue": "39.99",
+    "Arrival": "2026-09-21T09:00:00",
+    "Departure": "2026-09-21T07:05:00"
+  },
+  {
+    "Day": "2026-09-22",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-09-23",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-09-24",
+    "PriceValue": "29.99",
+    "Arrival": "2026-09-24T17:25:00",
+    "Departure": "2026-09-24T15:30:00"
+  },
+  {
+    "Day": "2026-09-25",
+    "PriceValue": "24.99",
+    "Arrival": "2026-09-25T12:05:00",
+    "Departure": "2026-09-25T10:10:00"
+  },
+  {
+    "Day": "2026-09-26",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-09-27",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-09-28",
+    "PriceValue": "57.99",
+    "Arrival": "2026-09-28T09:00:00",
+    "Departure": "2026-09-28T07:05:00"
+  },
+  {
+    "Day": "2026-09-29",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-09-30",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-10-01",
+    "PriceValue": "33.99",
+    "Arrival": "2026-10-01T17:25:00",
+    "Departure": "2026-10-01T15:30:00"
+  },
+  {
+    "Day": "2026-10-02",
+    "PriceValue": "28.99",
+    "Arrival": "2026-10-02T12:05:00",
+    "Departure": "2026-10-02T10:10:00"
+  },
+  {
+    "Day": "2026-10-03",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-10-04",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-10-05",
+    "PriceValue": "45.99",
+    "Arrival": "2026-10-05T09:00:00",
+    "Departure": "2026-10-05T07:05:00"
+  },
+  {
+    "Day": "2026-10-06",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-10-07",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-10-08",
+    "PriceValue": "35.99",
+    "Arrival": "2026-10-08T17:25:00",
+    "Departure": "2026-10-08T15:30:00"
+  },
+  {
+    "Day": "2026-10-09",
+    "PriceValue": "38.69",
+    "Arrival": "2026-10-09T12:05:00",
+    "Departure": "2026-10-09T10:10:00"
+  },
+  {
+    "Day": "2026-10-10",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-10-11",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-10-12",
+    "PriceValue": "47.37",
+    "Arrival": "2026-10-12T09:00:00",
+    "Departure": "2026-10-12T07:05:00"
+  },
+  {
+    "Day": "2026-10-13",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-10-14",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-10-15",
+    "PriceValue": "30.99",
+    "Arrival": "2026-10-15T17:25:00",
+    "Departure": "2026-10-15T15:30:00"
+  },
+  {
+    "Day": "2026-10-16",
+    "PriceValue": "23.99",
+    "Arrival": "2026-10-16T12:05:00",
+    "Departure": "2026-10-16T10:10:00"
+  },
+  {
+    "Day": "2026-10-17",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-10-18",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-10-19",
+    "PriceValue": "42.99",
+    "Arrival": "2026-10-19T09:00:00",
+    "Departure": "2026-10-19T07:05:00"
+  },
+  {
+    "Day": "2026-10-20",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-10-21",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-10-22",
+    "PriceValue": "36.99",
+    "Arrival": "2026-10-22T17:25:00",
+    "Departure": "2026-10-22T15:30:00"
+  },
+  {
+    "Day": "2026-10-23",
+    "PriceValue": "23.99",
+    "Arrival": "2026-10-23T12:05:00",
+    "Departure": "2026-10-23T10:10:00"
+  },
+  {
+    "Day": "2026-10-24",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-10-25",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-10-26",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-10-27",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-10-28",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-10-29",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-10-30",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-10-31",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-01",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-02",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-03",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-04",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-05",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-06",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-07",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-08",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-09",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-10",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-11",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-12",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-13",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-14",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-15",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-16",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-17",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-18",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-19",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-20",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-21",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-22",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-23",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-24",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-25",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-26",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-27",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-28",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-29",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-11-30",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-01",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-02",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-03",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-04",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-05",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-06",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-07",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-08",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-09",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-10",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-11",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-12",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-13",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-14",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-15",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-16",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-17",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-18",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-19",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-20",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-21",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-22",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-23",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-24",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-25",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-26",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-27",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-28",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-29",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-30",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  },
+  {
+    "Day": "2026-12-31",
+    "PriceValue": "NA",
+    "Arrival": "NA",
+    "Departure": "NA"
+  }
+];
