@@ -72,7 +72,7 @@ class UI {
     this.uiContainer.innerHTML = `
       <div class="card mx-auto mt-5" style="width: 20rem;">
         <div class="card-body justify-content-center">
-          <h5 class="card-title"><b id="placeName">${data.name}</b> , <u id="landen">${data.sys.country}</u></h5>
+          <h5 class="card-title"><b id="placeName">${data.name}</b>, ${flagImg(data.sys.country)}<u id="landen">${data.sys.country}</u></h5>
           ${query ? `<p class="card-text text-muted" style="font-size: 90%;">Searched: <b>${escapeHtml(query)}</b></p>` : ""}
           <p id="xPat"><a href="${mapsUrl}" target="_blank" rel="noopener" title="Open in Google Maps">${latitude}, ${longitude}</a></p>
           <h6 class="card-subtitle mb-2 text-muted">current Temperature <p id="cuwt">${temp}&deg;C <span style="font-size: 40%;">/ ${tempF}&deg;F</span></p> and feels like ${Math.round(data.main.feels_like)}&deg;C</h6>
@@ -268,6 +268,21 @@ class UI {
 }
 
 // ---- Helpers (kept outside the class so they're easy to reuse and test) ----
+
+// Builds a small flag <img> from an ISO 3166 country code (e.g. "MA" -> the
+// Moroccan flag) via flagcdn.com. Returns "" for an unknown/invalid code, and
+// the onerror hides the image if it ever fails to load, leaving the letters.
+function flagImg(countryCode) {
+  const cc = String(countryCode || "").toLowerCase().replace(/[^a-z]/g, "");
+  if (cc.length !== 2) return "";
+  return (
+    `<img src="https://flagcdn.com/24x18/${cc}.png" ` +
+    `srcset="https://flagcdn.com/48x36/${cc}.png 2x" ` +
+    `width="24" height="18" alt="${cc.toUpperCase()} flag" ` +
+    `style="vertical-align: middle; margin: 0 4px 3px; border-radius: 2px;" ` +
+    `onerror="this.style.display='none'">`
+  );
+}
 
 // Escapes user-supplied text before it goes into innerHTML, so a query like
 // `<img onerror=…>` renders as literal characters instead of live markup.
