@@ -59,9 +59,10 @@ class UI {
     const tempF = toFahrenheit(data.main.temp); // shown beside the °C hero number
 
     // data.dt is the observation's UTC timestamp — i.e. when the reading was
-    // taken, which can lag a few minutes behind real time. It is NOT "now".
-    // The true current local time is derived live below from the browser clock.
-    const readingTime = data.dt ? formatLocalTime(data.dt, tz) : "\u2014";
+    // taken, which can lag behind real time. It is NOT "now". We show its full
+    // local date+time, plus a live "… ago" counter updated by the clock tick.
+    const readingDateTime = data.dt ? formatLocalDateTime(data.dt, tz) : "\u2014";
+    this.readingDt = data.dt || null; // used by startClock to refresh "… ago"
 
     // Timezone label (UTC±X) for this city, plus how far ahead/behind Malta it
     // is. Malta's own offset is derived live so it stays correct across DST.
@@ -79,7 +80,7 @@ class UI {
           <h6 class="card-subtitle mb-2 text-muted">Highs of ${Math.round(data.main.temp_max)}&deg;C. Lows of ${Math.round(data.main.temp_min)}&deg;C</h6>
           <p class="card-text">Weather conditions are described as: ${data.weather[0].description}</p>
           <p class="card-text">Local time: <span id="liveClock">${nowAtLocation(tz)}</span> | ${utcLabel} | ${diffLabel}</p>
-          <p class="card-text text-muted" style="font-size: 85%;">reading taken at ${readingTime}</p>
+          <p class="card-text text-muted" style="font-size: 85%;">reading taken at ${readingDateTime}${data.dt ? ` <span id="readingAgo">(${formatAgo(Math.floor(Date.now() / 1000) - data.dt)})</span>` : ""}</p>
           <p class="card-text">Sunrise (local time): ${sunrise}</p>
           <p class="card-text">Sunset (local time): ${sunset}</p>
           <p class="card-text" id="art">${daylight.kind === "normal" ? `daylength is ${dayLength}` : dayLength}</p>
@@ -116,6 +117,12 @@ class UI {
         return;
       }
       el.textContent = nowAtLocation(tzOffsetSeconds);
+
+      // Keep the "reading taken … ago" counter fresh on the same beat.
+      const agoEl = document.getElementById("readingAgo");
+      if (agoEl && this.readingDt) {
+        agoEl.textContent = `(${formatAgo(Math.floor(Date.now() / 1000) - this.readingDt)})`;
+      }
     };
 
     tick(); // paint immediately so there's no 1-second blank
@@ -363,6 +370,45 @@ function formatLocalTime(unixSeconds, tzOffsetSeconds) {
   const mm = String(d.getUTCMinutes()).padStart(2, "0");
   const ss = String(d.getUTCSeconds()).padStart(2, "0");
   return `${hh}:${mm}:${ss}`;
+}
+
+// Full local date + time at a location, e.g. "16 Jul 2026, 15:29:17".
+// Same UTC-offset trick as formatLocalTime, just with the date included.
+function formatLocalDateTime(unixSeconds, tzOffsetSeconds) {
+  const d = new Date((unixSeconds + tzOffsetSeconds) * 1000);
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const p = (n) => String(n).padStart(2, "0");
+  const date = `${d.getUTCDate()} ${months[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+  const time = `${p(d.getUTCHours())}:${p(d.getUTCMinutes())}:${p(d.getUTCSeconds())}`;
+  return `${date}, ${time}`;
+}
+
+// A human "how long ago", coarsening as it grows: "just now" -> "5 min ago"
+// -> "3 hrs 12 min ago" -> "2 days 4 hrs ago". The gap is timezone-independent
+// (now minus the reading's UTC timestamp), so no offset is involved.
+function formatAgo(totalSeconds) {
+  if (totalSeconds < 0) totalSeconds = 0; // guard against minor clock skew
+  if (totalSeconds < 45) return "just now";
+
+  const plural = (n, unit) => `${n} ${unit}${n === 1 ? "" : "s"}`;
+
+  const min = Math.floor(totalSeconds / 60);
+  if (min < 60) return `${min} min ago`;
+
+  if (totalSeconds < 86400) {
+    const hrs = Math.floor(totalSeconds / 3600);
+    const remMin = Math.floor((totalSeconds % 3600) / 60);
+    return remMin
+      ? `${plural(hrs, "hr")} ${remMin} min ago`
+      : `${plural(hrs, "hr")} ago`;
+  }
+
+  const days = Math.floor(totalSeconds / 86400);
+  const remHrs = Math.floor((totalSeconds % 86400) / 3600);
+  return remHrs
+    ? `${plural(days, "day")} ${plural(remHrs, "hr")} ago`
+    : `${plural(days, "day")} ago`;
 }
 
 const SECONDS_PER_DAY = 86400;
