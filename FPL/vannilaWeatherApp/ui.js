@@ -64,11 +64,14 @@ class UI {
     const readingDateTime = data.dt ? formatLocalDateTime(data.dt, tz) : "\u2014";
     this.readingDt = data.dt || null; // used by startClock to refresh "… ago"
 
-    // Timezone label (UTC±X) for this city, plus how far ahead/behind Malta it
-    // is. Malta's own offset is derived live so it stays correct across DST.
+    // Timezone label (UTC±X) for this city, plus how far ahead/behind the
+    // visitor's own local time it is. The visitor's timezone comes from
+    // their browser/OS (not hardcoded), so this works the same for anyone
+    // anywhere, and stays correct across DST since it's derived live.
     const utcLabel = formatUtcOffset(tz);
-    const maltaOffset = getOffsetSeconds("Europe/Malta");
-    const diffLabel = formatTimeDiff(tz - maltaOffset);
+    const visitorTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const visitorOffset = getOffsetSeconds(visitorTz);
+    const diffLabel = formatTimeDiff(tz - visitorOffset);
 
     this.uiContainer.innerHTML = `
       <div class="card mx-auto mt-5" style="width: 20rem;">
@@ -349,9 +352,9 @@ function formatUtcOffset(offsetSeconds) {
   return m ? `UTC${sign}${h}:${String(m).padStart(2, "0")}` : `UTC${sign}${h}`;
 }
 
-// Current UTC offset (seconds) of a named IANA timezone, e.g. "Europe/Malta".
-// Derived live via Intl so it tracks daylight-saving automatically. Falls back
-// to the viewer's own offset (correct for a Malta-based user) if Intl fails.
+// Current UTC offset (seconds) of a named IANA timezone, e.g. "Europe/Malta"
+// or "Asia/Kolkata". Derived live via Intl so it tracks daylight-saving
+// automatically. Falls back to the viewer's own offset if Intl fails.
 function getOffsetSeconds(timeZone, date = new Date()) {
   try {
     const dtf = new Intl.DateTimeFormat("en-US", {
@@ -373,9 +376,10 @@ function getOffsetSeconds(timeZone, date = new Date()) {
   }
 }
 
-// Human-readable gap from Malta, e.g. "3 hrs 30 min ahead of Malta".
+// Human-readable gap from the visitor's own local time, e.g.
+// "3 hrs 30 min ahead of your time".
 function formatTimeDiff(diffSeconds) {
-  if (diffSeconds === 0) return "same time as Malta";
+  if (diffSeconds === 0) return "same time as you";
   const ahead = diffSeconds > 0;
   const abs = Math.abs(diffSeconds);
   const h = Math.floor(abs / 3600);
@@ -383,7 +387,7 @@ function formatTimeDiff(diffSeconds) {
   const hPart = h ? `${h} hr${h === 1 ? "" : "s"}` : "";
   const mPart = m ? `${m} min` : "";
   const hm = [hPart, mPart].filter(Boolean).join(" ") || "0 hrs";
-  return `${hm} ${ahead ? "ahead of" : "behind"} Malta`;
+  return `${hm} ${ahead ? "ahead of" : "behind"} your time`;
 }
 
 // The TRUE current wall-clock time at a location, derived from the browser's
