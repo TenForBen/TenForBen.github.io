@@ -172,7 +172,10 @@ class UI {
     return this.city;
   }
 
-  // ---- Search history (last 10 results, newest first) --------------------
+  // ---- Search history (up to HISTORY_MAX results, newest first) ----------
+  // localStorage keeps the whole list; the nav dropdown shows only a small
+  // window (HISTORY_DROPDOWN) around the current item, and the Older/Newer
+  // buttons step through everything.
 
   loadHistory() {
     try {
@@ -200,7 +203,7 @@ class UI {
       (h) => (h.q || "").toLowerCase() !== q.toLowerCase()
     );
     this.history.unshift({ q, data });
-    if (this.history.length > 10) this.history.length = 10;
+    if (this.history.length > HISTORY_MAX) this.history.length = HISTORY_MAX;
     this.historyIndex = 0; // the new search is now the one on screen
     this.persistHistory();
     this.updateNav();
@@ -244,14 +247,23 @@ class UI {
       return;
     }
     const idx = this.historyIndex;
-    const options = this.history
-      .map(
-        (h, i) =>
-          `<option value="${i}" ${i === idx ? "selected" : ""}>${escapeHtml(
-            h.q || h.data.name
-          )}</option>`
-      )
-      .join("");
+
+    // The dropdown lists only a small window of entries centred on the current
+    // one — so the selected item is always visible and the menu stays short —
+    // while the Older/Newer buttons move across the entire stored history.
+    const win = HISTORY_DROPDOWN;
+    let start = idx - Math.floor(win / 2);
+    start = Math.min(start, len - win); // don't overshoot the end
+    start = Math.max(0, start); // and never before the start
+    const end = Math.min(len, start + win);
+
+    let options = "";
+    for (let i = start; i < end; i++) {
+      const entry = this.history[i];
+      options += `<option value="${i}" ${i === idx ? "selected" : ""}>${escapeHtml(
+        entry.q || entry.data.name
+      )}</option>`;
+    }
 
     this.navContainer.innerHTML = `
       <div class="d-flex justify-content-center align-items-center mt-4" style="gap: 8px; flex-wrap: wrap;">
@@ -285,10 +297,33 @@ function flagImg(countryCode) {
   return (
     `<img src="https://flagcdn.com/24x18/${cc}.png" ` +
     `srcset="https://flagcdn.com/48x36/${cc}.png 2x" ` +
-    `width="24" height="18" alt="${cc.toUpperCase()} flag" ` +
+    `width="24" height="18" alt="${cc.toUpperCase()} flag" data-cc="${cc}" ` +
     `style="vertical-align: middle; margin: 0 4px 3px; border-radius: 2px;" ` +
-    `onerror="this.style.display='none'">`
+    `onerror="flagFallback(this)">`
   );
+}
+
+// Emoji flag from a country code (regional-indicator letters), e.g. "NZ" -> 🇳🇿.
+function flagEmoji(countryCode) {
+  const cc = String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "");
+  if (cc.length !== 2) return "";
+  return String.fromCodePoint(...[...cc].map((c) => 0x1F1E6 + c.charCodeAt(0) - 65));
+}
+
+// Runs when the CDN flag image fails to load (offline, or blocked by a privacy
+// /ad extension): swap in the emoji flag, which needs no network. Only falls
+// back to hiding if we somehow can't build an emoji. Global so the inline
+// onerror can reach it.
+function flagFallback(img) {
+  const emoji = flagEmoji(img.getAttribute("data-cc"));
+  if (emoji) {
+    const span = document.createElement("span");
+    span.textContent = emoji;
+    span.style.margin = "0 4px";
+    img.replaceWith(span);
+  } else {
+    img.style.display = "none";
+  }
 }
 
 // Escapes user-supplied text before it goes into innerHTML, so a query like
@@ -412,6 +447,12 @@ function formatAgo(totalSeconds) {
 }
 
 const SECONDS_PER_DAY = 86400;
+
+// How many searches localStorage keeps, and how many the dropdown shows at
+// once (a window around the current entry). Bump HISTORY_MAX to 100 if you
+// want a deeper store — it's just JSON in localStorage.
+const HISTORY_MAX = 50;
+const HISTORY_DROPDOWN = 5;
 
 // Celsius -> Fahrenheit, rounded. The API is queried with units=metric,
 // so data.main.temp is already Celsius.
