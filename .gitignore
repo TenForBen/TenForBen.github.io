@@ -8,3 +8,6 @@ node_modules/
 
 # macOS
 .DS_Store
+
+# Claude Code local config
+.claude/
