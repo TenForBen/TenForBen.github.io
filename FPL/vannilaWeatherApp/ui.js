@@ -52,6 +52,11 @@ class UI {
     const latitude = convertToDegreesMinutes(data.coord.lat, true);
     const longitude = convertToDegreesMinutes(data.coord.lon, false);
 
+    // How many km a degree of longitude spans right here (shrinks toward
+    // the poles). A degree of latitude is skipped — it's ~111 km almost
+    // everywhere, so not worth calling out.
+    const lonKm = kmPerDegreeLongitude(data.coord.lat);
+
     // Google Maps wants raw decimals; the DMS strings above are display-only.
     const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${data.coord.lat},${data.coord.lon}`;
 
@@ -79,6 +84,7 @@ class UI {
           <h5 class="card-title"><b id="placeName">${data.name}</b>, ${flagImg(data.sys.country)}<u id="landen">${data.sys.country}</u></h5>
           ${query ? `<p class="card-text text-muted" style="font-size: 90%;">Searched: <b>${escapeHtml(query)}</b></p>` : ""}
           <p id="xPat"><a href="${mapsUrl}" target="_blank" rel="noopener" title="Open in Google Maps">${latitude}, ${longitude}</a></p>
+          <p class="card-text text-muted" style="font-size: 85%;">1&deg; longitude at ${latitude}, ${longitude} &asymp; ${lonKm} km here</p>
           <h6 class="card-subtitle mb-2 text-muted">current Temperature <p id="cuwt">${temp}&deg;C <span style="font-size: 40%;">/ ${tempF}&deg;F</span></p> and feels like ${Math.round(data.main.feels_like)}&deg;C</h6>
           <h6 class="card-subtitle mb-2 text-muted">Highs of ${Math.round(data.main.temp_max)}&deg;C. Lows of ${Math.round(data.main.temp_min)}&deg;C</h6>
           <p class="card-text">Weather conditions are described as: ${data.weather[0].description}</p>
@@ -527,6 +533,19 @@ function convertToDegreesMinutes(coord, isLatitude) {
   const degrees = Math.floor(absolute);
   const minutes = ((absolute - degrees) * 60).toFixed(2);
   return `${degrees}\u00B0${minutes}' ${direction}`;
+}
+
+// How many km one degree of longitude spans at a given latitude. Meridians
+// converge toward the poles, so this shrinks from ~111 km at the equator to
+// 0 km at the pole itself (unlike a degree of latitude, which stays close
+// to constant everywhere and so isn't worth displaying). WGS84
+// approximation (accurate to a few metres), from
+// https://en.wikipedia.org/wiki/Longitude#Length_of_a_degree_of_longitude.
+function kmPerDegreeLongitude(latDegrees) {
+  const lat = (latDegrees * Math.PI) / 180;
+  const lonKm =
+    (111412.84 * Math.cos(lat) - 93.5 * Math.cos(3 * lat) + 0.118 * Math.cos(5 * lat)) / 1000;
+  return Math.abs(lonKm).toFixed(1);
 }
 
 // Picks a single colour band for the temperature. Using else-if (via early
