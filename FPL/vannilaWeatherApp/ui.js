@@ -325,6 +325,7 @@ function flagImg(countryCode) {
     `<img src="https://flagcdn.com/24x18/${cc}.png" ` +
     `srcset="https://flagcdn.com/48x36/${cc}.png 2x" ` +
     `width="24" height="18" alt="${cc.toUpperCase()} flag" data-cc="${cc}" ` +
+    `class="weather-flag" ` +
     `style="vertical-align: middle; margin: 0 4px 3px; border-radius: 2px;" ` +
     `onerror="flagFallback(this)">`
   );
@@ -346,7 +347,9 @@ function flagFallback(img) {
   if (emoji) {
     const span = document.createElement("span");
     span.textContent = emoji;
+    span.className = "weather-flag";
     span.style.margin = "0 4px";
+    span.style.display = "inline-block";
     img.replaceWith(span);
   } else {
     img.style.display = "none";
