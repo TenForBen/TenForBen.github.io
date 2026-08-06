@@ -9,7 +9,7 @@ class UI {
     this.setupNav(); // builds a persistent nav bar above the weather card
   }
 
-  populateUI(data, queryOverride) {
+  populateUI(data, queryOverride, previousEntry) {
     // Any previous card's live clock must be torn down before we render a new
     // one, or intervals silently stack up (a memory leak + duplicate ticks).
     this.stopClock();
@@ -57,6 +57,19 @@ class UI {
     // everywhere, so not worth calling out.
     const lonKm = kmPerDegreeLongitude(data.coord.lat);
 
+    // Only shown on a history-nav jump (Older/Newer/dropdown) — previousEntry
+    // is the place that was on screen right before this one. A fresh search
+    // or the initial page load pass no previousEntry, so this stays blank.
+    let distanceLine = "";
+    if (previousEntry && previousEntry.data && previousEntry.data.coord) {
+      const distanceKm = haversineKm(
+        previousEntry.data.coord.lat, previousEntry.data.coord.lon,
+        data.coord.lat, data.coord.lon
+      );
+      const fromName = previousEntry.q || previousEntry.data.name || "the last place";
+      distanceLine = `<p class="card-text text-muted" style="font-size: 85%;">Distance from ${escapeHtml(fromName)} (last viewed) &asymp; ${Math.round(distanceKm)} km</p>`;
+    }
+
     // Google Maps wants raw decimals; the DMS strings above are display-only.
     const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${data.coord.lat},${data.coord.lon}`;
 
@@ -85,6 +98,7 @@ class UI {
           ${query ? `<p class="card-text text-muted" style="font-size: 90%;">Searched: <b>${escapeHtml(query)}</b></p>` : ""}
           <p id="xPat"><a href="${mapsUrl}" target="_blank" rel="noopener" title="Open in Google Maps">${latitude}, ${longitude}</a></p>
           <p class="card-text text-muted" style="font-size: 85%;">1&deg; longitude at ${latitude}, ${longitude} &asymp; ${lonKm} km here</p>
+          ${distanceLine}
           <h6 class="card-subtitle mb-2 text-muted">current Temperature <p id="cuwt">${temp}&deg;C <span style="font-size: 40%;">/ ${tempF}&deg;F</span></p> and feels like ${Math.round(data.main.feels_like)}&deg;C</h6>
           <h6 class="card-subtitle mb-2 text-muted">Highs of ${Math.round(data.main.temp_max)}&deg;C. Lows of ${Math.round(data.main.temp_min)}&deg;C</h6>
           <p class="card-text">Weather conditions are described as: ${data.weather[0].description}</p>
@@ -221,9 +235,13 @@ class UI {
   // Re-renders the card from a stored entry (no new fetch, no re-push).
   viewHistory(index) {
     if (index < 0 || index >= this.history.length) return;
+    const previousEntry = this.history[this.historyIndex]; // what's on screen right now
     this.historyIndex = index;
     const entry = this.history[index];
-    this.populateUI(entry.data, entry.q); // override query with the stored one
+    // Passing previousEntry tells populateUI this is a history-nav jump (vs.
+    // a fresh search), which is the only time the distance-from-last-place
+    // line should appear.
+    this.populateUI(entry.data, entry.q, previousEntry);
     this.updateNav();
   }
 
@@ -546,6 +564,20 @@ function kmPerDegreeLongitude(latDegrees) {
   const lonKm =
     (111412.84 * Math.cos(lat) - 93.5 * Math.cos(3 * lat) + 0.118 * Math.cos(5 * lat)) / 1000;
   return Math.abs(lonKm).toFixed(1);
+}
+
+// Great-circle distance (km) between two lat/lon points, via the haversine
+// formula. Used for the "distance from the last place you viewed" line —
+// straight-line "as the crow flies", not driving/flying route distance.
+function haversineKm(lat1, lon1, lat2, lon2) {
+  const R = 6371; // mean Earth radius, km
+  const toRad = (deg) => (deg * Math.PI) / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
 // Picks a single colour band for the temperature. Using else-if (via early
