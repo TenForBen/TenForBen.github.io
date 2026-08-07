@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/minty/bootstrap.min.css"
+  />
+  <title>GeoStreak — TENFORBEN Station</title>
+  <style>
+    body {
+      background: #060a14;
+      color: #cfe8ff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+    }
+
+    .gs-header {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, #0a1226 0%, #060a14 100%);
+      border-bottom: 1px solid #1b2a4a;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .gs-radar {
+      position: absolute;
+      top: 50%;
+      left: 24px;
+      width: 26px;
+      height: 26px;
+      margin-top: -13px;
+      border-radius: 50%;
+      border: 1px solid #1f6feb;
+      opacity: 0.6;
+    }
+    .gs-radar::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, rgba(56, 189, 248, 0.9), transparent 35%);
+      animation: gs-radar-sweep 2.2s linear infinite;
+    }
+    @keyframes gs-radar-sweep {
+      to { transform: rotate(360deg); }
+    }
+    .gs-brand {
+      font-family: "Courier New", Courier, monospace;
+      letter-spacing: 1px;
+      font-size: 1rem;
+      padding-left: 46px;
+      color: #7dd3fc;
+    }
+    .gs-back-link {
+      font-family: "Courier New", Courier, monospace;
+      color: #93a4c3;
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+    .gs-back-link:hover {
+      color: #7dd3fc;
+      text-decoration: underline;
+    }
+
+    main.container {
+      padding-top: 28px;
+      padding-bottom: 60px;
+      max-width: 640px;
+    }
+
+    .gs-stats {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+    .gs-stat-box {
+      background: #0c1630;
+      border: 1px solid #1b2a4a;
+      border-radius: 6px;
+      padding: 12px 26px;
+      text-align: center;
+      min-width: 140px;
+    }
+    .gs-stat-label {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      color: #6b7fa8;
+    }
+    .gs-stat-value {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 2rem;
+      color: #7dd3fc;
+      font-weight: bold;
+    }
+    @keyframes gs-pulse {
+      0% { transform: scale(1); color: #7dd3fc; }
+      40% { transform: scale(1.35); color: #4ade80; }
+      100% { transform: scale(1); color: #7dd3fc; }
+    }
+    .geo-pulse {
+      animation: gs-pulse 0.6s ease;
+    }
+
+    .gs-condition {
+      text-align: center;
+      font-size: 1.15rem;
+      color: #e2ecff;
+      margin-bottom: 18px;
+    }
+
+    .gs-input-row {
+      display: flex;
+      gap: 8px;
+      max-width: 420px;
+      margin: 0 auto 14px;
+    }
+
+    .gs-timer {
+      text-align: center;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #7dd3fc;
+      margin-bottom: 6px;
+      transition: color 0.2s ease;
+    }
+    .gs-timer.gs-timer-warn { color: #f0b429; }
+    .gs-timer.gs-timer-danger { color: #f87171; }
+
+    .gs-hint {
+      text-align: center;
+      color: #f0b429;
+      min-height: 1.3em;
+      font-size: 0.9rem;
+    }
+
+    /* Result card: reuses Weather.JS's own light card markup, so it needs
+       its own positioned wrapper for the stamp/label overlays only. */
+    .geo-result-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    /* The reused card carries Bootstrap's mt-5 from the main app, where it
+       sits below a nav bar. Here it just throws off the stamp/label overlay
+       positioning below, so it's neutralized for this reuse only. Bootstrap's
+       spacing utilities are !important, so this override has to match. */
+    .geo-result-wrap .card {
+      margin-top: 0 !important;
+    }
+    .geo-stamp {
+      position: absolute;
+      top: 4px;
+      right: calc(50% - 10rem + 12px);
+      z-index: 5;
+      font-family: "Courier New", Courier, monospace;
+      font-weight: bold;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      border: 2px solid currentColor;
+      border-radius: 4px;
+      transform: rotate(8deg);
+    }
+    .geo-stamp-correct { color: #16a34a; }
+    .geo-stamp-incorrect { color: #dc2626; }
+
+    .gs-game-over {
+      text-align: center;
+    }
+    .geo-gameover {
+      background: #0c1630;
+      border: 1px solid #1b2a4a;
+      border-radius: 8px;
+      padding: 24px;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+    .geo-gameover h3 {
+      color: #f87171;
+      font-family: "Courier New", Courier, monospace;
+    }
+
+    /* Flag hover-zoom, matching the main Weather.JS page. */
+    .weather-flag {
+      transition: transform 0.15s ease;
+      position: relative;
+    }
+    .weather-flag:hover {
+      transform: scale(3);
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <header class="gs-header">
+    <div class="gs-radar"></div>
+    <div class="gs-brand">TENFORBEN // STATION — GeoStreak</div>
+    <a class="gs-back-link" href="../index.html">&larr; Weather.JS</a>
+  </header>
+
+  <main class="container" id="geoStreakRoot">
+    <div class="gs-stats">
+      <div class="gs-stat-box">
+        <div class="gs-stat-label">STREAK</div>
+        <div class="gs-stat-value" id="gsStreak">0</div>
+      </div>
+      <div class="gs-stat-box">
+        <div class="gs-stat-label">HIGH SCORE</div>
+        <div class="gs-stat-value" id="gsHighScore">0</div>
+      </div>
+    </div>
+
+    <div id="gsPlayArea">
+      <p class="gs-condition" id="gsCondition"></p>
+      <div class="gs-input-row">
+        <input
+          type="text"
+          id="gsCityInput"
+          class="form-control"
+          placeholder="Type a city name…"
+          autocomplete="off"
+        />
+        <button type="button" id="gsSubmit" class="btn btn-primary">Guess</button>
+      </div>
+      <div class="gs-timer" id="gsTimer">20s</div>
+      <p class="gs-hint" id="gsHint"></p>
+    </div>
+
+    <div id="gsGameOver" class="gs-game-over" style="display: none;"></div>
+
+    <div id="gsResult"></div>
+  </main>
+
+  <script src="../fetch.js"></script>
+  <script src="../ui.js"></script>
+  <script src="../app.js"></script>
+</body>
+</html>
