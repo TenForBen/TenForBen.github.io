@@ -47,6 +47,22 @@ turning amber under 10s and red under 5s. A guess still in flight when the
 timer expires is discarded when it resolves — it can't retroactively revive
 a round that already ended.
 
+## Result card auto-fade
+
+A correct guess's result card stays up for **~4 seconds**, then fades out
+over half a second and clears — so it doesn't linger on screen through the
+whole next round. A wrong guess's card (the one that ended the session) is
+left alone and stays visible on the Game Over screen. Guarded the same way
+as the round timer: if a new result has already replaced this one by the
+time the fade would fire, the stale fade-out is a no-op.
+
+## Country tally
+
+A running "🇬🇧 GB ×2 | 🇮🇷 IR ×1" breakdown under the stat boxes, one entry
+per country you've pulled a real reading from this session — correct or
+not, since even the guess that ends your streak still counts. Resets on
+Play Again along with everything else session-scoped.
+
 ## High score
 
 Current streak and **High Score** are both shown in stat boxes at the top
@@ -69,8 +85,8 @@ elements:
   `renderGameCard()` for the result reveal (a "CORRECT"/"INCORRECT" stamp
   on top of the same card look as the main app), plus small render helpers:
   `renderGameCondition`, `updateStreakDisplay`, `updateHighScoreDisplay`
-  (with pulse), `updateTimerDisplay`, `renderGameOver` (win/loss vs.
-  timeout heading).
+  (with pulse), `updateTimerDisplay`, `updateCountryTally`, `renderGameOver`
+  (win/loss vs. timeout heading).
 - **`../app.js`** — `initGeoStreak()` holds all game state (streak, high
   score, current condition, round timer, a `roundId` guard against
   stale in-flight guesses) and orchestrates the loop. Guarded on
