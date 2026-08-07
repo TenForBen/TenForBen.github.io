@@ -24,6 +24,13 @@ main [Weather.JS](../index.html) page ("GeoStreak" button).
 7. **Timer hits 0** before you answer → game over, labeled "Time's Up!"
    (as opposed to "Game Over" for a wrong guess).
 
+Each place name can only be used **once per session** (one continuous
+streak run) — guessing "Auckland" and then "Auckland" again later in the
+same run is rejected with a hint, no penalty, timer keeps running. Checked
+case-insensitively and against the API's resolved name too, so "Auckland"
+and "auckland,NZ" count as the same entry. The used-city list resets on
+Play Again.
+
 ## Round timer
 
 Each round gives you **20 seconds**. It's shown live below the input,
