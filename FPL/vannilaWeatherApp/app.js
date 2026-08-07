@@ -97,6 +97,13 @@ function initGeoStreak() {
   // can tell its answer no longer belongs to the current round and drop it.
   let roundId = 0;
 
+  // Cities already answered with this session (one continuous streak run,
+  // cleared on restart) — lowercased so "Auckland" and "auckland" count as
+  // the same entry. Keyed on both whatever the player typed AND the API's
+  // resolved name, so "Auckland" then "Auckland,NZ" are still caught as the
+  // same place even though the raw strings differ.
+  let usedCities = new Set();
+
   // Visible immediately on load, before the first question is even
   // generated — the high score should always be there for motivation.
   ui.updateHighScoreDisplay(highScoreEl, highScore);
@@ -142,6 +149,11 @@ function initGeoStreak() {
       return;
     }
 
+    if (usedCities.has(typed.toLowerCase())) {
+      hintEl.textContent = `You've already used "${typed}" this session. Try a different city.`;
+      return;
+    }
+
     hintEl.textContent = "";
     submitBtn.disabled = true;
     const thisRound = roundId;
@@ -156,6 +168,16 @@ function initGeoStreak() {
       hintEl.textContent = `Nothing found for "${typed}". Try another city.`;
       return;
     }
+
+    // A differently-typed query can still resolve to a place already used
+    // this session (e.g. "Auckland" then "Auckland,NZ") — catch that too,
+    // now that we know its canonical name.
+    if (usedCities.has(data.name.toLowerCase())) {
+      hintEl.textContent = `You've already used ${data.name} this session. Try a different city.`;
+      return;
+    }
+    usedCities.add(typed.toLowerCase());
+    usedCities.add(data.name.toLowerCase());
 
     const actual = data.main.temp;
     const correct = currentCondition.direction === "above"
@@ -189,6 +211,7 @@ function initGeoStreak() {
 
   function restart() {
     streak = 0;
+    usedCities = new Set();
     ui.updateStreakDisplay(streakEl, streak);
     resultEl.innerHTML = "";
     gameOverEl.style.display = "none";
