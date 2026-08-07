@@ -378,6 +378,20 @@ class UI {
     el.classList.toggle("gs-timer-warn", secondsLeft > 5 && secondsLeft <= 10);
   }
 
+  // Renders the session's per-country breakdown, e.g. "🇺🇸 US ×2 | 🇮🇷 IR ×1",
+  // from a Map of ISO country code -> count. Reuses flagEmoji() rather than
+  // the CDN flagImg() — this is a compact inline tally, not a card header.
+  updateCountryTally(el, countryCounts) {
+    if (!el) return;
+    if (countryCounts.size === 0) {
+      el.innerHTML = "";
+      return;
+    }
+    el.innerHTML = [...countryCounts.entries()]
+      .map(([code, count]) => `${flagEmoji(code)} ${escapeHtml(code)} &times;${count}`)
+      .join(" &nbsp;|&nbsp; ");
+  }
+
   // `reason: "time"` distinguishes a timeout loss from a wrong-guess loss.
   renderGameOver(container, finalStreak, { reason } = {}) {
     if (!container) return;

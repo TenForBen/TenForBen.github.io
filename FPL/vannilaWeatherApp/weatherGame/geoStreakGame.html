@@ -122,6 +122,15 @@
       animation: gs-pulse 0.6s ease;
     }
 
+    .gs-country-tally {
+      text-align: center;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.85rem;
+      color: #9db4de;
+      min-height: 1.4em;
+      margin-bottom: 22px;
+    }
+
     .gs-condition {
       text-align: center;
       font-size: 1.15rem;
@@ -187,6 +196,16 @@
     .geo-stamp-correct { color: #16a34a; }
     .geo-stamp-incorrect { color: #dc2626; }
 
+    /* Correct-guess result cards fade out a few seconds into the next
+       round rather than lingering on screen. Duration here must match
+       RESULT_FADE_MS in app.js. */
+    #gsResult {
+      transition: opacity 0.5s ease;
+    }
+    #gsResult.geo-result-fade-out {
+      opacity: 0;
+    }
+
     .gs-game-over {
       text-align: center;
     }
@@ -232,6 +251,8 @@
         <div class="gs-stat-value" id="gsHighScore">0</div>
       </div>
     </div>
+
+    <div class="gs-country-tally" id="gsCountryTally"></div>
 
     <div id="gsPlayArea">
       <p class="gs-condition" id="gsCondition"></p>

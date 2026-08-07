@@ -74,6 +74,8 @@ function initGeoStreak() {
   const MIN_THRESHOLD = 5;
   const MAX_THRESHOLD = 32;
   const ROUND_SECONDS = 20;
+  const RESULT_VISIBLE_MS = 4000; // how long a correct-guess card stays up before fading
+  const RESULT_FADE_MS = 500; // must match the CSS transition duration on .geo-result-fade-out
 
   const conditionEl = document.getElementById("gsCondition");
   const cityInput = document.getElementById("gsCityInput");
@@ -83,6 +85,7 @@ function initGeoStreak() {
   const resultEl = document.getElementById("gsResult");
   const streakEl = document.getElementById("gsStreak");
   const highScoreEl = document.getElementById("gsHighScore");
+  const countryTallyEl = document.getElementById("gsCountryTally");
   const playAreaEl = document.getElementById("gsPlayArea");
   const gameOverEl = document.getElementById("gsGameOver");
 
@@ -103,6 +106,10 @@ function initGeoStreak() {
   // resolved name, so "Auckland" then "Auckland,NZ" are still caught as the
   // same place even though the raw strings differ.
   let usedCities = new Set();
+
+  // How many guesses (correct or not, but only ones that resolved to a real
+  // place) have come from each country this session, keyed by ISO code.
+  let countryCounts = new Map();
 
   // Direction strictly alternates round to round (not a fresh coin flip
   // each time) — starting side is randomised once per session so it isn't
@@ -156,6 +163,24 @@ function initGeoStreak() {
     }, 1000);
   }
 
+  // Fades out and clears the result card a few seconds after a correct
+  // guess, so it doesn't linger on screen through the whole next round.
+  // Guarded by roundId: if a newer round's result has already replaced this
+  // one by the time the timers fire, this is a no-op — it must not wipe out
+  // a card that isn't the one it was scheduled for.
+  function scheduleResultFadeOut() {
+    const revealRoundId = roundId;
+    setTimeout(() => {
+      if (roundId !== revealRoundId) return;
+      resultEl.classList.add("geo-result-fade-out");
+      setTimeout(() => {
+        if (roundId !== revealRoundId) return;
+        resultEl.innerHTML = "";
+        resultEl.classList.remove("geo-result-fade-out");
+      }, RESULT_FADE_MS);
+    }, RESULT_VISIBLE_MS);
+  }
+
   function newCondition() {
     roundId += 1;
     const direction = nextDirection;
@@ -206,6 +231,10 @@ function initGeoStreak() {
     usedCities.add(typed.toLowerCase());
     usedCities.add(data.name.toLowerCase());
 
+    const countryCode = data.sys.country;
+    countryCounts.set(countryCode, (countryCounts.get(countryCode) || 0) + 1);
+    ui.updateCountryTally(countryTallyEl, countryCounts);
+
     const actual = data.main.temp;
     const correct = currentCondition.direction === "above"
       ? actual > currentCondition.threshold
@@ -223,6 +252,7 @@ function initGeoStreak() {
         ui.updateHighScoreDisplay(highScoreEl, highScore, { pulse: true });
       }
       newCondition();
+      scheduleResultFadeOut();
     } else {
       endGame();
     }
@@ -239,11 +269,14 @@ function initGeoStreak() {
   function restart() {
     streak = 0;
     usedCities = new Set();
+    countryCounts = new Map();
     usedThresholds.above.clear();
     usedThresholds.below.clear();
     nextDirection = Math.random() < 0.5 ? "above" : "below";
     ui.updateStreakDisplay(streakEl, streak);
+    ui.updateCountryTally(countryTallyEl, countryCounts);
     resultEl.innerHTML = "";
+    resultEl.classList.remove("geo-result-fade-out");
     gameOverEl.style.display = "none";
     playAreaEl.style.display = "";
     newCondition();
