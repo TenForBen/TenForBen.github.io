@@ -8,9 +8,18 @@ main [Weather.JS](../index.html) page ("GeoStreak" button).
 
 ## The loop
 
-1. The app picks a random condition: **above** or **below** a random
-   threshold between **5°C and 35°C**. e.g. *"Name a city with current
-   temperature below 22°C."*
+1. The app picks a condition: a threshold between **5°C and 32°C**
+   (28 possible values), paired with **above** or **below**. e.g.
+   *"Name a city with current temperature below 22°C."* The upper bound is
+   capped below 35°C on purpose — real cities clearing 35°C right now are a
+   short, narrow list (basically Gulf/Iraq/Iran and US-Southwest desert
+   cities), so "above 35" rewards knowing this week's heatwave trivia more
+   than general geography. Direction strictly **alternates** round to round
+   (starting side randomised once per session) — never two "above"s or two
+   "below"s in a row. A given (direction, threshold) question can't repeat
+   until every threshold for that direction has been asked at least once
+   (28 questions per direction, 56 total this session) — then that
+   direction's pool refills and can cycle again.
 2. You type **any** place name (free text — no fixed list, no autocomplete)
    and hit Guess (or Enter).
 3. The app looks up that place's current temperature via the OpenWeatherMap
