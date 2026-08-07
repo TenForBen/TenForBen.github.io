@@ -21,4 +21,26 @@ class Fetch {
 
     return data; // only the success shape ever reaches the caller
   }
+
+  // Used by GeoStreak for free-text guesses. Same lookup as getCurrent(),
+  // just bounded to 5s (so a slow/hanging request can't stall a round
+  // forever) and returns null instead of throwing on ANY failure — city not
+  // found, timeout, offline — so the caller can show a plain "nothing
+  // found" message rather than an error page.
+  //
+  // Note: the 5s timeout races the request but doesn't abort it (no
+  // AbortController) — the underlying fetch keeps running in the background
+  // if it loses the race. Callers should ignore a result that arrives after
+  // their own round has already moved on.
+  async getCurrentForGame(cityName) {
+    const timeout = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("GeoStreak lookup timed out")), 5000)
+    );
+
+    try {
+      return await Promise.race([this.getCurrent(cityName), timeout]);
+    } catch (err) {
+      return null;
+    }
+  }
 }

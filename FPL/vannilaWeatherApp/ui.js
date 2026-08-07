@@ -36,6 +36,20 @@ class UI {
       if (typed) localStorage.setItem("cityQuery", typed);
     }
 
+    this.uiContainer.innerHTML = this.buildWeatherCardHtml(data, query, previousEntry);
+    this.applyCardStyling(Math.round(data.main.temp));
+
+    // begin ticking the true current local time for this city
+    this.startClock(data.timezone || 0);
+
+    // clear the search box, ready for the next lookup
+    if (searchBox) searchBox.value = "";
+  }
+
+  // Builds the weather-card markup shared by the main app (populateUI) and
+  // GeoStreak's result reveal (renderGameCard). Pure: returns an HTML string
+  // and records this.readingDt for the clock tick, but touches no other DOM.
+  buildWeatherCardHtml(data, query, previousEntry) {
     const tz = data.timezone || 0; // offset in seconds from UTC for THIS city
 
     // Above the Arctic / below the Antarctic Circle the sun may not rise or
@@ -91,7 +105,7 @@ class UI {
     const visitorOffset = getOffsetSeconds(visitorTz);
     const diffLabel = formatTimeDiff(tz - visitorOffset);
 
-    this.uiContainer.innerHTML = `
+    return `
       <div class="card mx-auto mt-5" style="width: 20rem;">
         <div class="card-body justify-content-center">
           <h5 class="card-title"><b id="placeName">${data.name}</b>, ${flagImg(data.sys.country)}<u id="landen">${data.sys.country}</u></h5>
@@ -110,8 +124,11 @@ class UI {
         </div>
       </div>
     `;
+  }
 
-    // base styling
+  // The styling pass that follows any weather-card render, main app or
+  // GeoStreak alike — split out so both callers apply it identically.
+  applyCardStyling(temp) {
     document.getElementById("art").style.color = "red";
     document.getElementById("cuwt").style.color = "green";
     document.getElementById("cuwt").style.fontSize = "300%";
@@ -120,12 +137,6 @@ class UI {
 
     // temperature-driven colour — exactly one band applies now
     applyTempStyling(temp);
-
-    // begin ticking the true current local time for this city
-    this.startClock(tz);
-
-    // clear the search box, ready for the next lookup
-    if (searchBox) searchBox.value = "";
   }
 
   // Ticks #liveClock every second with the *real* current time at the city,
@@ -310,6 +321,74 @@ class UI {
     this.history = [];
     this.historyIndex = 0;
     this.updateNav();
+  }
+
+  // ---- GeoStreak rendering -----------------------------------------------
+  // These reuse buildWeatherCardHtml/applyCardStyling above rather than
+  // building a second card template, per the game's design: the result
+  // reveal should look like a Weather.JS card, just with a stamp on it.
+
+  // Renders the result-reveal card into `container` (the game's own result
+  // div, not this.uiContainer — GeoStreak has no #content element). No
+  // "Searched:" line (query omitted) and no live clock started: this card
+  // is a one-off snapshot of a past guess, not a running weather display.
+  renderGameCard(container, data, { correct } = {}) {
+    if (!container) return;
+    const cardHtml = this.buildWeatherCardHtml(data, null);
+    const stampClass = correct ? "geo-stamp-correct" : "geo-stamp-incorrect";
+    const stampText = correct ? "CORRECT" : "INCORRECT";
+
+    container.innerHTML = `
+      <div class="geo-result-wrap">
+        <div class="geo-stamp ${stampClass}">${stampText}</div>
+        ${cardHtml}
+      </div>
+    `;
+    this.applyCardStyling(Math.round(data.main.temp));
+  }
+
+  // Sets the round's prompt, e.g. "Name a city with current temperature
+  // ABOVE 22°C."
+  renderGameCondition(el, condition) {
+    if (!el) return;
+    el.innerHTML = `Name a city with current temperature <b>${condition.direction.toUpperCase()}</b> ${condition.threshold}&deg;C.`;
+  }
+
+  updateStreakDisplay(el, streak) {
+    if (el) el.textContent = streak;
+  }
+
+  // `pulse` briefly replays the geo-pulse CSS animation — used when the
+  // streak just overtook the high score.
+  updateHighScoreDisplay(el, highScore, { pulse = false } = {}) {
+    if (!el) return;
+    el.textContent = highScore;
+    if (pulse) {
+      el.classList.remove("geo-pulse");
+      void el.offsetWidth; // force reflow so the removal registers before re-adding the class
+      el.classList.add("geo-pulse");
+    }
+  }
+
+  // Updates the round countdown, with colour urgency as time runs low.
+  updateTimerDisplay(el, secondsLeft) {
+    if (!el) return;
+    el.textContent = `${secondsLeft}s`;
+    el.classList.toggle("gs-timer-danger", secondsLeft <= 5);
+    el.classList.toggle("gs-timer-warn", secondsLeft > 5 && secondsLeft <= 10);
+  }
+
+  // `reason: "time"` distinguishes a timeout loss from a wrong-guess loss.
+  renderGameOver(container, finalStreak, { reason } = {}) {
+    if (!container) return;
+    const heading = reason === "time" ? "Time's Up!" : "Game Over";
+    container.innerHTML = `
+      <div class="geo-gameover">
+        <h3>${heading}</h3>
+        <p>Final streak: <b>${finalStreak}</b></p>
+        <button type="button" id="gsPlayAgain" class="btn btn-warning">Play Again</button>
+      </div>
+    `;
   }
 }
 
