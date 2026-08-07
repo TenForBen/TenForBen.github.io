@@ -72,7 +72,7 @@ if (document.getElementById("geoStreakRoot")) {
 function initGeoStreak() {
   const HIGH_SCORE_KEY = "geoStreakGame_highScore";
   const MIN_THRESHOLD = 5;
-  const MAX_THRESHOLD = 35;
+  const MAX_THRESHOLD = 32;
   const ROUND_SECONDS = 20;
 
   const conditionEl = document.getElementById("gsCondition");
@@ -104,6 +104,32 @@ function initGeoStreak() {
   // same place even though the raw strings differ.
   let usedCities = new Set();
 
+  // Direction strictly alternates round to round (not a fresh coin flip
+  // each time) — starting side is randomised once per session so it isn't
+  // always "above" first.
+  let nextDirection = Math.random() < 0.5 ? "above" : "below";
+
+  // Per-direction pool of thresholds not yet asked this session. A given
+  // (direction, threshold) question can't repeat until every threshold for
+  // that direction has been used at least once, at which point its pool
+  // refills and the cycle starts over.
+  const usedThresholds = { above: new Set(), below: new Set() };
+
+  function pickThreshold(direction) {
+    const used = usedThresholds[direction];
+    let remaining = [];
+    for (let t = MIN_THRESHOLD; t <= MAX_THRESHOLD; t++) {
+      if (!used.has(t)) remaining.push(t);
+    }
+    if (remaining.length === 0) {
+      used.clear(); // every threshold for this direction has been asked -> refill
+      for (let t = MIN_THRESHOLD; t <= MAX_THRESHOLD; t++) remaining.push(t);
+    }
+    const threshold = remaining[Math.floor(Math.random() * remaining.length)];
+    used.add(threshold);
+    return threshold;
+  }
+
   // Visible immediately on load, before the first question is even
   // generated — the high score should always be there for motivation.
   ui.updateHighScoreDisplay(highScoreEl, highScore);
@@ -132,8 +158,9 @@ function initGeoStreak() {
 
   function newCondition() {
     roundId += 1;
-    const direction = Math.random() < 0.5 ? "above" : "below";
-    const threshold = Math.floor(Math.random() * (MAX_THRESHOLD - MIN_THRESHOLD + 1)) + MIN_THRESHOLD;
+    const direction = nextDirection;
+    nextDirection = direction === "above" ? "below" : "above"; // strictly alternate next round
+    const threshold = pickThreshold(direction);
     currentCondition = { direction, threshold };
     ui.renderGameCondition(conditionEl, currentCondition);
     hintEl.textContent = "";
@@ -212,6 +239,9 @@ function initGeoStreak() {
   function restart() {
     streak = 0;
     usedCities = new Set();
+    usedThresholds.above.clear();
+    usedThresholds.below.clear();
+    nextDirection = Math.random() < 0.5 ? "above" : "below";
     ui.updateStreakDisplay(streakEl, streak);
     resultEl.innerHTML = "";
     gameOverEl.style.display = "none";
