@@ -392,21 +392,97 @@ class UI {
       .join(" &nbsp;|&nbsp; ");
   }
 
+  // The lifetime numbers shown on the start, pause and game-over panels,
+  // from the `stats` object app.js keeps in sync with localStorage.
+  // Accuracy is derived here rather than stored, so it can never drift out
+  // of step with the two counters it comes from.
+  buildInsightsHtml(stats = {}) {
+    const highScore = stats.highScore || 0;
+    const totalCorrect = stats.totalCorrect || 0;
+    const totalAttempts = stats.totalAttempts || 0;
+    const accuracy = totalAttempts
+      ? `${Math.round((totalCorrect / totalAttempts) * 100)}%`
+      : "—";
+
+    return `
+      <div class="gs-insights">
+        ${insightBox("BEST STREAK", highScore)}
+        ${insightBox("CORRECT", totalCorrect)}
+        ${insightBox("ATTEMPTS", totalAttempts)}
+        ${insightBox("ACCURACY", accuracy)}
+      </div>
+      <p class="gs-insights-note">ALL-TIME, THIS BROWSER</p>
+    `;
+  }
+
+  // First screen on load: the rules and the player's running numbers, so
+  // there's something to beat before the first question appears.
+  renderStartScreen(container, stats) {
+    if (!container) return;
+    container.innerHTML = `
+      <div class="gs-panel">
+        <h3>GeoStreak</h3>
+        <p class="gs-panel-sub">
+          Name a city whose current temperature matches the condition. Keep the streak alive.
+        </p>
+        ${this.buildInsightsHtml(stats)}
+        <ul class="gs-howto">
+          <li>20 seconds per round.</li>
+          <li>Each city can only be used once per run.</li>
+          <li>A wrong guess &mdash; or the clock &mdash; ends the run.</li>
+          <li>A city we can't find costs you nothing but time.</li>
+        </ul>
+        <button type="button" id="gsStartBtn" class="btn btn-primary">Start Game</button>
+      </div>
+    `;
+  }
+
+  renderPauseScreen(container, stats, currentStreak) {
+    if (!container) return;
+    container.innerHTML = `
+      <div class="gs-panel">
+        <h3>Paused</h3>
+        <p class="gs-panel-sub">Current streak: <b>${currentStreak}</b> &mdash; still alive.</p>
+        ${this.buildInsightsHtml(stats)}
+        <button type="button" id="gsResumeBtn" class="btn btn-primary">Resume</button>
+      </div>
+    `;
+  }
+
   // `reason: "time"` distinguishes a timeout loss from a wrong-guess loss.
-  renderGameOver(container, finalStreak, { reason } = {}) {
+  renderGameOver(container, finalStreak, { reason, stats } = {}) {
     if (!container) return;
     const heading = reason === "time" ? "Time's Up!" : "Game Over";
     container.innerHTML = `
-      <div class="geo-gameover">
+      <div class="gs-panel gs-panel-danger">
         <h3>${heading}</h3>
-        <p>Final streak: <b>${finalStreak}</b></p>
+        <p class="gs-panel-sub">Final streak: <b>${finalStreak}</b></p>
+        ${this.buildInsightsHtml(stats)}
         <button type="button" id="gsPlayAgain" class="btn btn-warning">Play Again</button>
       </div>
     `;
   }
+
+  // Reflects whether a pause has been requested but not yet applied — the
+  // button is the only place that state is visible to the player.
+  updatePauseButton(el, pending) {
+    if (!el) return;
+    el.classList.toggle("gs-pause-armed", pending);
+    el.innerHTML = pending ? "&#9208; PAUSING AFTER THIS ONE" : "&#9208; PAUSE";
+  }
 }
 
 // ---- Helpers (kept outside the class so they're easy to reuse and test) ----
+
+// One stat tile inside a GeoStreak insights row.
+function insightBox(label, value) {
+  return `
+    <div class="gs-insight">
+      <div class="gs-insight-label">${label}</div>
+      <div class="gs-insight-value">${escapeHtml(value)}</div>
+    </div>
+  `;
+}
 
 // Builds a small flag <img> from an ISO 3166 country code (e.g. "MA" -> the
 // Moroccan flag) via flagcdn.com. Returns "" for an unknown/invalid code, and

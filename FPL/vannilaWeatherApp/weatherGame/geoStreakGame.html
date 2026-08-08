@@ -145,17 +145,42 @@
       margin: 0 auto 14px;
     }
 
+    .gs-timer-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 6px;
+    }
     .gs-timer {
-      text-align: center;
       font-family: "Courier New", Courier, monospace;
       font-size: 1.3rem;
       font-weight: bold;
       color: #7dd3fc;
-      margin-bottom: 6px;
       transition: color 0.2s ease;
     }
     .gs-timer.gs-timer-warn { color: #f0b429; }
     .gs-timer.gs-timer-danger { color: #f87171; }
+
+    /* Deliberately understated next to the Guess button — pausing is a
+       side action, and it can't rescue a round that's already running out. */
+    .gs-pause-btn {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      color: #93a4c3;
+      background: transparent;
+      border: 1px solid #1b2a4a;
+      border-radius: 4px;
+      padding: 4px 10px;
+      cursor: pointer;
+    }
+    .gs-pause-btn:hover { color: #7dd3fc; border-color: #1f6feb; }
+    /* Pause requested, waiting for the current attempt to finish. */
+    .gs-pause-btn.gs-pause-armed {
+      color: #f0b429;
+      border-color: #f0b429;
+    }
 
     .gs-hint {
       text-align: center;
@@ -211,21 +236,71 @@
       opacity: 0;
     }
 
-    .gs-game-over {
-      text-align: center;
-    }
-    .geo-gameover {
+    /* One panel look shared by the start, pause and game-over screens —
+       they show the same insight numbers and differ only in heading and
+       the single button at the bottom. */
+    .gs-panel {
       background: #0c1630;
       border: 1px solid #1b2a4a;
       border-radius: 8px;
       padding: 24px;
-      max-width: 360px;
+      max-width: 420px;
       margin: 0 auto;
+      text-align: center;
     }
-    .geo-gameover h3 {
-      color: #f87171;
+    .gs-panel h3 {
+      color: #7dd3fc;
       font-family: "Courier New", Courier, monospace;
+      letter-spacing: 1px;
     }
+    .gs-panel-danger h3 { color: #f87171; }
+    .gs-panel-sub {
+      color: #9db4de;
+      font-size: 0.9rem;
+    }
+
+    .gs-insights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 18px 0;
+    }
+    .gs-insight {
+      flex: 1 1 100px;
+      background: #060a14;
+      border: 1px solid #1b2a4a;
+      border-radius: 6px;
+      padding: 10px 6px;
+    }
+    .gs-insight-label {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.6rem;
+      letter-spacing: 1.5px;
+      color: #6b7fa8;
+    }
+    .gs-insight-value {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #7dd3fc;
+    }
+    .gs-insights-note {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.65rem;
+      color: #6b7fa8;
+      margin-top: -8px;
+      margin-bottom: 16px;
+    }
+
+    .gs-howto {
+      text-align: left;
+      font-size: 0.85rem;
+      color: #93a4c3;
+      padding-left: 20px;
+      margin-bottom: 20px;
+    }
+    .gs-howto li { margin-bottom: 4px; }
 
     /* Flag hover-zoom, matching the main Weather.JS page. */
     .weather-flag {
@@ -259,7 +334,12 @@
 
     <div class="gs-country-tally" id="gsCountryTally"></div>
 
-    <div id="gsPlayArea">
+    <!-- Start / pause / game-over panels are all rendered by ui.js; the play
+         area is the only screen written out as static markup. Exactly one of
+         the four is visible at a time. -->
+    <div id="gsStart"></div>
+
+    <div id="gsPlayArea" style="display: none;">
       <p class="gs-condition" id="gsCondition"></p>
       <div class="gs-input-row">
         <input
@@ -271,11 +351,16 @@
         />
         <button type="button" id="gsSubmit" class="btn btn-primary">Guess</button>
       </div>
-      <div class="gs-timer" id="gsTimer">20s</div>
+      <div class="gs-timer-row">
+        <div class="gs-timer" id="gsTimer">20s</div>
+        <button type="button" id="gsPause" class="gs-pause-btn">&#9208; PAUSE</button>
+      </div>
       <p class="gs-hint" id="gsHint"></p>
     </div>
 
-    <div id="gsGameOver" class="gs-game-over" style="display: none;"></div>
+    <div id="gsPaused" style="display: none;"></div>
+
+    <div id="gsGameOver" style="display: none;"></div>
 
     <div id="gsResult"></div>
 
