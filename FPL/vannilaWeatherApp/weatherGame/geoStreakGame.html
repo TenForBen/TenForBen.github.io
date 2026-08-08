@@ -176,8 +176,13 @@
        sits below a nav bar. Here it just throws off the stamp/label overlay
        positioning below, so it's neutralized for this reuse only. Bootstrap's
        spacing utilities are !important, so this override has to match. */
+    /* The card has no color of its own, so its text inherits the page's
+       light-blue body colour and goes hard to read on the card's white
+       background. Bootstrap's default body colour restores normal contrast
+       for this reuse only — the main app's page is unaffected. */
     .geo-result-wrap .card {
       margin-top: 0 !important;
+      color: #212529;
     }
     .geo-stamp {
       position: absolute;

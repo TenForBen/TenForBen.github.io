@@ -116,11 +116,11 @@ class UI {
           <h6 class="card-subtitle mb-2 text-muted">current Temperature <p id="cuwt">${temp}&deg;C <span style="font-size: 40%;">/ ${tempF}&deg;F</span></p> and feels like ${Math.round(data.main.feels_like)}&deg;C</h6>
           <h6 class="card-subtitle mb-2 text-muted">Highs of ${Math.round(data.main.temp_max)}&deg;C. Lows of ${Math.round(data.main.temp_min)}&deg;C</h6>
           <p class="card-text">Weather conditions are described as: ${data.weather[0].description}</p>
-          <p class="card-text">Local time: <span id="liveClock">${nowAtLocation(tz)}</span> | ${utcLabel} | ${diffLabel}</p>
+          <p class="card-text">Local time: <b><span id="liveClock">${nowAtLocation(tz)}</span></b> | ${utcLabel} | ${diffLabel}</p>
           <p class="card-text text-muted" style="font-size: 85%;">reading taken at ${readingDateTime}${data.dt ? ` <span id="readingAgo">(${formatAgo(Math.floor(Date.now() / 1000) - data.dt)})</span>` : ""}</p>
-          <p class="card-text">Sunrise (local time): ${sunrise}</p>
-          <p class="card-text">Sunset (local time): ${sunset}</p>
-          <p class="card-text" id="art">${daylight.kind === "normal" ? `daylength is ${dayLength}` : dayLength}</p>
+          <p class="card-text">Sunrise (local time): <b>${sunrise}</b></p>
+          <p class="card-text">Sunset (local time): <b>${sunset}</b></p>
+          <p class="card-text" id="art">${daylight.kind === "normal" ? `daylength is <b>${dayLength}</b>` : `<b>${dayLength}</b>`}</p>
         </div>
       </div>
     `;
