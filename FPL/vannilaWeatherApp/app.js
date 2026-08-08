@@ -71,6 +71,12 @@ if (document.getElementById("geoStreakRoot")) {
 
 function initGeoStreak() {
   const HIGH_SCORE_KEY = "geoStreakGame_highScore";
+  // Lifetime counters, separate from the per-session streak. An "attempt" is
+  // a guess that resolved to a real place and got judged — lookups that found
+  // nothing, duplicate cities and timed-out rounds are not attempts, so
+  // accuracy measures geography rather than typing.
+  const TOTAL_CORRECT_KEY = "geoStreakGame_totalCorrect";
+  const TOTAL_ATTEMPTS_KEY = "geoStreakGame_totalAttempts";
   const MIN_THRESHOLD = 5;
   const MAX_THRESHOLD = 32;
   const ROUND_SECONDS = 20;
@@ -86,14 +92,25 @@ function initGeoStreak() {
   const streakEl = document.getElementById("gsStreak");
   const highScoreEl = document.getElementById("gsHighScore");
   const countryTallyEl = document.getElementById("gsCountryTally");
+  const pauseBtn = document.getElementById("gsPause");
+  const startEl = document.getElementById("gsStart");
   const playAreaEl = document.getElementById("gsPlayArea");
+  const pausedEl = document.getElementById("gsPaused");
   const gameOverEl = document.getElementById("gsGameOver");
 
   let streak = 0;
   let highScore = Number(localStorage.getItem(HIGH_SCORE_KEY)) || 0;
+  let totalCorrect = Number(localStorage.getItem(TOTAL_CORRECT_KEY)) || 0;
+  let totalAttempts = Number(localStorage.getItem(TOTAL_ATTEMPTS_KEY)) || 0;
   let currentCondition = null;
   let timeLeft = ROUND_SECONDS;
   let timerInterval = null;
+
+  // Pause is *requested*, not taken: the clock keeps running on the round
+  // you're in, and the pause only lands once that attempt is settled. Pausing
+  // mid-round would otherwise be an unlimited thinking-time button.
+  let pausePending = false;
+  let paused = false;
 
   // Bumped every time a round starts or ends, so a guess whose fetch is
   // still in flight when the round timer runs out (or the game restarts)
@@ -141,6 +158,19 @@ function initGeoStreak() {
   // generated — the high score should always be there for motivation.
   ui.updateHighScoreDisplay(highScoreEl, highScore);
   ui.updateStreakDisplay(streakEl, streak);
+
+  // Snapshot of the lifetime numbers for the insight panels. Read fresh each
+  // time so a panel can never show a stale count.
+  function stats() {
+    return { highScore, totalCorrect, totalAttempts };
+  }
+
+  function recordAttempt(correct) {
+    totalAttempts += 1;
+    if (correct) totalCorrect += 1;
+    localStorage.setItem(TOTAL_ATTEMPTS_KEY, String(totalAttempts));
+    localStorage.setItem(TOTAL_CORRECT_KEY, String(totalCorrect));
+  }
 
   function stopRoundTimer() {
     if (timerInterval) {
@@ -242,6 +272,7 @@ function initGeoStreak() {
 
     stopRoundTimer();
     ui.renderGameCard(resultEl, data, { correct });
+    recordAttempt(correct);
 
     if (correct) {
       streak += 1;
@@ -251,32 +282,96 @@ function initGeoStreak() {
         localStorage.setItem(HIGH_SCORE_KEY, String(highScore));
         ui.updateHighScoreDisplay(highScoreEl, highScore, { pulse: true });
       }
-      newCondition();
-      scheduleResultFadeOut();
+      // This is the point a requested pause takes effect: the attempt is
+      // settled, so freezing here can't buy thinking time on a live round.
+      if (pausePending) {
+        enterPause();
+      } else {
+        newCondition();
+        scheduleResultFadeOut();
+      }
     } else {
       endGame();
     }
   }
 
+  // ---- Pause ---------------------------------------------------------------
+
+  function setPausePending(pending) {
+    pausePending = pending;
+    ui.updatePauseButton(pauseBtn, pending);
+  }
+
+  // Clicking Pause arms it; clicking again before the round settles calls it
+  // off, so a mis-click doesn't force you to sit through a pause screen.
+  function togglePause() {
+    if (paused) return;
+    setPausePending(!pausePending);
+  }
+
+  function enterPause() {
+    paused = true;
+    setPausePending(false);
+    roundId += 1; // no round is live while paused — drop anything still in flight
+    stopRoundTimer();
+    ui.renderPauseScreen(pausedEl, stats(), streak);
+    playAreaEl.style.display = "none";
+    pausedEl.style.display = "block";
+  }
+
+  function resume() {
+    paused = false;
+    pausedEl.style.display = "none";
+    playAreaEl.style.display = "";
+    clearResult();
+    newCondition();
+  }
+
+  // ---- Screens -------------------------------------------------------------
+
+  function clearResult() {
+    resultEl.innerHTML = "";
+    resultEl.classList.remove("geo-result-fade-out");
+  }
+
   function endGame(reason) {
     roundId += 1; // invalidate any guess still in flight for the round that just ended
     stopRoundTimer();
-    ui.renderGameOver(gameOverEl, streak, { reason });
+    setPausePending(false);
+    ui.renderGameOver(gameOverEl, streak, { reason, stats: stats() });
     playAreaEl.style.display = "none";
     gameOverEl.style.display = "block";
   }
 
-  function restart() {
+  // Wipes everything scoped to one streak run. The lifetime counters and the
+  // high score deliberately survive — they're the whole point of the panels.
+  function resetSession() {
     streak = 0;
     usedCities = new Set();
     countryCounts = new Map();
     usedThresholds.above.clear();
     usedThresholds.below.clear();
     nextDirection = Math.random() < 0.5 ? "above" : "below";
+    paused = false;
+    setPausePending(false);
     ui.updateStreakDisplay(streakEl, streak);
     ui.updateCountryTally(countryTallyEl, countryCounts);
-    resultEl.innerHTML = "";
-    resultEl.classList.remove("geo-result-fade-out");
+    clearResult();
+  }
+
+  function showStartScreen() {
+    resetSession();
+    ui.renderStartScreen(startEl, stats());
+    startEl.style.display = "block";
+    playAreaEl.style.display = "none";
+    pausedEl.style.display = "none";
+    gameOverEl.style.display = "none";
+  }
+
+  function startGame() {
+    resetSession();
+    startEl.style.display = "none";
+    pausedEl.style.display = "none";
     gameOverEl.style.display = "none";
     playAreaEl.style.display = "";
     newCondition();
@@ -286,9 +381,18 @@ function initGeoStreak() {
   cityInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") submitGuess();
   });
+  pauseBtn.addEventListener("click", togglePause);
+  // Start/resume/play-again live inside rendered HTML, so they're delegated
+  // from their containers rather than bound to elements that get replaced.
+  startEl.addEventListener("click", (e) => {
+    if (e.target.closest("#gsStartBtn")) startGame();
+  });
+  pausedEl.addEventListener("click", (e) => {
+    if (e.target.closest("#gsResumeBtn")) resume();
+  });
   gameOverEl.addEventListener("click", (e) => {
-    if (e.target.closest("#gsPlayAgain")) restart();
+    if (e.target.closest("#gsPlayAgain")) startGame();
   });
 
-  newCondition(); // kick off round 1
+  showStartScreen(); // nothing runs until the player hits Start
 }

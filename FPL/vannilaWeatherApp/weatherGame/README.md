@@ -8,6 +8,8 @@ main [Weather.JS](../index.html) page ("GeoStreak" button).
 
 ## The loop
 
+0. Nothing runs until you press **Start Game** on the opening screen (see
+   [Start screen](#start-screen-and-insights) below).
 1. The app picks a condition: a threshold between **5°C and 32°C**
    (28 possible values), paired with **above** or **below**. e.g.
    *"Name a city with current temperature below 22°C."* The upper bound is
@@ -70,6 +72,46 @@ of the page at all times, visible before you've even answered the first
 question. High score persists via `localStorage["geoStreakGame_highScore"]`
 and pulses when the current streak overtakes it.
 
+## Start screen and insights
+
+The page opens on a **Start Game** panel — no question is generated and no
+timer runs until you press it. Alongside the rules, the panel shows your
+all-time numbers so there's a target before the first round:
+
+| Insight | Source |
+| --- | --- |
+| **Best streak** | `localStorage["geoStreakGame_highScore"]` |
+| **Correct** | `localStorage["geoStreakGame_totalCorrect"]` |
+| **Attempts** | `localStorage["geoStreakGame_totalAttempts"]` |
+| **Accuracy** | derived — correct ÷ attempts, never stored |
+
+An **attempt** is a guess that resolved to a real place and got judged.
+A lookup that found nothing, a city already used this session, and a round
+that simply timed out are *not* attempts — so accuracy measures geography
+rather than typing. Accuracy is computed at render time rather than stored,
+so it can't drift out of step with the two counters behind it.
+
+The same four numbers appear on the pause and game-over panels. All of them
+are lifetime and browser-local: they survive Play Again, and only the
+streak, used cities and country tally reset with a new run.
+
+## Pause
+
+A **PAUSE** button sits next to the round timer, but it doesn't stop the
+clock on the round you're in — that would be an unlimited thinking-time
+button. Clicking it *arms* a pause (the button turns amber and reads
+"PAUSING AFTER THIS ONE"), and the pause only lands once the current attempt
+is settled with a correct answer. Clicking again before then calls it off.
+
+While armed, the round plays out normally: the timer keeps running, and a
+not-found or duplicate-city guess leaves the pause armed and the round
+going. If the run ends first — wrong guess or timeout — the pause is dropped
+along with it and you go straight to Game Over.
+
+The pause screen shows your live streak plus the insight panel, and keeps
+the last result card visible below it. Resume clears that card and deals a
+fresh question with a full 20 seconds.
+
 ## Architecture
 
 No frameworks, no build step — plugs into the same three files the main
@@ -85,15 +127,21 @@ elements:
   `renderGameCard()` for the result reveal (a "CORRECT"/"INCORRECT" stamp
   on top of the same card look as the main app), plus small render helpers:
   `renderGameCondition`, `updateStreakDisplay`, `updateHighScoreDisplay`
-  (with pulse), `updateTimerDisplay`, `updateCountryTally`, `renderGameOver`
-  (win/loss vs. timeout heading).
+  (with pulse), `updateTimerDisplay`, `updateCountryTally`,
+  `updatePauseButton`, and the three panel renderers — `renderStartScreen`,
+  `renderPauseScreen`, `renderGameOver` (win/loss vs. timeout heading) —
+  which all share one `buildInsightsHtml()` so the numbers can't be
+  formatted three different ways.
 - **`../app.js`** — `initGeoStreak()` holds all game state (streak, high
-  score, current condition, round timer, a `roundId` guard against
-  stale in-flight guesses) and orchestrates the loop. Guarded on
-  `#geoStreakRoot` so loading this file on the main app's `index.html`
-  (which has no such element) doesn't run any of it.
+  score, lifetime counters, current condition, round timer, pause state, and
+  a `roundId` guard against stale in-flight guesses) and orchestrates the
+  loop. Guarded on `#geoStreakRoot` so loading this file on the main app's
+  `index.html` (which has no such element) doesn't run any of it.
 - **`geoStreakGame.html`** — thin shell: markup + the dark "station
-  console" styling only. No game logic lives here.
+  console" styling only. No game logic lives here. Of the four screens only
+  the play area is static markup; start, pause and game-over are rendered
+  into empty containers, so their buttons are wired by delegating clicks
+  from the container rather than binding elements that get replaced.
 
 ## Visual design
 
