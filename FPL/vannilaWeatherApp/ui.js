@@ -332,14 +332,19 @@ class UI {
   // div, not this.uiContainer — GeoStreak has no #content element). No
   // "Searched:" line (query omitted) and no live clock started: this card
   // is a one-off snapshot of a past guess, not a running weather display.
-  renderGameCard(container, data, { correct } = {}) {
+  // `isNewCity` (the city has never been attempted before, lifetime, on
+  // this browser) briefly brightens the card via the CSS gs-brighten
+  // animation — it's a fresh element each call, so unlike the streak pulse
+  // there's no reflow trick needed to retrigger it.
+  renderGameCard(container, data, { correct, isNewCity } = {}) {
     if (!container) return;
     const cardHtml = this.buildWeatherCardHtml(data, null);
     const stampClass = correct ? "geo-stamp-correct" : "geo-stamp-incorrect";
     const stampText = correct ? "CORRECT" : "INCORRECT";
+    const newCityClass = isNewCity ? "geo-new-city" : "";
 
     container.innerHTML = `
-      <div class="geo-result-wrap">
+      <div class="geo-result-wrap ${newCityClass}">
         <div class="geo-stamp ${stampClass}">${stampText}</div>
         ${cardHtml}
       </div>
@@ -388,7 +393,7 @@ class UI {
     el.classList.toggle("gs-timer-warn", secondsLeft > 5 && secondsLeft <= 10);
   }
 
-  // Renders the session's per-country breakdown, e.g. "🇺🇸 US ×2 | 🇮🇷 IR ×1",
+  // Renders the session's per-country breakdown, e.g. "🇧🇷 BR ×2 | 🇦🇷 AR ×1",
   // from a Map of ISO country code -> count. Reuses flagEmoji() rather than
   // the CDN flagImg() — this is a compact inline tally, not a card header.
   updateCountryTally(el, countryCounts) {
@@ -425,6 +430,42 @@ class UI {
     `;
   }
 
+  // Top-5 most-attempted cities, all-time, with a percentage of the
+  // lifetime city-attempt total each accounts for. Gated on gamesPlayed >= 3
+  // (must match GAMES_PLAYED_KEY's comment in app.js) — with only a run or
+  // two behind it, "most used" is just whatever you happened to type, not a
+  // real pattern, so the block renders as "" (nothing shown) until then.
+  buildCityInsightsHtml(stats = {}) {
+    if ((stats.gamesPlayed || 0) < 3) return "";
+
+    const cityCounts = stats.cityCounts || {};
+    const entries = Object.entries(cityCounts);
+    if (entries.length === 0) return "";
+
+    const total = entries.reduce((sum, [, count]) => sum + count, 0);
+    const top5 = entries.sort((a, b) => b[1] - a[1]).slice(0, 5);
+
+    const rows = top5
+      .map(([cityKey, count]) => {
+        const [city, countryCode] = cityKey.split("|");
+        const pct = total ? Math.round((count / total) * 100) : 0;
+        return `
+          <li>
+            <span class="gs-city-name">${flagEmoji(countryCode)} ${escapeHtml(city)}</span>
+            <span class="gs-city-count">${count}&times; (${pct}%)</span>
+          </li>
+        `;
+      })
+      .join("");
+
+    return `
+      <div class="gs-city-insights">
+        <p class="gs-insights-note">TOP CITIES, ALL-TIME</p>
+        <ul class="gs-city-list">${rows}</ul>
+      </div>
+    `;
+  }
+
   // First screen on load: the rules and the player's running numbers, so
   // there's something to beat before the first question appears.
   renderStartScreen(container, stats) {
@@ -436,6 +477,7 @@ class UI {
           Name a city whose current temperature matches the condition. Keep the streak alive.
         </p>
         ${this.buildInsightsHtml(stats)}
+        ${this.buildCityInsightsHtml(stats)}
         <ul class="gs-howto">
           <li>20 seconds per round.</li>
           <li>Each city can only be used once per run.</li>
@@ -455,20 +497,25 @@ class UI {
         <h3>Paused</h3>
         <p class="gs-panel-sub">Current streak: <b>${currentStreak}</b> &mdash; still alive.</p>
         ${this.buildInsightsHtml(stats)}
+        ${this.buildCityInsightsHtml(stats)}
         <button type="button" id="gsResumeBtn" class="btn btn-primary">Resume</button>
       </div>
     `;
   }
 
   // `reason: "time"` distinguishes a timeout loss from a wrong-guess loss.
-  renderGameOver(container, finalStreak, { reason, stats } = {}) {
+  // `uniqueCities` is this run's count (not lifetime) — how many different
+  // real places were pulled a reading from before the run ended.
+  renderGameOver(container, finalStreak, { reason, stats, uniqueCities = 0 } = {}) {
     if (!container) return;
     const heading = reason === "time" ? "Time's Up!" : "Game Over";
     container.innerHTML = `
       <div class="gs-panel gs-panel-danger">
         <h3>${heading}</h3>
         <p class="gs-panel-sub">Final streak: <b>${finalStreak}</b></p>
+        <p class="gs-panel-sub">Unique cities this run: <b>${uniqueCities}</b></p>
         ${this.buildInsightsHtml(stats)}
+        ${this.buildCityInsightsHtml(stats)}
         <button type="button" id="gsPlayAgain" class="btn btn-warning">Play Again</button>
       </div>
     `;

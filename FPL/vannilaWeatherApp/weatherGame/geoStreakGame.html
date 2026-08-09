@@ -8,6 +8,10 @@
     href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/minty/bootstrap.min.css"
   />
   <title>GeoStreak — TENFORBEN Station</title>
+  <link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text x=%228%22 y=%2213%22 font-size=%2214%22 text-anchor=%22middle%22>%F0%9F%A6%96</text></svg>"
+  />
   <style>
     body {
       background: #060a14;
@@ -226,6 +230,18 @@
     .geo-stamp-correct { color: #16a34a; }
     .geo-stamp-incorrect { color: #dc2626; }
 
+    /* First-time-ever city (checked against the lifetime city log, not just
+       this session) briefly brightens the result card so the discovery
+       doesn't pass unnoticed under the CORRECT/INCORRECT stamp. */
+    @keyframes gs-brighten {
+      0% { filter: brightness(1); box-shadow: none; }
+      25% { filter: brightness(1.6); box-shadow: 0 0 22px 6px rgba(125, 211, 252, 0.75); }
+      100% { filter: brightness(1); box-shadow: none; }
+    }
+    .geo-result-wrap.geo-new-city {
+      animation: gs-brighten 2s ease;
+    }
+
     /* Correct-guess result cards fade out a few seconds into the next
        round rather than lingering on screen. Duration here must match
        RESULT_FADE_MS in app.js. */
@@ -293,6 +309,34 @@
       margin-bottom: 16px;
     }
 
+    /* Top-5-cities insight — only rendered once the player has enough
+       runs behind them (see buildCityInsightsHtml's gamesPlayed check in
+       ui.js) for a most-used ranking to mean anything. */
+    .gs-city-insights {
+      margin: -6px 0 16px;
+    }
+    .gs-city-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+    .gs-city-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.8rem;
+      padding: 3px 4px;
+      border-bottom: 1px solid #1b2a4a;
+    }
+    .gs-city-list li:last-child { border-bottom: none; }
+    .gs-city-name { color: #cfe8ff; }
+    .gs-city-count {
+      font-family: "Courier New", Courier, monospace;
+      color: #7dd3fc;
+      white-space: nowrap;
+    }
+
     .gs-howto {
       text-align: left;
       font-size: 0.85rem;
@@ -341,21 +385,25 @@
 
     <div id="gsPlayArea" style="display: none;">
       <p class="gs-condition" id="gsCondition"></p>
-      <div class="gs-input-row">
-        <input
-          type="text"
-          id="gsCityInput"
-          class="form-control"
-          placeholder="Type a city name…"
-          autocomplete="off"
-        />
-        <button type="button" id="gsSubmit" class="btn btn-primary">Guess</button>
+      <!-- Everything below is hidden on Game Over so the round's last
+           question (above) stays visible next to the result card. -->
+      <div id="gsPlayControls">
+        <div class="gs-input-row">
+          <input
+            type="text"
+            id="gsCityInput"
+            class="form-control"
+            placeholder="Type a city name…"
+            autocomplete="off"
+          />
+          <button type="button" id="gsSubmit" class="btn btn-primary">Guess</button>
+        </div>
+        <div class="gs-timer-row">
+          <div class="gs-timer" id="gsTimer">20s</div>
+          <button type="button" id="gsPause" class="gs-pause-btn">&#9208; PAUSE</button>
+        </div>
+        <p class="gs-hint" id="gsHint"></p>
       </div>
-      <div class="gs-timer-row">
-        <div class="gs-timer" id="gsTimer">20s</div>
-        <button type="button" id="gsPause" class="gs-pause-btn">&#9208; PAUSE</button>
-      </div>
-      <p class="gs-hint" id="gsHint"></p>
     </div>
 
     <div id="gsPaused" style="display: none;"></div>
@@ -365,7 +413,12 @@
     <div id="gsResult"></div>
 
     <footer class="gs-footer">
-      <a href="README.md">About GeoStreak / README</a>
+      <a
+        href="https://github.com/TenForBen/TenForBen.github.io/blob/feature/geoStreakGame/FPL/vannilaWeatherApp/weatherGame/README.md"
+        target="_blank"
+        rel="noopener"
+        >About GeoStreak / README</a
+      >
     </footer>
   </main>
 
