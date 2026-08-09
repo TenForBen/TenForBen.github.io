@@ -331,9 +331,11 @@ function initGeoStreak() {
     citiesThisRun.add(cityKey);
 
     const actual = data.main.temp;
+    // Inclusive at the threshold itself — a reading exactly AT 14°C counts
+    // as satisfying "ABOVE 14°C", not just readings strictly past it.
     const tempCorrect = currentCondition.direction === "above"
-      ? actual > currentCondition.threshold
-      : actual < currentCondition.threshold;
+      ? actual >= currentCondition.threshold
+      : actual <= currentCondition.threshold;
 
     // Tough rounds (currentCondition.hemisphere set) need both the
     // temperature condition AND the hemisphere condition satisfied. Equator

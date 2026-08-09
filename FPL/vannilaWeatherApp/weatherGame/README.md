@@ -21,7 +21,9 @@ main [Weather.JS](../index.html) page ("GeoStreak" button).
    "below"s in a row. A given (direction, threshold) question can't repeat
    until every threshold for that direction has been asked at least once
    (28 questions per direction, 56 total this session) — then that
-   direction's pool refills and can cycle again.
+   direction's pool refills and can cycle again. The comparison is
+   **inclusive** at the threshold — a reading of exactly 22°C satisfies
+   both "above 22°C" and "below 22°C".
 2. You type **any** place name (free text — no fixed list, no autocomplete)
    and hit Guess (or Enter).
 3. The app looks up that place's current temperature via the OpenWeatherMap
