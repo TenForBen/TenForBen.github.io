@@ -92,6 +92,16 @@ function initGeoStreak() {
   const RESULT_VISIBLE_MS = 4000; // how long a correct-guess card stays up before fading
   const RESULT_FADE_MS = 500; // must match the CSS transition duration on .geo-result-fade-out
 
+  // Lifetime per-city attempt log, keyed "City|CC" (the API's resolved name
+  // plus country code, so same-named cities in different countries don't
+  // collide) — this is what the top-5-cities insight and the "new city"
+  // glow are both built from.
+  const CITY_COUNTS_KEY = "geoStreakGame_cityCounts";
+  // Bumped once per completed run (see endGame) — ui.js's
+  // buildCityInsightsHtml() gates the top-cities insight on this being >= 3,
+  // so "most used" reflects a few runs of history rather than just the one.
+  const GAMES_PLAYED_KEY = "geoStreakGame_gamesPlayed";
+
   const conditionEl = document.getElementById("gsCondition");
   const cityInput = document.getElementById("gsCityInput");
   const submitBtn = document.getElementById("gsSubmit");
@@ -104,6 +114,7 @@ function initGeoStreak() {
   const pauseBtn = document.getElementById("gsPause");
   const startEl = document.getElementById("gsStart");
   const playAreaEl = document.getElementById("gsPlayArea");
+  const playControlsEl = document.getElementById("gsPlayControls");
   const pausedEl = document.getElementById("gsPaused");
   const gameOverEl = document.getElementById("gsGameOver");
 
@@ -111,6 +122,12 @@ function initGeoStreak() {
   let highScore = Number(localStorage.getItem(HIGH_SCORE_KEY)) || 0;
   let totalCorrect = Number(localStorage.getItem(TOTAL_CORRECT_KEY)) || 0;
   let totalAttempts = Number(localStorage.getItem(TOTAL_ATTEMPTS_KEY)) || 0;
+  // Completed runs (wins don't exist here — every run ends in a wrong guess
+  // or a timeout), used only to gate the top-cities insight behind having
+  // enough history to be meaningful.
+  let gamesPlayed = Number(localStorage.getItem(GAMES_PLAYED_KEY)) || 0;
+  // Lifetime "City|CC" -> attempt count, persisted after every judged guess.
+  let cityCounts = JSON.parse(localStorage.getItem(CITY_COUNTS_KEY) || "{}");
   let currentCondition = null;
   let timeLeft = ROUND_SECONDS;
   let timerInterval = null;
@@ -132,6 +149,12 @@ function initGeoStreak() {
   // resolved name, so "Auckland" then "Auckland,NZ" are still caught as the
   // same place even though the raw strings differ.
   let usedCities = new Set();
+
+  // Canonical "City|CC" keys seen this run, for the run's unique-city count
+  // shown on the Game Over screen. A subset of usedCities' bookkeeping, but
+  // usedCities mixes in the raw typed string too (up to 2 entries per real
+  // city), so it can't double as this count.
+  let citiesThisRun = new Set();
 
   // How many guesses (correct or not, but only ones that resolved to a real
   // place) have come from each country this session, keyed by ISO code.
@@ -179,7 +202,7 @@ function initGeoStreak() {
   // Snapshot of the lifetime numbers for the insight panels. Read fresh each
   // time so a panel can never show a stale count.
   function stats() {
-    return { highScore, totalCorrect, totalAttempts };
+    return { highScore, totalCorrect, totalAttempts, gamesPlayed, cityCounts };
   }
 
   function recordAttempt(correct) {
@@ -187,6 +210,16 @@ function initGeoStreak() {
     if (correct) totalCorrect += 1;
     localStorage.setItem(TOTAL_ATTEMPTS_KEY, String(totalAttempts));
     localStorage.setItem(TOTAL_CORRECT_KEY, String(totalCorrect));
+  }
+
+  // Logs one judged guess against the lifetime city count and reports
+  // whether this is the very first time this city has ever been attempted
+  // — that's the signal the result card's new-city glow keys off of.
+  function recordCityAttempt(cityKey) {
+    const isNewCity = !cityCounts[cityKey];
+    cityCounts[cityKey] = (cityCounts[cityKey] || 0) + 1;
+    localStorage.setItem(CITY_COUNTS_KEY, JSON.stringify(cityCounts));
+    return isNewCity;
   }
 
   function stopRoundTimer() {
@@ -230,6 +263,7 @@ function initGeoStreak() {
 
   function newCondition() {
     roundId += 1;
+    playControlsEl.style.display = ""; // undo endGame()'s hide, in case this round follows one that ended
     const direction = nextDirection;
     nextDirection = direction === "above" ? "below" : "above"; // strictly alternate next round
 
@@ -292,6 +326,10 @@ function initGeoStreak() {
     countryCounts.set(countryCode, (countryCounts.get(countryCode) || 0) + 1);
     ui.updateCountryTally(countryTallyEl, countryCounts);
 
+    const cityKey = `${data.name}|${countryCode}`;
+    const isNewCity = recordCityAttempt(cityKey);
+    citiesThisRun.add(cityKey);
+
     const actual = data.main.temp;
     const tempCorrect = currentCondition.direction === "above"
       ? actual > currentCondition.threshold
@@ -309,7 +347,7 @@ function initGeoStreak() {
     }
 
     stopRoundTimer();
-    ui.renderGameCard(resultEl, data, { correct });
+    ui.renderGameCard(resultEl, data, { correct, isNewCity });
     recordAttempt(correct);
 
     if (correct) {
@@ -376,8 +414,13 @@ function initGeoStreak() {
     roundId += 1; // invalidate any guess still in flight for the round that just ended
     stopRoundTimer();
     setPausePending(false);
-    ui.renderGameOver(gameOverEl, streak, { reason, stats: stats() });
-    playAreaEl.style.display = "none";
+    gamesPlayed += 1;
+    localStorage.setItem(GAMES_PLAYED_KEY, String(gamesPlayed));
+    ui.renderGameOver(gameOverEl, streak, { reason, stats: stats(), uniqueCities: citiesThisRun.size });
+    // Play area stays visible (unlike Pause/Start) so the last question —
+    // the one the run ended on — is still readable next to the result
+    // card below; only the now-irrelevant input/timer/hint are hidden.
+    playControlsEl.style.display = "none";
     gameOverEl.style.display = "block";
   }
 
@@ -386,6 +429,7 @@ function initGeoStreak() {
   function resetSession() {
     streak = 0;
     usedCities = new Set();
+    citiesThisRun = new Set();
     countryCounts = new Map();
     usedThresholds.above.clear();
     usedThresholds.below.clear();

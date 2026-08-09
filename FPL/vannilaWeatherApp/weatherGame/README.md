@@ -79,9 +79,45 @@ left alone and stays visible on the Game Over screen. Guarded the same way
 as the round timer: if a new result has already replaced this one by the
 time the fade would fire, the stale fade-out is a no-op.
 
+A brand-new city — one you've never pulled a reading from before, on this
+browser, in any run — briefly **brightens** the card (a 2-second glow) so
+the discovery doesn't pass unnoticed under the CORRECT/INCORRECT stamp. See
+[City tracking & insights](#city-tracking--insights) below for how "new" is
+tracked.
+
+## Game Over screen
+
+Unlike Pause and Start, ending a run doesn't hide the round you were on: the
+**last question stays on screen**, right above the Game Over panel and the
+result card that ended things, so you can see exactly what you missed (or
+ran out of time on). Only the now-irrelevant input box, timer and pause
+button are hidden — there's nothing left to answer.
+
+The Game Over panel also shows **unique cities this run** — how many
+different real places you pulled a reading from before the run ended
+(correct guesses and the one that ended it, not duplicates or not-founds).
+This is a per-run count, not the lifetime one below.
+
+## City tracking & insights
+
+Every judged guess (one that resolved to a real place) is logged against a
+lifetime **"City, Country" → attempt count** map in
+`localStorage["geoStreakGame_cityCounts"]`, across every run you've ever
+played on this browser — separate from the country tally above, which is
+per-session only.
+
+Once you've completed **3 runs** (`localStorage["geoStreakGame_gamesPlayed"]`
+— bumped whenever a run ends, win condition doesn't exist here, so
+"completed" just means "ended"), a **Top Cities** block appears on the
+Start, Pause and Game Over panels: your 5 most-attempted cities all-time,
+each with its count and share of your total city attempts, e.g.
+"🇧🇷 São Paulo — 4× (31%)". Before 3 runs, the block simply doesn't render —
+with only a run or two of data, "most used" is just whatever you happened
+to type, not a real pattern.
+
 ## Country tally
 
-A running "🇬🇧 GB ×2 | 🇮🇷 IR ×1" breakdown under the stat boxes, one entry
+A running "🇧🇷 BR ×2 | 🇦🇷 AR ×1" breakdown under the stat boxes, one entry
 per country you've pulled a real reading from this session — correct or
 not, since even the guess that ends your streak still counts. Resets on
 Play Again along with everything else session-scoped.
@@ -105,6 +141,7 @@ all-time numbers so there's a target before the first round:
 | **Correct** | `localStorage["geoStreakGame_totalCorrect"]` |
 | **Attempts** | `localStorage["geoStreakGame_totalAttempts"]` |
 | **Accuracy** | derived — correct ÷ attempts, never stored |
+| **Top Cities** (once eligible) | derived from `localStorage["geoStreakGame_cityCounts"]`, gated on `localStorage["geoStreakGame_gamesPlayed"]` |
 
 An **attempt** is a guess that resolved to a real place and got judged.
 A lookup that found nothing, a city already used this session, and a round
@@ -112,9 +149,10 @@ that simply timed out are *not* attempts — so accuracy measures geography
 rather than typing. Accuracy is computed at render time rather than stored,
 so it can't drift out of step with the two counters behind it.
 
-The same four numbers appear on the pause and game-over panels. All of them
-are lifetime and browser-local: they survive Play Again, and only the
-streak, used cities and country tally reset with a new run.
+The same numbers (plus Top Cities, once eligible) appear on the pause and
+game-over panels. All of them are lifetime and browser-local: they survive
+Play Again, and only the streak, used cities and country tally reset with a
+new run.
 
 ## Pause
 
@@ -151,13 +189,14 @@ elements:
   (with pulse), `updateTimerDisplay`, `updateCountryTally`,
   `updatePauseButton`, and the three panel renderers — `renderStartScreen`,
   `renderPauseScreen`, `renderGameOver` (win/loss vs. timeout heading) —
-  which all share one `buildInsightsHtml()` so the numbers can't be
-  formatted three different ways.
+  which all share one `buildInsightsHtml()` and one `buildCityInsightsHtml()`
+  so the numbers can't be formatted three different ways.
 - **`../app.js`** — `initGeoStreak()` holds all game state (streak, high
-  score, lifetime counters, current condition, round timer, pause state, and
-  a `roundId` guard against stale in-flight guesses) and orchestrates the
-  loop. Guarded on `#geoStreakRoot` so loading this file on the main app's
-  `index.html` (which has no such element) doesn't run any of it.
+  score, lifetime counters, lifetime per-city log, current condition, round
+  timer, pause state, and a `roundId` guard against stale in-flight guesses)
+  and orchestrates the loop. Guarded on `#geoStreakRoot` so loading this file
+  on the main app's `index.html` (which has no such element) doesn't run any
+  of it.
 - **`geoStreakGame.html`** — thin shell: markup + the dark "station
   console" styling only. No game logic lives here. Of the four screens only
   the play area is static markup; start, pause and game-over are rendered
