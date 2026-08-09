@@ -79,6 +79,15 @@ function initGeoStreak() {
   const TOTAL_ATTEMPTS_KEY = "geoStreakGame_totalAttempts";
   const MIN_THRESHOLD = 5;
   const MAX_THRESHOLD = 32;
+  // From the 11th question on (streak >= TOUGH_STREAK, i.e. 10 correct
+  // answers banked), rounds add a hemisphere requirement on top of the
+  // temperature one and narrow the threshold range to 10-30°C — the extreme
+  // ends of the normal 5-32°C range are the easy giveaways (near-freezing or
+  // near-desert-heat), so tough rounds drop them to keep both conditions
+  // actually in play.
+  const TOUGH_STREAK = 10;
+  const TOUGH_MIN_THRESHOLD = 10;
+  const TOUGH_MAX_THRESHOLD = 30;
   const ROUND_SECONDS = 20;
   const RESULT_VISIBLE_MS = 4000; // how long a correct-guess card stays up before fading
   const RESULT_FADE_MS = 500; // must match the CSS transition duration on .geo-result-fade-out
@@ -136,18 +145,26 @@ function initGeoStreak() {
   // Per-direction pool of thresholds not yet asked this session. A given
   // (direction, threshold) question can't repeat until every threshold for
   // that direction has been used at least once, at which point its pool
-  // refills and the cycle starts over.
+  // refills and the cycle starts over. Tough rounds (see TOUGH_STREAK) get
+  // their own pool, keyed to the narrower 10-30°C range, so exhausting one
+  // pool doesn't force an early refill of the other.
   const usedThresholds = { above: new Set(), below: new Set() };
+  const usedToughThresholds = { above: new Set(), below: new Set() };
 
-  function pickThreshold(direction) {
-    const used = usedThresholds[direction];
+  // Hemisphere strictly alternates round to round, same rationale as
+  // nextDirection below — starting side randomised once per session so
+  // tough rounds don't always open on "north".
+  let nextHemisphere = Math.random() < 0.5 ? "north" : "south";
+
+  function pickThreshold(pool, direction, min, max) {
+    const used = pool[direction];
     let remaining = [];
-    for (let t = MIN_THRESHOLD; t <= MAX_THRESHOLD; t++) {
+    for (let t = min; t <= max; t++) {
       if (!used.has(t)) remaining.push(t);
     }
     if (remaining.length === 0) {
       used.clear(); // every threshold for this direction has been asked -> refill
-      for (let t = MIN_THRESHOLD; t <= MAX_THRESHOLD; t++) remaining.push(t);
+      for (let t = min; t <= max; t++) remaining.push(t);
     }
     const threshold = remaining[Math.floor(Math.random() * remaining.length)];
     used.add(threshold);
@@ -215,8 +232,18 @@ function initGeoStreak() {
     roundId += 1;
     const direction = nextDirection;
     nextDirection = direction === "above" ? "below" : "above"; // strictly alternate next round
-    const threshold = pickThreshold(direction);
-    currentCondition = { direction, threshold };
+
+    // Streak >= TOUGH_STREAK means 10 correct answers are already banked,
+    // so this is the 11th-or-later question this run — tough mode.
+    if (streak >= TOUGH_STREAK) {
+      const hemisphere = nextHemisphere;
+      nextHemisphere = hemisphere === "north" ? "south" : "north"; // strictly alternate next round
+      const threshold = pickThreshold(usedToughThresholds, direction, TOUGH_MIN_THRESHOLD, TOUGH_MAX_THRESHOLD);
+      currentCondition = { direction, threshold, hemisphere };
+    } else {
+      const threshold = pickThreshold(usedThresholds, direction, MIN_THRESHOLD, MAX_THRESHOLD);
+      currentCondition = { direction, threshold };
+    }
     ui.renderGameCondition(conditionEl, currentCondition);
     hintEl.textContent = "";
     cityInput.value = "";
@@ -266,9 +293,20 @@ function initGeoStreak() {
     ui.updateCountryTally(countryTallyEl, countryCounts);
 
     const actual = data.main.temp;
-    const correct = currentCondition.direction === "above"
+    const tempCorrect = currentCondition.direction === "above"
       ? actual > currentCondition.threshold
       : actual < currentCondition.threshold;
+
+    // Tough rounds (currentCondition.hemisphere set) need both the
+    // temperature condition AND the hemisphere condition satisfied. Equator
+    // (lat 0) counts as northern, matching the >= 0 convention ui.js
+    // already uses for daylight calculations.
+    let correct = tempCorrect;
+    if (currentCondition.hemisphere) {
+      const northern = data.coord.lat >= 0;
+      const hemisphereCorrect = currentCondition.hemisphere === "north" ? northern : !northern;
+      correct = tempCorrect && hemisphereCorrect;
+    }
 
     stopRoundTimer();
     ui.renderGameCard(resultEl, data, { correct });
@@ -351,7 +389,10 @@ function initGeoStreak() {
     countryCounts = new Map();
     usedThresholds.above.clear();
     usedThresholds.below.clear();
+    usedToughThresholds.above.clear();
+    usedToughThresholds.below.clear();
     nextDirection = Math.random() < 0.5 ? "above" : "below";
+    nextHemisphere = Math.random() < 0.5 ? "north" : "south";
     paused = false;
     setPausePending(false);
     ui.updateStreakDisplay(streakEl, streak);

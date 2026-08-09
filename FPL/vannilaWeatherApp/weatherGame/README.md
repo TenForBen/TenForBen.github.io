@@ -35,6 +35,27 @@ main [Weather.JS](../index.html) page ("GeoStreak" button).
 7. **Timer hits 0** before you answer → game over, labeled "Time's Up!"
    (as opposed to "Game Over" for a wrong guess).
 
+## Tough rounds (question 11+)
+
+Once you've banked **10 correct answers** in a run, every round from the
+11th question on adds a **hemisphere** requirement on top of the
+temperature one: *"Name a city in the Northern hemisphere with current
+temperature below 18°C."* A guess now has to satisfy **both** parts — right
+temperature in the wrong hemisphere (or vice versa) is still a miss.
+
+Tough rounds also narrow the threshold range to **10°C–30°C** (21 possible
+values instead of 28) — the extreme ends of the normal range are the easy
+giveaways (near-freezing or desert-heat trivia), so tough rounds drop them
+to keep both conditions genuinely in play. Direction and hemisphere each
+strictly **alternate** round to round, independently, same rule as the
+non-tough loop. Tough thresholds have their own per-direction pool (10-30°C)
+separate from the normal one (5-32°C), so exhausting one doesn't force an
+early refill of the other. Equator (latitude 0) counts as northern.
+
+Once tough mode kicks in for a run, it stays on for the rest of that run —
+dropping back below 10 correct never happens, since a wrong guess ends the
+run outright.
+
 Each place name can only be used **once per session** (one continuous
 streak run) — guessing "Auckland" and then "Auckland" again later in the
 same run is rejected with a hint, no penalty, timer keeps running. Checked
@@ -161,5 +182,5 @@ CORRECT/INCORRECT in the corner.
   failed lookup is just "nothing found" rather than faked data.
 - No `<datalist>` for city suggestions — an earlier version used one and
   its native popup intercepted clicks on the submit button.
-- No multi-stage progression, country-alternation rule, or daylight
-  questions — just the single above/below loop.
+- No country-alternation rule or daylight questions — the only
+  progression is the question-11 hemisphere twist above.

@@ -348,10 +348,20 @@ class UI {
   }
 
   // Sets the round's prompt, e.g. "Name a city with current temperature
-  // ABOVE 22°C."
+  // ABOVE 22°C." Tough rounds (condition.hemisphere set) also name a
+  // hemisphere the city must be in, e.g. "Name a city in the NORTHERN
+  // hemisphere with current temperature below 18°C." — both parts are
+  // checked, so a real answer needs to satisfy the temperature reading
+  // and the hemisphere it comes from.
   renderGameCondition(el, condition) {
     if (!el) return;
-    el.innerHTML = `Name a city with current temperature <b>${condition.direction.toUpperCase()}</b> ${condition.threshold}&deg;C.`;
+    const tempPart = `current temperature <b>${condition.direction.toUpperCase()}</b> ${condition.threshold}&deg;C`;
+    if (condition.hemisphere) {
+      const hemisphereLabel = condition.hemisphere === "north" ? "Northern" : "Southern";
+      el.innerHTML = `Name a city in the <b>${hemisphereLabel}</b> hemisphere with ${tempPart}.`;
+    } else {
+      el.innerHTML = `Name a city with ${tempPart}.`;
+    }
   }
 
   updateStreakDisplay(el, streak) {
@@ -431,6 +441,7 @@ class UI {
           <li>Each city can only be used once per run.</li>
           <li>A wrong guess &mdash; or the clock &mdash; ends the run.</li>
           <li>A city we can't find costs you nothing but time.</li>
+          <li>From question 11 on, rounds get tough: a hemisphere is added to the condition, and both parts have to match.</li>
         </ul>
         <button type="button" id="gsStartBtn" class="btn btn-primary">Start Game</button>
       </div>
