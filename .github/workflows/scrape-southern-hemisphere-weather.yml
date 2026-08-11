@@ -1,0 +1,34 @@
+name: Scrape Southern Hemisphere weather
+
+on:
+  schedule:
+    # Minute 0 of every 3rd hour, UTC: 00:00, 03:00, 06:00 ... 21:00.
+    - cron: "0 */3 * * *"
+  workflow_dispatch: {} # lets you fire it manually from the Actions tab too
+
+# The default GITHUB_TOKEN is read-only unless a workflow opts into more —
+# this step needs to push the updated weatherData.json back to the repo.
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run scrapeWeather.js
+        run: node FPL/vannilaWeatherApp/southernHemisphere/scrapeWeather.js
+
+      - name: Commit weatherData.json if it changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add FPL/vannilaWeatherApp/southernHemisphere/weatherData.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Auto-update Southern Hemisphere weather snapshot"
+          git push origin HEAD:${{ github.ref_name }}
