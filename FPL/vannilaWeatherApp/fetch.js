@@ -14,8 +14,14 @@ class Fetch {
     // So we have to inspect the status ourselves and turn a bad one into
     // a thrown Error that app.js can catch in one place.
     if (!response.ok) {
-      // OpenWeather puts a human-readable reason in data.message, e.g.
-      // "city not found" (404) or "Invalid API key" (401).
+      // 404 gets its own message naming what was actually searched for,
+      // rather than OpenWeather's generic lowercase "city not found" —
+      // e.g. "daggercoil City not Found" instead of just "city not found".
+      if (response.status === 404) {
+        throw new Error(`${input} City not Found`);
+      }
+      // Other failures keep OpenWeather's human-readable reason, e.g.
+      // "Invalid API key" (401).
       throw new Error(data.message || `Request failed (${response.status})`);
     }
 
