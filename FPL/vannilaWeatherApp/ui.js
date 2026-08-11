@@ -50,6 +50,18 @@ class UI {
   // GeoStreak's result reveal (renderGameCard). Pure: returns an HTML string
   // and records this.readingDt for the clock tick, but touches no other DOM.
   buildWeatherCardHtml(data, query, previousEntry) {
+    // Every dynamic value on the card gets bold text and its own colour,
+    // cycling through this palette rather than hand-picking one hex code
+    // per field — colorIndex is local to this call, so it always restarts
+    // from the same place on a fresh render.
+    const VALUE_COLORS = [
+      "#2563eb", "#059669", "#db2777", "#b45309", "#7c3aed",
+      "#0891b2", "#c026d3", "#dc2626", "#0d9488", "#65a30d",
+    ];
+    let colorIndex = 0;
+    const nextColor = () => VALUE_COLORS[colorIndex++ % VALUE_COLORS.length];
+    const val = (text) => `<b style="color: ${nextColor()};">${text}</b>`;
+
     const tz = data.timezone || 0; // offset in seconds from UTC for THIS city
 
     // Above the Arctic / below the Antarctic Circle the sun may not rise or
@@ -81,7 +93,7 @@ class UI {
         data.coord.lat, data.coord.lon
       );
       const fromName = previousEntry.q || previousEntry.data.name || "the last place";
-      distanceLine = `<p class="card-text text-muted" style="font-size: 85%;">Distance from ${escapeHtml(fromName)} (last viewed) &asymp; ${Math.round(distanceKm)} km</p>`;
+      distanceLine = `<p class="card-text text-muted" style="font-size: 85%;">Distance from ${escapeHtml(fromName)} (last viewed) &asymp; ${val(`${Math.round(distanceKm)} km`)}</p>`;
     }
 
     // Google Maps wants raw decimals; the DMS strings above are display-only.
@@ -108,18 +120,18 @@ class UI {
     return `
       <div class="card mx-auto mt-5" style="width: 20rem;">
         <div class="card-body justify-content-center">
-          <h5 class="card-title"><b id="placeName">${data.name}</b>, ${flagImg(data.sys.country)}<u id="landen">${data.sys.country}</u></h5>
-          ${query ? `<p class="card-text text-muted" style="font-size: 90%;">Searched: <b>${escapeHtml(query)}</b></p>` : ""}
-          <p id="xPat"><a href="${mapsUrl}" target="_blank" rel="noopener" title="Open in Google Maps">${latitude}, ${longitude}</a></p>
-          <p class="card-text text-muted" style="font-size: 85%;">1&deg; longitude at ${latitude}, ${longitude} &asymp; ${lonKm} km here</p>
+          <h5 class="card-title"><b id="placeName">${data.name}</b>, ${flagImg(data.sys.country)}<u id="landen">${val(data.sys.country)}</u></h5>
+          ${query ? `<p class="card-text text-muted" style="font-size: 90%;">Searched: ${val(escapeHtml(query))}</p>` : ""}
+          <p id="xPat"><a href="${mapsUrl}" target="_blank" rel="noopener" title="Open in Google Maps">${val(latitude)}, ${val(longitude)}</a></p>
+          <p class="card-text text-muted" style="font-size: 85%;">1&deg; longitude at ${latitude}, ${longitude} &asymp; ${val(`${lonKm} km`)} here</p>
           ${distanceLine}
-          <h6 class="card-subtitle mb-2 text-muted">current Temperature <p id="cuwt">${temp}&deg;C <span style="font-size: 40%;">/ ${tempF}&deg;F</span></p> and feels like ${Math.round(data.main.feels_like)}&deg;C</h6>
-          <h6 class="card-subtitle mb-2 text-muted">Highs of ${Math.round(data.main.temp_max)}&deg;C. Lows of ${Math.round(data.main.temp_min)}&deg;C</h6>
-          <p class="card-text">Weather conditions are described as: ${data.weather[0].description}</p>
-          <p class="card-text">Local time: <b><span id="liveClock">${nowAtLocation(tz)}</span></b> | ${utcLabel} | ${diffLabel}</p>
-          <p class="card-text text-muted" style="font-size: 85%;">reading taken at ${readingDateTime}${data.dt ? ` <span id="readingAgo">(${formatAgo(Math.floor(Date.now() / 1000) - data.dt)})</span>` : ""}</p>
-          <p class="card-text">Sunrise (local time): <b>${sunrise}</b></p>
-          <p class="card-text">Sunset (local time): <b>${sunset}</b></p>
+          <h6 class="card-subtitle mb-2 text-muted">current Temperature <p id="cuwt">${temp}&deg;C <span style="font-size: 40%;">/ ${val(`${tempF}&deg;F`)}</span></p> and feels like ${val(`${Math.round(data.main.feels_like)}&deg;C`)}</h6>
+          <h6 class="card-subtitle mb-2 text-muted">Highs of ${val(`${Math.round(data.main.temp_max)}&deg;C`)}. Lows of ${val(`${Math.round(data.main.temp_min)}&deg;C`)}</h6>
+          <p class="card-text">Weather conditions are described as: ${val(escapeHtml(data.weather[0].description))}</p>
+          <p class="card-text">Local time: <b style="color: ${nextColor()};"><span id="liveClock">${nowAtLocation(tz)}</span></b> | ${val(utcLabel)} | ${val(diffLabel)}</p>
+          <p class="card-text text-muted" style="font-size: 85%;">reading taken at ${val(readingDateTime)}${data.dt ? ` <b style="color: ${nextColor()};"><span id="readingAgo">(${formatAgo(Math.floor(Date.now() / 1000) - data.dt)})</span></b>` : ""}</p>
+          <p class="card-text">Sunrise (local time): ${val(sunrise)}</p>
+          <p class="card-text">Sunset (local time): ${val(sunset)}</p>
           <p class="card-text" id="art">${daylight.kind === "normal" ? `daylength is <b>${dayLength}</b>` : `<b>${dayLength}</b>`}</p>
         </div>
       </div>
@@ -130,8 +142,10 @@ class UI {
   // GeoStreak alike — split out so both callers apply it identically.
   applyCardStyling(temp) {
     document.getElementById("art").style.color = "red";
+    document.getElementById("art").style.fontWeight = "bold";
     document.getElementById("cuwt").style.color = "green";
     document.getElementById("cuwt").style.fontSize = "300%";
+    document.getElementById("cuwt").style.fontWeight = "bold";
     document.getElementById("placeName").style.color = "orange";
     document.getElementById("placeName").style.fontSize = "200%";
 
