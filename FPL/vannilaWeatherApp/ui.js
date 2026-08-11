@@ -171,11 +171,13 @@ class UI {
   }
 
   // Renders an error into the same spot the weather card normally occupies.
+  // Escaped because some callers (the 404 path) build this message from
+  // whatever the user just typed into the search box.
   showError(message) {
     this.stopClock(); // an error replaces the card, so kill any running clock
     this.uiContainer.innerHTML = `
       <div class="alert alert-danger text-center mx-auto mt-4" style="max-width: 20rem;">
-        ${message}
+        ${escapeHtml(message)}
       </div>`;
   }
 
