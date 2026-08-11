@@ -1,0 +1,96 @@
+body {
+  background: #060a14;
+  color: #cfe8ff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.sh-header {
+  background: linear-gradient(180deg, #0a1226 0%, #060a14 100%);
+  border-bottom: 1px solid #1b2a4a;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sh-brand {
+  font-family: "Courier New", Courier, monospace;
+  letter-spacing: 1px;
+  font-size: 1rem;
+  color: #7dd3fc;
+}
+.sh-header-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.sh-back-link {
+  font-family: "Courier New", Courier, monospace;
+  color: #93a4c3;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+.sh-back-link:hover {
+  color: #7dd3fc;
+  text-decoration: underline;
+}
+
+.sh-main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+}
+
+.sh-sub {
+  text-align: center;
+  color: #9db4de;
+  margin: 0 0 4px;
+}
+.sh-count {
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.8rem;
+  color: #6b7fa8;
+  margin: 0 0 20px;
+}
+
+.sh-table-wrap {
+  overflow-x: auto;
+  border: 1px solid #1b2a4a;
+  border-radius: 8px;
+}
+
+.sh-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #0c1630;
+}
+.sh-table th,
+.sh-table td {
+  padding: 10px 16px;
+  text-align: left;
+  border-bottom: 1px solid #1b2a4a;
+}
+.sh-table th {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  color: #6b7fa8;
+  text-transform: uppercase;
+}
+.sh-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.sh-table tbody tr:hover {
+  background: #101c3c;
+}
+.sh-table td.sh-flag {
+  font-size: 1.4rem;
+}
+.sh-table td.sh-loading,
+.sh-table td.sh-error {
+  text-align: center;
+  color: #6b7fa8;
+  font-family: "Courier New", Courier, monospace;
+}

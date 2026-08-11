@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Southern Hemisphere Weather — TENFORBEN Station</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="sh-header">
+    <div class="sh-brand">TENFORBEN // STATION — Southern Hemisphere</div>
+    <div class="sh-header-links">
+      <a class="sh-back-link" href="../weatherGame/geoStreakGame.html">GeoStreak</a>
+      <a class="sh-back-link" href="../index.html">&larr; Weather.JS</a>
+    </div>
+  </header>
+
+  <main class="sh-main">
+    <p class="sh-sub">
+      Every sovereign country whose capital sits south of the equator.
+    </p>
+    <p class="sh-count" id="shCount"></p>
+
+    <div class="sh-table-wrap">
+      <table class="sh-table">
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Capital</th>
+            <th>Flag</th>
+          </tr>
+        </thead>
+        <tbody id="shBody">
+          <tr>
+            <td colspan="3" class="sh-loading">Loading countries&hellip;</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
