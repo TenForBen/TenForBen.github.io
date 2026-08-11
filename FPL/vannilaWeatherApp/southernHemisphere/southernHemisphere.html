@@ -20,19 +20,32 @@
       Every sovereign country whose capital sits south of the equator.
     </p>
     <p class="sh-count" id="shCount"></p>
+    <p class="sh-updated" id="shUpdated"></p>
+
+    <div class="sh-toolbar">
+      <button type="button" id="shRefresh" class="sh-btn">&#8635; Refresh</button>
+      <button type="button" id="shCompare" class="sh-btn" disabled>&#8646; Compare to last run</button>
+      <span class="sh-status" id="shStatus"></span>
+    </div>
 
     <div class="sh-table-wrap">
       <table class="sh-table">
         <thead>
           <tr>
-            <th>Country</th>
-            <th>Capital</th>
-            <th>Flag</th>
+            <th data-sort-key="country">Country</th>
+            <th data-sort-key="capital">Capital</th>
+            <th class="sh-unsortable">Flag</th>
+            <th data-sort-key="map">Map</th>
+            <th data-sort-key="temp">Current Temp</th>
+            <th data-sort-key="localTime">Local Time</th>
+            <th data-sort-key="sunrise">Sunrise</th>
+            <th data-sort-key="sunset">Sunset</th>
+            <th data-sort-key="dayLength">Day Length</th>
           </tr>
         </thead>
         <tbody id="shBody">
           <tr>
-            <td colspan="3" class="sh-loading">Loading countries&hellip;</td>
+            <td colspan="9" class="sh-loading">Loading countries&hellip;</td>
           </tr>
         </tbody>
       </table>

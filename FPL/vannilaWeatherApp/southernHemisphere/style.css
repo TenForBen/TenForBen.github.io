@@ -37,7 +37,7 @@ body {
 }
 
 .sh-main {
-  max-width: 720px;
+  max-width: 960px;
   margin: 0 auto;
   padding: 28px 20px 60px;
 }
@@ -52,7 +52,52 @@ body {
   font-family: "Courier New", Courier, monospace;
   font-size: 0.8rem;
   color: #6b7fa8;
-  margin: 0 0 20px;
+  margin: 0;
+}
+.sh-updated {
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.7rem;
+  color: #4b5d80;
+  margin: 0 0 14px;
+}
+
+.sh-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.sh-btn {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  color: #7dd3fc;
+  background: #0c1630;
+  border: 1px solid #1b2a4a;
+  border-radius: 6px;
+  padding: 7px 14px;
+  cursor: pointer;
+}
+.sh-btn:hover:not(:disabled) {
+  border-color: #1f6feb;
+  color: #a9e2ff;
+}
+.sh-btn:disabled {
+  color: #4b5d80;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.sh-btn-active {
+  border-color: #7dd3fc;
+  background: #12244a;
+}
+.sh-status {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.75rem;
+  color: #9db4de;
 }
 
 .sh-table-wrap {
@@ -78,6 +123,14 @@ body {
   letter-spacing: 1.5px;
   color: #6b7fa8;
   text-transform: uppercase;
+  white-space: nowrap;
+}
+.sh-table th[data-sort-key] {
+  cursor: pointer;
+  user-select: none;
+}
+.sh-table th[data-sort-key]:hover {
+  color: #7dd3fc;
 }
 .sh-table tbody tr:last-child td {
   border-bottom: none;
@@ -88,6 +141,36 @@ body {
 .sh-table td.sh-flag {
   font-size: 1.4rem;
 }
+.sh-table td:nth-child(4),
+.sh-table td:nth-child(5),
+.sh-table td:nth-child(6),
+.sh-table td:nth-child(7),
+.sh-table td:nth-child(8),
+.sh-table td:nth-child(9) {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  color: #7dd3fc;
+}
+.sh-table td.sh-map a {
+  color: #7dd3fc;
+  text-decoration: none;
+}
+.sh-table td.sh-map a:hover {
+  text-decoration: underline;
+}
+.sh-dash {
+  color: #4b5d80;
+}
+
+.sh-delta {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 0.75rem;
+}
+.sh-delta-up { color: #4ade80; }
+.sh-delta-down { color: #f87171; }
+.sh-delta-flat { color: #6b7fa8; }
 .sh-table td.sh-loading,
 .sh-table td.sh-error {
   text-align: center;
