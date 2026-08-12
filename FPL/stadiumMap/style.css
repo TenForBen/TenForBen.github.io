@@ -1,0 +1,102 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  background: #0c1220;
+  color: #cfe8ff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.sm-header {
+  background: linear-gradient(180deg, #101a33 0%, #0c1220 100%);
+  border-bottom: 1px solid #1b2a4a;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.sm-brand {
+  font-family: "Courier New", Courier, monospace;
+  letter-spacing: 1px;
+  font-size: 1rem;
+  color: #7dd3fc;
+}
+.sm-back-link {
+  font-family: "Courier New", Courier, monospace;
+  color: #93a4c3;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+.sm-back-link:hover {
+  color: #7dd3fc;
+  text-decoration: underline;
+}
+
+.sm-stats {
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.8rem;
+  color: #9db4de;
+  margin: 10px 0;
+  flex-shrink: 0;
+}
+
+#smMap {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.sm-footer {
+  text-align: center;
+  font-size: 0.7rem;
+  color: #6b7fa8;
+  padding: 8px;
+  flex-shrink: 0;
+}
+.sm-footer a {
+  color: #7dd3fc;
+}
+
+/* ---- Leaflet popup content ---- */
+.sm-popup-stadium {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-width: 180px;
+}
+.sm-popup-stadium h4 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  color: #0c4a6e;
+}
+.sm-popup-stadium p {
+  margin: 2px 0;
+  font-size: 0.85rem;
+  color: #333;
+}
+.sm-popup-stadium a {
+  font-size: 0.8rem;
+}
+
+.sm-popup-country h4 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  color: #0c4a6e;
+}
+.sm-popup-country ul {
+  margin: 0;
+  padding-left: 18px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+.sm-popup-country li {
+  font-size: 0.85rem;
+  color: #333;
+  margin-bottom: 3px;
+}
+.sm-popup-country .sm-club {
+  color: #555;
+  font-size: 0.8rem;
+}
