@@ -186,10 +186,13 @@ class UI {
 
   // Renders an error into the same spot the weather card normally occupies.
   // Escaped because some callers (the 404 path) build this message from
-  // whatever the user just typed into the search box.
-  showError(message) {
+  // whatever the user just typed into the search box. `container` defaults
+  // to the main app's own card slot, but GeoStreak's plain (non-guess)
+  // searches pass its own result div instead, since that page has no
+  // #content element.
+  showError(message, container = this.uiContainer) {
     this.stopClock(); // an error replaces the card, so kill any running clock
-    this.uiContainer.innerHTML = `
+    container.innerHTML = `
       <div class="alert alert-danger text-center mx-auto mt-4" style="max-width: 20rem;">
         ${escapeHtml(message)}
       </div>`;
@@ -351,17 +354,20 @@ class UI {
   // `isNewCity` (the city has never been attempted before, lifetime, on
   // this browser) briefly brightens the card via the CSS gs-brighten
   // animation — it's a fresh element each call, so unlike the streak pulse
-  // there's no reflow trick needed to retrigger it.
+  // there's no reflow trick needed to retrigger it. `correct` is omitted
+  // entirely (not false) for a plain lookup made outside a live round —
+  // that's not a judged guess, so no CORRECT/INCORRECT stamp applies.
   renderGameCard(container, data, { correct, isNewCity } = {}) {
     if (!container) return;
     const cardHtml = this.buildWeatherCardHtml(data, null);
-    const stampClass = correct ? "geo-stamp-correct" : "geo-stamp-incorrect";
-    const stampText = correct ? "CORRECT" : "INCORRECT";
     const newCityClass = isNewCity ? "geo-new-city" : "";
+    const stampHtml = typeof correct === "boolean"
+      ? `<div class="geo-stamp ${correct ? "geo-stamp-correct" : "geo-stamp-incorrect"}">${correct ? "CORRECT" : "INCORRECT"}</div>`
+      : "";
 
     container.innerHTML = `
       <div class="geo-result-wrap ${newCityClass}">
-        <div class="geo-stamp ${stampClass}">${stampText}</div>
+        ${stampHtml}
         ${cardHtml}
       </div>
     `;
@@ -482,9 +488,12 @@ class UI {
     `;
   }
 
-  // First screen on load: the rules and the player's running numbers, so
-  // there's something to beat before the first question appears.
-  renderStartScreen(container, stats) {
+  // First screen on load: the rules and a prominent Start button, so
+  // there's no scrolling past numbers to get into a round. The player's
+  // running numbers still exist (renderInsights, rendered into its own
+  // container below the result card) — just not fighting the button for
+  // top billing.
+  renderStartScreen(container) {
     if (!container) return;
     container.innerHTML = `
       <div class="gs-panel">
@@ -492,8 +501,7 @@ class UI {
         <p class="gs-panel-sub">
           Name a city whose current temperature matches the condition. Keep the streak alive.
         </p>
-        ${this.buildInsightsHtml(stats)}
-        ${this.buildCityInsightsHtml(stats)}
+        <button type="button" id="gsStartBtn" class="btn btn-primary">Start Game</button>
         <ul class="gs-howto">
           <li>20 seconds per round.</li>
           <li>Each city can only be used once per run.</li>
@@ -501,19 +509,16 @@ class UI {
           <li>A city we can't find costs you nothing but time.</li>
           <li>From question 11 on, rounds get tough: a hemisphere is added to the condition, and both parts have to match.</li>
         </ul>
-        <button type="button" id="gsStartBtn" class="btn btn-primary">Start Game</button>
       </div>
     `;
   }
 
-  renderPauseScreen(container, stats, currentStreak) {
+  renderPauseScreen(container, currentStreak) {
     if (!container) return;
     container.innerHTML = `
       <div class="gs-panel">
         <h3>Paused</h3>
         <p class="gs-panel-sub">Current streak: <b>${currentStreak}</b> &mdash; still alive.</p>
-        ${this.buildInsightsHtml(stats)}
-        ${this.buildCityInsightsHtml(stats)}
         <button type="button" id="gsResumeBtn" class="btn btn-primary">Resume</button>
       </div>
     `;
@@ -522,7 +527,7 @@ class UI {
   // `reason: "time"` distinguishes a timeout loss from a wrong-guess loss.
   // `uniqueCities` is this run's count (not lifetime) — how many different
   // real places were pulled a reading from before the run ended.
-  renderGameOver(container, finalStreak, { reason, stats, uniqueCities = 0 } = {}) {
+  renderGameOver(container, finalStreak, { reason, uniqueCities = 0 } = {}) {
     if (!container) return;
     const heading = reason === "time" ? "Time's Up!" : "Game Over";
     container.innerHTML = `
@@ -530,9 +535,22 @@ class UI {
         <h3>${heading}</h3>
         <p class="gs-panel-sub">Final streak: <b>${finalStreak}</b></p>
         <p class="gs-panel-sub">Unique cities this run: <b>${uniqueCities}</b></p>
+        <button type="button" id="gsPlayAgain" class="btn btn-warning">Play Again</button>
+      </div>
+    `;
+  }
+
+  // The lifetime numbers, shared by the start/pause/game-over states —
+  // rendered into its own container (below the result card, so a fresh
+  // guess/search result isn't buried under it) rather than embedded in
+  // each panel above, which is what used to push the action button down
+  // behind a wall of stats and the city list.
+  renderInsights(container, stats) {
+    if (!container) return;
+    container.innerHTML = `
+      <div class="gs-panel">
         ${this.buildInsightsHtml(stats)}
         ${this.buildCityInsightsHtml(stats)}
-        <button type="button" id="gsPlayAgain" class="btn btn-warning">Play Again</button>
       </div>
     `;
   }

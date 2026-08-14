@@ -117,6 +117,7 @@ function initGeoStreak() {
   const playControlsEl = document.getElementById("gsPlayControls");
   const pausedEl = document.getElementById("gsPaused");
   const gameOverEl = document.getElementById("gsGameOver");
+  const insightsEl = document.getElementById("gsInsights");
 
   let streak = 0;
   let highScore = Number(localStorage.getItem(HIGH_SCORE_KEY)) || 0;
@@ -142,6 +143,18 @@ function initGeoStreak() {
   // still in flight when the round timer runs out (or the game restarts)
   // can tell its answer no longer belongs to the current round and drop it.
   let roundId = 0;
+
+  // Whether there's a live round to guess against right now. The search
+  // box is visible in every state (including before Start Game is ever
+  // pressed), so this is what tells submitGuess() whether to judge the
+  // input as a guess or just run it as a plain lookup, same as the main
+  // Weather.JS page's search.
+  let roundLive = false;
+
+  function setRoundLive(live) {
+    roundLive = live;
+    submitBtn.textContent = live ? "Guess" : "Search";
+  }
 
   // Cities already answered with this session (one continuous streak run,
   // cleared on restart) — lowercased so "Auckland" and "auckland" count as
@@ -263,6 +276,7 @@ function initGeoStreak() {
 
   function newCondition() {
     roundId += 1;
+    setRoundLive(true);
     playControlsEl.style.display = ""; // undo endGame()'s hide, in case this round follows one that ended
     const direction = nextDirection;
     nextDirection = direction === "above" ? "below" : "above"; // strictly alternate next round
@@ -285,10 +299,32 @@ function initGeoStreak() {
     startRoundTimer();
   }
 
+  // Used any time there's no live round to guess against — before Start
+  // Game is ever pressed, or after a run has ended. A plain lookup with no
+  // judging and no effect on any game state (country tally, city counts,
+  // used-cities list): exactly the same thing typing into the main
+  // Weather.JS search box would do.
+  async function runPlainSearch(typed) {
+    submitBtn.disabled = true;
+    try {
+      const data = await ft.getCurrent(typed);
+      ui.renderGameCard(resultEl, data, {});
+    } catch (err) {
+      ui.showError(err.message, resultEl);
+    }
+    submitBtn.disabled = false;
+  }
+
   async function submitGuess() {
     const typed = cityInput.value.trim();
     if (!typed) {
       hintEl.textContent = "Type a city name.";
+      return;
+    }
+
+    if (!roundLive) {
+      hintEl.textContent = "";
+      await runPlainSearch(typed);
       return;
     }
 
@@ -390,9 +426,12 @@ function initGeoStreak() {
   function enterPause() {
     paused = true;
     setPausePending(false);
+    setRoundLive(false);
     roundId += 1; // no round is live while paused — drop anything still in flight
     stopRoundTimer();
-    ui.renderPauseScreen(pausedEl, stats(), streak);
+    ui.renderPauseScreen(pausedEl, streak);
+    ui.renderInsights(insightsEl, stats());
+    insightsEl.style.display = "block";
     playAreaEl.style.display = "none";
     pausedEl.style.display = "block";
   }
@@ -400,6 +439,7 @@ function initGeoStreak() {
   function resume() {
     paused = false;
     pausedEl.style.display = "none";
+    insightsEl.style.display = "none";
     playAreaEl.style.display = "";
     clearResult();
     newCondition();
@@ -416,9 +456,13 @@ function initGeoStreak() {
     roundId += 1; // invalidate any guess still in flight for the round that just ended
     stopRoundTimer();
     setPausePending(false);
+    setRoundLive(false);
+    hintEl.textContent = "";
     gamesPlayed += 1;
     localStorage.setItem(GAMES_PLAYED_KEY, String(gamesPlayed));
-    ui.renderGameOver(gameOverEl, streak, { reason, stats: stats(), uniqueCities: citiesThisRun.size });
+    ui.renderGameOver(gameOverEl, streak, { reason, uniqueCities: citiesThisRun.size });
+    ui.renderInsights(insightsEl, stats());
+    insightsEl.style.display = "block";
     // Play area stays visible (unlike Pause/Start) so the last question —
     // the one the run ended on — is still readable next to the result
     // card below; only the now-irrelevant input/timer/hint are hidden.
@@ -441,6 +485,8 @@ function initGeoStreak() {
     nextHemisphere = Math.random() < 0.5 ? "north" : "south";
     paused = false;
     setPausePending(false);
+    setRoundLive(false);
+    hintEl.textContent = "";
     ui.updateStreakDisplay(streakEl, streak);
     ui.updateCountryTally(countryTallyEl, countryCounts);
     clearResult();
@@ -448,8 +494,10 @@ function initGeoStreak() {
 
   function showStartScreen() {
     resetSession();
-    ui.renderStartScreen(startEl, stats());
+    ui.renderStartScreen(startEl);
+    ui.renderInsights(insightsEl, stats());
     startEl.style.display = "block";
+    insightsEl.style.display = "block";
     playAreaEl.style.display = "none";
     pausedEl.style.display = "none";
     gameOverEl.style.display = "none";
@@ -460,6 +508,7 @@ function initGeoStreak() {
     startEl.style.display = "none";
     pausedEl.style.display = "none";
     gameOverEl.style.display = "none";
+    insightsEl.style.display = "none";
     playAreaEl.style.display = "";
     newCondition();
   }
