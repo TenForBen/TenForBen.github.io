@@ -432,6 +432,7 @@ function initGeoStreak() {
     ui.renderPauseScreen(pausedEl, streak);
     ui.renderInsights(insightsEl, stats());
     insightsEl.style.display = "block";
+    if (typeof Leaderboard !== "undefined") Leaderboard.showPanel();
     playAreaEl.style.display = "none";
     pausedEl.style.display = "block";
   }
@@ -440,6 +441,7 @@ function initGeoStreak() {
     paused = false;
     pausedEl.style.display = "none";
     insightsEl.style.display = "none";
+    if (typeof Leaderboard !== "undefined") Leaderboard.hidePanel();
     playAreaEl.style.display = "";
     clearResult();
     newCondition();
@@ -463,6 +465,10 @@ function initGeoStreak() {
     ui.renderGameOver(gameOverEl, streak, { reason, uniqueCities: citiesThisRun.size });
     ui.renderInsights(insightsEl, stats());
     insightsEl.style.display = "block";
+    if (typeof Leaderboard !== "undefined") {
+      Leaderboard.submitScore(streak, stats());
+      Leaderboard.showPanel();
+    }
     // Play area stays visible (unlike Pause/Start) so the last question —
     // the one the run ended on — is still readable next to the result
     // card below; only the now-irrelevant input/timer/hint are hidden.
@@ -498,6 +504,7 @@ function initGeoStreak() {
     ui.renderInsights(insightsEl, stats());
     startEl.style.display = "block";
     insightsEl.style.display = "block";
+    if (typeof Leaderboard !== "undefined") Leaderboard.showPanel();
     playAreaEl.style.display = "none";
     pausedEl.style.display = "none";
     gameOverEl.style.display = "none";
@@ -509,6 +516,7 @@ function initGeoStreak() {
     pausedEl.style.display = "none";
     gameOverEl.style.display = "none";
     insightsEl.style.display = "none";
+    if (typeof Leaderboard !== "undefined") Leaderboard.hidePanel();
     playAreaEl.style.display = "";
     newCondition();
   }
