@@ -277,9 +277,17 @@ collection, keyed by their anonymous-auth uid:
 ```
 
 A **nickname** defaults to a random `PlayerNNNN`, editable any time from
-the leaderboard panel's input — stored in
+the "Playing as" bar above the search box — visible and editable in every
+state, unlike the ranked list itself (see below) — stored in
 `localStorage["geoStreakGame_nickname"]`, and re-sent on every write so
 renaming updates future leaderboard rows without needing a migration.
+
+The ranked list itself is a different story — it's hidden while a round is
+actually live (same treatment as the local insights panel) and shows
+itself automatically on the start, pause and game-over screens. To check
+it **mid-round** without pausing, there's a "Show Leaderboard" button next
+to Pause — the timer keeps running underneath it; it's a peek, not a
+break.
 
 A run's final streak is only ever submitted **on Game Over**, and only if
 it's positive — a losing run's low number was never a personal best worth
