@@ -387,6 +387,23 @@
 
     <div class="gs-country-tally" id="gsCountryTally"></div>
 
+    <!-- Always visible, in every state, including before Start Game is ever
+         pressed: while a round is live this is a guess; otherwise it's a
+         plain city weather lookup, same as the main Weather.JS search. -->
+    <div id="gsSearchRow">
+      <div class="gs-input-row">
+        <input
+          type="text"
+          id="gsCityInput"
+          class="form-control"
+          placeholder="Type a city name…"
+          autocomplete="off"
+        />
+        <button type="button" id="gsSubmit" class="btn btn-primary">Search</button>
+      </div>
+      <p class="gs-hint" id="gsHint"></p>
+    </div>
+
     <!-- Start / pause / game-over panels are all rendered by ui.js; the play
          area is the only screen written out as static markup. Exactly one of
          the four is visible at a time. -->
@@ -394,24 +411,13 @@
 
     <div id="gsPlayArea" style="display: none;">
       <p class="gs-condition" id="gsCondition"></p>
-      <!-- Everything below is hidden on Game Over so the round's last
-           question (above) stays visible next to the result card. -->
+      <!-- Hidden on Game Over so the round's last question (above) stays
+           visible next to the result card, without a dead timer under it. -->
       <div id="gsPlayControls">
-        <div class="gs-input-row">
-          <input
-            type="text"
-            id="gsCityInput"
-            class="form-control"
-            placeholder="Type a city name…"
-            autocomplete="off"
-          />
-          <button type="button" id="gsSubmit" class="btn btn-primary">Guess</button>
-        </div>
         <div class="gs-timer-row">
           <div class="gs-timer" id="gsTimer">20s</div>
           <button type="button" id="gsPause" class="gs-pause-btn">&#9208; PAUSE</button>
         </div>
-        <p class="gs-hint" id="gsHint"></p>
       </div>
     </div>
 
@@ -420,6 +426,12 @@
     <div id="gsGameOver" style="display: none;"></div>
 
     <div id="gsResult"></div>
+
+    <!-- Lifetime numbers (streak/correct/attempts/accuracy + top cities),
+         shared across the start/pause/game-over states and deliberately
+         placed below the result card so a fresh guess/search isn't buried
+         under a wall of stats. -->
+    <div id="gsInsights" style="display: none;"></div>
 
     <footer class="gs-footer">
       <a

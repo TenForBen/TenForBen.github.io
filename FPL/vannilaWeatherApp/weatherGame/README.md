@@ -67,7 +67,7 @@ Play Again.
 
 ## Round timer
 
-Each round gives you **20 seconds**. It's shown live below the input,
+Each round gives you **20 seconds**. It's shown live below the condition,
 turning amber under 10s and red under 5s. A guess still in flight when the
 timer expires is discarded when it resolves — it can't retroactively revive
 a round that already ended.
@@ -92,13 +92,34 @@ tracked.
 Unlike Pause and Start, ending a run doesn't hide the round you were on: the
 **last question stays on screen**, right above the Game Over panel and the
 result card that ended things, so you can see exactly what you missed (or
-ran out of time on). Only the now-irrelevant input box, timer and pause
-button are hidden — there's nothing left to answer.
+ran out of time on). Only the now-irrelevant timer and pause button are
+hidden — the search box stays put (see below).
 
 The Game Over panel also shows **unique cities this run** — how many
 different real places you pulled a reading from before the run ended
 (correct guesses and the one that ended it, not duplicates or not-founds).
 This is a per-run count, not the lifetime one below.
+
+## The search box is always there
+
+The city input and its button sit at the top of the page in every state —
+before Start Game is ever pressed, mid-round, paused, and after Game
+Over — rather than only existing while a round is live. Whether a search
+counts as a **guess** depends entirely on whether there's a live round to
+judge it against:
+
+- **Live round** → button reads "Guess"; the input is judged against the
+  current condition exactly as described above, and affects streak,
+  lifetime stats, the country tally, and the used-cities list.
+- **No live round** (start screen, paused, game over) → button reads
+  "Search"; it's a plain city lookup with **no judging and no side
+  effects on any game state** — the same thing typing into the main
+  Weather.JS search box would do. The result renders as an unstamped
+  card (no CORRECT/INCORRECT) in the same result slot a guess would use.
+
+This means you can look up a city's weather before starting a run, or
+between runs, without it costing you a used-city slot or counting toward
+your lifetime attempt numbers.
 
 ## City tracking & insights
 
@@ -134,8 +155,9 @@ and pulses when the current streak overtakes it.
 ## Start screen and insights
 
 The page opens on a **Start Game** panel — no question is generated and no
-timer runs until you press it. Alongside the rules, the panel shows your
-all-time numbers so there's a target before the first round:
+timer runs until you press it. The button sits right under the rules, right
+below the search box; your all-time numbers are deliberately **not** in this
+panel — see below for where they live.
 
 | Insight | Source |
 | --- | --- |
@@ -151,10 +173,14 @@ that simply timed out are *not* attempts — so accuracy measures geography
 rather than typing. Accuracy is computed at render time rather than stored,
 so it can't drift out of step with the two counters behind it.
 
-The same numbers (plus Top Cities, once eligible) appear on the pause and
-game-over panels. All of them are lifetime and browser-local: they survive
-Play Again, and only the streak, used cities and country tally reset with a
-new run.
+These numbers render into their own block, **below the result card**,
+whenever the start, pause or game-over panel is showing (hidden during an
+active round). Keeping them out of those panels means the primary action
+button — Start Game, Resume, Play Again — is never buried under a wall of
+stats and a top-5 city list; the result card from your last guess or search
+gets the prime spot instead. All of the numbers are lifetime and
+browser-local: they survive Play Again, and only the streak, used cities
+and country tally reset with a new run.
 
 ## Pause
 
@@ -189,10 +215,13 @@ elements:
   on top of the same card look as the main app), plus small render helpers:
   `renderGameCondition`, `updateStreakDisplay`, `updateHighScoreDisplay`
   (with pulse), `updateTimerDisplay`, `updateCountryTally`,
-  `updatePauseButton`, and the three panel renderers — `renderStartScreen`,
-  `renderPauseScreen`, `renderGameOver` (win/loss vs. timeout heading) —
-  which all share one `buildInsightsHtml()` and one `buildCityInsightsHtml()`
-  so the numbers can't be formatted three different ways.
+  `updatePauseButton`, the three compact panel renderers —
+  `renderStartScreen`, `renderPauseScreen`, `renderGameOver` (win/loss vs.
+  timeout heading) — and `renderInsights`, the shared numbers block those
+  three panels used to embed directly but now render separately (below the
+  result card) via one `buildInsightsHtml()` and one
+  `buildCityInsightsHtml()`, so the numbers can't be formatted four
+  different ways.
 - **`../app.js`** — `initGeoStreak()` holds all game state (streak, high
   score, lifetime counters, lifetime per-city log, current condition, round
   timer, pause state, and a `roundId` guard against stale in-flight guesses)
