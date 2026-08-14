@@ -233,6 +233,85 @@ elements:
   the play area is static markup; start, pause and game-over are rendered
   into empty containers, so their buttons are wired by delegating clicks
   from the container rather than binding elements that get replaced.
+- **`firebaseConfig.js`** / **`leaderboard.js`** / **`firestore.rules`** —
+  the optional online leaderboard (see [Leaderboard](#leaderboard) above).
+  Firebase's compat SDK (loaded via `<script>` tags, matching this
+  project's no-bundler style) plus `leaderboard.js` must both come
+  *before* `../app.js` in `geoStreakGame.html` — `app.js` calls
+  `showStartScreen()` synchronously as soon as it loads, and that needs
+  the `Leaderboard` global (and `escapeHtml` from `../ui.js`) to already
+  exist.
+
+## Leaderboard
+
+An optional, **entirely client-judged** online leaderboard, backed by
+Firebase Firestore on the free Spark plan. "Client-judged" is the
+important qualifier: correct/incorrect is still decided in the browser
+exactly as described above, and only the final streak gets shared — so
+this is gameable via devtools the same way hand-editing `localStorage`
+already was. It's a real shared leaderboard for a casual personal project,
+not an anti-cheat system. See [Why not fully secure](#why-not-fully-secure)
+below for what closing that gap would actually take.
+
+### Setup (one-time, per Firebase project)
+
+1. **Create a project** at [console.firebase.google.com](https://console.firebase.google.com/) — free, no credit card (Spark plan).
+2. **Enable Firestore**: Build -> Firestore Database -> Create database -> start in **production mode** (the rules below replace the default-deny anyway) -> pick any region.
+3. **Enable Anonymous sign-in**: Build -> Authentication -> Get started -> Sign-in method -> Anonymous -> Enable. This is what gives each browser a stable identity with zero login UI — no email, no password, nothing the player has to do.
+4. **Register a web app**: Project settings (gear icon) -> General -> "Your apps" -> the `</>` (web) icon -> register it (a nickname is enough, no hosting setup needed) -> copy the `firebaseConfig` object it shows you.
+5. **Paste that config into [`firebaseConfig.js`](./firebaseConfig.js)**, replacing the six `REPLACE_ME` placeholders. These values are not secret (see the comment at the top of that file for why) — access control is entirely the rules file's job, not this object's.
+6. **Publish the security rules**: Firestore Database -> Rules tab -> replace the contents with [`firestore.rules`](./firestore.rules) -> Publish.
+
+That's it — no CLI, no `firebase login`, no deploy step. Until step 5 is
+done, `leaderboard.js` detects the placeholder and the panel just shows
+"Leaderboard not configured yet" — the rest of GeoStreak is completely
+unaffected either way.
+
+### Data model
+
+One Firestore document per player, in the `geostreakLeaderboard`
+collection, keyed by their anonymous-auth uid:
+
+```
+{ nickname: "Player4492", bestStreak: 22, totalCorrect: 125, totalAttempts: 139, updatedAt: <server timestamp> }
+```
+
+A **nickname** defaults to a random `PlayerNNNN`, editable any time from
+the leaderboard panel's input — stored in
+`localStorage["geoStreakGame_nickname"]`, and re-sent on every write so
+renaming updates future leaderboard rows without needing a migration.
+
+A run's final streak is only ever submitted **on Game Over**, and only if
+it's positive — a losing run's low number was never a personal best worth
+recording. The write is a `set(..., { merge: true })` upsert, not an
+append: there's exactly one row per player, always their personal best,
+never a full history of every run.
+
+### Why the rules file is the part that actually matters
+
+Anyone can read the leaderboard, but a write is only accepted if:
+
+- it comes from the signed-in owner of that document (`request.auth.uid == uid`),
+- every field is present, the right type, and within sane bounds (nickname ≤ 20 chars, `0 < bestStreak <= 500`, etc.), and
+- **on an update, the new `bestStreak` is strictly greater than the one already stored.**
+
+That last check is the one doing real work. Without it, a player could
+resubmit a lower number later (say, after a bad run) and silently
+overwrite a real personal best — Firestore itself enforces "scores only go
+up," so the client doesn't have to be trusted for that specific guarantee,
+even though it's still trusted for *what counts as correct* in the first place.
+
+### Why not fully secure
+
+The only way to close the "devtools can just write the score directly"
+gap for real is to stop trusting the client for *correctness* too — move
+the guess-judging itself into a Cloud Function that calls OpenWeatherMap
+server-side and returns a verdict the browser can't fabricate, then only
+accept a leaderboard write that references a verdict the function itself
+issued. That needs the paid Blaze plan (Cloud Functions require outbound
+networking, unavailable on Spark) and is a real rework of the round loop,
+not an add-on — deliberately out of scope here in favour of shipping a
+working shared leaderboard today.
 
 ## Visual design
 

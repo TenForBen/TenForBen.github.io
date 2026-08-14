@@ -342,6 +342,63 @@
       white-space: nowrap;
     }
 
+    .gs-nickname-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .gs-leaderboard-note {
+      color: #6b7fa8;
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+    .gs-leaderboard-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+    .gs-leaderboard-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      padding: 5px 4px;
+      border-bottom: 1px solid #1b2a4a;
+    }
+    .gs-leaderboard-list li:last-child { border-bottom: none; }
+    /* Your own row, wherever it falls in the ranking. */
+    .gs-leaderboard-list li.gs-leaderboard-me {
+      background: #12244a;
+      border-radius: 4px;
+    }
+    .gs-leaderboard-rank {
+      font-family: "Courier New", Courier, monospace;
+      color: #6b7fa8;
+      width: 1.6em;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .gs-leaderboard-name {
+      color: #cfe8ff;
+      flex: 1 1 auto;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .gs-leaderboard-streak {
+      font-family: "Courier New", Courier, monospace;
+      color: #7dd3fc;
+      font-weight: bold;
+    }
+    .gs-leaderboard-accuracy {
+      font-family: "Courier New", Courier, monospace;
+      color: #6b7fa8;
+      font-size: 0.75rem;
+      width: 3em;
+      text-align: right;
+    }
+
     .gs-howto {
       text-align: left;
       font-size: 0.85rem;
@@ -433,6 +490,27 @@
          under a wall of stats. -->
     <div id="gsInsights" style="display: none;"></div>
 
+    <!-- Online leaderboard (Firebase Firestore, optional — see
+         leaderboard.js and the README's Leaderboard section). Shown/hidden
+         alongside gsInsights above. -->
+    <div id="gsLeaderboard" style="display: none;">
+      <div class="gs-panel">
+        <h3>Leaderboard</h3>
+        <div class="gs-nickname-row">
+          <input
+            type="text"
+            id="gsNickname"
+            class="form-control"
+            maxlength="20"
+            placeholder="Your name"
+            autocomplete="off"
+          />
+          <button type="button" id="gsNicknameSave" class="btn btn-secondary btn-sm">Save</button>
+        </div>
+        <div id="gsLeaderboardList"></div>
+      </div>
+    </div>
+
     <footer class="gs-footer">
       <a
         href="https://github.com/TenForBen/TenForBen.github.io/blob/feature/geoStreakGame/FPL/vannilaWeatherApp/weatherGame/README.md"
@@ -445,6 +523,19 @@
 
   <script src="../fetch.js"></script>
   <script src="../ui.js"></script>
+
+  <!-- Firebase (compat build — matches this codebase's plain-<script>,
+       no-bundler style rather than the modular/ESM SDK). Optional: see
+       firebaseConfig.js and leaderboard.js. Must load before app.js: app.js
+       calls initGeoStreak() -> showStartScreen() synchronously as soon as
+       it runs, and that call needs the `Leaderboard` global to already
+       exist (uses escapeHtml from ui.js above, so it comes after that). -->
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+  <script src="firebaseConfig.js"></script>
+  <script src="leaderboard.js"></script>
+
   <script src="../app.js"></script>
 </body>
 </html>

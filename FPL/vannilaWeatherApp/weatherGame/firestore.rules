@@ -1,0 +1,49 @@
+// GeoStreak leaderboard rules — paste into Firebase console -> Firestore
+// Database -> Rules -> replace the contents -> Publish. This project has
+// no Firebase Hosting / CLI deploy set up, so this file is documentation
+// + copy-paste source, not something that deploys itself.
+//
+// One document per player, keyed by their anonymous-auth uid. The single
+// rule that actually matters for cheat-resistance is the bestStreak
+// comparison on update — everything else here is shape/bounds validation,
+// which stops garbage data but not a determined cheater with devtools
+// open. See the README's Leaderboard section for what it would take to
+// close that gap for real (short version: judge guesses server-side via
+// a Cloud Function, which needs the paid Blaze plan).
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /geostreakLeaderboard/{uid} {
+      // Public leaderboard — anyone can read the rankings, signed in or not.
+      allow read: if true;
+
+      // A player may only ever write their OWN document (their uid is the
+      // document id), and only with a shape that passes isValidEntry().
+      allow create: if request.auth != null
+        && request.auth.uid == uid
+        && isValidEntry(request.resource.data);
+
+      // An update additionally has to actually beat the stored streak —
+      // this is what stops a losing run's lower number (or a replayed
+      // stale write) from clobbering a real personal best.
+      allow update: if request.auth != null
+        && request.auth.uid == uid
+        && isValidEntry(request.resource.data)
+        && request.resource.data.bestStreak > resource.data.bestStreak;
+
+      allow delete: if false;
+    }
+  }
+
+  function isValidEntry(data) {
+    return data.keys().hasOnly(['nickname', 'bestStreak', 'totalCorrect', 'totalAttempts', 'updatedAt'])
+      && data.nickname is string && data.nickname.size() > 0 && data.nickname.size() <= 20
+      && data.bestStreak is int && data.bestStreak > 0 && data.bestStreak <= 500
+      && data.totalCorrect is int && data.totalCorrect >= 0
+      && data.totalAttempts is int && data.totalAttempts >= data.totalCorrect
+      // Rejects a client-supplied timestamp — serverTimestamp() is the
+      // only value that resolves to request.time, so this forces the
+      // write to actually use it rather than a spoofed date.
+      && data.updatedAt == request.time;
+  }
+}
