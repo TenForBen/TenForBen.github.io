@@ -385,7 +385,11 @@ class UI {
     const tempPart = `current temperature <b>${condition.direction.toUpperCase()}</b> ${condition.threshold}&deg;C`;
     if (condition.hemisphere) {
       const hemisphereLabel = condition.hemisphere === "north" ? "Northern" : "Southern";
-      el.innerHTML = `Name a city in the <b>${hemisphereLabel}</b> hemisphere with ${tempPart}.`;
+      // North/South get their own colours (not just bold) so the tough-round
+      // twist reads at a glance rather than blending into the rest of the
+      // sentence — cool blue for Northern, warm amber for Southern.
+      const hemisphereColor = condition.hemisphere === "north" ? "#38bdf8" : "#f0b429";
+      el.innerHTML = `Name a city in the <b style="color: ${hemisphereColor};">${hemisphereLabel}</b> hemisphere with ${tempPart}.`;
     } else {
       el.innerHTML = `Name a city with ${tempPart}.`;
     }
