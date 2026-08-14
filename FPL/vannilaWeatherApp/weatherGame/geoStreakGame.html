@@ -342,10 +342,23 @@
       white-space: nowrap;
     }
 
-    .gs-nickname-row {
+    #gsPlayerBar {
       display: flex;
+      align-items: center;
       gap: 8px;
-      margin-bottom: 14px;
+      max-width: 420px;
+      margin: 0 auto 18px;
+    }
+    .gs-player-label {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #6b7fa8;
+      white-space: nowrap;
+    }
+    #gsPlayerBar input {
+      flex: 1 1 auto;
     }
     .gs-leaderboard-note {
       color: #6b7fa8;
@@ -444,6 +457,22 @@
 
     <div class="gs-country-tally" id="gsCountryTally"></div>
 
+    <!-- Nickname is always visible and editable, in every state — unlike
+         the ranked list below (gsLeaderboard), which only really means
+         something once a round has actually ended. -->
+    <div id="gsPlayerBar">
+      <span class="gs-player-label">Playing as</span>
+      <input
+        type="text"
+        id="gsNickname"
+        class="form-control"
+        maxlength="20"
+        placeholder="Your name"
+        autocomplete="off"
+      />
+      <button type="button" id="gsNicknameSave" class="btn btn-secondary btn-sm">Save</button>
+    </div>
+
     <!-- Always visible, in every state, including before Start Game is ever
          pressed: while a round is live this is a guess; otherwise it's a
          plain city weather lookup, same as the main Weather.JS search. -->
@@ -474,6 +503,11 @@
         <div class="gs-timer-row">
           <div class="gs-timer" id="gsTimer">20s</div>
           <button type="button" id="gsPause" class="gs-pause-btn">&#9208; PAUSE</button>
+          <!-- Outside of a live round the leaderboard already shows itself
+               automatically (see gsInsights/gsLeaderboard toggling in
+               app.js) — this button is only needed to peek at it mid-round,
+               without pausing or otherwise interrupting the round. -->
+          <button type="button" id="gsLeaderboardPeek" class="gs-pause-btn">&#127942; Show Leaderboard</button>
         </div>
       </div>
     </div>
@@ -496,17 +530,6 @@
     <div id="gsLeaderboard" style="display: none;">
       <div class="gs-panel">
         <h3>Leaderboard</h3>
-        <div class="gs-nickname-row">
-          <input
-            type="text"
-            id="gsNickname"
-            class="form-control"
-            maxlength="20"
-            placeholder="Your name"
-            autocomplete="off"
-          />
-          <button type="button" id="gsNicknameSave" class="btn btn-secondary btn-sm">Save</button>
-        </div>
         <div id="gsLeaderboardList"></div>
       </div>
     </div>

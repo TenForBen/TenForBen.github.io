@@ -112,6 +112,7 @@ function initGeoStreak() {
   const highScoreEl = document.getElementById("gsHighScore");
   const countryTallyEl = document.getElementById("gsCountryTally");
   const pauseBtn = document.getElementById("gsPause");
+  const leaderboardPeekBtn = document.getElementById("gsLeaderboardPeek");
   const startEl = document.getElementById("gsStart");
   const playAreaEl = document.getElementById("gsPlayArea");
   const playControlsEl = document.getElementById("gsPlayControls");
@@ -423,6 +424,22 @@ function initGeoStreak() {
     setPausePending(!pausePending);
   }
 
+  // Outside a live round the leaderboard already shows itself automatically
+  // (see the Leaderboard.showPanel()/hidePanel() calls below) — this is
+  // only for peeking at it mid-round without pausing or otherwise touching
+  // the round in progress: the timer keeps running underneath it.
+  let leaderboardPeeked = false;
+  function toggleLeaderboardPeek() {
+    if (typeof Leaderboard === "undefined") return;
+    leaderboardPeeked = !leaderboardPeeked;
+    leaderboardPeekBtn.textContent = leaderboardPeeked ? "\u{1F3C6} Hide Leaderboard" : "\u{1F3C6} Show Leaderboard";
+    if (leaderboardPeeked) {
+      Leaderboard.showPanel();
+    } else {
+      Leaderboard.hidePanel();
+    }
+  }
+
   function enterPause() {
     paused = true;
     setPausePending(false);
@@ -516,6 +533,8 @@ function initGeoStreak() {
     pausedEl.style.display = "none";
     gameOverEl.style.display = "none";
     insightsEl.style.display = "none";
+    leaderboardPeeked = false;
+    leaderboardPeekBtn.textContent = "\u{1F3C6} Show Leaderboard";
     if (typeof Leaderboard !== "undefined") Leaderboard.hidePanel();
     playAreaEl.style.display = "";
     newCondition();
@@ -526,6 +545,7 @@ function initGeoStreak() {
     if (e.key === "Enter") submitGuess();
   });
   pauseBtn.addEventListener("click", togglePause);
+  leaderboardPeekBtn.addEventListener("click", toggleLeaderboardPeek);
   // Start/resume/play-again live inside rendered HTML, so they're delegated
   // from their containers rather than bound to elements that get replaced.
   startEl.addEventListener("click", (e) => {

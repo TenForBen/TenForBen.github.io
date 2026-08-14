@@ -12,10 +12,10 @@
 // placeholder and no-ops everywhere — the rest of GeoStreak works exactly
 // as before, just without the online leaderboard panel.
 const firebaseConfig = {
-  apiKey: "REPLACE_ME",
-  authDomain: "REPLACE_ME.firebaseapp.com",
-  projectId: "REPLACE_ME",
-  storageBucket: "REPLACE_ME.appspot.com",
-  messagingSenderId: "REPLACE_ME",
-  appId: "REPLACE_ME",
+  apiKey: "AIzaSyAP9Y5eJKtbbzwZL8po_3GHcb3U-Na7gXc",
+  authDomain: "weathergame-bda93.firebaseapp.com",
+  projectId: "weathergame-bda93",
+  storageBucket: "weathergame-bda93.firebasestorage.app",
+  messagingSenderId: "874814445946",
+  appId: "1:874814445946:web:3fa2c10baad47b4a379ec3",
 };
