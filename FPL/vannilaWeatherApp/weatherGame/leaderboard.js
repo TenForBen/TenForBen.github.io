@@ -17,7 +17,7 @@ const Leaderboard = (() => {
   const NICKNAME_KEY = "geoStreakGame_nickname";
   const COLLECTION = "geostreakLeaderboard";
   const RUNS_COLLECTION = "geostreakRuns";
-  const TOP_N = 20;
+  const PAGE_SIZE = 10;
 
   const configured = typeof firebaseConfig !== "undefined"
     && firebaseConfig.apiKey
@@ -29,6 +29,16 @@ const Leaderboard = (() => {
   // below awaits this first, so a call made right on page load doesn't
   // race the auth handshake.
   let ready = Promise.resolve();
+
+  // pageCursors[i] is the document to startAfter() when fetching page i —
+  // pageCursors[0] is always null (the first page needs no cursor).
+  // Firestore has no cheap "give me page N directly" query, so paging
+  // backward means walking back through cursors already seen this panel
+  // session rather than re-deriving them, which is why this (and
+  // currentPage) reset to a blank slate every time the panel opens fresh
+  // rather than trying to persist across views.
+  let pageCursors = [null];
+  let currentPage = 0;
 
   function randomNickname() {
     return `Player${Math.floor(1000 + Math.random() * 9000)}`;
@@ -200,41 +210,92 @@ const Leaderboard = (() => {
     `;
   }
 
-  async function renderList(container) {
+  // Fetches PAGE_SIZE rows for `pageIndex`, plus one extra (PAGE_SIZE + 1
+  // total) purely to answer "is there a page after this one?" cheaply —
+  // Firestore has no free row-count, so the alternative would be a whole
+  // separate query just to know whether to show a Next button.
+  async function fetchLeaderboardPage(pageIndex) {
+    let query = db.collection(COLLECTION).orderBy("bestStreak", "desc");
+    if (pageCursors[pageIndex]) query = query.startAfter(pageCursors[pageIndex]);
+    const snap = await query.limit(PAGE_SIZE + 1).get();
+    const hasNext = snap.docs.length > PAGE_SIZE;
+    const pageDocs = snap.docs.slice(0, PAGE_SIZE);
+    // Remember where the *next* page starts, but only the first time we
+    // see it — re-deriving it on every visit to this page would be wasted
+    // work since the cursor (a specific document) doesn't change.
+    if (hasNext && !pageCursors[pageIndex + 1]) {
+      pageCursors[pageIndex + 1] = pageDocs[pageDocs.length - 1];
+    }
+    return { pageDocs, hasNext };
+  }
+
+  // Pagination controls only appear once they'd actually do something —
+  // a leaderboard with 10 or fewer entries has nothing to page through.
+  function renderPagination(container, pageIndex, hasNext) {
     if (!container) return;
+    if (pageIndex === 0 && !hasNext) {
+      container.innerHTML = "";
+      return;
+    }
+    container.innerHTML = `
+      <button type="button" id="gsLbPrev" class="gs-page-btn" ${pageIndex === 0 ? "disabled" : ""}>&larr; Prev</button>
+      <span class="gs-page-label">Page ${pageIndex + 1}</span>
+      <button type="button" id="gsLbNext" class="gs-page-btn" ${hasNext ? "" : "disabled"}>Next &rarr;</button>
+    `;
+    const listEl = document.getElementById("gsLeaderboardList");
+    const prevBtn = document.getElementById("gsLbPrev");
+    const nextBtn = document.getElementById("gsLbNext");
+    if (prevBtn) prevBtn.addEventListener("click", () => renderPage(listEl, pageIndex - 1));
+    if (nextBtn) nextBtn.addEventListener("click", () => renderPage(listEl, pageIndex + 1));
+  }
+
+  async function renderPage(container, pageIndex) {
+    if (!container) return;
+    const paginationEl = document.getElementById("gsLeaderboardPagination");
     if (!configured) {
       container.innerHTML = '<p class="gs-leaderboard-note">Leaderboard not configured yet — see firebaseConfig.js.</p>';
       return;
     }
     container.innerHTML = '<p class="gs-leaderboard-note">Loading&hellip;</p>';
+    if (paginationEl) paginationEl.innerHTML = "";
     await ready;
     if (!uid) {
       container.innerHTML = '<p class="gs-leaderboard-note">Could not connect to the leaderboard.</p>';
       return;
     }
     try {
-      const snap = await db.collection(COLLECTION).orderBy("bestStreak", "desc").limit(TOP_N).get();
-      if (snap.empty) {
-        container.innerHTML = '<p class="gs-leaderboard-note">No scores yet — be the first!</p>';
+      const { pageDocs, hasNext } = await fetchLeaderboardPage(pageIndex);
+      if (pageDocs.length === 0) {
+        container.innerHTML = pageIndex === 0
+          ? '<p class="gs-leaderboard-note">No scores yet — be the first!</p>'
+          : '<p class="gs-leaderboard-note">No more scores.</p>';
         return;
       }
-      const rows = snap.docs.map((doc, i) => renderRow(doc, i + 1)).join("");
+      currentPage = pageIndex;
+      const startRank = pageIndex * PAGE_SIZE + 1;
+      const rows = pageDocs.map((doc, i) => renderRow(doc, startRank + i)).join("");
       container.innerHTML = `<ul class="gs-leaderboard-list">${rows}</ul>`;
+      renderPagination(paginationEl, pageIndex, hasNext);
     } catch (err) {
       container.innerHTML = '<p class="gs-leaderboard-note">Could not load leaderboard.</p>';
-      console.error("Leaderboard: renderList failed", err);
+      console.error("Leaderboard: renderPage failed", err);
     }
   }
 
   // Shown/hidden alongside the local insights panel (start, pause and
   // game-over states) — never during an active round. Re-fetches on every
   // show, so returning to a non-playing screen picks up other players'
-  // scores since you last looked, not just your own.
+  // scores since you last looked, not just your own. Always reopens on
+  // page 1 — cursors from a previous visit this session are stale enough
+  // (the ranking could easily have changed) that starting over is simpler
+  // and more correct than trying to preserve a page position.
   function showPanel() {
     const panel = document.getElementById("gsLeaderboard");
     if (!panel) return;
     panel.style.display = "block";
-    renderList(document.getElementById("gsLeaderboardList"));
+    pageCursors = [null];
+    currentPage = 0;
+    renderPage(document.getElementById("gsLeaderboardList"), 0);
   }
 
   function hidePanel() {
