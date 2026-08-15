@@ -350,6 +350,16 @@ temperature, CORRECT / INCORRECT / TIMED OUT). Your **Personal Best** run
 highlighted section up top, pre-expanded, so a new best is always one
 click away without hunting through the list.
 
+**Export PDF** is the browser's own print dialog with "Save as PDF" picked
+as the destination — no PDF library, no server round-trip. Clicking it
+force-expands every run card (so nothing you never happened to click open
+is silently missing from the export) and hands off to `window.print()`;
+a `@media print` stylesheet in `history.html` swaps the dark console
+theme for a plain light one just for the printed/exported version, since
+printing the dark theme as-is would either waste a page of ink or — if
+the browser's "background graphics" print option is off — render as
+invisible white-on-white.
+
 Uses the same Firebase project as the leaderboard — no separate account
 setup. `firestore.rules` already covers both collections if you followed
 the Leaderboard section's steps. There's exactly **one** extra one-time

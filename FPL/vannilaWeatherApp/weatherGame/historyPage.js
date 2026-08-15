@@ -109,6 +109,22 @@ function wireRunToggles(container) {
   });
 }
 
+// "Export PDF" is just the browser's native print dialog with "Save as
+// PDF" as the destination — no library, no server round-trip. The only
+// real work is making sure nothing's missing from it: a run card the
+// player never happened to expand shouldn't just vanish from their
+// export, so every card is forced open first. The @media print rules in
+// history.html handle swapping the dark theme for a printable one.
+function exportToPdf() {
+  document.querySelectorAll(".gs-run-detail").forEach((detail) => {
+    detail.style.display = "block";
+  });
+  document.querySelectorAll(".gs-run-toggle").forEach((btn) => {
+    btn.setAttribute("aria-expanded", "true");
+  });
+  window.print();
+}
+
 async function main() {
   const statusEl = document.getElementById("hStatus");
   const bestSectionEl = document.getElementById("hBestSection");
@@ -172,5 +188,8 @@ async function main() {
     }
   }
 }
+
+const exportBtn = document.getElementById("hExportPdf");
+if (exportBtn) exportBtn.addEventListener("click", exportToPdf);
 
 main();
