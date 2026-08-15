@@ -37,6 +37,14 @@ const Leaderboard = (() => {
     return localStorage.getItem(NICKNAME_KEY) || randomNickname();
   }
 
+  // Whether a name has ever actually been saved — getNickname() always
+  // returns *something* (falling back to a random one), so this is the
+  // only reliable way to tell "never set" apart from "set, and it just
+  // happens to be this one".
+  function hasNickname() {
+    return !!localStorage.getItem(NICKNAME_KEY);
+  }
+
   function setNickname(name) {
     const trimmed = name.trim().slice(0, 20);
     if (trimmed) localStorage.setItem(NICKNAME_KEY, trimmed);
@@ -70,17 +78,54 @@ const Leaderboard = (() => {
       });
   }
 
+  // The one-time setup row (#gsPlayerBar, above the search box) versus the
+  // permanent header display (#gsHeaderNicknameWrap) are mutually
+  // exclusive — exactly one is showing at any moment, toggled by whether
+  // a name has actually been saved yet, or by clicking "change".
+  function showSetupRow() {
+    const bar = document.getElementById("gsPlayerBar");
+    const headerWrap = document.getElementById("gsHeaderNicknameWrap");
+    if (bar) bar.style.display = "block";
+    if (headerWrap) headerWrap.style.display = "none";
+  }
+
+  function showHeaderDisplay() {
+    const bar = document.getElementById("gsPlayerBar");
+    const headerWrap = document.getElementById("gsHeaderNicknameWrap");
+    const headerName = document.getElementById("gsHeaderNickname");
+    if (bar) bar.style.display = "none";
+    if (headerWrap) headerWrap.style.display = "flex";
+    if (headerName) headerName.textContent = getNickname();
+  }
+
   function wireNicknameInput() {
     const input = document.getElementById("gsNickname");
     const saveBtn = document.getElementById("gsNicknameSave");
+    const changeLink = document.getElementById("gsChangeNickname");
     if (!input || !saveBtn) return;
+
     input.value = getNickname();
+    if (hasNickname()) {
+      showHeaderDisplay();
+    } else {
+      showSetupRow();
+    }
+
     saveBtn.addEventListener("click", () => {
       input.value = setNickname(input.value);
+      showHeaderDisplay();
     });
     input.addEventListener("keydown", (e) => {
       if (e.key === "Enter") saveBtn.click();
     });
+    if (changeLink) {
+      changeLink.addEventListener("click", (e) => {
+        e.preventDefault(); // it's a styling convenience, not a real link
+        showSetupRow();
+        input.focus();
+        input.select();
+      });
+    }
   }
 
   // Called once a run ends. Only writes on a positive streak — a losing

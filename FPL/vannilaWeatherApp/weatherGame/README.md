@@ -276,10 +276,14 @@ collection, keyed by their anonymous-auth uid:
 { nickname: "Player4492", bestStreak: 22, totalCorrect: 125, totalAttempts: 139, updatedAt: <server timestamp> }
 ```
 
-A **nickname** defaults to a random `PlayerNNNN`, editable any time from
-the "Playing as" bar above the search box — visible and editable in every
-state, unlike the ranked list itself (see below) — stored in
-`localStorage["geoStreakGame_nickname"]`, and re-sent on every write so
+A **nickname** defaults to a random `PlayerNNNN`. Setting one is a
+one-time thing: a "Playing as" row above the search box asks for it once,
+and disappears for good the moment you hit Save — from then on the name
+just sits quietly in the header (highlighted, so it reads as *you*), with
+a small "change" link next to it that brings the row back if you ever want
+to rename. Stored in `localStorage["geoStreakGame_nickname"]` — its mere
+presence there is also how the page tells "never set a name" apart from
+"set one, first visit or the hundredth" — and re-sent on every write so
 renaming updates future leaderboard rows without needing a migration.
 
 The ranked list itself is a different story — it's hidden while a round is
