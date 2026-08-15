@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/minty/bootstrap.min.css"
+  />
+  <title>Run History — TENFORBEN Station</title>
+  <link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text x=%228%22 y=%2213%22 font-size=%2214%22 text-anchor=%22middle%22>%F0%9F%A6%96</text></svg>"
+  />
+  <style>
+    body {
+      background: #060a14;
+      color: #cfe8ff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+    }
+
+    .gs-header {
+      background: linear-gradient(180deg, #0a1226 0%, #060a14 100%);
+      border-bottom: 1px solid #1b2a4a;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .gs-brand {
+      font-family: "Courier New", Courier, monospace;
+      letter-spacing: 1px;
+      font-size: 1rem;
+      color: #7dd3fc;
+    }
+    .gs-back-link {
+      font-family: "Courier New", Courier, monospace;
+      color: #93a4c3;
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+    .gs-back-link:hover { color: #7dd3fc; text-decoration: underline; }
+
+    main.container {
+      padding-top: 28px;
+      padding-bottom: 60px;
+      max-width: 760px;
+    }
+
+    h1 {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 1.4rem;
+      color: #e2ecff;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+    .gs-status {
+      text-align: center;
+      color: #6b7fa8;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.85rem;
+      margin-bottom: 28px;
+    }
+
+    h2.gs-section-title {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #6b7fa8;
+      margin: 32px 0 14px;
+    }
+
+    /* ---- run cards ---- */
+    .gs-run-card {
+      background: #0c1630;
+      border: 1px solid #1b2a4a;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .gs-run-card-best {
+      border-color: #f0b429;
+      box-shadow: 0 0 0 1px #f0b429;
+    }
+    .gs-run-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: transparent;
+      border: none;
+      color: inherit;
+      text-align: left;
+      padding: 14px 18px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .gs-run-toggle:hover { background: #101c3c; }
+    .gs-run-streak {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #7dd3fc;
+      min-width: 2.4em;
+    }
+    .gs-run-card-best .gs-run-streak { color: #f0b429; }
+    .gs-run-meta {
+      flex: 1 1 auto;
+      font-size: 0.85rem;
+      color: #9db4de;
+    }
+    .gs-run-caret {
+      color: #6b7fa8;
+      font-size: 0.8rem;
+    }
+    .gs-run-detail {
+      border-top: 1px solid #1b2a4a;
+      padding: 4px 18px 14px;
+      overflow-x: auto;
+    }
+
+    .gs-round-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin-top: 10px;
+    }
+    .gs-round-table th {
+      text-align: left;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.68rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #6b7fa8;
+      padding: 6px 10px 6px 0;
+      border-bottom: 1px solid #1b2a4a;
+    }
+    .gs-round-table td {
+      padding: 7px 10px 7px 0;
+      border-bottom: 1px solid #101a30;
+      white-space: nowrap;
+    }
+    .gs-round-table tbody tr:last-child td { border-bottom: none; }
+
+    .gs-badge {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.7rem;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      padding: 2px 7px;
+      border-radius: 3px;
+      border: 1px solid currentColor;
+    }
+    .gs-badge-correct { color: #16a34a; }
+    .gs-badge-incorrect { color: #dc2626; }
+    .gs-badge-timeout { color: #f0b429; }
+
+    .gs-empty-note {
+      text-align: center;
+      color: #6b7fa8;
+      font-size: 0.9rem;
+      padding: 30px 0;
+    }
+    .gs-empty-note a { color: #7dd3fc; }
+  </style>
+</head>
+<body>
+  <header class="gs-header">
+    <div class="gs-brand">TENFORBEN // STATION — Run History</div>
+    <a class="gs-back-link" href="geoStreakGame.html">&larr; GeoStreak</a>
+  </header>
+
+  <main class="container">
+    <h1>Your Run History</h1>
+    <p class="gs-status" id="hStatus">Loading&hellip;</p>
+
+    <div id="hBestSection">
+      <h2 class="gs-section-title">🏆 Personal Best</h2>
+      <div id="hBest"></div>
+    </div>
+
+    <h2 class="gs-section-title">All Runs</h2>
+    <div id="hList"></div>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+  <script src="firebaseConfig.js"></script>
+  <script src="historyPage.js"></script>
+</body>
+</html>

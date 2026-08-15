@@ -170,6 +170,13 @@ function initGeoStreak() {
   // city), so it can't double as this count.
   let citiesThisRun = new Set();
 
+  // Every resolved round this run, correct guesses and the one that ended
+  // it alike — sent to Firestore as a single array field on one document
+  // when the run ends (see endGame), not written round-by-round. That's
+  // the entire point: one write per finished run, however many rounds it
+  // had, instead of one write per round.
+  let roundHistory = [];
+
   // How many guesses (correct or not, but only ones that resolved to a real
   // place) have come from each country this session, keyed by ISO code.
   let countryCounts = new Map();
@@ -252,6 +259,17 @@ function initGeoStreak() {
       ui.updateTimerDisplay(timerEl, Math.max(timeLeft, 0));
       if (timeLeft <= 0) {
         stopRoundTimer();
+        roundHistory.push({
+          direction: currentCondition.direction,
+          threshold: currentCondition.threshold,
+          hemisphere: currentCondition.hemisphere || null,
+          typed: null,
+          resolvedCity: null,
+          country: null,
+          temp: null,
+          correct: false,
+          timedOut: true,
+        });
         endGame("time");
       }
     }, 1000);
@@ -385,6 +403,18 @@ function initGeoStreak() {
       correct = tempCorrect && hemisphereCorrect;
     }
 
+    roundHistory.push({
+      direction: currentCondition.direction,
+      threshold: currentCondition.threshold,
+      hemisphere: currentCondition.hemisphere || null,
+      typed,
+      resolvedCity: data.name,
+      country: countryCode,
+      temp: actual,
+      correct,
+      timedOut: false,
+    });
+
     stopRoundTimer();
     ui.renderGameCard(resultEl, data, { correct, isNewCity });
     recordAttempt(correct);
@@ -484,6 +514,7 @@ function initGeoStreak() {
     insightsEl.style.display = "block";
     if (typeof Leaderboard !== "undefined") {
       Leaderboard.submitScore(streak, stats());
+      Leaderboard.submitRunHistory(streak, reason, roundHistory);
       Leaderboard.showPanel();
     }
     // Play area stays visible (unlike Pause/Start) so the last question —
@@ -499,6 +530,7 @@ function initGeoStreak() {
     streak = 0;
     usedCities = new Set();
     citiesThisRun = new Set();
+    roundHistory = [];
     countryCounts = new Map();
     usedThresholds.above.clear();
     usedThresholds.below.clear();

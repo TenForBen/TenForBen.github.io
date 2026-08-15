@@ -234,13 +234,20 @@ elements:
   into empty containers, so their buttons are wired by delegating clicks
   from the container rather than binding elements that get replaced.
 - **`firebaseConfig.js`** / **`leaderboard.js`** / **`firestore.rules`** —
-  the optional online leaderboard (see [Leaderboard](#leaderboard) above).
+  the optional online leaderboard and run history (see
+  [Leaderboard](#leaderboard) and [Run History](#run-history) above).
   Firebase's compat SDK (loaded via `<script>` tags, matching this
   project's no-bundler style) plus `leaderboard.js` must both come
   *before* `../app.js` in `geoStreakGame.html` — `app.js` calls
   `showStartScreen()` synchronously as soon as it loads, and that needs
   the `Leaderboard` global (and `escapeHtml` from `../ui.js`) to already
   exist.
+- **`history.html`** / **`historyPage.js`** — the Run History page. A
+  separate page load, so it can't reuse `leaderboard.js`'s in-memory
+  Firebase state — it does its own minimal sign-in + query, self-contained
+  like `southernHemisphere/app.js` (its own small `escapeHtml`/
+  `flagEmoji`, rather than loading `../ui.js` for just those two
+  functions). Read-only: this page never writes to Firestore.
 
 ## Leaderboard
 
@@ -296,8 +303,10 @@ break.
 A run's final streak is only ever submitted **on Game Over**, and only if
 it's positive — a losing run's low number was never a personal best worth
 recording. The write is a `set(..., { merge: true })` upsert, not an
-append: there's exactly one row per player, always their personal best,
-never a full history of every run.
+append: there's exactly one row per player here, always their personal
+best. The full round-by-round record of *every* run — see
+[Run History](#run-history) below — lives in a separate collection
+entirely, written unconditionally.
 
 ### Why the rules file is the part that actually matters
 
@@ -324,6 +333,116 @@ issued. That needs the paid Blaze plan (Cloud Functions require outbound
 networking, unavailable on Spark) and is a real rework of the round loop,
 not an add-on — deliberately out of scope here in favour of shipping a
 working shared leaderboard today.
+
+## Run History
+
+A per-player, per-round log of every run ever played — not just the
+headline streak the leaderboard keeps, but every single question asked
+and every guess made along the way. Play it at
+[`history.html`](./history.html) (linked from GeoStreak's header).
+
+The motivating case: your streak dies at 5 and you want to see all 5
+correct guesses plus the one that ended it — not just the final number.
+The History page shows exactly that, one card per run, each expandable
+into a full round-by-round table (condition, what you guessed, the actual
+temperature, CORRECT / INCORRECT / TIMED OUT). Your **Personal Best** run
+— the highest `finalStreak` among your recent runs — gets its own
+highlighted section up top, pre-expanded, so a new best is always one
+click away without hunting through the list.
+
+Uses the same Firebase project as the leaderboard — no separate account
+setup. `firestore.rules` already covers both collections if you followed
+the Leaderboard section's steps. There's exactly **one** extra one-time
+step this feature needs that the leaderboard didn't:
+
+**Create a composite index.** The History page's query — every run for
+one player, `uid == X`, newest first — needs a composite index that
+Firestore doesn't build automatically. The very first time you load
+`history.html`, it'll fail with "This query needs a Firestore index" and
+log the real error to the browser console; that error's `message` contains
+a **direct link, specific to your project**, that pre-fills the index for
+you (collection `geostreakRuns`, fields `uid` Ascending + `playedAt`
+Descending) — open it, click **Create Index**, wait a minute or two for it
+to finish building (Firestore Database -> Indexes tab shows
+Building -> Enabled), then reload the page. One-time, console-only, same
+as everything else here.
+
+### Data model
+
+One document per **completed run**, in a new `geostreakRuns` collection,
+auto-generated id:
+
+```
+{
+  uid: "abc123...",
+  nickname: "Player4492",
+  finalStreak: 5,
+  reason: "wrong" | "time",
+  roundCount: 6,
+  rounds: [
+    { direction: "above", threshold: 18, hemisphere: null, typed: "Kochi",
+      resolvedCity: "Kochi", country: "IN", temp: 29.4, correct: true, timedOut: false },
+    // ...5 more, in order — the 6th being the incorrect guess or timeout that ended it
+  ],
+  playedAt: <server timestamp>,
+}
+```
+
+The key design choice: **one write per finished run, not one write per
+round.** Every round this run played is accumulated in memory
+client-side (`roundHistory` in `app.js`) and only sent to Firestore as a
+single array field, in a single `add()` call, at the moment `endGame()`
+fires. A 40-round tough-mode streak costs exactly the same one write as a
+1-round loss — Firestore bills per write call, not per array element.
+Unlike the leaderboard, this write happens on **every** run regardless of
+streak — a 0-streak instant loss is still a real attempt worth being able
+to look back at.
+
+### Privacy
+
+Unlike the public leaderboard, run history is **private** —
+`firestore.rules` only allows a player to read documents where
+`uid == request.auth.uid`. This is granular play-by-play data, not a
+headline number, so there's no reason for it to be world-readable the way
+the leaderboard is.
+
+### Why the "personal best" section doesn't need a second query
+
+Finding the single highest-streak run *could* mean a second Firestore
+query (`orderBy("finalStreak", "desc").limit(1)`) — but combining that
+with the `uid` filter needs its own composite index, on top of whatever
+the main history query already needs. Instead, the page fetches your
+`RUNS_LIMIT` (100) most recent runs once and finds the best one **among
+those**, client-side. For any realistic amount of play this is
+indistinguishable from a true all-time best — it would only miss an older,
+better run once you've played more than 100 games since it happened.
+
+### Read/write cost — what this actually adds
+
+Everything below is against Firestore's free Spark plan limits: **50,000
+reads/day, 20,000 writes/day.** Firestore bills reads **per document
+returned**, not per query — a query returning 20 docs is 20 reads, not 1.
+A write that a security rule *rejects* is free; only a write that actually
+succeeds counts.
+
+| Action | Before Run History | After Run History |
+| --- | --- | --- |
+| Finishing a run | 0–1 write (leaderboard, only if a new best) | **+1 write, always** (run history) — at most 2 total |
+| Viewing the leaderboard (start/pause/game-over/peek) | up to 20 reads | unchanged |
+| Visiting the History page | — (didn't exist) | **up to 100 reads**, only when that page is actually opened |
+
+Worked example — 10 people playing 5 runs each in a day (50 runs total),
+each checking their leaderboard 3 times per session and their history
+once:
+
+- **Writes:** 50 runs × up to 2 writes = **100 writes/day** — 0.5% of the free cap.
+- **Leaderboard reads:** 50 runs × 3 views × 20 docs = **3,000 reads/day.**
+- **History reads:** 10 visits × up to 100 docs = **1,000 reads/day.**
+- **Total: ~4,000 reads/day** — 8% of the free cap, and Run History's own
+  share of that (the only genuinely *new* cost) is about 1,000 reads and
+  50 writes — comfortably inside Spark for any personal or small-friends-group
+  scale. The leaderboard's own reads were already the larger cost before
+  this feature existed at all.
 
 ## Visual design
 

@@ -33,6 +33,27 @@ service cloud.firestore {
 
       allow delete: if false;
     }
+
+    // Full per-run history (every round's question + guess + result), for
+    // the History page's "replay one of my runs" view. One document per
+    // completed run, auto-generated id — unlike the leaderboard above,
+    // this is written ONCE, at Game Over, and never updated again.
+    match /geostreakRuns/{runId} {
+      // Private — a player can only read their own run history, never
+      // anyone else's. This is real per-round detail, not just a headline
+      // number, so (unlike the public leaderboard) there's no reason for
+      // it to be world-readable.
+      allow read: if request.auth != null && resource.data.uid == request.auth.uid;
+
+      allow create: if request.auth != null
+        && request.auth.uid == request.resource.data.uid
+        && isValidRun(request.resource.data);
+
+      // No update path at all — a run is a historical record of what
+      // actually happened, not a value that should ever change afterward.
+      allow update: if false;
+      allow delete: if false;
+    }
   }
 
   function isValidEntry(data) {
@@ -45,5 +66,20 @@ service cloud.firestore {
       // only value that resolves to request.time, so this forces the
       // write to actually use it rather than a spoofed date.
       && data.updatedAt == request.time;
+  }
+
+  // Deliberately shallow: checks the run's own shape and bounds, not every
+  // field inside every element of `rounds` — validating each round's inner
+  // structure would be a lot of rule code to defend data that's already
+  // client-judged same as everything else here (see the top of this file).
+  function isValidRun(data) {
+    return data.keys().hasOnly(['uid', 'nickname', 'finalStreak', 'reason', 'roundCount', 'rounds', 'playedAt'])
+      && data.uid is string
+      && data.nickname is string && data.nickname.size() <= 20
+      && data.finalStreak is int && data.finalStreak >= 0 && data.finalStreak <= 500
+      && data.reason in ['wrong', 'time']
+      && data.roundCount is int && data.roundCount >= 0 && data.roundCount <= 2000
+      && data.rounds is list && data.rounds.size() == data.roundCount
+      && data.playedAt == request.time;
   }
 }
