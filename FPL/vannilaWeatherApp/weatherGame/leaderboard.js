@@ -16,6 +16,7 @@
 const Leaderboard = (() => {
   const NICKNAME_KEY = "geoStreakGame_nickname";
   const COLLECTION = "geostreakLeaderboard";
+  const RUNS_COLLECTION = "geostreakRuns";
   const TOP_N = 20;
 
   const configured = typeof firebaseConfig !== "undefined"
@@ -153,6 +154,36 @@ const Leaderboard = (() => {
     }
   }
 
+  // Called once a run ends, regardless of streak — unlike submitScore(),
+  // even a zero/immediate-loss run is worth recording, since the whole
+  // point (see history.html) is being able to look back at *every*
+  // attempt, not just the good ones. One document per run, written once,
+  // with every round embedded as a plain array field — not one write per
+  // round, and not a subcollection either, both of which would multiply
+  // the write/read cost for no real benefit at this scale. See the
+  // README's Leaderboard section for the actual read/write numbers this
+  // adds up to.
+  async function submitRunHistory(streak, reason, rounds) {
+    if (!configured) return;
+    await ready;
+    if (!uid) return;
+    try {
+      await db.collection(RUNS_COLLECTION).add({
+        uid,
+        nickname: getNickname(),
+        finalStreak: streak,
+        reason: reason === "time" ? "time" : "wrong",
+        roundCount: rounds.length,
+        rounds,
+        playedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+    } catch (err) {
+      // Same "fail silently" reasoning as submitScore() — a background
+      // write that didn't make it shouldn't interrupt Game Over.
+      console.error("Leaderboard: submitRunHistory failed", err);
+    }
+  }
+
   function renderRow(doc, rank) {
     const d = doc.data();
     const accuracy = d.totalAttempts
@@ -211,7 +242,7 @@ const Leaderboard = (() => {
     if (panel) panel.style.display = "none";
   }
 
-  return { init, submitScore, showPanel, hidePanel };
+  return { init, submitScore, submitRunHistory, showPanel, hidePanel };
 })();
 
 if (document.getElementById("gsLeaderboard")) {
