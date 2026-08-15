@@ -74,6 +74,20 @@
       color: #7dd3fc;
       text-decoration: underline;
     }
+    .gs-header-nickname-wrap {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding-right: 4px;
+      border-right: 1px solid #1b2a4a;
+      margin-right: 2px;
+    }
+    .gs-header-nickname {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: #f0b429;
+    }
 
     .gs-footer {
       text-align: center;
@@ -342,23 +356,22 @@
       white-space: nowrap;
     }
 
+    /* Shown once, the first time a nickname hasn't been saved yet — its
+       .gs-input-row is the exact same width/layout as the search box
+       below it, so the two rows line up instead of one being pushed over
+       by an inline label. */
     #gsPlayerBar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
       max-width: 420px;
-      margin: 0 auto 18px;
+      margin: 0 auto;
     }
     .gs-player-label {
+      display: block;
       font-family: "Courier New", Courier, monospace;
       font-size: 0.7rem;
       letter-spacing: 1px;
       text-transform: uppercase;
       color: #6b7fa8;
-      white-space: nowrap;
-    }
-    #gsPlayerBar input {
-      flex: 1 1 auto;
+      margin-bottom: 6px;
     }
     .gs-leaderboard-note {
       color: #6b7fa8;
@@ -437,6 +450,12 @@
     <div class="gs-radar"></div>
     <div class="gs-brand">TENFORBEN // STATION — GeoStreak</div>
     <div class="gs-header-links">
+      <!-- Shown once a nickname has been saved (see leaderboard.js); until
+           then #gsPlayerBar above the search box handles the first save. -->
+      <span id="gsHeaderNicknameWrap" class="gs-header-nickname-wrap" style="display: none;">
+        <span id="gsHeaderNickname" class="gs-header-nickname"></span>
+        <a href="#" id="gsChangeNickname" class="gs-back-link">change</a>
+      </span>
       <a class="gs-back-link" href="../southernHemisphere/southernHemisphere.html">Southern Hemisphere</a>
       <a class="gs-back-link" href="../../stadiumMap/stadiumMap.html">Stadiums Visited</a>
       <a class="gs-back-link" href="../index.html">&larr; Weather.JS</a>
@@ -457,20 +476,22 @@
 
     <div class="gs-country-tally" id="gsCountryTally"></div>
 
-    <!-- Nickname is always visible and editable, in every state — unlike
-         the ranked list below (gsLeaderboard), which only really means
-         something once a round has actually ended. -->
-    <div id="gsPlayerBar">
+    <!-- One-time nickname setup — shown until a name is actually saved,
+         then replaced by the header's #gsHeaderNicknameWrap for good (its
+         "change" link brings this back on demand; see leaderboard.js). -->
+    <div id="gsPlayerBar" style="display: none;">
       <span class="gs-player-label">Playing as</span>
-      <input
-        type="text"
-        id="gsNickname"
-        class="form-control"
-        maxlength="20"
-        placeholder="Your name"
-        autocomplete="off"
-      />
-      <button type="button" id="gsNicknameSave" class="btn btn-secondary btn-sm">Save</button>
+      <div class="gs-input-row">
+        <input
+          type="text"
+          id="gsNickname"
+          class="form-control"
+          maxlength="20"
+          placeholder="Your name"
+          autocomplete="off"
+        />
+        <button type="button" id="gsNicknameSave" class="btn btn-secondary">Save</button>
+      </div>
     </div>
 
     <!-- Always visible, in every state, including before Start Game is ever
