@@ -164,6 +164,52 @@
       padding: 30px 0;
     }
     .gs-empty-note a { color: #7dd3fc; }
+
+    .gs-toolbar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+    .gs-export-btn {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.5px;
+      color: #7dd3fc;
+      background: #0c1630;
+      border: 1px solid #1b2a4a;
+      border-radius: 6px;
+      padding: 7px 14px;
+      cursor: pointer;
+    }
+    .gs-export-btn:hover { border-color: #1f6feb; color: #a9e2ff; }
+
+    /* Printing (or "Save as PDF", the same browser feature) gets its own
+       light, ink-friendly theme rather than the dark console look — a
+       dark background either wastes a page of ink or, worse, prints as
+       invisible white-on-white if the browser's "background graphics"
+       option is off. Everything below only applies inside a print
+       context; the on-screen page is untouched. */
+    @media print {
+      body { background: #fff; color: #14213d; }
+      .gs-header, .gs-toolbar, .gs-run-caret { display: none; }
+      h1, .gs-status, h2.gs-section-title { color: #14213d; }
+      .gs-run-card, .gs-run-card-best {
+        background: #fff;
+        border: 1px solid #ccc;
+        box-shadow: none;
+        break-inside: avoid;
+      }
+      .gs-run-toggle { cursor: default; }
+      .gs-run-streak { color: #14213d; }
+      .gs-run-card-best .gs-run-streak { color: #b45309; }
+      .gs-run-meta { color: #555; }
+      .gs-run-detail { display: block !important; border-top-color: #ddd; }
+      .gs-round-table th { color: #666; border-bottom-color: #ccc; }
+      .gs-round-table td { color: #14213d; border-bottom-color: #eee; }
+      .gs-badge-correct { color: #15803d; }
+      .gs-badge-incorrect { color: #b91c1c; }
+      .gs-badge-timeout { color: #b45309; }
+    }
   </style>
 </head>
 <body>
@@ -175,6 +221,10 @@
   <main class="container">
     <h1>Your Run History</h1>
     <p class="gs-status" id="hStatus">Loading&hellip;</p>
+
+    <div class="gs-toolbar">
+      <button type="button" id="hExportPdf" class="gs-export-btn">&#128196; Export PDF</button>
+    </div>
 
     <div id="hBestSection">
       <h2 class="gs-section-title">🏆 Personal Best</h2>
