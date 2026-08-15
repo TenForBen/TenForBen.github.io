@@ -300,6 +300,18 @@ it **mid-round** without pausing, there's a "Show Leaderboard" button next
 to Pause — the timer keeps running underneath it; it's a peek, not a
 break.
 
+**Pagination** kicks in past 10 entries — 10 rows per page, with Prev/Next
+controls that only render at all once there's actually a second page to go
+to. Firestore has no cheap "give me page N" or row-count query, so each
+page fetch asks for 11 rows instead of 10 purely to learn whether a Next
+page exists, and "Prev" is answered by remembering the cursor for each
+page already seen this panel-open rather than re-deriving it — paging
+backward through cursors you've already walked, not a fresh reverse query.
+Reopening the panel (leaving and coming back to a non-playing screen)
+always starts back on page 1, since the ranking can easily have changed
+since you last looked and trying to preserve a page position across that
+isn't worth the complexity.
+
 A run's final streak is only ever submitted **on Game Over**, and only if
 it's positive — a losing run's low number was never a personal best worth
 recording. The write is a `set(..., { merge: true })` upsert, not an
@@ -431,28 +443,29 @@ better run once you've played more than 100 games since it happened.
 
 Everything below is against Firestore's free Spark plan limits: **50,000
 reads/day, 20,000 writes/day.** Firestore bills reads **per document
-returned**, not per query — a query returning 20 docs is 20 reads, not 1.
+returned**, not per query — a query returning 10 docs is 10 reads, not 1.
 A write that a security rule *rejects* is free; only a write that actually
 succeeds counts.
 
 | Action | Before Run History | After Run History |
 | --- | --- | --- |
 | Finishing a run | 0–1 write (leaderboard, only if a new best) | **+1 write, always** (run history) — at most 2 total |
-| Viewing the leaderboard (start/pause/game-over/peek) | up to 20 reads | unchanged |
+| Viewing the leaderboard, one page (start/pause/game-over/peek) | up to 20 reads | **up to 11 reads** (pagination's 10-per-page + 1 to check for a next page) |
 | Visiting the History page | — (didn't exist) | **up to 100 reads**, only when that page is actually opened |
 
 Worked example — 10 people playing 5 runs each in a day (50 runs total),
-each checking their leaderboard 3 times per session and their history
-once:
+each checking their leaderboard 3 times per session (one page each) and
+their history once:
 
 - **Writes:** 50 runs × up to 2 writes = **100 writes/day** — 0.5% of the free cap.
-- **Leaderboard reads:** 50 runs × 3 views × 20 docs = **3,000 reads/day.**
+- **Leaderboard reads:** 50 runs × 3 views × 11 docs = **1,650 reads/day.**
 - **History reads:** 10 visits × up to 100 docs = **1,000 reads/day.**
-- **Total: ~4,000 reads/day** — 8% of the free cap, and Run History's own
+- **Total: ~2,650 reads/day** — 5% of the free cap, and Run History's own
   share of that (the only genuinely *new* cost) is about 1,000 reads and
   50 writes — comfortably inside Spark for any personal or small-friends-group
-  scale. The leaderboard's own reads were already the larger cost before
-  this feature existed at all.
+  scale. Pagination actually *lowered* the leaderboard's own per-view cost
+  along the way (20 reads flat -> 11 for a first page), since most visits
+  never go past page 1.
 
 ## Visual design
 

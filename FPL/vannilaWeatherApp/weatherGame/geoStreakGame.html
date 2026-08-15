@@ -401,7 +401,7 @@
     .gs-leaderboard-rank {
       font-family: "Courier New", Courier, monospace;
       color: #6b7fa8;
-      width: 1.6em;
+      width: 2.2em;
       text-align: right;
       flex-shrink: 0;
     }
@@ -423,6 +423,32 @@
       font-size: 0.75rem;
       width: 3em;
       text-align: right;
+    }
+
+    .gs-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .gs-page-btn {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+      color: #93a4c3;
+      background: transparent;
+      border: 1px solid #1b2a4a;
+      border-radius: 4px;
+      padding: 4px 10px;
+      cursor: pointer;
+    }
+    .gs-page-btn:hover:not(:disabled) { color: #7dd3fc; border-color: #1f6feb; }
+    .gs-page-btn:disabled { color: #40506e; cursor: not-allowed; }
+    .gs-page-label {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      color: #6b7fa8;
     }
 
     .gs-howto {
@@ -553,6 +579,7 @@
       <div class="gs-panel">
         <h3>Leaderboard</h3>
         <div id="gsLeaderboardList"></div>
+        <div id="gsLeaderboardPagination" class="gs-pagination"></div>
       </div>
     </div>
 
