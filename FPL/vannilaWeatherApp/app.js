@@ -392,7 +392,13 @@ function initGeoStreak() {
     const isNewCity = recordCityAttempt(cityKey);
     citiesThisRun.add(cityKey);
 
-    const actual = data.main.temp;
+    // Rounded to match what the result card actually displays (ui.js
+    // shows Math.round(data.main.temp), never the raw decimal) — judging
+    // against the unrounded value meant a reading like 18.4°C, displayed
+    // as "18°C", could still fail "BELOW 18°C" even though the card the
+    // player is looking at shows the exact threshold. What's shown is now
+    // what's judged.
+    const actual = Math.round(data.main.temp);
     // Inclusive at the threshold itself — a reading exactly AT 14°C counts
     // as satisfying "ABOVE 14°C", not just readings strictly past it.
     const tempCorrect = currentCondition.direction === "above"

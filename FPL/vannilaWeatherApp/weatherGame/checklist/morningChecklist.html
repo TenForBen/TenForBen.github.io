@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Morning Checklist — TENFORBEN</title>
+  <link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text x=%228%22 y=%2213%22 font-size=%2214%22 text-anchor=%22middle%22>%F0%9F%8C%85</text></svg>"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="mc-header">
+    <div class="mc-brand">TENFORBEN — Morning Checklist</div>
+    <a class="mc-back-link" href="../geoStreakGame.html">&larr; GeoStreak</a>
+  </header>
+
+  <main class="mc-main">
+    <!-- The sun's height above the horizon is literally today's progress
+         (0/7 = below the horizon, 7/7 = fully risen) — updateSunScene()
+         in app.js moves it, nothing here is decorative-only. -->
+    <figure class="mc-scene-wrap">
+      <svg id="mcScene" viewBox="0 0 400 170" role="img" aria-label="A sun rising above the horizon as more of today's checklist is completed">
+        <defs>
+          <linearGradient id="mcSky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2d3561" />
+            <stop offset="45%" stop-color="#7a5296" />
+            <stop offset="75%" stop-color="#e0714f" />
+            <stop offset="100%" stop-color="#f6b93b" />
+          </linearGradient>
+          <radialGradient id="mcSunGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fff3c4" stop-opacity="0.95" />
+            <stop offset="55%" stop-color="#ffcf6b" stop-opacity="0.35" />
+            <stop offset="100%" stop-color="#ffcf6b" stop-opacity="0" />
+          </radialGradient>
+          <clipPath id="mcSkyClip">
+            <rect x="0" y="0" width="400" height="170" rx="16" />
+          </clipPath>
+        </defs>
+
+        <g clip-path="url(#mcSkyClip)">
+          <rect x="0" y="0" width="400" height="170" fill="url(#mcSky)" />
+          <g id="mcRays" opacity="0"></g>
+          <circle id="mcSunGlow" cx="200" cy="150" r="70" fill="url(#mcSunGlow)"></circle>
+          <circle id="mcSun" cx="200" cy="150" r="26" fill="#ffe9a8"></circle>
+          <rect x="0" y="118" width="400" height="52" fill="#171b2e"></rect>
+          <path d="M0,118 Q100,108 200,118 T400,118 V170 H0 Z" fill="#171b2e"></path>
+        </g>
+      </svg>
+      <p class="mc-scene-caption" id="mcSceneCaption">0 / 7 today</p>
+    </figure>
+
+    <div class="mc-datebar">
+      <button type="button" id="mcPrevDay" class="mc-nav-btn" aria-label="Previous day">&larr;</button>
+      <div class="mc-date-info">
+        <span class="mc-date-label" id="mcDateLabel">Today</span>
+        <span class="mc-date-value" id="mcDateValue"></span>
+      </div>
+      <button type="button" id="mcNextDay" class="mc-nav-btn" aria-label="Next day">&rarr;</button>
+      <button type="button" id="mcTodayBtn" class="mc-today-btn">Today</button>
+    </div>
+
+    <p class="mc-streak" id="mcStreak"></p>
+
+    <ul class="mc-list" id="mcList"></ul>
+
+    <p class="mc-status" id="mcStatus"></p>
+  </main>
+
+  <footer class="mc-footer">
+    <a href="README.md">About this checklist</a>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
