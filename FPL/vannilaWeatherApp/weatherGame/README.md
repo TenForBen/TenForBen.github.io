@@ -23,7 +23,11 @@ main [Weather.JS](../index.html) page ("GeoStreak" button).
    (28 questions per direction, 56 total this session) — then that
    direction's pool refills and can cycle again. The comparison is
    **inclusive** at the threshold — a reading of exactly 22°C satisfies
-   both "above 22°C" and "below 22°C".
+   both "above 22°C" and "below 22°C" — and judged against the **rounded**
+   reading, the same one the result card actually displays, not the raw
+   decimal underneath it. A reading of 22.4°C, shown on the card as
+   "22°C", counts as exactly 22 rather than failing "below 22°C" on a
+   fraction of a degree the player never sees.
 2. You type **any** place name (free text — no fixed list, no autocomplete)
    and hit Guess (or Enter).
 3. The app looks up that place's current temperature via the OpenWeatherMap
@@ -521,6 +525,28 @@ one exception: it deliberately **reuses** the main app's own light card
 component (city name, flag, coordinates, temperature, conditions) so a
 guess result still looks like a Weather.JS reading, just stamped
 CORRECT/INCORRECT in the corner.
+
+## Bug log
+
+Notable bugs, once actually fixed — what broke, what it looked like to a
+player, and the real cause, newest first. Not every commit, just the ones
+worth a future reader knowing *why* the code is shaped the way it is.
+
+- **2026-08-16 — Correctness judged against the raw temperature, not the
+  rounded one the card displays.** The result card always showed
+  `Math.round(data.main.temp)` (e.g. "16°C"), but the correct/incorrect
+  check compared the unrounded value underneath it. A reading like
+  16.01°C — displayed as an exact "16°C" — still failed "BELOW 16°C",
+  since 16.01 is not ≤ 16. Fixed by rounding before judging, so the
+  number the player is looking at is always the number that gets judged.
+- **2026-08-16 — Used-city dedup blocked same-named cities in different
+  countries.** The "already used this session" check keyed on
+  OpenWeather's resolved city name alone. Queenstown exists in NZ, AU
+  *and* ZA; Colón in both AR and CO — genuinely different places that
+  happen to share a name. Guessing one blocked every other one for the
+  rest of the run. Fixed by keying on name+country together, matching the
+  `cityKey` format already used for the country tally and lifetime city
+  stats elsewhere in this file.
 
 ## Notably *not* in this version
 
