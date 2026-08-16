@@ -312,6 +312,43 @@ always starts back on page 1, since the ranking can easily have changed
 since you last looked and trying to preserve a page position across that
 isn't worth the complexity.
 
+### Overall vs Today
+
+Two tabs sit above the ranked list. **Overall** is the `geostreakLeaderboard`
+collection described above — an all-time personal best per player.
+**Today** is a second, separate collection, `geostreakDaily`, one document
+per player *per calendar day* (doc id `"{uid}_{date}"`):
+
+```
+{ uid: "abc123...", nickname: "Player4492", bestStreak: 6, date: "2026-08-16", updatedAt: <server timestamp> }
+```
+
+Submitted the same improvement-only way as Overall, to the same doc every
+time you finish a run *that day* — a new day just means a new doc id, so
+there's nothing to reset or roll over at midnight; yesterday's doc is
+simply never written to again. Today doesn't track accuracy the way
+Overall does (no `totalCorrect`/`totalAttempts`) — that's flagged as a
+possible later addition, not built yet, so an accuracy column on the Today
+tab currently just reads "—".
+
+**"Today" is Central European time, not the viewer's own timezone** — a
+player in Tokyo and one in Toronto should see the same leaderboard, so the
+day boundary can't be "whatever midnight means on each visitor's own
+clock." The cutoff is computed via `Intl.DateTimeFormat` against the
+`Europe/Berlin` IANA zone rather than a hardcoded UTC+2, so it stays
+correct across the CET/CEST daylight-saving switch — the same technique
+`ui.js`'s `getOffsetSeconds()` already uses for the main app's timezone
+math, just applied to a calendar date instead of a clock time.
+
+Today's query — `date == <today>`, ordered by `bestStreak` — combines an
+equality filter with an orderBy on a different field, which (like the
+History page's `uid == X` query) needs its own **composite index**;
+Firestore doesn't build one automatically for that shape of query. Same
+one-time fix as History's: load the Today tab once, open the browser
+console, follow the "this query requires an index" link it prints (specific
+to your project, pre-fills the form), click Create, wait for it to say
+Enabled.
+
 A run's final streak is only ever submitted **on Game Over**, and only if
 it's positive — a losing run's low number was never a personal best worth
 recording. The write is a `set(..., { merge: true })` upsert, not an

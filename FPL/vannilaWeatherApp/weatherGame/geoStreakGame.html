@@ -451,6 +451,30 @@
       color: #6b7fa8;
     }
 
+    .gs-leaderboard-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .gs-tab-btn {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+      color: #93a4c3;
+      background: transparent;
+      border: 1px solid #1b2a4a;
+      border-radius: 4px;
+      padding: 5px 14px;
+      cursor: pointer;
+    }
+    .gs-tab-btn:hover { color: #7dd3fc; border-color: #1f6feb; }
+    .gs-tab-btn.gs-tab-active {
+      color: #7dd3fc;
+      border-color: #7dd3fc;
+      background: #12244a;
+    }
+
     .gs-howto {
       text-align: left;
       font-size: 0.85rem;
@@ -578,6 +602,10 @@
     <div id="gsLeaderboard" style="display: none;">
       <div class="gs-panel">
         <h3>Leaderboard</h3>
+        <div class="gs-leaderboard-tabs">
+          <button type="button" id="gsLbTabOverall" class="gs-tab-btn gs-tab-active">Overall</button>
+          <button type="button" id="gsLbTabToday" class="gs-tab-btn">Today</button>
+        </div>
         <div id="gsLeaderboardList"></div>
         <div id="gsLeaderboardPagination" class="gs-pagination"></div>
       </div>

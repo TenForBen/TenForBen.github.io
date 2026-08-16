@@ -514,6 +514,7 @@ function initGeoStreak() {
     insightsEl.style.display = "block";
     if (typeof Leaderboard !== "undefined") {
       Leaderboard.submitScore(streak, stats());
+      Leaderboard.submitDailyScore(streak, stats());
       Leaderboard.submitRunHistory(streak, reason, roundHistory);
       Leaderboard.showPanel();
     }
