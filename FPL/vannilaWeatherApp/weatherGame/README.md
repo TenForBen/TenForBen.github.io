@@ -58,12 +58,20 @@ Once tough mode kicks in for a run, it stays on for the rest of that run —
 dropping back below 10 correct never happens, since a wrong guess ends the
 run outright.
 
-Each place name can only be used **once per session** (one continuous
-streak run) — guessing "Auckland" and then "Auckland" again later in the
-same run is rejected with a hint, no penalty, timer keeps running. Checked
+Each place can only be used **once per session** (one continuous streak
+run) — guessing "Auckland" and then "Auckland" again later in the same run
+is rejected with a hint, no penalty, timer keeps running. Checked
 case-insensitively and against the API's resolved name too, so "Auckland"
-and "auckland,NZ" count as the same entry. The used-city list resets on
-Play Again.
+and "auckland,NZ" count as the same entry.
+
+The resolved-name check is keyed on **name + country together**, not the
+bare name — OpenWeather's resolved city name alone doesn't disambiguate
+same-named cities in different countries (there's a Queenstown in NZ, AU
+*and* ZA; a Colón in both AR and CO), so using one used to wrongly block
+every other one for the rest of the run. Guessing "Queenstown,NZ" then
+later "Queenstown,ZA" in the same run is two different real places and is
+allowed; guessing "Queenstown,NZ" twice is still caught as the same one.
+The used-city list resets on Play Again.
 
 ## Round timer
 

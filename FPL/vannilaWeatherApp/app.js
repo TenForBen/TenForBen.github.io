@@ -369,19 +369,26 @@ function initGeoStreak() {
 
     // A differently-typed query can still resolve to a place already used
     // this session (e.g. "Auckland" then "Auckland,NZ") — catch that too,
-    // now that we know its canonical name.
-    if (usedCities.has(data.name.toLowerCase())) {
-      hintEl.textContent = `You've already used ${data.name} this session. Try a different city.`;
+    // now that we know its canonical name. Keyed on name+country together,
+    // not the bare resolved name: OpenWeather's `name` alone doesn't
+    // disambiguate same-named cities in different countries (Queenstown
+    // exists in NZ, AU and ZA; Colón in AR and CO — genuinely different
+    // places that just happen to share a name), so keying on name alone
+    // would wrongly block every one of them after using just one.
+    const countryCode = data.sys.country;
+    const cityKey = `${data.name}|${countryCode}`;
+    const resolvedKey = cityKey.toLowerCase();
+
+    if (usedCities.has(resolvedKey)) {
+      hintEl.textContent = `You've already used ${data.name}, ${countryCode} this session. Try a different city.`;
       return;
     }
     usedCities.add(typed.toLowerCase());
-    usedCities.add(data.name.toLowerCase());
+    usedCities.add(resolvedKey);
 
-    const countryCode = data.sys.country;
     countryCounts.set(countryCode, (countryCounts.get(countryCode) || 0) + 1);
     ui.updateCountryTally(countryTallyEl, countryCounts);
 
-    const cityKey = `${data.name}|${countryCode}`;
     const isNewCity = recordCityAttempt(cityKey);
     citiesThisRun.add(cityKey);
 
