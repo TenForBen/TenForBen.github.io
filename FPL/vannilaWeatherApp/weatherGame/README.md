@@ -260,6 +260,10 @@ elements:
   like `southernHemisphere/app.js` (its own small `escapeHtml`/
   `flagEmoji`, rather than loading `../ui.js` for just those two
   functions). Read-only: this page never writes to Firestore.
+- **`checklist/`** — not GeoStreak, not a game at all. A separate personal
+  daily habit tracker, currently `localStorage`-only with a Firebase
+  upgrade (reusing this same project) planned next — see
+  [`checklist/README.md`](./checklist/README.md).
 
 ## Leaderboard
 

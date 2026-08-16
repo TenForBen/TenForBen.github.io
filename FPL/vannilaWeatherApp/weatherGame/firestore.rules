@@ -54,6 +54,29 @@ service cloud.firestore {
       allow delete: if false;
     }
 
+    // Morning Checklist — a separate personal tool that just happens to
+    // share this Firebase project (see checklist/README.md). One document
+    // per person per local calendar day (doc id "{uid}_{date}"), fetched
+    // directly by id rather than queried, so unlike the two collections
+    // above this needs no composite index. Unlike everything else here,
+    // updates aren't one-directional — a checked box can be unchecked
+    // later the same day — so there's no "must increase" style guard,
+    // just ownership and shape.
+    match /morningChecklist/{docId} {
+      allow read: if request.auth != null && resource.data.uid == request.auth.uid;
+
+      allow create: if request.auth != null
+        && request.auth.uid == request.resource.data.uid
+        && isValidChecklist(request.resource.data);
+
+      allow update: if request.auth != null
+        && request.auth.uid == resource.data.uid
+        && request.auth.uid == request.resource.data.uid
+        && isValidChecklist(request.resource.data);
+
+      allow delete: if false;
+    }
+
     // Full per-run history (every round's question + guess + result), for
     // the History page's "replay one of my runs" view. One document per
     // completed run, auto-generated id — unlike the leaderboard above,
@@ -98,6 +121,14 @@ service cloud.firestore {
       && data.nickname is string && data.nickname.size() > 0 && data.nickname.size() <= 20
       && data.bestStreak is int && data.bestStreak > 0 && data.bestStreak <= 500
       && data.date is string && data.date.size() == 10
+      && data.updatedAt == request.time;
+  }
+
+  function isValidChecklist(data) {
+    return data.keys().hasOnly(['uid', 'date', 'checked', 'updatedAt'])
+      && data.uid is string
+      && data.date is string && data.date.size() == 10
+      && data.checked is list && data.checked.size() == 7
       && data.updatedAt == request.time;
   }
 
