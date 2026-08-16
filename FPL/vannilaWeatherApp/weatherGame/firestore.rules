@@ -34,6 +34,26 @@ service cloud.firestore {
       allow delete: if false;
     }
 
+    // Today's leaderboard — one document per player per Central-European
+    // calendar day (doc id "{uid}_{date}"), upserted the same
+    // improvement-only way as geostreakLeaderboard above. A new day is
+    // simply a new doc id, so there's nothing to roll over at midnight —
+    // yesterday's doc is just never written to again.
+    match /geostreakDaily/{docId} {
+      allow read: if true;
+
+      allow create: if request.auth != null
+        && request.auth.uid == request.resource.data.uid
+        && isValidDailyEntry(request.resource.data);
+
+      allow update: if request.auth != null
+        && request.auth.uid == request.resource.data.uid
+        && isValidDailyEntry(request.resource.data)
+        && request.resource.data.bestStreak > resource.data.bestStreak;
+
+      allow delete: if false;
+    }
+
     // Full per-run history (every round's question + guess + result), for
     // the History page's "replay one of my runs" view. One document per
     // completed run, auto-generated id — unlike the leaderboard above,
@@ -65,6 +85,19 @@ service cloud.firestore {
       // Rejects a client-supplied timestamp — serverTimestamp() is the
       // only value that resolves to request.time, so this forces the
       // write to actually use it rather than a spoofed date.
+      && data.updatedAt == request.time;
+  }
+
+  // Same shape as isValidEntry() above, minus the accuracy fields (Today's
+  // leaderboard doesn't track those — see the README's Leaderboard
+  // section for why), plus `uid` (needed here since the doc id isn't the
+  // uid on its own, unlike geostreakLeaderboard) and `date`.
+  function isValidDailyEntry(data) {
+    return data.keys().hasOnly(['uid', 'nickname', 'bestStreak', 'date', 'updatedAt'])
+      && data.uid is string
+      && data.nickname is string && data.nickname.size() > 0 && data.nickname.size() <= 20
+      && data.bestStreak is int && data.bestStreak > 0 && data.bestStreak <= 500
+      && data.date is string && data.date.size() == 10
       && data.updatedAt == request.time;
   }
 

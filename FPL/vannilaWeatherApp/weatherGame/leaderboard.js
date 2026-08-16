@@ -16,8 +16,21 @@
 const Leaderboard = (() => {
   const NICKNAME_KEY = "geoStreakGame_nickname";
   const COLLECTION = "geostreakLeaderboard";
+  const DAILY_COLLECTION = "geostreakDaily";
   const RUNS_COLLECTION = "geostreakRuns";
   const PAGE_SIZE = 10;
+
+  // "Today" is anchored to Central European time, not the viewer's own
+  // timezone — a player in Tokyo and one in Toronto should agree on what
+  // counts as today's leaderboard. Europe/Berlin rather than a hardcoded
+  // UTC+2 so this stays correct across the CET/CEST daylight-saving
+  // switch instead of quietly being an hour off every winter — same
+  // technique ui.js's getOffsetSeconds() already uses for the main app.
+  const DAILY_TIMEZONE = "Europe/Berlin";
+
+  function todayDateStr() {
+    return new Intl.DateTimeFormat("en-CA", { timeZone: DAILY_TIMEZONE }).format(new Date());
+  }
 
   const configured = typeof firebaseConfig !== "undefined"
     && firebaseConfig.apiKey
@@ -35,10 +48,15 @@ const Leaderboard = (() => {
   // Firestore has no cheap "give me page N directly" query, so paging
   // backward means walking back through cursors already seen this panel
   // session rather than re-deriving them, which is why this (and
-  // currentPage) reset to a blank slate every time the panel opens fresh
-  // rather than trying to persist across views.
-  let pageCursors = [null];
-  let currentPage = 0;
+  // currentPage) reset to a blank slate every time the panel opens fresh,
+  // or the Overall/Today tab switches, rather than trying to preserve a
+  // page position across either. Overall and Today are different queries
+  // over different collections, so each tracks its own cursor stack.
+  let currentTab = "overall"; // "overall" | "today"
+  const pagination = {
+    overall: { cursors: [null], page: 0 },
+    today: { cursors: [null], page: 0 },
+  };
 
   function randomNickname() {
     return `Player${Math.floor(1000 + Math.random() * 9000)}`;
@@ -67,6 +85,10 @@ const Leaderboard = (() => {
     // before Firebase is configured, and it means the name's already set
     // the moment someone does fill in firebaseConfig.js.
     wireNicknameInput();
+    const overallTabBtn = document.getElementById("gsLbTabOverall");
+    const todayTabBtn = document.getElementById("gsLbTabToday");
+    if (overallTabBtn) overallTabBtn.addEventListener("click", () => switchTab("overall"));
+    if (todayTabBtn) todayTabBtn.addEventListener("click", () => switchTab("today"));
     if (!configured) return;
     firebase.initializeApp(firebaseConfig);
     db = firebase.firestore();
@@ -164,6 +186,31 @@ const Leaderboard = (() => {
     }
   }
 
+  // Same idea as submitScore(), but "best today" rather than "best ever":
+  // one document per player per Central-European calendar day
+  // (doc id "{uid}_{date}"), upserted the same way — rules reject the
+  // write outright unless it's this player's own doc and the new streak
+  // beats whatever's already stored for today. A new day means a new doc
+  // id, so nothing has to be reset or rolled over at midnight; yesterday's
+  // doc is simply never touched again.
+  async function submitDailyScore(streak, stats) {
+    if (!configured || streak <= 0) return;
+    await ready;
+    if (!uid) return;
+    const date = todayDateStr();
+    try {
+      await db.collection(DAILY_COLLECTION).doc(`${uid}_${date}`).set({
+        uid,
+        nickname: getNickname(),
+        bestStreak: streak,
+        date,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      }, { merge: true });
+    } catch (err) {
+      console.error("Leaderboard: submitDailyScore failed", err);
+    }
+  }
+
   // Called once a run ends, regardless of streak — unlike submitScore(),
   // even a zero/immediate-loss run is worth recording, since the whole
   // point (see history.html) is being able to look back at *every*
@@ -210,28 +257,35 @@ const Leaderboard = (() => {
     `;
   }
 
-  // Fetches PAGE_SIZE rows for `pageIndex`, plus one extra (PAGE_SIZE + 1
-  // total) purely to answer "is there a page after this one?" cheaply —
-  // Firestore has no free row-count, so the alternative would be a whole
-  // separate query just to know whether to show a Next button.
-  async function fetchLeaderboardPage(pageIndex) {
-    let query = db.collection(COLLECTION).orderBy("bestStreak", "desc");
-    if (pageCursors[pageIndex]) query = query.startAfter(pageCursors[pageIndex]);
+  // Fetches PAGE_SIZE rows for `pageIndex` of the given tab, plus one
+  // extra (PAGE_SIZE + 1 total) purely to answer "is there a page after
+  // this one?" cheaply — Firestore has no free row-count, so the
+  // alternative would be a whole separate query just to know whether to
+  // show a Next button. "today" adds a date equality filter on top of the
+  // same orderBy, which — unlike "overall"'s single-field sort — needs a
+  // composite index; see the README's Leaderboard section for the
+  // one-time console step that creates it.
+  async function fetchLeaderboardPage(tab, pageIndex) {
+    let query = tab === "today"
+      ? db.collection(DAILY_COLLECTION).where("date", "==", todayDateStr()).orderBy("bestStreak", "desc")
+      : db.collection(COLLECTION).orderBy("bestStreak", "desc");
+    const cursor = pagination[tab].cursors[pageIndex];
+    if (cursor) query = query.startAfter(cursor);
     const snap = await query.limit(PAGE_SIZE + 1).get();
     const hasNext = snap.docs.length > PAGE_SIZE;
     const pageDocs = snap.docs.slice(0, PAGE_SIZE);
     // Remember where the *next* page starts, but only the first time we
     // see it — re-deriving it on every visit to this page would be wasted
     // work since the cursor (a specific document) doesn't change.
-    if (hasNext && !pageCursors[pageIndex + 1]) {
-      pageCursors[pageIndex + 1] = pageDocs[pageDocs.length - 1];
+    if (hasNext && !pagination[tab].cursors[pageIndex + 1]) {
+      pagination[tab].cursors[pageIndex + 1] = pageDocs[pageDocs.length - 1];
     }
     return { pageDocs, hasNext };
   }
 
   // Pagination controls only appear once they'd actually do something —
   // a leaderboard with 10 or fewer entries has nothing to page through.
-  function renderPagination(container, pageIndex, hasNext) {
+  function renderPagination(container, tab, pageIndex, hasNext) {
     if (!container) return;
     if (pageIndex === 0 && !hasNext) {
       container.innerHTML = "";
@@ -245,11 +299,11 @@ const Leaderboard = (() => {
     const listEl = document.getElementById("gsLeaderboardList");
     const prevBtn = document.getElementById("gsLbPrev");
     const nextBtn = document.getElementById("gsLbNext");
-    if (prevBtn) prevBtn.addEventListener("click", () => renderPage(listEl, pageIndex - 1));
-    if (nextBtn) nextBtn.addEventListener("click", () => renderPage(listEl, pageIndex + 1));
+    if (prevBtn) prevBtn.addEventListener("click", () => renderPage(listEl, tab, pageIndex - 1));
+    if (nextBtn) nextBtn.addEventListener("click", () => renderPage(listEl, tab, pageIndex + 1));
   }
 
-  async function renderPage(container, pageIndex) {
+  async function renderPage(container, tab, pageIndex) {
     if (!container) return;
     const paginationEl = document.getElementById("gsLeaderboardPagination");
     if (!configured) {
@@ -264,38 +318,54 @@ const Leaderboard = (() => {
       return;
     }
     try {
-      const { pageDocs, hasNext } = await fetchLeaderboardPage(pageIndex);
+      const { pageDocs, hasNext } = await fetchLeaderboardPage(tab, pageIndex);
       if (pageDocs.length === 0) {
         container.innerHTML = pageIndex === 0
-          ? '<p class="gs-leaderboard-note">No scores yet — be the first!</p>'
+          ? `<p class="gs-leaderboard-note">${tab === "today" ? "No one's played today yet — be the first!" : "No scores yet — be the first!"}</p>`
           : '<p class="gs-leaderboard-note">No more scores.</p>';
         return;
       }
-      currentPage = pageIndex;
+      pagination[tab].page = pageIndex;
       const startRank = pageIndex * PAGE_SIZE + 1;
       const rows = pageDocs.map((doc, i) => renderRow(doc, startRank + i)).join("");
       container.innerHTML = `<ul class="gs-leaderboard-list">${rows}</ul>`;
-      renderPagination(paginationEl, pageIndex, hasNext);
+      renderPagination(paginationEl, tab, pageIndex, hasNext);
     } catch (err) {
       container.innerHTML = '<p class="gs-leaderboard-note">Could not load leaderboard.</p>';
       console.error("Leaderboard: renderPage failed", err);
     }
   }
 
+  function switchTab(tab) {
+    if (tab === currentTab) return;
+    currentTab = tab;
+    const overallBtn = document.getElementById("gsLbTabOverall");
+    const todayBtn = document.getElementById("gsLbTabToday");
+    if (overallBtn) overallBtn.classList.toggle("gs-tab-active", tab === "overall");
+    if (todayBtn) todayBtn.classList.toggle("gs-tab-active", tab === "today");
+    renderPage(document.getElementById("gsLeaderboardList"), tab, 0);
+  }
+
   // Shown/hidden alongside the local insights panel (start, pause and
   // game-over states) — never during an active round. Re-fetches on every
   // show, so returning to a non-playing screen picks up other players'
   // scores since you last looked, not just your own. Always reopens on
-  // page 1 — cursors from a previous visit this session are stale enough
-  // (the ranking could easily have changed) that starting over is simpler
-  // and more correct than trying to preserve a page position.
+  // the Overall tab, page 1 — cursors and tab choice from a previous visit
+  // this session are stale enough (the ranking could easily have changed)
+  // that starting over is simpler and more correct than trying to
+  // preserve exactly where you left off.
   function showPanel() {
     const panel = document.getElementById("gsLeaderboard");
     if (!panel) return;
     panel.style.display = "block";
-    pageCursors = [null];
-    currentPage = 0;
-    renderPage(document.getElementById("gsLeaderboardList"), 0);
+    currentTab = "overall";
+    pagination.overall = { cursors: [null], page: 0 };
+    pagination.today = { cursors: [null], page: 0 };
+    const overallBtn = document.getElementById("gsLbTabOverall");
+    const todayBtn = document.getElementById("gsLbTabToday");
+    if (overallBtn) overallBtn.classList.add("gs-tab-active");
+    if (todayBtn) todayBtn.classList.remove("gs-tab-active");
+    renderPage(document.getElementById("gsLeaderboardList"), "overall", 0);
   }
 
   function hidePanel() {
@@ -303,7 +373,7 @@ const Leaderboard = (() => {
     if (panel) panel.style.display = "none";
   }
 
-  return { init, submitScore, submitRunHistory, showPanel, hidePanel };
+  return { init, submitScore, submitDailyScore, submitRunHistory, showPanel, hidePanel };
 })();
 
 if (document.getElementById("gsLeaderboard")) {
