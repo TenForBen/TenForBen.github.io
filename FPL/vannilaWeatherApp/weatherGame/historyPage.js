@@ -43,9 +43,19 @@ function formatCondition(round) {
 
 function formatResultBadge(round) {
   if (round.timedOut) return '<span class="gs-badge gs-badge-timeout">TIMED OUT</span>';
-  return round.correct
-    ? '<span class="gs-badge gs-badge-correct">CORRECT</span>'
-    : '<span class="gs-badge gs-badge-incorrect">INCORRECT</span>';
+  if (round.correct) return '<span class="gs-badge gs-badge-correct">CORRECT</span>';
+
+  // Tough rounds fail one of two independent conditions (temperature,
+  // hemisphere) — runs recorded before this breakdown existed have
+  // tempCorrect/hemisphereCorrect as undefined, so this only annotates
+  // rounds where we actually know which one broke.
+  let reason = "";
+  if (round.hemisphere && round.tempCorrect != null && round.hemisphereCorrect != null) {
+    if (!round.tempCorrect && !round.hemisphereCorrect) reason = " (temp &amp; hemisphere)";
+    else if (!round.tempCorrect) reason = " (temp)";
+    else if (!round.hemisphereCorrect) reason = " (hemisphere)";
+  }
+  return `<span class="gs-badge gs-badge-incorrect">INCORRECT${reason}</span>`;
 }
 
 function buildRoundsTable(rounds) {

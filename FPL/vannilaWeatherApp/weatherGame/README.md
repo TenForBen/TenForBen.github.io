@@ -536,6 +536,16 @@ Notable bugs, once actually fixed — what broke, what it looked like to a
 player, and the real cause, newest first. Not every commit, just the ones
 worth a future reader knowing *why* the code is shaped the way it is.
 
+- **2026-08-17 — History's INCORRECT badge didn't say why a tough round
+  failed.** A tough round (hemisphere + temperature) needs both halves
+  right, but a failed one just showed "INCORRECT" with no way to tell
+  whether the temperature guess, the hemisphere guess, or both were wrong
+  — the player had to recompute it by hand from the city and reading.
+  Fixed by recording `tempCorrect`/`hemisphereCorrect` alongside `correct`
+  in each round (`app.js`), and having `historyPage.js` turn that into
+  "INCORRECT (temp)", "(hemisphere)", or "(temp & hemisphere)". Runs
+  recorded before this fix don't have the two new fields, so they still
+  show a plain "INCORRECT" rather than guessing.
 - **2026-08-16 — Correctness judged against the raw temperature, not the
   rounded one the card displays.** The result card always showed
   `Math.round(data.main.temp)` (e.g. "16°C"), but the correct/incorrect

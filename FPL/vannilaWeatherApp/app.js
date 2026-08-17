@@ -410,9 +410,10 @@ function initGeoStreak() {
     // (lat 0) counts as northern, matching the >= 0 convention ui.js
     // already uses for daylight calculations.
     let correct = tempCorrect;
+    let hemisphereCorrect = null;
     if (currentCondition.hemisphere) {
       const northern = data.coord.lat >= 0;
-      const hemisphereCorrect = currentCondition.hemisphere === "north" ? northern : !northern;
+      hemisphereCorrect = currentCondition.hemisphere === "north" ? northern : !northern;
       correct = tempCorrect && hemisphereCorrect;
     }
 
@@ -425,6 +426,12 @@ function initGeoStreak() {
       country: countryCode,
       temp: actual,
       correct,
+      // Only meaningful on tough rounds (hemisphere set) — lets History
+      // show *which* half of a combined condition actually failed, rather
+      // than just "INCORRECT" with no way to tell temperature from
+      // hemisphere without recomputing it from the city's coordinates.
+      tempCorrect,
+      hemisphereCorrect,
       timedOut: false,
     });
 
