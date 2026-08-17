@@ -420,16 +420,24 @@ class UI {
   }
 
   // Renders the session's per-country breakdown, e.g. "🇧🇷 BR ×2 | 🇦🇷 AR ×1",
-  // from a Map of ISO country code -> count. Reuses flagEmoji() rather than
-  // the CDN flagImg() — this is a compact inline tally, not a card header.
-  updateCountryTally(el, countryCounts) {
+  // from a Map of ISO country code -> array of city names used from it.
+  // Each chip is hoverable/focusable and expands a small popover listing
+  // those cities, so "BR ×2" doesn't require remembering which two. Reuses
+  // flagEmoji() rather than the CDN flagImg() — this is a compact inline
+  // tally, not a card header.
+  updateCountryTally(el, countryCities) {
     if (!el) return;
-    if (countryCounts.size === 0) {
+    if (countryCities.size === 0) {
       el.innerHTML = "";
       return;
     }
-    el.innerHTML = [...countryCounts.entries()]
-      .map(([code, count]) => `${flagEmoji(code)} ${escapeHtml(code)} &times;${count}`)
+    el.innerHTML = [...countryCities.entries()]
+      .map(([code, cities]) => `
+        <span class="gs-tally-chip" tabindex="0">
+          ${flagEmoji(code)} ${escapeHtml(code)} &times;${cities.length}
+          <span class="gs-tally-popover">${cities.map(escapeHtml).join("<br>")}</span>
+        </span>
+      `)
       .join(" &nbsp;|&nbsp; ");
   }
 

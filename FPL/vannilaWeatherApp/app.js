@@ -177,9 +177,12 @@ function initGeoStreak() {
   // had, instead of one write per round.
   let roundHistory = [];
 
-  // How many guesses (correct or not, but only ones that resolved to a real
+  // Which cities (correct or not, but only ones that resolved to a real
   // place) have come from each country this session, keyed by ISO code.
-  let countryCounts = new Map();
+  // The count shown in the tally is just this array's length — usedCities
+  // already stops the same city+country combo appearing twice, so every
+  // entry here is a genuinely distinct place.
+  let countryCities = new Map();
 
   // Direction strictly alternates round to round (not a fresh coin flip
   // each time) — starting side is randomised once per session so it isn't
@@ -386,8 +389,9 @@ function initGeoStreak() {
     usedCities.add(typed.toLowerCase());
     usedCities.add(resolvedKey);
 
-    countryCounts.set(countryCode, (countryCounts.get(countryCode) || 0) + 1);
-    ui.updateCountryTally(countryTallyEl, countryCounts);
+    if (!countryCities.has(countryCode)) countryCities.set(countryCode, []);
+    countryCities.get(countryCode).push(data.name);
+    ui.updateCountryTally(countryTallyEl, countryCities);
 
     const isNewCity = recordCityAttempt(cityKey);
     citiesThisRun.add(cityKey);
@@ -552,7 +556,7 @@ function initGeoStreak() {
     usedCities = new Set();
     citiesThisRun = new Set();
     roundHistory = [];
-    countryCounts = new Map();
+    countryCities = new Map();
     usedThresholds.above.clear();
     usedThresholds.below.clear();
     usedToughThresholds.above.clear();
@@ -564,7 +568,7 @@ function initGeoStreak() {
     setRoundLive(false);
     hintEl.textContent = "";
     ui.updateStreakDisplay(streakEl, streak);
-    ui.updateCountryTally(countryTallyEl, countryCounts);
+    ui.updateCountryTally(countryTallyEl, countryCities);
     clearResult();
   }
 
