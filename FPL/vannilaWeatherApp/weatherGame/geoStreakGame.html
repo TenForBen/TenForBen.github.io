@@ -154,6 +154,34 @@
       margin-bottom: 22px;
     }
 
+    .gs-tally-chip {
+      position: relative;
+      cursor: default;
+      border-bottom: 1px dotted #4a5f8f;
+      outline: none;
+    }
+    .gs-tally-popover {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0f1830;
+      border: 1px solid #2c3d63;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: #cfe0ff;
+      white-space: nowrap;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      z-index: 10;
+    }
+    .gs-tally-chip:hover .gs-tally-popover,
+    .gs-tally-chip:focus .gs-tally-popover {
+      display: block;
+    }
+
     .gs-condition {
       text-align: center;
       font-size: 1.15rem;
