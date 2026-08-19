@@ -1,7 +1,7 @@
 // instantiate classes — shared by both the main weather app (index.html)
 // and GeoStreak (weatherGame/geoStreakGame.html), which both load this file.
 const ft = new Fetch();
-const ui = new UI();
+const ui = new UI((lat, lon) => ft.getElevation(lat, lon));
 
 // ---- Main weather app ----------------------------------------------------
 // Guarded on #searchUser/#submit so this file can also be loaded by
