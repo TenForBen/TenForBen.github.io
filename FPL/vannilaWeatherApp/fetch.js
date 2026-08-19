@@ -28,6 +28,29 @@ class Fetch {
     return data; // only the success shape ever reaches the caller
   }
 
+  // Elevation (metres above sea level) for a coordinate, via Open-Elevation
+  // — a free, no-API-key service, unlike OpenWeather. Not part of the
+  // weather response itself, so this is a separate request. Times out
+  // after 6s and returns null on ANY failure (network, timeout, bad
+  // shape) rather than throwing — this is a "nice to have" line on the
+  // card, never something that should block or error out the rest of it.
+  async getElevation(lat, lon) {
+    const url = `https://api.open-elevation.com/api/v1/lookup?locations=${lat},${lon}`;
+    const timeout = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("Elevation lookup timed out")), 6000)
+    );
+
+    try {
+      const response = await Promise.race([fetch(url), timeout]);
+      if (!response.ok) return null;
+      const data = await response.json();
+      const meters = data && data.results && data.results[0] && data.results[0].elevation;
+      return typeof meters === "number" ? Math.round(meters) : null;
+    } catch (err) {
+      return null;
+    }
+  }
+
   // Used by GeoStreak for free-text guesses. Same lookup as getCurrent(),
   // just bounded to 5s (so a slow/hanging request can't stall a round
   // forever) and returns null instead of throwing on ANY failure — city not

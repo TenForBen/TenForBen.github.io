@@ -1,11 +1,17 @@
 class UI {
-  constructor() {
+  // `fetchElevation`, if given, is a (lat, lon) => Promise<meters|null>
+  // function — app.js wires this to ft.getElevation() so this class never
+  // has to import/instantiate Fetch itself. Optional: pass nothing and the
+  // elevation line just never appears (used by GeoStreak's card reveal,
+  // which renders via buildWeatherCardHtml directly, not populateUI).
+  constructor(fetchElevation) {
     this.uiContainer = document.getElementById("content");
     this.city;
     this.defaultCity = "London";
     this.clockTimer = null; // handle for the live local-time interval
     this.history = this.loadHistory(); // last N searches {q, data}, newest first
     this.historyIndex = 0; // which history entry is currently on screen
+    this.fetchElevation = fetchElevation || null;
     this.setupNav(); // builds a persistent nav bar above the weather card
   }
 
@@ -36,20 +42,37 @@ class UI {
       if (typed) localStorage.setItem("cityQuery", typed);
     }
 
-    this.uiContainer.innerHTML = this.buildWeatherCardHtml(data, query, previousEntry);
+    const showElevation = !!this.fetchElevation;
+    this.uiContainer.innerHTML = this.buildWeatherCardHtml(data, query, previousEntry, { showElevation });
     this.applyCardStyling(Math.round(data.main.temp));
 
     // begin ticking the true current local time for this city
     this.startClock(data.timezone || 0);
 
+    // Elevation isn't part of the weather response, so it's a separate,
+    // slower request — the card renders immediately with "Loading…" and
+    // this fills it in whenever it resolves (or says so if it can't).
+    if (showElevation) {
+      this.fetchElevation(data.coord.lat, data.coord.lon).then((meters) => this.updateElevation(meters));
+    }
+
     // clear the search box, ready for the next lookup
     if (searchBox) searchBox.value = "";
+  }
+
+  // Fills in the elevation line started by populateUI once the (separate,
+  // slower) lookup resolves. No-op if the card's been replaced by a newer
+  // search since the request went out — the element just won't exist.
+  updateElevation(meters) {
+    const el = document.getElementById("elevationValue");
+    if (!el) return;
+    el.textContent = meters != null ? `${meters} m above sea level` : "unavailable";
   }
 
   // Builds the weather-card markup shared by the main app (populateUI) and
   // GeoStreak's result reveal (renderGameCard). Pure: returns an HTML string
   // and records this.readingDt for the clock tick, but touches no other DOM.
-  buildWeatherCardHtml(data, query, previousEntry) {
+  buildWeatherCardHtml(data, query, previousEntry, { showElevation = false } = {}) {
     // Every dynamic value on the card gets bold text and its own colour,
     // cycling through this palette rather than hand-picking one hex code
     // per field — colorIndex is local to this call, so it always restarts
@@ -124,6 +147,7 @@ class UI {
           ${query ? `<p class="card-text text-muted" style="font-size: 90%;">Searched: ${val(escapeHtml(query))}</p>` : ""}
           <p id="xPat"><a href="${mapsUrl}" target="_blank" rel="noopener" title="Open in Google Maps">${val(latitude)}, ${val(longitude)}</a></p>
           <p class="card-text text-muted" style="font-size: 85%;">1&deg; longitude at ${latitude}, ${longitude} &asymp; ${val(`${lonKm} km`)} here</p>
+          ${showElevation ? `<p class="card-text text-muted" style="font-size: 85%;">Elevation: <b id="elevationValue" style="color: ${nextColor()};">Loading&hellip;</b></p>` : ""}
           ${distanceLine}
           <h6 class="card-subtitle mb-2 text-muted">current Temperature <p id="cuwt">${temp}&deg;C <span style="font-size: 40%;">/ ${val(`${tempF}&deg;F`)}</span></p> and feels like ${val(`${Math.round(data.main.feels_like)}&deg;C`)}</h6>
           <h6 class="card-subtitle mb-2 text-muted">Highs of ${val(`${Math.round(data.main.temp_max)}&deg;C`)}. Lows of ${val(`${Math.round(data.main.temp_min)}&deg;C`)}</h6>
@@ -359,7 +383,8 @@ class UI {
   // that's not a judged guess, so no CORRECT/INCORRECT stamp applies.
   renderGameCard(container, data, { correct, isNewCity } = {}) {
     if (!container) return;
-    const cardHtml = this.buildWeatherCardHtml(data, null);
+    const showElevation = !!this.fetchElevation;
+    const cardHtml = this.buildWeatherCardHtml(data, null, null, { showElevation });
     const newCityClass = isNewCity ? "geo-new-city" : "";
     const stampHtml = typeof correct === "boolean"
       ? `<div class="geo-stamp ${correct ? "geo-stamp-correct" : "geo-stamp-incorrect"}">${correct ? "CORRECT" : "INCORRECT"}</div>`
@@ -372,6 +397,13 @@ class UI {
       </div>
     `;
     this.applyCardStyling(Math.round(data.main.temp));
+
+    // Fired after the round's already judged (correct/incorrect is decided
+    // from the temperature alone) — this is a decorative extra line, never
+    // something the 20s round timer waits on.
+    if (showElevation) {
+      this.fetchElevation(data.coord.lat, data.coord.lon).then((meters) => this.updateElevation(meters));
+    }
   }
 
   // Sets the round's prompt, e.g. "Name a city with current temperature
