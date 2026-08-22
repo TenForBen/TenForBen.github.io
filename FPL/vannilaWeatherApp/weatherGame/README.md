@@ -62,6 +62,21 @@ Once tough mode kicks in for a run, it stays on for the rest of that run —
 dropping back below 10 correct never happens, since a wrong guess ends the
 run outright.
 
+That 10-30°C range also gets **squeezed by season**, per hemisphere+
+direction: a hemisphere in its own winter has its ABOVE ceiling pulled in
+3°C (to 27°C) — realistically there aren't many cities on that half of
+the planet running hot in their own winter — and a hemisphere in its own
+summer gets its BELOW floor pulled up 3°C (to 13°C) for the mirror
+reason. The other two combinations (a hemisphere's own summer+ABOVE, its
+own winter+BELOW) are already the plentiful case and keep the full range,
+as do both hemispheres during the Mar-May / Sep-Nov shoulder months.
+Fixed 3-month meteorological blocks off the visitor's local calendar
+month (`toughThresholdRange()` in `app.js`), not solstice-exact dates —
+this only needs to broadly track which half of the year it is, not
+precise transition days. Without this, e.g. "Southern, ABOVE 30°C" in
+southern winter (roughly Jun-Aug) was asking for something only a handful
+of deep-tropical southern cities could ever satisfy.
+
 Each place can only be used **once per session** (one continuous streak
 run) — guessing "Auckland" and then "Auckland" again later in the same run
 is rejected with a hint, no penalty, timer keeps running. Checked
