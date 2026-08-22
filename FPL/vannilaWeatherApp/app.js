@@ -428,6 +428,10 @@ function initGeoStreak() {
       typed,
       resolvedCity: data.name,
       country: countryCode,
+      // Coordinates, so History can compute the distance between
+      // consecutive cities per round without a second lookup.
+      lat: data.coord.lat,
+      lon: data.coord.lon,
       temp: actual,
       correct,
       // Only meaningful on tough rounds (hemisphere set) — lets History
@@ -525,6 +529,23 @@ function initGeoStreak() {
     resultEl.classList.remove("geo-result-fade-out");
   }
 
+  // Sum of the great-circle distance between each consecutive pair of
+  // guessed cities this run, in the order they were guessed — a rough
+  // "how far did this run travel" figure. Timed-out rounds have no
+  // coordinates (nothing was guessed) and are skipped, same as any round
+  // from before coordinates were recorded (older stored runs) — the chain
+  // just picks back up from the next round that has them.
+  function totalRunDistanceKm() {
+    let total = 0;
+    let last = null;
+    for (const round of roundHistory) {
+      if (round.lat == null || round.lon == null) continue;
+      if (last) total += haversineKm(last.lat, last.lon, round.lat, round.lon);
+      last = round;
+    }
+    return Math.round(total);
+  }
+
   function endGame(reason) {
     roundId += 1; // invalidate any guess still in flight for the round that just ended
     stopRoundTimer();
@@ -533,7 +554,7 @@ function initGeoStreak() {
     hintEl.textContent = "";
     gamesPlayed += 1;
     localStorage.setItem(GAMES_PLAYED_KEY, String(gamesPlayed));
-    ui.renderGameOver(gameOverEl, streak, { reason, uniqueCities: citiesThisRun.size });
+    ui.renderGameOver(gameOverEl, streak, { reason, uniqueCities: citiesThisRun.size, totalDistanceKm: totalRunDistanceKm() });
     ui.renderInsights(insightsEl, stats());
     insightsEl.style.display = "block";
     if (typeof Leaderboard !== "undefined") {
