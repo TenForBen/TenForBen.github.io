@@ -84,8 +84,13 @@
       border-color: #f0b429;
       box-shadow: 0 0 0 1px #f0b429;
     }
+    .gs-run-header-row {
+      display: flex;
+      align-items: stretch;
+    }
     .gs-run-toggle {
-      width: 100%;
+      flex: 1 1 auto;
+      min-width: 0;
       display: flex;
       align-items: center;
       gap: 14px;
@@ -98,6 +103,17 @@
       font-family: inherit;
     }
     .gs-run-toggle:hover { background: #101c3c; }
+    .gs-run-export-btn {
+      flex: 0 0 auto;
+      background: transparent;
+      border: none;
+      border-left: 1px solid #1b2a4a;
+      color: #6b7fa8;
+      font-size: 0.95rem;
+      padding: 0 16px;
+      cursor: pointer;
+    }
+    .gs-run-export-btn:hover { color: #7dd3fc; background: #101c3c; }
     .gs-run-streak {
       font-family: "Courier New", Courier, monospace;
       font-size: 1.4rem;
@@ -157,6 +173,13 @@
     .gs-badge-incorrect { color: #dc2626; }
     .gs-badge-timeout { color: #f0b429; }
 
+    /* How close a reading landed to the threshold it was judged against,
+       independent of correct/incorrect — exactly at the threshold (gold)
+       or within 2 degrees of it (green). See tempClosenessClass() in
+       historyPage.js. */
+    .gs-temp-gold { color: #f0b429; font-weight: bold; }
+    .gs-temp-green { color: #16a34a; font-weight: bold; }
+
     .gs-empty-note {
       text-align: center;
       color: #6b7fa8;
@@ -164,24 +187,6 @@
       padding: 30px 0;
     }
     .gs-empty-note a { color: #7dd3fc; }
-
-    .gs-toolbar {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 28px;
-    }
-    .gs-export-btn {
-      font-family: "Courier New", Courier, monospace;
-      font-size: 0.8rem;
-      letter-spacing: 0.5px;
-      color: #7dd3fc;
-      background: #0c1630;
-      border: 1px solid #1b2a4a;
-      border-radius: 6px;
-      padding: 7px 14px;
-      cursor: pointer;
-    }
-    .gs-export-btn:hover { border-color: #1f6feb; color: #a9e2ff; }
 
     /* Printing (or "Save as PDF", the same browser feature) gets its own
        light, ink-friendly theme rather than the dark console look — a
@@ -191,7 +196,7 @@
        context; the on-screen page is untouched. */
     @media print {
       body { background: #fff; color: #14213d; }
-      .gs-header, .gs-toolbar, .gs-run-caret { display: none; }
+      .gs-header, .gs-run-caret, .gs-run-export-btn { display: none; }
       h1, .gs-status, h2.gs-section-title { color: #14213d; }
       .gs-run-card, .gs-run-card-best {
         background: #fff;
@@ -209,6 +214,15 @@
       .gs-badge-correct { color: #15803d; }
       .gs-badge-incorrect { color: #b91c1c; }
       .gs-badge-timeout { color: #b45309; }
+      .gs-temp-gold { color: #b45309; }
+      .gs-temp-green { color: #15803d; }
+
+      /* Set on <body> by a per-run "export this run" click (see
+         wireExportButtons in historyPage.js) — hides every OTHER run card
+         so the PDF contains just the one the player asked for, not the
+         whole page. */
+      body.gs-printing-one .gs-run-card:not(.gs-print-target) { display: none; }
+      body.gs-printing-one h2.gs-section-title { display: none; }
     }
   </style>
 </head>
@@ -221,10 +235,6 @@
   <main class="container">
     <h1>Your Run History</h1>
     <p class="gs-status" id="hStatus">Loading&hellip;</p>
-
-    <div class="gs-toolbar">
-      <button type="button" id="hExportPdf" class="gs-export-btn">&#128196; Export PDF</button>
-    </div>
 
     <div id="hBestSection">
       <h2 class="gs-section-title">🏆 Personal Best</h2>

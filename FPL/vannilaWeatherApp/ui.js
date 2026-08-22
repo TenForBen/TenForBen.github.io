@@ -571,7 +571,9 @@ class UI {
   // `reason: "time"` distinguishes a timeout loss from a wrong-guess loss.
   // `uniqueCities` is this run's count (not lifetime) — how many different
   // real places were pulled a reading from before the run ended.
-  renderGameOver(container, finalStreak, { reason, uniqueCities = 0 } = {}) {
+  // `totalDistanceKm` is the great-circle distance strung across every
+  // guess in order, city to city — app.js's totalRunDistanceKm().
+  renderGameOver(container, finalStreak, { reason, uniqueCities = 0, totalDistanceKm = 0 } = {}) {
     if (!container) return;
     const heading = reason === "time" ? "Time's Up!" : "Game Over";
     container.innerHTML = `
@@ -579,6 +581,7 @@ class UI {
         <h3>${heading}</h3>
         <p class="gs-panel-sub">Final streak: <b>${finalStreak}</b></p>
         <p class="gs-panel-sub">Unique cities this run: <b>${uniqueCities}</b></p>
+        <p class="gs-panel-sub">Distance traveled this run: <b>${totalDistanceKm.toLocaleString()} km</b></p>
         <button type="button" id="gsPlayAgain" class="btn btn-warning">Play Again</button>
       </div>
     `;

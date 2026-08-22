@@ -112,6 +112,13 @@ different real places you pulled a reading from before the run ended
 (correct guesses and the one that ended it, not duplicates or not-founds).
 This is a per-run count, not the lifetime one below.
 
+It also shows **distance traveled this run** — the great-circle distance
+strung across every guessed city in order, city to city
+(`totalRunDistanceKm()` in `app.js`, reusing `haversineKm()` from
+`ui.js`). Same figure the History page builds up per round in its
+Distance column (see below) — this is just that column's final row,
+computed straight from the run in progress rather than a saved one.
+
 ## The search box is always there
 
 The city input and its button sit at the top of the page in every state —
@@ -415,15 +422,35 @@ temperature, CORRECT / INCORRECT / TIMED OUT). Your **Personal Best** run
 highlighted section up top, pre-expanded, so a new best is always one
 click away without hunting through the list.
 
-**Export PDF** is the browser's own print dialog with "Save as PDF" picked
-as the destination — no PDF library, no server round-trip. Clicking it
-force-expands every run card (so nothing you never happened to click open
-is silently missing from the export) and hands off to `window.print()`;
-a `@media print` stylesheet in `history.html` swaps the dark console
-theme for a plain light one just for the printed/exported version, since
-printing the dark theme as-is would either waste a page of ink or — if
-the browser's "background graphics" print option is off — render as
-invisible white-on-white.
+Each round's **Temp** column is color-highlighted by how close the
+reading landed to the threshold it was judged against — independent of
+CORRECT/INCORRECT, since a near-miss and a comfortable pass are both
+worth calling out. Exactly at the threshold is gold; within 2 degrees
+either side is green; anything wider gets no color
+(`tempClosenessClass()` in `historyPage.js`).
+
+The **Distance** column is a running total, not per-row: 0 on the first
+guessed city, then the great-circle distance added on as each next city
+gets guessed, so the last row is the whole run's traveled distance
+(`buildDistanceColumn()` in `historyPage.js`, its own copy of
+`ui.js`'s `haversineKm()` per this page's self-contained convention). A
+round with no coordinates — timed out, or an older run recorded before
+coordinates were saved (`lat`/`lon` on each round in `app.js`) — shows
+"—" and breaks the running chain right there rather than guessing;
+the total picks back up from the next round that has them.
+
+**Export** (the 📄 button on each run card) is the browser's own print
+dialog with "Save as PDF" picked as the destination — no PDF library, no
+server round-trip — but scoped to just that one run, not the whole page:
+`wireExportButtons()` force-expands that single card (so a never-clicked
+card still exports in full), marks it via `body.gs-printing-one` +
+`.gs-print-target`, and hands off to `window.print()`. A `@media print`
+stylesheet in `history.html` hides every other run card for the duration,
+and swaps the dark console theme for a plain light one, since printing
+the dark theme as-is would either waste a page of ink or — if the
+browser's "background graphics" print option is off — render as
+invisible white-on-white. An `afterprint` listener restores everything
+(other cards, this card's open/closed state) once the dialog closes.
 
 Uses the same Firebase project as the leaderboard — no separate account
 setup. `firestore.rules` already covers both collections if you followed

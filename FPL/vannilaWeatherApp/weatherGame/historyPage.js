@@ -58,12 +58,65 @@ function formatResultBadge(round) {
   return `<span class="gs-badge gs-badge-incorrect">INCORRECT${reason}</span>`;
 }
 
+// How close the reading landed to the threshold it was judged against —
+// independent of correct/incorrect, since a near-miss and a comfortable
+// pass are both worth calling out differently from an ordinary result.
+// Exactly AT the threshold is the closest a reading can get (gold); within
+// 2 degrees either side is still a close margin (green); anything wider
+// gets no special color.
+function tempClosenessClass(r) {
+  if (r.timedOut || r.temp == null || r.threshold == null) return "";
+  const diff = Math.abs(r.temp - r.threshold);
+  if (diff === 0) return "gs-temp-gold";
+  if (diff <= 2) return "gs-temp-green";
+  return "";
+}
+
+// Great-circle distance (km) between two lat/lon points, via the haversine
+// formula. Duplicated from ui.js rather than loaded — see the top-of-file
+// note on why this page stays self-contained.
+function haversineKm(lat1, lon1, lat2, lon2) {
+  const R = 6371; // mean Earth radius, km
+  const toRad = (deg) => (deg * Math.PI) / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+// Running total of the distance strung across the cities guessed so far
+// this run, city to city in order — 0 on the first guessed city, and by
+// the last row the whole run's traveled distance. A round with no
+// coordinates (timed out, or an older run recorded before coordinates
+// were saved) breaks the chain right there rather than guessing at it —
+// its own cell shows nothing, and the running total picks back up from
+// the next round that does have them.
+function buildDistanceColumn(rounds) {
+  let total = 0;
+  let last = null;
+  return rounds.map((r) => {
+    if (r.lat == null || r.lon == null) {
+      last = null;
+      return null;
+    }
+    if (last) total += haversineKm(last.lat, last.lon, r.lat, r.lon);
+    last = r;
+    return Math.round(total);
+  });
+}
+
 function buildRoundsTable(rounds) {
+  const distances = buildDistanceColumn(rounds);
   const rows = rounds.map((r, i) => {
     const guess = r.timedOut
       ? "&mdash;"
       : `${flagEmoji(r.country)} ${escapeHtml(r.resolvedCity || "")}`;
-    const temp = r.temp != null ? `${Math.round(r.temp)}°C` : "&mdash;";
+    const temp = r.temp != null
+      ? `<span class="${tempClosenessClass(r)}">${Math.round(r.temp)}°C</span>`
+      : "&mdash;";
+    const distance = distances[i] != null ? `${distances[i].toLocaleString()} km` : "&mdash;";
     return `
       <tr>
         <td>${i + 1}</td>
@@ -71,6 +124,7 @@ function buildRoundsTable(rounds) {
         <td>${guess}</td>
         <td>${temp}</td>
         <td>${formatResultBadge(r)}</td>
+        <td>${distance}</td>
       </tr>
     `;
   }).join("");
@@ -78,7 +132,7 @@ function buildRoundsTable(rounds) {
   return `
     <table class="gs-round-table">
       <thead>
-        <tr><th>#</th><th>Condition</th><th>Guess</th><th>Temp</th><th>Result</th></tr>
+        <tr><th>#</th><th>Condition</th><th>Guess</th><th>Temp</th><th>Result</th><th>Distance</th></tr>
       </thead>
       <tbody>${rows}</tbody>
     </table>
@@ -95,11 +149,14 @@ function buildRunCard(run, { best = false } = {}) {
   const roundWord = run.roundCount === 1 ? "round" : "rounds";
   return `
     <div class="gs-run-card${best ? " gs-run-card-best" : ""}">
-      <button type="button" class="gs-run-toggle" aria-expanded="false">
-        <span class="gs-run-streak">${run.finalStreak}</span>
-        <span class="gs-run-meta">${escapeHtml(reasonLabel)} &middot; ${run.roundCount} ${roundWord} &middot; ${formatPlayedAt(run.playedAt)}</span>
-        <span class="gs-run-caret">&#9656;</span>
-      </button>
+      <div class="gs-run-header-row">
+        <button type="button" class="gs-run-toggle" aria-expanded="false">
+          <span class="gs-run-streak">${run.finalStreak}</span>
+          <span class="gs-run-meta">${escapeHtml(reasonLabel)} &middot; ${run.roundCount} ${roundWord} &middot; ${formatPlayedAt(run.playedAt)}</span>
+          <span class="gs-run-caret">&#9656;</span>
+        </button>
+        <button type="button" class="gs-run-export-btn" title="Export this run as PDF">&#128196;</button>
+      </div>
       <div class="gs-run-detail" style="display: none;">
         ${buildRoundsTable(run.rounds || [])}
       </div>
@@ -110,7 +167,10 @@ function buildRunCard(run, { best = false } = {}) {
 function wireRunToggles(container) {
   container.querySelectorAll(".gs-run-toggle").forEach((btn) => {
     btn.addEventListener("click", () => {
-      const detail = btn.nextElementSibling;
+      // Not nextElementSibling — the toggle now sits inside .gs-run-header-row
+      // alongside the export button, so .gs-run-detail is its card's child,
+      // not its own sibling.
+      const detail = btn.closest(".gs-run-card").querySelector(".gs-run-detail");
       const opening = detail.style.display === "none";
       detail.style.display = opening ? "block" : "none";
       btn.setAttribute("aria-expanded", String(opening));
@@ -119,20 +179,44 @@ function wireRunToggles(container) {
   });
 }
 
-// "Export PDF" is just the browser's native print dialog with "Save as
-// PDF" as the destination — no library, no server round-trip. The only
-// real work is making sure nothing's missing from it: a run card the
-// player never happened to expand shouldn't just vanish from their
-// export, so every card is forced open first. The @media print rules in
-// history.html handle swapping the dark theme for a printable one.
-function exportToPdf() {
-  document.querySelectorAll(".gs-run-detail").forEach((detail) => {
-    detail.style.display = "block";
+// Exports just ONE run — not the whole page — as a PDF via the browser's
+// native print dialog ("Save as PDF" as the destination, no library, no
+// server round-trip). `body.gs-printing-one` + `.gs-print-target` (set
+// here, read by the @media print rules in history.html) hide every other
+// run card for the duration of the print. The clicked run's own detail is
+// forced open first so a never-expanded card still exports in full, and
+// its open/closed state is put back afterward exactly as the player left it.
+function wireExportButtons(container) {
+  container.querySelectorAll(".gs-run-export-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const card = btn.closest(".gs-run-card");
+      const detail = card.querySelector(".gs-run-detail");
+      const toggle = card.querySelector(".gs-run-toggle");
+      const wasOpen = detail.style.display !== "none";
+
+      if (!wasOpen) {
+        detail.style.display = "block";
+        toggle.setAttribute("aria-expanded", "true");
+        toggle.querySelector(".gs-run-caret").innerHTML = "&#9662;";
+      }
+      card.classList.add("gs-print-target");
+      document.body.classList.add("gs-printing-one");
+
+      const restore = () => {
+        document.body.classList.remove("gs-printing-one");
+        card.classList.remove("gs-print-target");
+        if (!wasOpen) {
+          detail.style.display = "none";
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.querySelector(".gs-run-caret").innerHTML = "&#9656;";
+        }
+        window.removeEventListener("afterprint", restore);
+      };
+      window.addEventListener("afterprint", restore);
+
+      window.print();
+    });
   });
-  document.querySelectorAll(".gs-run-toggle").forEach((btn) => {
-    btn.setAttribute("aria-expanded", "true");
-  });
-  window.print();
 }
 
 async function main() {
@@ -184,6 +268,8 @@ async function main() {
     listEl.innerHTML = runs.map((r) => buildRunCard(r)).join("");
     wireRunToggles(bestEl);
     wireRunToggles(listEl);
+    wireExportButtons(bestEl);
+    wireExportButtons(listEl);
   } catch (err) {
     console.error("History: load failed", err);
     bestSectionEl.style.display = "none";
@@ -198,8 +284,5 @@ async function main() {
     }
   }
 }
-
-const exportBtn = document.getElementById("hExportPdf");
-if (exportBtn) exportBtn.addEventListener("click", exportToPdf);
 
 main();
