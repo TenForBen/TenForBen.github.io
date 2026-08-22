@@ -88,6 +88,17 @@ function initGeoStreak() {
   const TOUGH_STREAK = 10;
   const TOUGH_MIN_THRESHOLD = 10;
   const TOUGH_MAX_THRESHOLD = 30;
+  // Tough rounds pin a temperature condition to ONE hemisphere, unlike the
+  // plain rounds above which can be satisfied by any city on Earth — so
+  // the wrong-season extreme of TOUGH_MIN/MAX_THRESHOLD can ask for
+  // something that's realistically almost nowhere on that half of the
+  // planet right now (e.g. "Southern, ABOVE 30°C" in southern winter,
+  // when only a handful of deep-tropical southern cities even reach that).
+  // This squeezes the hard-to-satisfy end of the range for whichever
+  // hemisphere+direction combo is currently fighting its own season —
+  // using fixed 3-month meteorological blocks (not solstice-exact dates,
+  // which this doesn't need) rather than a smooth day-by-day taper.
+  const SEASONAL_SQUEEZE = 3;
   const ROUND_SECONDS = 20;
   const RESULT_VISIBLE_MS = 4000; // how long a correct-guess card stays up before fading
   const RESULT_FADE_MS = 500; // must match the CSS transition duration on .geo-result-fade-out
@@ -203,6 +214,29 @@ function initGeoStreak() {
   // tough rounds don't always open on "north".
   let nextHemisphere = Math.random() < 0.5 ? "north" : "south";
 
+  // Narrows [TOUGH_MIN_THRESHOLD, TOUGH_MAX_THRESHOLD] toward whichever end
+  // is realistic for this hemisphere right now. A hemisphere in its own
+  // winter gets its ABOVE ceiling pulled in (few hot readings to be found);
+  // one in its own summer gets its BELOW floor pulled up (few cold ones) —
+  // the other three combinations (a hemisphere's own summer+ABOVE, its own
+  // winter+BELOW, or either hemisphere during a shoulder-season month) are
+  // already the easy/plentiful case and keep the full range.
+  function toughThresholdRange(hemisphere, direction) {
+    const month = new Date().getMonth(); // 0 = Jan … 11 = Dec, visitor's local calendar
+    const northernSummer = month >= 5 && month <= 7; // Jun–Aug: N summer, S winter
+    const northernWinter = month === 11 || month <= 1; // Dec–Feb: N winter, S summer
+    const inOwnWinter = (hemisphere === "north" && northernWinter)
+      || (hemisphere === "south" && northernSummer);
+    const inOwnSummer = (hemisphere === "north" && northernSummer)
+      || (hemisphere === "south" && northernWinter);
+
+    let min = TOUGH_MIN_THRESHOLD;
+    let max = TOUGH_MAX_THRESHOLD;
+    if (direction === "above" && inOwnWinter) max -= SEASONAL_SQUEEZE;
+    if (direction === "below" && inOwnSummer) min += SEASONAL_SQUEEZE;
+    return { min, max };
+  }
+
   function pickThreshold(pool, direction, min, max) {
     const used = pool[direction];
     let remaining = [];
@@ -308,7 +342,8 @@ function initGeoStreak() {
     if (streak >= TOUGH_STREAK) {
       const hemisphere = nextHemisphere;
       nextHemisphere = hemisphere === "north" ? "south" : "north"; // strictly alternate next round
-      const threshold = pickThreshold(usedToughThresholds, direction, TOUGH_MIN_THRESHOLD, TOUGH_MAX_THRESHOLD);
+      const { min, max } = toughThresholdRange(hemisphere, direction);
+      const threshold = pickThreshold(usedToughThresholds, direction, min, max);
       currentCondition = { direction, threshold, hemisphere };
     } else {
       const threshold = pickThreshold(usedThresholds, direction, MIN_THRESHOLD, MAX_THRESHOLD);
