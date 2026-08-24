@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>High Altitude Cities — TENFORBEN Station</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="sh-header">
+    <div class="sh-brand">TENFORBEN // STATION — High Altitude</div>
+    <div class="sh-header-links">
+      <a class="sh-back-link" href="../southernHemisphere.html">&larr; Southern Hemisphere</a>
+      <a class="sh-back-link" href="../../weatherGame/geoStreakGame.html">GeoStreak</a>
+      <a class="sh-back-link" href="../../index.html">&larr; Weather.JS</a>
+    </div>
+  </header>
+
+  <main class="sh-main">
+    <p class="sh-sub">
+      The world's top 35 highest-altitude cities, ranked by elevation.
+    </p>
+    <p class="sh-count" id="haCount"></p>
+    <p class="sh-updated" id="haUpdated"></p>
+
+    <div class="sh-toolbar">
+      <button type="button" id="haRefresh" class="sh-btn">&#8635; Refresh</button>
+      <button type="button" id="haCompare" class="sh-btn" disabled>&#8646; Compare to last run</button>
+      <span class="sh-status" id="haStatus"></span>
+    </div>
+
+    <p class="ha-mobile-hint">Tap a row to see the rest of its details.</p>
+
+    <!-- Desktop/tablet: the full sortable table, same shape as
+         ../southernHemisphere.html plus an Altitude column. Hidden below
+         the ha-breakpoint in favour of the card list underneath. -->
+    <div class="sh-table-wrap ha-table-wrap">
+      <table class="sh-table">
+        <thead>
+          <tr>
+            <th class="sh-unsortable">Flag</th>
+            <th data-sort-key="city">City</th>
+            <th data-sort-key="country">Country</th>
+            <th data-sort-key="altitude">Altitude</th>
+            <th data-sort-key="map">Map</th>
+            <th data-sort-key="temp">Current Temp</th>
+            <th data-sort-key="localTime">Local Time</th>
+            <th data-sort-key="sunrise">Sunrise</th>
+            <th data-sort-key="sunset">Sunset</th>
+            <th data-sort-key="dayLength">Day Length</th>
+          </tr>
+        </thead>
+        <tbody id="haBody">
+          <tr>
+            <td colspan="10" class="sh-loading">Loading cities&hellip;</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mobile: one accordion card per city — Flag/City/Country/Altitude/
+         Current Temp always visible, the rest revealed on tap. Hidden above
+         the ha-breakpoint in favour of the table above. -->
+    <div class="ha-cards" id="haCards">
+      <p class="sh-loading">Loading cities&hellip;</p>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

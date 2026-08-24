@@ -6,7 +6,10 @@ the Weather.JS site, no build step, no framework.
 
 Play it at [`southernHemisphere.html`](./southernHemisphere.html), linked
 from both the main [Weather.JS](../index.html) page and
-[GeoStreak](../weatherGame/geoStreakGame.html).
+[GeoStreak](../weatherGame/geoStreakGame.html). Its header also links to
+[High Altitude](./highAltitude/highAltitude.html) — the world's top 35
+highest-elevation cities, same table shape plus an Altitude column; see
+[`highAltitude/README.md`](./highAltitude/README.md).
 
 ## Why "capital is south of the equator" and not "country is in the south"
 
