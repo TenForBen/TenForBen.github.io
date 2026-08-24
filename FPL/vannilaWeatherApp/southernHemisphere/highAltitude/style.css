@@ -1,0 +1,160 @@
+/* Loaded after ../style.css — this file only adds what that shared
+   "station console" stylesheet doesn't already cover: this page's
+   different column order (so the shared nth-child rules don't
+   mis-style the wrong columns), the mobile hint, and the card/accordion
+   layout that replaces the table below the ha breakpoint. */
+
+/* ---- Column order override --------------------------------------------
+   ../style.css styles td:nth-child(4)..(9) as the monospace/blue "data"
+   columns and td:nth-child(3) as the flag, matching southernHemisphere's
+   Country/Capital/Flag/Map/... order. This page's order is
+   Flag/City/Country/Altitude/Map/Temp/LocalTime/Sunrise/Sunset/DayLength,
+   so those positions are overridden here, scoped to this page's table
+   only. */
+.ha-table-wrap .sh-table td:nth-child(4),
+.ha-table-wrap .sh-table td:nth-child(5),
+.ha-table-wrap .sh-table td:nth-child(6),
+.ha-table-wrap .sh-table td:nth-child(7),
+.ha-table-wrap .sh-table td:nth-child(8),
+.ha-table-wrap .sh-table td:nth-child(9),
+.ha-table-wrap .sh-table td:nth-child(10) {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  color: #7dd3fc;
+}
+.ha-table-wrap .sh-table td.sh-flag {
+  font-size: 1.4rem;
+}
+
+/* ---- Mobile hint -------------------------------------------------------
+   Only makes sense once the cards (not the table) are what's on screen. */
+.ha-mobile-hint {
+  display: none;
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.75rem;
+  color: #6b7fa8;
+  margin: 0 0 14px;
+}
+
+/* ---- Card / accordion layout (mobile only) ----------------------------- */
+.ha-cards {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+.ha-card {
+  border: 1px solid #1b2a4a;
+  border-radius: 8px;
+  background: #0c1630;
+  overflow: hidden;
+}
+.ha-card-summary {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  padding: 12px 14px;
+  cursor: pointer;
+  user-select: none;
+}
+.ha-card-flag {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+.ha-card-main {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.ha-card-city {
+  font-weight: 600;
+  color: #cfe8ff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ha-card-country {
+  font-size: 0.75rem;
+  color: #9db4de;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ha-card-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.85rem;
+  color: #7dd3fc;
+  white-space: nowrap;
+}
+.ha-card-caret {
+  color: #6b7fa8;
+  font-size: 0.7rem;
+  transition: transform 0.15s ease;
+}
+.ha-card-open .ha-card-caret {
+  transform: rotate(180deg);
+}
+.ha-card-details {
+  display: none;
+  padding: 2px 14px 14px;
+  border-top: 1px solid #1b2a4a;
+}
+.ha-card-open .ha-card-details {
+  display: block;
+}
+.ha-card-detail-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 0;
+  border-bottom: 1px dashed #16213f;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.8rem;
+}
+.ha-card-detail-row:last-child {
+  border-bottom: none;
+}
+.ha-card-detail-label {
+  color: #6b7fa8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.7rem;
+}
+.ha-card-detail-value {
+  color: #7dd3fc;
+  text-align: right;
+}
+.ha-card-detail-value a {
+  color: #7dd3fc;
+}
+
+/* ---- The breakpoint: below it, cards replace the table ----------------- */
+@media (max-width: 720px) {
+  .ha-table-wrap {
+    display: none;
+  }
+  .ha-mobile-hint {
+    display: block;
+  }
+  .ha-cards {
+    display: flex;
+  }
+
+  /* ../style.css's .sh-header is a plain space-between flex row — fine
+     at desktop widths, but three links plus the brand text has nowhere
+     to go on a phone. Stack it instead of letting it wrap mid-word. */
+  .sh-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .sh-header-links {
+    flex-wrap: wrap;
+    gap: 8px 16px;
+  }
+}
