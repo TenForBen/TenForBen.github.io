@@ -1,0 +1,30 @@
+// fpl-scrapper Firestore rules — paste into Firebase console -> Firestore
+// Database -> Rules -> replace the contents -> Publish. This project has
+// no Firebase CLI deploy set up (same as GeoStreak's firestore.rules,
+// see FPL/vannilaWeatherApp/weatherGame/firestore.rules), so this file is
+// documentation + copy-paste source, not something that deploys itself.
+//
+// Public read, no client write at all — every write here comes from the
+// Admin SDK (scrape.js, run by hand or by the scrape-fpl-leagues CI
+// workflow), which authenticates via the service account key and
+// bypasses these rules entirely. The only thing a browser ever does is
+// read, for the punkte.html Refresh button.
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /leagues/{leagueId} {
+      allow read: if true;
+      allow write: if false;
+
+      match /gameweeks/{gw} {
+        allow read: if true;
+        allow write: if false;
+
+        match /managers/{managerId} {
+          allow read: if true;
+          allow write: if false;
+        }
+      }
+    }
+  }
+}

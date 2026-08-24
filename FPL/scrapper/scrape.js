@@ -18,6 +18,7 @@ const SITE_ROOT = join(__dirname, "..", ".."); // FPL/scrapper -> repo root
 const LEAGUES = [
   { id: 478151, slug: "R2G" },
   { id: 232737, slug: "VivaLosFlamingos" },
+  { id: 1130674, slug: "KVKeKhiladi" },
 ];
 const CONCURRENCY = 6; // in-flight manager lookups at once, per league
 

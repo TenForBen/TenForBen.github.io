@@ -1,0 +1,47 @@
+name: Scrape FPL leagues
+
+on:
+  schedule:
+    # Minute 0, 10, 20... every hour, UTC — keeps Firestore fresh enough
+    # for the punkte.html Refresh button to be worth clicking during a
+    # live gameweek. Runs unconditionally year-round (same tradeoff the
+    # Southern Hemisphere weather workflow makes) rather than trying to
+    # gate it to actual kickoff windows.
+    - cron: "*/10 * * * *"
+  workflow_dispatch: {} # lets you fire it manually from the Actions tab too
+
+# Unlike scrape-southern-hemisphere-weather.yml, this workflow never
+# commits anything back — its only job is keeping Firestore fresh (what
+# the punkte.html Refresh button reads). scrape.js also regenerates the
+# legacy punkte.html/DB/*.js/index.html files locally on the runner as a
+# side effect, same as any local run, but those are thrown away with the
+# runner; only a real "run scrape.js by hand and commit" updates the
+# versions actually served by GitHub Pages.
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        working-directory: FPL/scrapper
+        run: npm ci
+
+      # firestoreClient.js only writes if this file exists (see its
+      # `configured` check) — same gitignored path a local `node scrape.js`
+      # run expects, just populated from the repo secret instead of a
+      # file on disk. Never echoed to a log: piped in via env, not
+      # interpolated into the command string.
+      - name: Write service account key
+        working-directory: FPL/scrapper
+        env:
+          FPL_SCRAPPER_SERVICE_ACCOUNT: ${{ secrets.FPL_SCRAPPER_SERVICE_ACCOUNT }}
+        run: echo "$FPL_SCRAPPER_SERVICE_ACCOUNT" > serviceAccountKey.json
+
+      - name: Run scrape.js
+        working-directory: FPL/scrapper
+        run: node scrape.js

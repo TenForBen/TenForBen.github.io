@@ -14,6 +14,14 @@
 <script src="../../../js/tableMake.js"></script>
 <link rel="stylesheet" type="text/css" href="../../../css/bekal.css">
 
+<!-- Compat build (not the modular v9+ SDK) to match every other plain
+     <script>-tag page on this site — see FPL/vannilaWeatherApp/weatherGame's
+     geoStreakGame.html for the same pattern. Public read-only data, so no
+     firebase-auth-compat.js. -->
+<script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+<script src="../../../scrapper/firebaseConfig.js"></script>
+
 <script>
   // newButtons() in tableMake.js hardcodes ".../GW{n}/new/{fileName}" for
   // the prev/next-gameweek links — this page lives in a season-named
@@ -32,13 +40,13 @@
   }
 
   // tableMake.js's sortTable_col19() (wired to a click on the header row
-  // by loader4mgw) compares cells with Number(), which returns NaN for
-  // "80\nTotal Points" — the exact text every "Latest points" cell holds
-  // — so the click never actually reorders anything. This override is
-  // identical except for parseInt(), which just reads the leading digits
-  // and ignores the rest. Matters most for an h2h league: its row order
-  // comes from match wins, not points, so it doesn't already happen to
-  // read top-to-bottom by score the way a classic league's rank does.
+  // by loader4mgw) compares cells with Number() — fine for this page's
+  // plain-number "Latest points" cells, but this override (parseInt()
+  // instead, otherwise identical) stays as a defensive measure in case
+  // that cell ever goes back to a decorated value. Matters most for an
+  // h2h league: its row order comes from match wins, not points, so it
+  // doesn't already happen to read top-to-bottom by score the way a
+  // classic league's rank does.
   function sortTable_col19() {
     const table = document.getElementById("regtable");
     let switching = true;
@@ -58,17 +66,137 @@
       }
     }
   }
+
+  // ---- Refresh button: re-reads this league's current Firestore
+  // snapshot and re-renders in place, no page reload. Firestore instead
+  // of hitting the FPL API directly from here — fantasy.premierleague.com
+  // sets no CORS headers (see ../scrapper/README.md), so a browser page
+  // can't call it at all. A GitHub Actions cron re-runs scrape.js every
+  // ~10 minutes to keep this league's Firestore doc fresh (see
+  // .github/workflows/scrape-fpl-leagues.yml); this button is "as fresh
+  // as the last cron tick", not a live re-scrape of its own.
+  const LEAGUE_ID = 232737;
+  const GAMEWEEK = 1;
+  const FIREBASE_CONFIGURED = typeof firebaseConfig !== "undefined"
+    && firebaseConfig.apiKey
+    && !firebaseConfig.apiKey.startsWith("REPLACE_ME");
+  let fsDb = null;
+  if (FIREBASE_CONFIGURED) {
+    firebase.initializeApp(firebaseConfig);
+    fsDb = firebase.firestore();
+  }
+
+  // Same transform as legacyOutput.js#toLegacyRow (Node side) — duplicated
+  // rather than shared, same reasoning as the rest of this inline script:
+  // this page has no build step to import from another file with. A
+  // Firestore manager doc is exactly scrape.js's manager record (that's
+  // literally what got written), so this is a straight port, not a
+  // reinterpretation.
+  function formatManagerNameClient(m) {
+    return m.overallRank + "( " + m.overallPoints.toLocaleString("en-GB") + " )";
+  }
+  function formatTeamClient(m) {
+    return m.teamName + "( " + m.playerName + " )";
+  }
+  function managerToLegacyRow(m) {
+    const row = {
+      manager_Name: formatManagerNameClient(m),
+      Teams: formatTeamClient(m),
+      SXL: m.countryCode || "countryCode",
+      Latp: String(m.gwPoints),
+    };
+    for (let i = 0; i < 15; i++) {
+      const p = m.picks[i];
+      row["Player_" + (i + 1)] = p ? (p.name + " " + p.gwPoints) : "";
+    }
+    return row;
+  }
+
+  function formatAgo(date) {
+    const diff = Math.max(0, Math.floor((Date.now() - date.getTime()) / 1000));
+    if (diff < 60) return "just now";
+    if (diff < 3600) return Math.floor(diff / 60) + " min ago";
+    return Math.floor(diff / 3600) + " hr ago";
+  }
+
+  // table.insertRow() (prepareTableCell3mgw's insertion, tableMake.js)
+  // lands new rows wherever the browser's last <tbody>/<thead> resolution
+  // puts them — deleteRow(index) works against table.rows regardless of
+  // which section a row actually lives in, so this doesn't need to know.
+  // Index 0 is always the header row from the original page load.
+  function clearDataRows() {
+    const table = document.getElementById("regtable");
+    while (table.rows.length > 1) {
+      table.deleteRow(1);
+    }
+  }
+
+  async function refreshFromFirestore() {
+    const btn = document.getElementById("refreshLeagueBtn");
+    const status = document.getElementById("refreshStatus");
+    if (!FIREBASE_CONFIGURED) {
+      status.textContent = "Live refresh isn't configured yet.";
+      return;
+    }
+    btn.disabled = true;
+    status.textContent = "Refreshing…";
+    try {
+      const [leagueDoc, managersSnap] = await Promise.all([
+        fsDb.collection("leagues").doc(String(LEAGUE_ID)).get(),
+        fsDb.collection("leagues").doc(String(LEAGUE_ID))
+          .collection("gameweeks").doc(String(GAMEWEEK))
+          .collection("managers").get(),
+      ]);
+
+      const managers = managersSnap.docs.map((d) => d.data());
+      managers.sort((a, b) => a.leagueRank - b.leagueRank);
+      s = managers.map(managerToLegacyRow);
+
+      clearDataRows();
+      for (let i = 0; i < s.length; i++) {
+        prepareTableCell3mgw(
+          s[i].Teams, s[i].manager_Name,
+          s[i].Player_1, s[i].Player_2, s[i].Player_3, s[i].Player_4, s[i].Player_5,
+          s[i].Player_6, s[i].Player_7, s[i].Player_8, s[i].Player_9, s[i].Player_10,
+          s[i].Player_11, s[i].Player_12, s[i].Player_13, s[i].Player_14, s[i].Player_15,
+          s[i].SXL, s[i].Latp
+        );
+      }
+      colorCoder(s.length);
+
+      const lastScrapedAt = leagueDoc.exists && leagueDoc.data().lastScrapedAt
+        ? leagueDoc.data().lastScrapedAt.toDate()
+        : null;
+      status.textContent = lastScrapedAt
+        ? `Updated — last scraped ${formatAgo(lastScrapedAt)}`
+        : "Updated";
+    } catch (err) {
+      status.textContent = "Refresh failed: " + err.message;
+    } finally {
+      btn.disabled = false;
+    }
+  }
 </script>
 
 <body onload='loader4mgw()'>
 
 <a id="scrapperHome" class="btn btn-warning" href="../../../scrapper/index.html">Home</a>
-<div>
+<!-- ../../../../AufWiedersehen/css/lawrence.css has a bare "div { display:
+     none; }" rule (pre-existing, shared by every legacy page that loads
+     it — a class on the div doesn't dodge it, that rule still matches
+     regardless of class; only an inline style, which always wins over any
+     stylesheet rule, actually shows these). -->
+<div style="display:block">
     <a id="barnes" class="btn btn-info" href="#">Table button</a>
     <a id="lowton" class="btn btn-success" href="#">Table toggler</a>
 </div>
 <a id="nav-R2G" class="btn btn-info" href="punkte.html">Road to Glory Season 11</a>
 <a id="nav-VivaLosFlamingos" class="btn btn-success" href="punkte_VivaLosFlamingos.html">Viva Los Flamingos</a>
+<a id="nav-KVKeKhiladi" class="btn btn-info" href="punkte_KVKeKhiladi.html">KV Ke Khiladi</a>
+<div style="display:block; margin:10px 0;">
+    <button type="button" id="refreshLeagueBtn" class="btn btn-primary" onclick="refreshFromFirestore()">&#8635; Refresh</button>
+    <span id="refreshStatus" style="font-family:monospace;font-size:0.85rem;margin-left:10px;"></span>
+</div>
     <table id="regtable" class="table table-hover table-bordered">
         <thead>
             <tr>
