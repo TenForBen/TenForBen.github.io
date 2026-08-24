@@ -26,10 +26,9 @@ not minutes.
 node scrape.js
 ```
 
-For each league in `LEAGUES` (`scrape.js` — currently `478151` /
-`"R2G"` and `232737` / `"VivaLosFlamingos"`, the two given for this
-pilot; the `slug` is just the short name used for its output filenames,
-see below):
+For each league in `LEAGUES` (`scrape.js` — `478151`/`"R2G"`,
+`232737`/`"VivaLosFlamingos"`, `1130674`/`"KVKeKhiladi"`; the `slug` is
+just the short name used for its output filenames, see below):
 
 1. Fetches that league's standings (`fplApi.js#getLeague`) — tries the
    **classic** endpoint first, falls back to **head-to-head** on a 404,
@@ -104,6 +103,53 @@ points" cell's actual text), so the click silently did nothing. The
 override just swaps in `parseInt()`. Matters most for an h2h league —
 its row order comes from match wins, not points, so unlike a classic
 league it doesn't already happen to read top-to-bottom by score.
+
+## Refresh button (live-ish points during a gameweek)
+
+Every generated `punkte.html` has a **Refresh** button. FPL's API has no
+CORS headers (see above), so it re-reads this league's current Firestore
+snapshot instead of re-scraping FPL directly from the browser — "fresh as
+of the last CI cron tick," not an instant live re-scrape.
+
+- **`.github/workflows/scrape-fpl-leagues.yml`** runs `node scrape.js`
+  every 10 minutes (`workflow_dispatch` too, for a manual trigger from
+  the Actions tab), writing to Firestore via the
+  `FPL_SCRAPPER_SERVICE_ACCOUNT` repo secret (the same JSON key
+  `serviceAccountKey.json` holds locally — GitHub Actions has no
+  filesystem to persist that file between runs, so it's written fresh
+  from the secret each time). Unlike the weather scraper's workflow, it
+  never commits anything back — the legacy `punkte.html`/`DB/*.js` files
+  it also regenerates as a side effect are thrown away with the runner;
+  only Firestore is what this workflow is for.
+- **`firebaseConfig.js`** — the client-side (public) Firebase config for
+  the same `fpl-scrapper` project, loaded by every `punkte.html` via the
+  compat CDN build (`firebase-app-compat.js` + `firebase-firestore-compat.js`,
+  matching `weatherGame/geoStreakGame.html`'s pattern — no
+  `firebase-auth-compat.js`, this is public read-only data).
+- **`firestore.rules`** — public `read`, `write: false` on
+  `leagues/**` — paste-into-console documentation, same non-deploying
+  role as `weatherGame/firestore.rules`. Every write comes from the
+  Admin SDK (a local run or the CI workflow), which bypasses these rules
+  entirely; a browser only ever reads.
+- The refresh logic itself lives inline in `legacyOutput.js`'s generated
+  `<script>` — `managerToLegacyRow()` is a client-side port of
+  `toLegacyRow()` (a Firestore manager doc is exactly the manager record
+  `scrape.js` wrote, so it's a straight port, not a reinterpretation),
+  then it clears every row past the header (`table.deleteRow(1)` in a
+  loop — `table.rows` doesn't care which section a row is actually in,
+  see the `<thead>`/`<tbody>` note below) and re-runs `tableMake.js`'s
+  own `prepareTableCell3mgw()` + `colorCoder()` for each fresh row, so
+  rendering stays identical to the initial page load.
+
+One unrelated bug this surfaced: `AufWiedersehen/css/lawrence.css` (
+shared by every legacy page) has a bare `div { display: none; }` rule —
+pre-existing, not something this introduced, but it silently hid the
+Previous/Next-gameweek buttons (and would have hidden the Refresh
+button) on every page this script generates. Rather than edit a
+stylesheet ~100 other legacy pages depend on, the generated page's own
+`<div>`s carry an inline `style="display:block"` — inline style always
+wins over any stylesheet rule, so this fixes it locally without
+touching `lawrence.css` itself.
 
 ## `FPL/scrapper/index.html`
 
