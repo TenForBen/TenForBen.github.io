@@ -2,8 +2,8 @@ name: Scrape Southern Hemisphere weather
 
 on:
   schedule:
-    # Minute 0 of every 3rd hour, UTC: 00:00, 03:00, 06:00 ... 21:00.
-    - cron: "0 */3 * * *"
+    # Minute 0 of every 12th hour, UTC: 00:00, 12:00.
+    - cron: "0 */12 * * *"
   workflow_dispatch: {} # lets you fire it manually from the Actions tab too
 
 # The default GITHUB_TOKEN is read-only unless a workflow opts into more —
