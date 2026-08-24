@@ -1,11 +1,24 @@
-// Pilot run: fetch every manager in the given leagues, plus each
-// manager's current-gameweek picks. Prints to the console only — no
-// .js/.json file is written (that's the point of this pilot; see
-// README.md for why, and what replaces it once Firebase is wired up).
+// Fetches every manager in the given leagues, plus each manager's
+// current-gameweek picks, and writes them to Firestore — see
+// firestoreClient.js for the shape. Still prints a summary either way;
+// no .js/.json file is ever written (that's what Firestore replaces —
+// see README.md).
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
 import { getBootstrapStatic, getEventLive, getEntry, getEntryPicks, getLeague } from "./fplApi.js";
 import { mapWithConcurrency } from "./concurrency.js";
+import { configured as firestoreConfigured, writeLeague } from "./firestoreClient.js";
+import { writeLegacyPages, writeHomePage } from "./legacyOutput.js";
 
-const LEAGUE_IDS = [478151, 232737];
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const SITE_ROOT = join(__dirname, "..", ".."); // FPL/scrapper -> repo root
+
+// slug: short name used for the DB file and, for every league after the
+// first, its punkte_{slug}.html filename — see legacyOutput.js.
+const LEAGUES = [
+  { id: 478151, slug: "R2G" },
+  { id: 232737, slug: "VivaLosFlamingos" },
+];
 const CONCURRENCY = 6; // in-flight manager lookups at once, per league
 
 async function scrapeLeague(leagueId, { eventId, playersById, liveById }) {
@@ -72,20 +85,32 @@ async function main() {
   const liveById = new Map(live.elements.map((el) => [el.id, el]));
 
   console.log(`Gameweek in play: ${eventId} (${currentEvent.name})`);
+  console.log(
+    firestoreConfigured
+      ? "Firestore: serviceAccountKey.json found — writing results."
+      : "Firestore: no serviceAccountKey.json — printing only, see README.md to enable writes."
+  );
 
   const leagues = [];
-  for (const leagueId of LEAGUE_IDS) {
+  for (const { id: leagueId, slug } of LEAGUES) {
     const league = await scrapeLeague(leagueId, { eventId, playersById, liveById });
     printSummary(league);
-    leagues.push(league);
+    await writeLeague(league);
+    leagues.push({ league, slug });
   }
 
+  const outDir = writeLegacyPages({ leagues, gameweek: eventId, siteRoot: SITE_ROOT });
+  console.log(`\nLegacy punkte.html + DB/*.js written to ${outDir}`);
+
+  const homePath = writeHomePage({ leagues, gameweek: eventId, siteRoot: SITE_ROOT });
+  console.log(`Home page written to ${homePath}`);
+
   // Full detail (including every pick) for just the top manager in each
-  // league, as a concrete sample of the shape this would hand to Firebase —
+  // league, as a concrete sample of the shape this hands to Firestore —
   // printing all of it for every manager would flood the terminal for no
   // extra proof.
   console.log("\n--- Sample manager record (league leader, full shape) ---");
-  for (const league of leagues) {
+  for (const { league } of leagues) {
     console.log(`\n${league.name}:`);
     console.log(JSON.stringify(league.managers[0], null, 2));
   }

@@ -1,4 +1,4 @@
-# FPL Scrapper (pilot)
+# FPL Scrapper
 
 A from-scratch JS rewrite of [`FPLscrapper`](https://github.com/TenForBenJamin/FPLscrapper)'s
 `Program.cs` (the `airline-scrapper` branch) — same goal (walk a league's
@@ -26,8 +26,10 @@ not minutes.
 node scrape.js
 ```
 
-For each league ID in `LEAGUE_IDS` (`scrape.js` — currently `478151` and
-`232737`, the two given for this pilot):
+For each league in `LEAGUES` (`scrape.js` — currently `478151` /
+`"R2G"` and `232737` / `"VivaLosFlamingos"`, the two given for this
+pilot; the `slug` is just the short name used for its output filenames,
+see below):
 
 1. Fetches that league's standings (`fplApi.js#getLeague`) — tries the
    **classic** endpoint first, falls back to **head-to-head** on a 404,
@@ -48,9 +50,72 @@ For each league ID in `LEAGUE_IDS` (`scrape.js` — currently `478151` and
    (profile + every pick) for each league's #1 manager as a concrete
    sample of the shape.
 
-**Nothing is written to disk.** That's deliberate for this pilot — see
-below for what replaces the old `.js` "DB" files
-(`FPL/GW/GW{n}/DB/new/{League}.js`) once this moves past pilot stage.
+Two things get written after that, per run:
+
+- **Firestore** (`firestoreClient.js#writeLeague`) — one document per
+  league, one document per manager per gameweek underneath it
+  (`leagues/{leagueId}/gameweeks/{gw}/managers/{managerId}`), so a page
+  can query "this league, this gameweek" directly. Skipped
+  (console-only) if `serviceAccountKey.json` isn't present — see
+  Firebase setup below.
+- **A legacy-format `punkte.html` + `var s = [...]` data file**
+  (`legacyOutput.js`) — see the next section.
+
+## Legacy `punkte.html` output
+
+The old scraper's output was one `.js` "DB" file per league per gameweek
+(`FPL/GW/GW{n}/DB/new/{League}.js`, a `var s = [...]` array), loaded by a
+static `punkte.html` page (`<script src="...">` + `FPL/js/tableMake.js`'s
+`loader4mgw()`) that renders it into a sortable, colour-coded table —
+team, manager, all 15 picks with that gameweek's points, colour-coded by
+score. `legacyOutput.js` reproduces that exact shape (`manager_Name`,
+`Teams`, `SXL`, `Latp`, `Player_1`..`Player_15`) from the clean scraped
+manager record, so the existing front-end code (`tableMake.js`,
+`bekal.css`) renders it with no changes needed there.
+
+Output goes to `FPL/GW/GW{n}/{season}/` — a **season-named** sibling of
+the legacy `GW{n}/new/` folder (`season` auto-derived from today's date,
+e.g. `2026-27`; PL seasons start in August) — not into `GW{n}/new/`
+itself, so a fresh run never overwrites a previous season's archived
+data sitting at the same gameweek number:
+
+```
+FPL/GW/GW{n}/{season}/
+  DB/{slug}.js          — one per league, the var s = [...] data
+  punkte.html            — first league in LEAGUES
+  punkte_{slug}.html      — every league after the first
+```
+
+The generated `punkte.html` reuses the same CSS/JS asset paths as the
+legacy template (`bootstrap.min.css`, `lawrence.css`, `tableMake.js`,
+`bekal.css`) since `GW{n}/{season}/` sits at the same folder depth as
+`GW{n}/new/` — every relative path resolves identically. The one
+exception is `tableMake.js`'s `newButtons()` (the Previous/Next-gameweek
+buttons), which hardcodes `.../GW{n}/new/{fileName}`; the generated page
+overrides that function inline with `{season}` swapped in for `new`,
+rather than changing the shared file every other legacy page still
+depends on.
+
+The generated page also overrides `sortTable_col19()` the same way —
+clicking any header cell is supposed to sort by "Latest points"
+(`loader4mgw()` wires that up), but the shared version compares cells
+with `Number()`, which is `NaN` for `"80\nTotal Points"` (every "Latest
+points" cell's actual text), so the click silently did nothing. The
+override just swaps in `parseInt()`. Matters most for an h2h league —
+its row order comes from match wins, not points, so unlike a classic
+league it doesn't already happen to read top-to-bottom by score.
+
+## `FPL/scrapper/index.html`
+
+A landing page for this folder's output, regenerated every run
+(`legacyOutput.js#writeHomePage`) so it always points at the gameweek
+that run just scraped: a button per league straight to its freshest
+`punkte.html`, plus a header link over to `FPL/vannilaWeatherApp/`, the
+site's other generated-from-a-script app living alongside this one under
+`FPL/`. Named `index.html` rather than `home.html` so a static server
+(`npx serve`, GitHub Pages, ...) serves it as this folder's default page.
+Every generated `punkte.html`/`punkte_{slug}.html` links back to it via a
+"Home" button.
 
 ## Shape
 
@@ -79,31 +144,51 @@ replaced). Each manager:
 }
 ```
 
-## Firebase (next step, not built yet)
+## Firebase
 
-This is a **server-side script**, not a browser page — GeoStreak's
+This is a **server-side script**, not a browser page, so GeoStreak's
 pattern (Firestore + Anonymous Auth, security rules as the only real
-gate) doesn't apply here; there's no "player" to anonymously sign in as,
-just a script that should be trusted to write. The right fit is the
-**Firebase Admin SDK** with a service account key instead:
+gate) doesn't apply — there's no "player" to anonymously sign in as, just
+a script that should be trusted to write. This uses the **Firebase Admin
+SDK** with a service account key instead, in its own project
+(`fpl-scrapper` — separate from GeoStreak's `weathergame-bda93`, since
+it's a different domain with its own quotas).
 
-1. New Firebase project (separate from GeoStreak's `weathergame-bda93` —
-   different domain, own quotas/rules) — Firestore Database enabled,
-   same as GeoStreak's setup.
-2. **Project Settings → Service Accounts → Generate new private key** —
-   downloads a JSON credentials file. This grants full read/write to the
-   project, so it's `.gitignore`'d here (`serviceAccountKey.json`) and
-   must never be committed — treat it like a password, not a config value.
-3. `npm install firebase-admin` in this folder (no dependency needed
-   until this step — everything above is Node's built-in `fetch`).
-4. `admin.initializeApp({ credential: admin.credential.cert(serviceAccountKey) })`,
-   then write each league's managers into Firestore — the natural
-   replacement for one `.js` file per league per gameweek is one document
-   per manager per gameweek, e.g.
-   `leagues/{leagueId}/gameweeks/{gw}/managers/{managerId}`, so a page
-   can query "this league, this gameweek" directly instead of loading a
-   whole generated file.
+`firestoreClient.js` handles it: if `serviceAccountKey.json` (see Setup
+below) exists next to it, it initializes the Admin SDK and every
+`writeLeague()` call actually writes; if it doesn't, `configured` is
+`false` and `scrape.js` skips writing and just prints — same
+graceful-degradation shape as GeoStreak's `firebaseConfig.js` placeholder
+check, so cloning this repo without the key doesn't crash, it just runs
+console-only.
 
-Not implemented yet because it needs an actual Firebase project to point
-at — say the word once one exists (or ask for a walkthrough creating one,
-same as GeoStreak's) and this gets wired in.
+### Setup (already done for `fpl-scrapper`, for reference / re-doing elsewhere)
+
+1. [Firebase console](https://console.firebase.google.com/) → **Add
+   project** → Firestore Database enabled (**Databases & Storage** in the
+   sidebar → **Create database** → production mode).
+2. ⚙️ **Project settings → Service accounts** tab → **Generate new
+   private key** → downloads a JSON credentials file. This grants full
+   read/write to the project — treat it like a password, not a config
+   value. Save it as `serviceAccountKey.json` in this folder; it's
+   already in `.gitignore` and must never be committed.
+3. `npm install firebase-admin` in this folder (the only dependency —
+   everything else here is Node's built-in `fetch`).
+
+### What actually gets written
+
+One document per league, one document per manager per gameweek
+underneath it — the direct replacement for one `.js` file per league per
+gameweek:
+
+```
+leagues/{leagueId}                                  { name, kind, lastScrapedAt }
+leagues/{leagueId}/gameweeks/{gw}                    { gameweek }
+leagues/{leagueId}/gameweeks/{gw}/managers/{managerId}   ← the manager shape above
+```
+
+So a page can query "this league, this gameweek" directly — e.g. every
+manager in league 478151's gameweek 1 — instead of loading and parsing a
+whole generated file. Confirmed live: both pilot leagues' full rosters
+(38 + 22 managers, all picks included) round-tripped through Firestore
+and were read back successfully.

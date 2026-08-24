@@ -10,7 +10,7 @@ const BASE = "https://fantasy.premierleague.com/api";
 
 async function getJson(url) {
   const res = await fetch(url, {
-    headers: { "User-Agent": "Mozilla/5.0 (compatible; fpl-scrapper-pilot/1.0)" },
+    headers: { "User-Agent": "Mozilla/5.0 (compatible; fpl-scrapper/1.0)" },
   });
   if (!res.ok) {
     const err = new Error(`FPL API ${res.status} ${res.statusText} — ${url}`);
