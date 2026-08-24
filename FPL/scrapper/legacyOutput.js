@@ -32,7 +32,7 @@ function toLegacyRow(m) {
     manager_Name: formatManagerName(m),
     Teams: formatTeam(m),
     SXL: m.countryCode ?? "countryCode",
-    Latp: `${m.gwPoints}\nTotal Points`,
+    Latp: `${m.gwPoints}`,
   };
   for (let i = 0; i < 15; i++) {
     const p = m.picks[i];
@@ -103,13 +103,13 @@ function buildPunkteHtml({ entries, activeSlug, season, gameweek }) {
   }
 
   // tableMake.js's sortTable_col19() (wired to a click on the header row
-  // by loader4mgw) compares cells with Number(), which returns NaN for
-  // "80\\nTotal Points" — the exact text every "Latest points" cell holds
-  // — so the click never actually reorders anything. This override is
-  // identical except for parseInt(), which just reads the leading digits
-  // and ignores the rest. Matters most for an h2h league: its row order
-  // comes from match wins, not points, so it doesn't already happen to
-  // read top-to-bottom by score the way a classic league's rank does.
+  // by loader4mgw) compares cells with Number() — fine for this page's
+  // plain-number "Latest points" cells, but this override (parseInt()
+  // instead, otherwise identical) stays as a defensive measure in case
+  // that cell ever goes back to a decorated value. Matters most for an
+  // h2h league: its row order comes from match wins, not points, so it
+  // doesn't already happen to read top-to-bottom by score the way a
+  // classic league's rank does.
   function sortTable_col19() {
     const table = document.getElementById("regtable");
     let switching = true;
@@ -166,7 +166,7 @@ function buildPunkteHtml({ entries, activeSlug, season, gameweek }) {
       manager_Name: formatManagerNameClient(m),
       Teams: formatTeamClient(m),
       SXL: m.countryCode || "countryCode",
-      Latp: m.gwPoints + "\\nTotal Points",
+      Latp: String(m.gwPoints),
     };
     for (let i = 0; i < 15; i++) {
       const p = m.picks[i];

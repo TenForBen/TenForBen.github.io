@@ -1,9 +1,9 @@
 var s = [
   {
-    "manager_Name": "1054193( 63 )",
+    "manager_Name": "1046384( 63 )",
     "Teams": "Gooner4Life( Purnam Paul )",
     "SXL": "GB",
-    "Latp": "63\nTotal Points",
+    "Latp": "63",
     "Player_1": "Lammens 1",
     "Player_2": "Gvardiol 9",
     "Player_3": "Mosquera 6",
@@ -21,10 +21,10 @@ var s = [
     "Player_15": "Wilson 3"
   },
   {
-    "manager_Name": "2704313( 54 )",
+    "manager_Name": "2688341( 54 )",
     "Teams": "diNgolo Kante( Sibin - )",
     "SXL": "IN",
-    "Latp": "54\nTotal Points",
+    "Latp": "54",
     "Player_1": "Raya 6",
     "Player_2": "Maguire 1",
     "Player_3": "Dalot 1",
@@ -42,10 +42,10 @@ var s = [
     "Player_15": "Scarlett 0"
   },
   {
-    "manager_Name": "5170980( 45 )",
+    "manager_Name": "5150141( 45 )",
     "Teams": "El Carnicero( Satyajeet Mishra )",
     "SXL": "IN",
-    "Latp": "45\nTotal Points",
+    "Latp": "45",
     "Player_1": "Raya 6",
     "Player_2": "Guéhi 10",
     "Player_3": "Maguire 1",
@@ -59,14 +59,14 @@ var s = [
     "Player_11": "João Pedro 11",
     "Player_12": "Dubravka 0",
     "Player_13": "Groß 2",
-    "Player_14": "James 1",
+    "Player_14": "James 0",
     "Player_15": "Calvert-Lewin 1"
   },
   {
-    "manager_Name": "5953723( 42 )",
+    "manager_Name": "5933573( 42 )",
     "Teams": "Reading Knight Rider( Abheek Tarafdar )",
     "SXL": "EN",
-    "Latp": "42\nTotal Points",
+    "Latp": "42",
     "Player_1": "Raya 6",
     "Player_2": "Maguire 1",
     "Player_3": "Gabriel 5",

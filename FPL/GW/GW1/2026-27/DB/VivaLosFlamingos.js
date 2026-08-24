@@ -1,9 +1,9 @@
 var s = [
   {
-    "manager_Name": "1054193( 63 )",
+    "manager_Name": "1046384( 63 )",
     "Teams": "Saja Boys( Lorin Minxhozi )",
     "SXL": "EN",
-    "Latp": "63\nTotal Points",
+    "Latp": "63",
     "Player_1": "Verbruggen 6",
     "Player_2": "Maguire 1",
     "Player_3": "Muharemović 6",
@@ -21,10 +21,10 @@ var s = [
     "Player_15": "Davis 2"
   },
   {
-    "manager_Name": "3204605( 52 )",
+    "manager_Name": "3187077( 52 )",
     "Teams": "Back2Back( Sidrit Minxhozi )",
     "SXL": "DK",
-    "Latp": "52\nTotal Points",
+    "Latp": "52",
     "Player_1": "Kelleher 7",
     "Player_2": "Calafiori 9",
     "Player_3": "Shaw 1",
@@ -42,10 +42,10 @@ var s = [
     "Player_15": "Thomas 3"
   },
   {
-    "manager_Name": "1476570( 60 )",
+    "manager_Name": "1466170( 60 )",
     "Teams": "Mr.T( Eni Shtini )",
     "SXL": "AL",
-    "Latp": "60\nTotal Points",
+    "Latp": "60",
     "Player_1": "Raya 6",
     "Player_2": "Calafiori 9",
     "Player_3": "N.Williams 2",
@@ -63,10 +63,10 @@ var s = [
     "Player_15": "van Ewijk 1"
   },
   {
-    "manager_Name": "3764687( 50 )",
+    "manager_Name": "3745121( 50 )",
     "Teams": "robby_baggio10( Marin Jano )",
     "SXL": "AL",
-    "Latp": "50\nTotal Points",
+    "Latp": "50",
     "Player_1": "Kinsky 2",
     "Player_2": "Calafiori 9",
     "Player_3": "Van Hecke 1",
@@ -84,10 +84,10 @@ var s = [
     "Player_15": "Groß 2"
   },
   {
-    "manager_Name": "140431( 77 )",
+    "manager_Name": "139348( 77 )",
     "Teams": "Kokeqethurit( Daver Berberi )",
     "SXL": "AL",
-    "Latp": "77\nTotal Points",
+    "Latp": "77",
     "Player_1": "Verbruggen 6",
     "Player_2": "De Cuyper 17",
     "Player_3": "Hume 2",
@@ -105,10 +105,10 @@ var s = [
     "Player_15": "Tzolis 6"
   },
   {
-    "manager_Name": "228899( 74 )",
+    "manager_Name": "227089( 74 )",
     "Teams": "Lula XI( Aksarlao Lula )",
     "SXL": "AL",
-    "Latp": "74\nTotal Points",
+    "Latp": "74",
     "Player_1": "Kinsky 2",
     "Player_2": "Rodon 6",
     "Player_3": "Calafiori 9",
@@ -126,12 +126,12 @@ var s = [
     "Player_15": "Diop 2"
   },
   {
-    "manager_Name": "1828604( 58 )",
+    "manager_Name": "2015436( 57 )",
     "Teams": "albi( Bardhyl Minxhozi )",
     "SXL": "AL",
-    "Latp": "58\nTotal Points",
+    "Latp": "57",
     "Player_1": "Donnarumma 3",
-    "Player_2": "James 1",
+    "Player_2": "James 0",
     "Player_3": "White 11",
     "Player_4": "Gvardiol 9",
     "Player_5": "Pedro Porro 0",
@@ -147,10 +147,10 @@ var s = [
     "Player_15": "Emersonn 9"
   },
   {
-    "manager_Name": "435066( 70 )",
+    "manager_Name": "431858( 70 )",
     "Teams": "123 prova( Magi Muco )",
     "SXL": "AL",
-    "Latp": "70\nTotal Points",
+    "Latp": "70",
     "Player_1": "Donnarumma 3",
     "Player_2": "Van de Ven 0",
     "Player_3": "De Cuyper 17",
@@ -168,10 +168,10 @@ var s = [
     "Player_15": "Schlager 1"
   },
   {
-    "manager_Name": "2704313( 54 )",
+    "manager_Name": "2688341( 54 )",
     "Teams": "diNgolo Kante( Sibin - )",
     "SXL": "IN",
-    "Latp": "54\nTotal Points",
+    "Latp": "54",
     "Player_1": "Raya 6",
     "Player_2": "Maguire 1",
     "Player_3": "Dalot 1",
@@ -189,10 +189,10 @@ var s = [
     "Player_15": "Scarlett 0"
   },
   {
-    "manager_Name": "7078829( 37 )",
+    "manager_Name": "7061705( 37 )",
     "Teams": "DinamoCity( Ilir Bazaiti )",
     "SXL": "EN",
-    "Latp": "37\nTotal Points",
+    "Latp": "37",
     "Player_1": "Pickford 7",
     "Player_2": "Gabriel 5",
     "Player_3": "Lacroix 6",
@@ -210,10 +210,10 @@ var s = [
     "Player_15": "Nketiah 1"
   },
   {
-    "manager_Name": "732376( 66 )",
+    "manager_Name": "726881( 66 )",
     "Teams": "Haaland & Shoulders( Nina Konstantinidou )",
     "SXL": "EN",
-    "Latp": "66\nTotal Points",
+    "Latp": "66",
     "Player_1": "Raya 6",
     "Player_2": "Shaw 1",
     "Player_3": "Muharemović 6",
@@ -231,10 +231,10 @@ var s = [
     "Player_15": "O'Shea 4"
   },
   {
-    "manager_Name": "4887582( 46 )",
+    "manager_Name": "4866059( 46 )",
     "Teams": "Curtis Jones( Florian Toslluku )",
     "SXL": "AL",
-    "Latp": "46\nTotal Points",
+    "Latp": "46",
     "Player_1": "Kinsky 2",
     "Player_2": "Gabriel 5",
     "Player_3": "Mosquera 6",
@@ -252,10 +252,10 @@ var s = [
     "Player_15": "Greaves 2"
   },
   {
-    "manager_Name": "4035067( 49 )",
+    "manager_Name": "4015540( 49 )",
     "Teams": "Monarch United FC( Geri Muho )",
     "SXL": "US",
-    "Latp": "49\nTotal Points",
+    "Latp": "49",
     "Player_1": "Kelleher 7",
     "Player_2": "Senesi 3",
     "Player_3": "Udogie 1",
@@ -273,10 +273,10 @@ var s = [
     "Player_15": "Solanke 1"
   },
   {
-    "manager_Name": "7441643( 35 )",
+    "manager_Name": "7426055( 35 )",
     "Teams": "Vikings( Ermir K )",
     "SXL": "US",
-    "Latp": "35\nTotal Points",
+    "Latp": "35",
     "Player_1": "Martinez 0",
     "Player_2": "O'Reilly 2",
     "Player_3": "Virgil 2",
@@ -294,10 +294,10 @@ var s = [
     "Player_15": "Gyökeres 0"
   },
   {
-    "manager_Name": "140431( 77 )",
+    "manager_Name": "139348( 77 )",
     "Teams": "Real Madrid( Real Madrid )",
     "SXL": "AL",
-    "Latp": "77\nTotal Points",
+    "Latp": "77",
     "Player_1": "Verbruggen 6",
     "Player_2": "Senesi 3",
     "Player_3": "Kerkez 0",
@@ -315,10 +315,10 @@ var s = [
     "Player_15": "Tzolis 6"
   },
   {
-    "manager_Name": "5953723( 42 )",
+    "manager_Name": "5933573( 42 )",
     "Teams": "my sadik( Denis Brahilika )",
     "SXL": "AL",
-    "Latp": "42\nTotal Points",
+    "Latp": "42",
     "Player_1": "Raya 6",
     "Player_2": "Pedro Porro 0",
     "Player_3": "Shaw 1",
@@ -336,10 +336,10 @@ var s = [
     "Player_15": "Konsa 0"
   },
   {
-    "manager_Name": "3204605( 52 )",
+    "manager_Name": "3187077( 52 )",
     "Teams": "Tepelena( Joan Hasanmema )",
     "SXL": "AL",
-    "Latp": "52\nTotal Points",
+    "Latp": "52",
     "Player_1": "Kinsky 2",
     "Player_2": "Maguire 1",
     "Player_3": "Gabriel 5",
@@ -357,10 +357,10 @@ var s = [
     "Player_15": "Thomas 3"
   },
   {
-    "manager_Name": "2945881( 53 )",
+    "manager_Name": "2929364( 53 )",
     "Teams": "Quantitative Eze-ing( Camilla Nurkhanov )",
     "SXL": "EN",
-    "Latp": "53\nTotal Points",
+    "Latp": "53",
     "Player_1": "Lammens 1",
     "Player_2": "Gabriel 5",
     "Player_3": "Diop 2",
@@ -378,10 +378,10 @@ var s = [
     "Player_15": "Kusi-Asare 0"
   },
   {
-    "manager_Name": "2235903( 56 )",
+    "manager_Name": "2221873( 56 )",
     "Teams": "Mitoma123( Enio Minxhozi )",
     "SXL": "AL",
-    "Latp": "56\nTotal Points",
+    "Latp": "56",
     "Player_1": "A.Becker 2",
     "Player_2": "Pedro Porro 0",
     "Player_3": "Virgil 2",
@@ -399,10 +399,10 @@ var s = [
     "Player_15": "O.Richards 0"
   },
   {
-    "manager_Name": "7899796( 32 )",
+    "manager_Name": "7887092( 32 )",
     "Teams": "Supercampeones( Ronny Nelkenbaum )",
     "SXL": "FR",
-    "Latp": "32\nTotal Points",
+    "Latp": "32",
     "Player_1": "Kinsky 2",
     "Player_2": "Shaw 1",
     "Player_3": "Diop 2",
@@ -420,10 +420,10 @@ var s = [
     "Player_15": "João Pedro 11"
   },
   {
-    "manager_Name": "5170980( 45 )",
+    "manager_Name": "5150141( 45 )",
     "Teams": "RAMA 5( Erald Haxhiu )",
     "SXL": "US",
-    "Latp": "45\nTotal Points",
+    "Latp": "45",
     "Player_1": "Lammens 1",
     "Player_2": "Cash -1",
     "Player_3": "Pedro Porro 0",
@@ -438,13 +438,13 @@ var s = [
     "Player_12": "Dubravka 0",
     "Player_13": "Frimpong 0",
     "Player_14": "McGinn 1",
-    "Player_15": "James 1"
+    "Player_15": "James 0"
   },
   {
-    "manager_Name": "2465056( 55 )",
+    "manager_Name": "2450016( 55 )",
     "Teams": "xhovi fc( Xhovi Ali )",
     "SXL": "EN",
-    "Latp": "55\nTotal Points",
+    "Latp": "55",
     "Player_1": "Raya 6",
     "Player_2": "Gabriel 5",
     "Player_3": "F.Kadıoğlu 0",
