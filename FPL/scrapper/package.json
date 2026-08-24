@@ -1,0 +1,16 @@
+{
+  "name": "fpl-scrapper",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Pulls league standings and per-manager gameweek picks from the official Fantasy Premier League API, writes them to Firestore, and generates a legacy-format punkte.html + var s = [...] data file per league.",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "scrape": "node scrape.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^14.3.0"
+  }
+}
