@@ -75,3 +75,12 @@ there's nothing to keep synchronized on resize.
 Which cards are expanded is tracked in a `Set` (`openCards`, keyed by
 `rank`) that survives re-renders, so re-sorting or hitting Refresh
 doesn't collapse a card you had open.
+
+## Mangala Lakshadweep Express
+
+Linked from this page's header: [`mangalaExpress/`](./mangalaExpress/) —
+not a ranking like this page, a single train route's 39 stops in order,
+each with its current weather. Same table/card mechanism, reused
+wholesale (its `style.css` loads this page's own `style.css` for the
+layout, unchanged) — see
+[`mangalaExpress/README.md`](./mangalaExpress/README.md).
