@@ -1,0 +1,38 @@
+name: Scrape Mangala Lakshadweep Express weather
+
+on:
+  # Hourly — deliberately the tightest interval any scheduled workflow in
+  # this repo uses, specifically to catch the Koyilandi watch threshold
+  # (see mangalaExpress/README.md's "Koyilandi watch" section) without it
+  # sitting unnoticed for half a day the way the Southern Hemisphere
+  # weather workflow's 12-hourly schedule would.
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch: {} # lets you fire it manually from the Actions tab too
+
+# The default GITHUB_TOKEN is read-only unless a workflow opts into more —
+# this step needs to push the updated weatherData.json back to the repo.
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run scrapeWeather.js
+        run: node FPL/vannilaWeatherApp/southernHemisphere/highAltitude/mangalaExpress/scrapeWeather.js
+
+      - name: Commit weatherData.json if it changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add FPL/vannilaWeatherApp/southernHemisphere/highAltitude/mangalaExpress/weatherData.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Auto-update Mangala Lakshadweep Express weather snapshot"
+          git push origin HEAD:${{ github.ref_name }}

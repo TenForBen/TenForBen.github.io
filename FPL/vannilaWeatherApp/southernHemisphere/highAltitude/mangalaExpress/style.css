@@ -1,0 +1,31 @@
+/* Loaded after ../../style.css and ../style.css — this page reuses both
+   as-is (same table/card shapes as High Altitude Cities) and only adds
+   what's actually new here: the Koyilandi watch highlight. See the
+   README's "Koyilandi watch" section for what triggers it. */
+
+.me-watch-row {
+  background: rgba(240, 180, 41, 0.08);
+}
+.ha-table-wrap .sh-table tr.me-watch-row td {
+  border-top: 1px solid rgba(240, 180, 41, 0.35);
+  border-bottom: 1px solid rgba(240, 180, 41, 0.35);
+}
+.me-watch-hit {
+  color: #f0b429 !important;
+  font-weight: 700;
+}
+.me-watch-badge {
+  font-size: 0.85em;
+}
+
+.me-watch-note {
+  max-width: 640px;
+  margin: 0 auto 18px;
+  padding: 8px 14px;
+  border: 1px solid rgba(240, 180, 41, 0.35);
+  border-radius: 6px;
+  background: rgba(240, 180, 41, 0.06);
+}
+.me-watch-note a {
+  color: #7dd3fc;
+}

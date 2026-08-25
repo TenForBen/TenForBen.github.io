@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mangala Lakshadweep Express — TENFORBEN Station</title>
+  <link rel="stylesheet" href="../../style.css" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="sh-header">
+    <div class="sh-brand">TENFORBEN // STATION — Mangala Lakshadweep Express</div>
+    <div class="sh-header-links">
+      <a class="sh-back-link" href="../highAltitude.html">&larr; High Altitude</a>
+      <a class="sh-back-link" href="../../southernHemisphere.html">Southern Hemisphere</a>
+      <a class="sh-back-link" href="../../../weatherGame/geoStreakGame.html">GeoStreak</a>
+      <a class="sh-back-link" href="../../../index.html">&larr; Weather.JS</a>
+    </div>
+  </header>
+
+  <main class="sh-main">
+    <p class="sh-sub">
+      All 39 stops of trains 12617/12618 Mangala Lakshadweep Express,
+      Hazrat Nizamuddin (Delhi) &harr; Ernakulam Junction (Kochi), in route
+      order — each with its current weather.
+    </p>
+    <p class="sh-count" id="meCount"></p>
+    <p class="sh-updated" id="meUpdated"></p>
+
+    <div class="sh-toolbar">
+      <button type="button" id="meRefresh" class="sh-btn">&#8635; Refresh</button>
+      <button type="button" id="meCompare" class="sh-btn" disabled>&#8646; Compare to last run</button>
+      <span class="sh-status" id="meStatus"></span>
+    </div>
+
+    <p class="sh-sub me-watch-note">
+      <span class="me-watch-badge">&#9888;</span>
+      <strong>Koyilandi watch:</strong> its Temp cell highlights gold once a
+      reading hits 29&deg;C or above &mdash; see the
+      <a href="README.md">README</a> for why.
+    </p>
+
+    <p class="ha-mobile-hint">Tap a row to see the rest of its details.</p>
+
+    <!-- Desktop/tablet: the full sortable table, same shape as
+         ../highAltitude.html with City/Country renamed Station/State.
+         Hidden below the ha-breakpoint in favour of the card list
+         underneath (../style.css handles both, unchanged). -->
+    <div class="sh-table-wrap ha-table-wrap">
+      <table class="sh-table">
+        <thead>
+          <tr>
+            <th class="sh-unsortable">Flag</th>
+            <th data-sort-key="station">Station</th>
+            <th data-sort-key="state">State</th>
+            <th data-sort-key="altitude">Altitude</th>
+            <th data-sort-key="map">Map</th>
+            <th data-sort-key="temp">Current Temp</th>
+            <th data-sort-key="localTime">Local Time</th>
+            <th data-sort-key="sunrise">Sunrise</th>
+            <th data-sort-key="sunset">Sunset</th>
+            <th data-sort-key="dayLength">Day Length</th>
+          </tr>
+        </thead>
+        <tbody id="meBody">
+          <tr>
+            <td colspan="10" class="sh-loading">Loading stops&hellip;</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mobile: one accordion card per stop — Flag/Station/State/Altitude/
+         Current Temp always visible, the rest revealed on tap. -->
+    <div class="ha-cards" id="meCards">
+      <p class="sh-loading">Loading stops&hellip;</p>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
