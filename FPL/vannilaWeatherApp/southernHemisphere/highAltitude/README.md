@@ -84,3 +84,11 @@ each with its current weather. Same table/card mechanism, reused
 wholesale (its `style.css` loads this page's own `style.css` for the
 layout, unchanged) — see
 [`mangalaExpress/README.md`](./mangalaExpress/README.md).
+
+## Coromandel Express
+
+Also linked from this page's header: [`coromandelExpress/`](./coromandelExpress/)
+— the same idea again, Howrah to Chennai's 16 stops, minus Mangala
+Lakshadweep Express's Koyilandi temperature watch (not a general feature,
+just specific to that route) — see
+[`coromandelExpress/README.md`](./coromandelExpress/README.md).

@@ -1,0 +1,37 @@
+name: Scrape Coromandel Express weather
+
+on:
+  schedule:
+    # Minute 0 of every 12th hour, UTC: 00:00, 12:00 — same cadence as
+    # scrape-southern-hemisphere-weather.yml. No temperature watch on
+    # this route (that's Mangala Lakshadweep Express's Koyilandi-specific
+    # thing), so there's no reason for a tighter interval.
+    - cron: "0 */12 * * *"
+  workflow_dispatch: {} # lets you fire it manually from the Actions tab too
+
+# The default GITHUB_TOKEN is read-only unless a workflow opts into more —
+# this step needs to push the updated weatherData.json back to the repo.
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run scrapeWeather.js
+        run: node FPL/vannilaWeatherApp/southernHemisphere/highAltitude/coromandelExpress/scrapeWeather.js
+
+      - name: Commit weatherData.json if it changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add FPL/vannilaWeatherApp/southernHemisphere/highAltitude/coromandelExpress/weatherData.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Auto-update Coromandel Express weather snapshot"
+          git push origin HEAD:${{ github.ref_name }}
