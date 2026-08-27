@@ -100,26 +100,35 @@ service cloud.firestore {
   }
 
   function isValidEntry(data) {
-    return data.keys().hasOnly(['nickname', 'bestStreak', 'totalCorrect', 'totalAttempts', 'updatedAt'])
+    return data.keys().hasOnly(['nickname', 'bestStreak', 'totalCorrect', 'totalAttempts', 'totalRuns', 'updatedAt'])
       && data.nickname is string && data.nickname.size() > 0 && data.nickname.size() <= 20
       && data.bestStreak is int && data.bestStreak > 0 && data.bestStreak <= 500
       && data.totalCorrect is int && data.totalCorrect >= 0
       && data.totalAttempts is int && data.totalAttempts >= data.totalCorrect
+      // totalRuns > 0 since this write only ever happens at the end of a
+      // completed run (the one that just set this bestStreak), so there's
+      // always at least that one; totalCorrect can't exceed it in
+      // principle (one run can bank at most one correct streak-ending
+      // guess per round, but a run's correct count and its own count
+      // aren't the same axis) — no upper relationship enforced beyond that.
+      && data.totalRuns is int && data.totalRuns > 0
       // Rejects a client-supplied timestamp — serverTimestamp() is the
       // only value that resolves to request.time, so this forces the
       // write to actually use it rather than a spoofed date.
       && data.updatedAt == request.time;
   }
 
-  // Same shape as isValidEntry() above, minus the accuracy fields (Today's
-  // leaderboard doesn't track those — see the README's Leaderboard
-  // section for why), plus `uid` (needed here since the doc id isn't the
-  // uid on its own, unlike geostreakLeaderboard) and `date`.
+  // Same shape as isValidEntry() above, plus `uid` (needed here since the
+  // doc id isn't the uid on its own, unlike geostreakLeaderboard) and
+  // `date`.
   function isValidDailyEntry(data) {
-    return data.keys().hasOnly(['uid', 'nickname', 'bestStreak', 'date', 'updatedAt'])
+    return data.keys().hasOnly(['uid', 'nickname', 'bestStreak', 'totalCorrect', 'totalAttempts', 'totalRuns', 'date', 'updatedAt'])
       && data.uid is string
       && data.nickname is string && data.nickname.size() > 0 && data.nickname.size() <= 20
       && data.bestStreak is int && data.bestStreak > 0 && data.bestStreak <= 500
+      && data.totalCorrect is int && data.totalCorrect >= 0
+      && data.totalAttempts is int && data.totalAttempts >= data.totalCorrect
+      && data.totalRuns is int && data.totalRuns > 0
       && data.date is string && data.date.size() == 10
       && data.updatedAt == request.time;
   }
