@@ -13,6 +13,16 @@
 // Firestore index) and what 100 reads per visit actually costs.
 const RUNS_LIMIT = 100;
 
+// Anonymous-auth UIDs allowed to see the "All Players" tab — everyone
+// else only ever sees their own runs, same as before this existed. This
+// is UX only (hiding a tab that wouldn't work anyway): the actual gate is
+// firestore.rules' isMaster(), which has to list the exact same UIDs —
+// keep the two in sync by hand, there's no shared source between a
+// Firestore rules file and a browser script. A UID goes in this list
+// after someone clicks "Copy my player ID" (below) from that browser and
+// hands it to whoever maintains this file.
+const MASTER_UIDS = ["B0N7TfmkrXTaYjB2TBCVOBVtIhM2"];
+
 const configured = typeof firebaseConfig !== "undefined"
   && firebaseConfig.apiKey
   && !firebaseConfig.apiKey.startsWith("REPLACE_ME");
@@ -158,15 +168,21 @@ function formatPlayedAt(timestamp) {
   return timestamp.toDate().toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
 }
 
-function buildRunCard(run, { best = false } = {}) {
+// `showNickname` is the only difference between "my own runs" (where
+// whose run it is goes without saying) and the master-only "All Players"
+// tab, where the nickname is the first thing worth knowing about a row.
+function buildRunCard(run, { best = false, showNickname = false } = {}) {
   const reasonLabel = run.reason === "time" ? "Time's Up" : "Game Over";
   const roundWord = run.roundCount === 1 ? "round" : "rounds";
+  const meta = showNickname
+    ? `${escapeHtml(run.nickname || "Anonymous")} &middot; ${escapeHtml(reasonLabel)} &middot; ${run.roundCount} ${roundWord} &middot; ${formatPlayedAt(run.playedAt)}`
+    : `${escapeHtml(reasonLabel)} &middot; ${run.roundCount} ${roundWord} &middot; ${formatPlayedAt(run.playedAt)}`;
   return `
     <div class="gs-run-card${best ? " gs-run-card-best" : ""}">
       <div class="gs-run-header-row">
         <button type="button" class="gs-run-toggle" aria-expanded="false">
           <span class="gs-run-streak">${run.finalStreak}</span>
-          <span class="gs-run-meta">${escapeHtml(reasonLabel)} &middot; ${run.roundCount} ${roundWord} &middot; ${formatPlayedAt(run.playedAt)}</span>
+          <span class="gs-run-meta">${meta}</span>
           <span class="gs-run-caret">&#9656;</span>
         </button>
         <button type="button" class="gs-run-export-btn" title="Export this run as PDF">&#128196;</button>
@@ -233,11 +249,127 @@ function wireExportButtons(container) {
   });
 }
 
-async function main() {
+function wireCopyUidLink(uid) {
+  const link = document.getElementById("hCopyUid");
+  if (!link) return;
+  link.style.display = "inline";
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    navigator.clipboard.writeText(uid).then(() => {
+      const original = link.textContent;
+      link.textContent = "Copied!";
+      setTimeout(() => { link.textContent = original; }, 1500);
+    });
+  });
+}
+
+async function loadMyRuns(db, uid) {
   const statusEl = document.getElementById("hStatus");
   const bestSectionEl = document.getElementById("hBestSection");
   const bestEl = document.getElementById("hBest");
   const listEl = document.getElementById("hList");
+  bestSectionEl.style.display = "";
+  document.getElementById("hListTitle").textContent = "All Runs";
+
+  const snap = await db.collection("geostreakRuns")
+    .where("uid", "==", uid)
+    .orderBy("playedAt", "desc")
+    .limit(RUNS_LIMIT)
+    .get();
+
+  if (snap.empty) {
+    statusEl.innerHTML = 'No runs recorded on this browser yet — play a round of <a href="geoStreakGame.html">GeoStreak</a> first.';
+    bestSectionEl.style.display = "none";
+    listEl.innerHTML = "";
+    return;
+  }
+
+  const runs = snap.docs.map((doc) => doc.data());
+  const best = runs.reduce((a, b) => (b.finalStreak > a.finalStreak ? b : a), runs[0]);
+
+  statusEl.textContent = runs.length === RUNS_LIMIT
+    ? `Showing your ${RUNS_LIMIT} most recent runs.`
+    : `${runs.length} run${runs.length === 1 ? "" : "s"} on this account.`;
+
+  bestEl.innerHTML = buildRunCard(best, { best: true });
+  listEl.innerHTML = runs.map((r) => buildRunCard(r)).join("");
+  wireRunToggles(bestEl);
+  wireRunToggles(listEl);
+  wireExportButtons(bestEl);
+  wireExportButtons(listEl);
+}
+
+// Master-only: every player's runs, most recent first, system-wide —
+// not per-player, so no "Personal Best" pin (whose would it be?) and no
+// uid filter on the query, which is exactly the difference firestore.rules'
+// isMaster() has to allow for this uid and no one else's. Same RUNS_LIMIT
+// as loadMyRuns(), just spread across everyone instead of one player — a
+// recent-activity feed, not a complete archive.
+async function loadAllRuns(db) {
+  const statusEl = document.getElementById("hStatus");
+  const bestSectionEl = document.getElementById("hBestSection");
+  const listEl = document.getElementById("hList");
+  bestSectionEl.style.display = "none";
+  document.getElementById("hListTitle").textContent = "All Players — Recent Runs";
+
+  const snap = await db.collection("geostreakRuns")
+    .orderBy("playedAt", "desc")
+    .limit(RUNS_LIMIT)
+    .get();
+
+  if (snap.empty) {
+    statusEl.textContent = "No runs recorded by anyone yet.";
+    listEl.innerHTML = "";
+    return;
+  }
+
+  const runs = snap.docs.map((doc) => doc.data());
+  statusEl.textContent = runs.length === RUNS_LIMIT
+    ? `Showing the ${RUNS_LIMIT} most recent runs across every player.`
+    : `${runs.length} run${runs.length === 1 ? "" : "s"} recorded across every player.`;
+
+  listEl.innerHTML = runs.map((r) => buildRunCard(r, { showNickname: true })).join("");
+  wireRunToggles(listEl);
+  wireExportButtons(listEl);
+}
+
+function wireHistoryTabs(db, uid) {
+  const tabsEl = document.getElementById("hTabs");
+  const mineBtn = document.getElementById("hTabMine");
+  const allBtn = document.getElementById("hTabAll");
+  if (!MASTER_UIDS.includes(uid) || !tabsEl || !mineBtn || !allBtn) return;
+
+  tabsEl.style.display = "flex";
+  mineBtn.addEventListener("click", () => {
+    mineBtn.classList.add("gs-tab-active");
+    allBtn.classList.remove("gs-tab-active");
+    loadMyRuns(db, uid).catch((err) => reportLoadError(err));
+  });
+  allBtn.addEventListener("click", () => {
+    allBtn.classList.add("gs-tab-active");
+    mineBtn.classList.remove("gs-tab-active");
+    loadAllRuns(db).catch((err) => reportLoadError(err));
+  });
+}
+
+function reportLoadError(err) {
+  console.error("History: load failed", err);
+  document.getElementById("hBestSection").style.display = "none";
+  const statusEl = document.getElementById("hStatus");
+  if (err && err.code === "failed-precondition") {
+    // Firestore's own error for this includes a direct link to
+    // auto-create the missing composite index — that link only shows up
+    // in the real browser console (err.message), not here, since it's
+    // specific to this Firebase project.
+    statusEl.textContent = "This query needs a Firestore index — open the browser console for a one-click link to create it.";
+  } else {
+    statusEl.textContent = "Could not load history.";
+  }
+}
+
+async function main() {
+  const statusEl = document.getElementById("hStatus");
+  const bestSectionEl = document.getElementById("hBestSection");
 
   if (!configured) {
     statusEl.textContent = "History isn't configured yet — see firebaseConfig.js.";
@@ -259,43 +391,11 @@ async function main() {
       });
     });
 
-    const snap = await db.collection("geostreakRuns")
-      .where("uid", "==", user.uid)
-      .orderBy("playedAt", "desc")
-      .limit(RUNS_LIMIT)
-      .get();
-
-    if (snap.empty) {
-      statusEl.innerHTML = 'No runs recorded on this browser yet — play a round of <a href="geoStreakGame.html">GeoStreak</a> first.';
-      bestSectionEl.style.display = "none";
-      return;
-    }
-
-    const runs = snap.docs.map((doc) => doc.data());
-    const best = runs.reduce((a, b) => (b.finalStreak > a.finalStreak ? b : a), runs[0]);
-
-    statusEl.textContent = runs.length === RUNS_LIMIT
-      ? `Showing your ${RUNS_LIMIT} most recent runs.`
-      : `${runs.length} run${runs.length === 1 ? "" : "s"} on this account.`;
-
-    bestEl.innerHTML = buildRunCard(best, { best: true });
-    listEl.innerHTML = runs.map((r) => buildRunCard(r)).join("");
-    wireRunToggles(bestEl);
-    wireRunToggles(listEl);
-    wireExportButtons(bestEl);
-    wireExportButtons(listEl);
+    wireCopyUidLink(user.uid);
+    wireHistoryTabs(db, user.uid);
+    await loadMyRuns(db, user.uid);
   } catch (err) {
-    console.error("History: load failed", err);
-    bestSectionEl.style.display = "none";
-    if (err && err.code === "failed-precondition") {
-      // Firestore's own error for this includes a direct link to
-      // auto-create the missing composite index — that link only shows up
-      // in the real browser console (err.message), not here, since it's
-      // specific to this Firebase project.
-      statusEl.textContent = "This query needs a Firestore index — open the browser console for a one-click link to create it.";
-    } else {
-      statusEl.textContent = "Could not load your history.";
-    }
+    reportLoadError(err);
   }
 }
 

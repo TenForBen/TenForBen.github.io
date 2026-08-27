@@ -547,9 +547,44 @@ to look back at.
 
 Unlike the public leaderboard, run history is **private** —
 `firestore.rules` only allows a player to read documents where
-`uid == request.auth.uid`. This is granular play-by-play data, not a
-headline number, so there's no reason for it to be world-readable the way
-the leaderboard is.
+`uid == request.auth.uid`, or where the reader is one of a short
+hardcoded list of master UIDs (below). This is granular play-by-play
+data, not a headline number, so there's no reason for it to be
+world-readable the way the leaderboard is.
+
+### Master access (the "All Players" tab)
+
+A short allowlist of anonymous-auth UIDs — `firestore.rules`' `isMaster()`
+— can see everyone's run history, not just their own: `history.html` gets
+an extra "All Players" tab (hidden for everyone else) showing the most
+recent `RUNS_LIMIT` runs across every player, nickname included per card
+so it's clear whose is whose. No "Personal Best" pin on that view — it's
+a recent-activity feed across everyone, not one player's best.
+
+This is **real** access control, not the "client-judged, gameable via
+devtools" caveat the streak system carries — `isMaster()` is enforced by
+Firestore itself, server-side, so a non-master browser genuinely cannot
+read another player's runs no matter what it sends.
+
+**Bootstrapping a master UID**, since there's no admin panel to grant one
+through:
+
+1. From the browser you want as master, open `history.html` and click
+   **"Copy my player ID"** (below the status line) — copies that
+   browser's anonymous-auth UID to the clipboard. It's always visible to
+   everyone, not just masters — a UID on its own grants nothing without
+   also being on the allowlist below, so there's nothing sensitive about
+   showing it.
+2. Add that UID to **both** `MASTER_UIDS` in `historyPage.js` and
+   `isMaster()`'s list in `firestore.rules` — they're two independent
+   copies (a JS array and a Firestore rules list, no shared source
+   between them), kept in sync by hand. `MASTER_UIDS` only controls
+   whether the tab is *shown*; `isMaster()` is what actually gates the
+   read. Update one without the other and you get either a tab that
+   403s, or working access with no visible way to reach it.
+3. Republish `firestore.rules` (Firestore Database -> Rules -> paste ->
+   Publish) and redeploy the `historyPage.js` change together — same
+   one-time console step as every other rules change in this project.
 
 ### Why the "personal best" section doesn't need a second query
 
