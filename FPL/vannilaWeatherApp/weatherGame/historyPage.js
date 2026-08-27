@@ -88,11 +88,18 @@ function haversineKm(lat1, lon1, lat2, lon2) {
 
 // Running total of the distance strung across the cities guessed so far
 // this run, city to city in order — 0 on the first guessed city, and by
-// the last row the whole run's traveled distance. A round with no
-// coordinates (timed out, or an older run recorded before coordinates
-// were saved) breaks the chain right there rather than guessing at it —
-// its own cell shows nothing, and the running total picks back up from
-// the next round that does have them.
+// the last row the whole run's traveled distance. Each entry also keeps
+// `step`, that round's own hop from the previous city (null on whichever
+// round starts the chain — the very first guess, or the first guess
+// after a gap — since there's nothing before it to measure from), so the
+// table can show both "how far so far" and "how far just now" without a
+// second pass over the rounds.
+//
+// A round with no coordinates (timed out, or an older run recorded
+// before coordinates were saved) breaks the chain right there rather
+// than guessing at it — its own cell shows nothing, and the running
+// total picks back up (with step reset to null) from the next round that
+// does have them.
 function buildDistanceColumn(rounds) {
   let total = 0;
   let last = null;
@@ -101,9 +108,13 @@ function buildDistanceColumn(rounds) {
       last = null;
       return null;
     }
-    if (last) total += haversineKm(last.lat, last.lon, r.lat, r.lon);
+    let step = null;
+    if (last) {
+      step = haversineKm(last.lat, last.lon, r.lat, r.lon);
+      total += step;
+    }
     last = r;
-    return Math.round(total);
+    return { total: Math.round(total), step: step != null ? Math.round(step) : null };
   });
 }
 
@@ -116,7 +127,10 @@ function buildRoundsTable(rounds) {
     const temp = r.temp != null
       ? `<span class="${tempClosenessClass(r)}">${Math.round(r.temp)}°C</span>`
       : "&mdash;";
-    const distance = distances[i] != null ? `${distances[i].toLocaleString()} km` : "&mdash;";
+    const d = distances[i];
+    const distance = d != null
+      ? `${d.total.toLocaleString()} km${d.step != null ? ` (+${d.step.toLocaleString()} km)` : ""}`
+      : "&mdash;";
     return `
       <tr>
         <td>${i + 1}</td>

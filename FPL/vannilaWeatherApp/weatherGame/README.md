@@ -444,15 +444,20 @@ worth calling out. Exactly at the threshold is gold; within 2 degrees
 either side is green; anything wider gets no color
 (`tempClosenessClass()` in `historyPage.js`).
 
-The **Distance** column is a running total, not per-row: 0 on the first
-guessed city, then the great-circle distance added on as each next city
-gets guessed, so the last row is the whole run's traveled distance
-(`buildDistanceColumn()` in `historyPage.js`, its own copy of
-`ui.js`'s `haversineKm()` per this page's self-contained convention). A
-round with no coordinates — timed out, or an older run recorded before
-coordinates were saved (`lat`/`lon` on each round in `app.js`) — shows
-"—" and breaks the running chain right there rather than guessing;
-the total picks back up from the next round that has them.
+The **Distance** column shows both a running total and that round's own
+hop: 0 on the first guessed city, then `total km (+step km)` on each
+next one — the running great-circle distance across every city guessed
+so far, plus in brackets just the leg from the previous city to this one
+(`buildDistanceColumn()` in `historyPage.js`, its own copy of `ui.js`'s
+`haversineKm()` per this page's self-contained convention; the bracketed
+number is the same value the running total was already computing per
+step, just kept instead of discarded). No bracket on whichever round
+starts a fresh chain — the very first guess, or the first guess after a
+gap — since there's nothing before it to measure from. A round with no
+coordinates — timed out, or an older run recorded before coordinates
+were saved (`lat`/`lon` on each round in `app.js`) — shows "—" and
+breaks the running chain right there rather than guessing; the total
+picks back up (bracket-less) from the next round that has them.
 
 **Export** (the 📄 button on each run card) is the browser's own print
 dialog with "Save as PDF" picked as the destination — no PDF library, no
