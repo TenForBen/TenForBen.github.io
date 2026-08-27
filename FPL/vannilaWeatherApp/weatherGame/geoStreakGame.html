@@ -445,13 +445,28 @@
       color: #7dd3fc;
       font-weight: bold;
     }
-    .gs-leaderboard-accuracy {
+    .gs-leaderboard-runs,
+    .gs-leaderboard-correct,
+    .gs-leaderboard-avg {
       font-family: "Courier New", Courier, monospace;
       color: #6b7fa8;
       font-size: 0.75rem;
-      width: 3em;
+      width: 2.6em;
       text-align: right;
+      flex-shrink: 0;
     }
+    /* Column labels above the list — same row shape (reuses
+       .gs-leaderboard-list li's flex layout) as the data rows below it,
+       just bold/muted/uppercase instead of a real ranking. */
+    .gs-leaderboard-header-list { margin-bottom: 2px; }
+    .gs-leaderboard-header-row {
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.7rem !important;
+      color: #6b7fa8;
+      font-weight: bold;
+    }
+    .gs-leaderboard-header-row .gs-leaderboard-name { color: #6b7fa8; }
 
     .gs-pagination {
       display: flex;
@@ -635,6 +650,16 @@
           <button type="button" id="gsLbTabOverall" class="gs-tab-btn gs-tab-active">Overall</button>
           <button type="button" id="gsLbTabToday" class="gs-tab-btn">Today</button>
         </div>
+        <ul class="gs-leaderboard-list gs-leaderboard-header-list">
+          <li class="gs-leaderboard-header-row">
+            <span class="gs-leaderboard-rank">#</span>
+            <span class="gs-leaderboard-name">Name</span>
+            <span class="gs-leaderboard-streak" title="Highest streak">Str</span>
+            <span class="gs-leaderboard-runs" title="Total runs">Runs</span>
+            <span class="gs-leaderboard-correct" title="Total correct">Cor</span>
+            <span class="gs-leaderboard-avg" title="Correct ÷ runs">Avg</span>
+          </li>
+        </ul>
         <div id="gsLeaderboardList"></div>
         <div id="gsLeaderboardPagination" class="gs-pagination"></div>
       </div>

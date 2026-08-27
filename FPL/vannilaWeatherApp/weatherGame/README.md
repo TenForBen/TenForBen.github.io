@@ -318,8 +318,31 @@ One Firestore document per player, in the `geostreakLeaderboard`
 collection, keyed by their anonymous-auth uid:
 
 ```
-{ nickname: "Player4492", bestStreak: 22, totalCorrect: 125, totalAttempts: 139, updatedAt: <server timestamp> }
+{ nickname: "Player4492", bestStreak: 22, totalCorrect: 125, totalAttempts: 139, totalRuns: 31, updatedAt: <server timestamp> }
 ```
+
+The ranked list itself shows **# · Name · Str (highest streak) · Runs ·
+Cor (total correct) · Avg** — `Avg` is `totalCorrect / totalRuns`
+(correct guesses per run, not per round — a different number from the
+old accuracy-by-round % this column replaced), computed client-side in
+`renderRow()`, not stored. All three of `totalCorrect`/`totalAttempts`/
+`totalRuns` come straight from `app.js`'s own lifetime, this-browser
+counters (the same numbers the Insights panel's "ALL-TIME, THIS BROWSER"
+row already shows) — nothing new is tracked locally for this, they just
+weren't being sent to Firestore before.
+
+**These three only update alongside a new personal best** — same
+limitation `totalCorrect`/`totalAttempts` already had, now extended to
+`totalRuns` too, since all of them ride on `submitScore()`, which only
+fires (and which `firestore.rules`' `bestStreak > resource.data.bestStreak`
+gate only accepts) when a run's streak beats this player's stored one. A
+player who's played 40 runs since their last personal best still shows
+whatever `totalRuns` was *at* that best, not 40 more — the leaderboard
+undercounts an active-but-not-currently-improving player's real total.
+Decoupling these fields from the streak gate (so every run's end updates
+them regardless of whether the streak improved) would need a different
+rules shape and isn't built. A row written before this column existed has
+none of the three yet — shown as "—", not a misleading 0.
 
 A **nickname** defaults to a random `PlayerNNNN`. Setting one is a
 one-time thing: a "Playing as" row above the search box asks for it once,
@@ -358,16 +381,16 @@ collection described above — an all-time personal best per player.
 per player *per calendar day* (doc id `"{uid}_{date}"`):
 
 ```
-{ uid: "abc123...", nickname: "Player4492", bestStreak: 6, date: "2026-08-16", updatedAt: <server timestamp> }
+{ uid: "abc123...", nickname: "Player4492", bestStreak: 6, totalCorrect: 18, totalAttempts: 20, totalRuns: 4, date: "2026-08-16", updatedAt: <server timestamp> }
 ```
 
 Submitted the same improvement-only way as Overall, to the same doc every
 time you finish a run *that day* — a new day just means a new doc id, so
 there's nothing to reset or roll over at midnight; yesterday's doc is
-simply never written to again. Today doesn't track accuracy the way
-Overall does (no `totalCorrect`/`totalAttempts`) — that's flagged as a
-possible later addition, not built yet, so an accuracy column on the Today
-tab currently just reads "—".
+simply never written to again. Today tracks the same
+`totalCorrect`/`totalAttempts`/`totalRuns` fields Overall does (added
+alongside the Runs/Correct/Avg columns above — a doc from before that
+has none of them, same "—" fallback as an old Overall row).
 
 **"Today" is Central European time, not the viewer's own timezone** — a
 player in Tokyo and one in Toronto should see the same leaderboard, so the

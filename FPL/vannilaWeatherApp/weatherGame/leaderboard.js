@@ -176,6 +176,7 @@ const Leaderboard = (() => {
         bestStreak: streak,
         totalCorrect: stats.totalCorrect,
         totalAttempts: stats.totalAttempts,
+        totalRuns: stats.gamesPlayed,
         updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
       }, { merge: true });
     } catch (err) {
@@ -203,6 +204,9 @@ const Leaderboard = (() => {
         uid,
         nickname: getNickname(),
         bestStreak: streak,
+        totalCorrect: stats.totalCorrect,
+        totalAttempts: stats.totalAttempts,
+        totalRuns: stats.gamesPlayed,
         date,
         updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
       }, { merge: true });
@@ -241,18 +245,27 @@ const Leaderboard = (() => {
     }
   }
 
+  // Runs/Correct/Avg all come from fields only ever written alongside a
+  // new personal best (see submitScore/submitDailyScore and
+  // firestore.rules' bestStreak-improvement gate) — a very active player
+  // who hasn't beaten their own record recently will show a lower Runs
+  // count here than they've actually played. A row written before this
+  // column existed has none of the three yet (undefined, not 0) — shown
+  // as "—" rather than a misleading 0.
   function renderRow(doc, rank) {
     const d = doc.data();
-    const accuracy = d.totalAttempts
-      ? `${Math.round((d.totalCorrect / d.totalAttempts) * 100)}%`
-      : "—";
+    const runs = typeof d.totalRuns === "number" ? d.totalRuns : null;
+    const correct = typeof d.totalCorrect === "number" ? d.totalCorrect : null;
+    const avg = runs && correct != null ? (correct / runs).toFixed(1) : "—";
     const mine = doc.id === uid ? " gs-leaderboard-me" : "";
     return `
       <li class="${mine}">
         <span class="gs-leaderboard-rank">${rank}</span>
         <span class="gs-leaderboard-name">${escapeHtml(d.nickname || "Anonymous")}</span>
-        <span class="gs-leaderboard-streak">${d.bestStreak}</span>
-        <span class="gs-leaderboard-accuracy">${accuracy}</span>
+        <span class="gs-leaderboard-streak" title="Highest streak">${d.bestStreak}</span>
+        <span class="gs-leaderboard-runs" title="Total runs">${runs ?? "—"}</span>
+        <span class="gs-leaderboard-correct" title="Total correct">${correct ?? "—"}</span>
+        <span class="gs-leaderboard-avg" title="Correct ÷ runs">${avg}</span>
       </li>
     `;
   }
