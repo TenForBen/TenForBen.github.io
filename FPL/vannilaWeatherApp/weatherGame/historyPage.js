@@ -21,7 +21,7 @@ const RUNS_LIMIT = 100;
 // Firestore rules file and a browser script. A UID goes in this list
 // after someone clicks "Copy my player ID" (below) from that browser and
 // hands it to whoever maintains this file.
-const MASTER_UIDS = ["B0N7TfmkrXTaYjB2TBCVOBVtIhM2"];
+const MASTER_UIDS = ["B0N7TfmkrXTaYjB2TBCVOBVtIhM2", "MsRKlqcPecOBng8SHekRF5YCVFJ3"];
 
 const configured = typeof firebaseConfig !== "undefined"
   && firebaseConfig.apiKey
