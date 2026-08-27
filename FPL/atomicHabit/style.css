@@ -1,0 +1,293 @@
+/* Shared by every page in this folder — same "warm card on a soft
+   gradient" shape as ../weatherGame/checklist/style.css, own palette
+   (green/teal, not that page's sunrise orange) so this reads as its own
+   corner of the site rather than a GeoStreak spinoff. */
+
+:root {
+  --bg-deep: #123128;
+  --bg-mid: #1f5c47;
+  --bg-warm: #2f8f6b;
+  --bg-light: #8fd6ae;
+  --ink: #16281f;
+  --ink-soft: #5c7568;
+  --card: rgba(255, 255, 255, 0.92);
+  --card-border: rgba(255, 255, 255, 0.6);
+  --accent: #2f8f6b;
+  --accent-strong: #1f6e50;
+  --gold: #d98f1c;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+  background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 45%, var(--bg-warm) 78%, var(--bg-light) 100%);
+  background-attachment: fixed;
+}
+
+.ah-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px;
+  color: #eafff2;
+}
+.ah-brand {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-size: 1.05rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+.ah-back-link {
+  color: #d7ffe8;
+  font-size: 0.85rem;
+  text-decoration: none;
+  opacity: 0.85;
+}
+.ah-back-link:hover { opacity: 1; text-decoration: underline; }
+
+.ah-main {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 4px 20px 60px;
+}
+
+.ah-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 20px 22px;
+  margin-bottom: 18px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 12px 32px rgba(18, 49, 40, 0.25);
+}
+.ah-card h1, .ah-card h2 {
+  margin-top: 0;
+  color: var(--accent-strong);
+}
+.ah-card p { line-height: 1.55; }
+.ah-card p:last-child { margin-bottom: 0; }
+.ah-kicker {
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0 0 6px;
+}
+
+.ah-laws {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.ah-laws li {
+  background: rgba(47, 143, 107, 0.08);
+  border: 1px solid rgba(47, 143, 107, 0.2);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+}
+.ah-laws strong { display: block; color: var(--accent-strong); font-size: 0.9rem; }
+@media (max-width: 460px) {
+  .ah-laws { grid-template-columns: 1fr; }
+}
+
+.ah-habit-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ah-habit-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 16px 18px;
+  color: var(--ink);
+  text-decoration: none;
+  backdrop-filter: blur(6px);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.ah-habit-link:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(18, 49, 40, 0.2); }
+.ah-habit-name { font-weight: 700; color: var(--accent-strong); }
+.ah-habit-sub { display: block; font-size: 0.78rem; color: var(--ink-soft); margin-top: 2px; font-weight: 400; }
+.ah-habit-arrow { color: var(--accent); font-size: 1.1rem; }
+
+/* ---- Date bar (sugarTracking.html) — prev/next, a jump-to-Today
+   button, and a native <input type="date"> for direct backdated entry,
+   same idea as ../weatherGame/checklist's date bar plus the calendar
+   jump that page's README lists as "not in this version". ---- */
+.ah-datebar {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto auto;
+  align-items: center;
+  gap: 8px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  backdrop-filter: blur(6px);
+}
+.ah-nav-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(47, 143, 107, 0.35);
+  background: #fff;
+  color: var(--accent-strong);
+  font-size: 1rem;
+  cursor: pointer;
+}
+.ah-nav-btn:hover:not(:disabled) { background: var(--accent); color: #fff; }
+.ah-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.ah-date-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 0;
+}
+.ah-date-label { font-weight: 700; font-size: 0.95rem; color: var(--ink); }
+.ah-date-value { font-size: 0.72rem; color: var(--ink-soft); white-space: nowrap; }
+.ah-today-btn, .ah-calendar-btn {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-strong);
+  background: rgba(47, 143, 107, 0.12);
+  border: 1px solid rgba(47, 143, 107, 0.3);
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ah-today-btn:hover, .ah-calendar-btn:hover { background: rgba(47, 143, 107, 0.22); }
+.ah-today-btn:disabled { opacity: 0.4; cursor: default; }
+.ah-calendar-input {
+  /* The real <input type="date"> stays invisible but present (not
+     display:none, or some browsers won't let showPicker() open it) —
+     the button above is what's actually seen and clicked. */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ah-streak {
+  text-align: center;
+  font-weight: 700;
+  color: #eafff2;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  margin: 0 0 16px;
+  min-height: 1.4em;
+}
+
+.ah-progress {
+  display: flex;
+  gap: 6px;
+  margin: 0 0 18px;
+}
+.ah-progress-seg {
+  flex: 1 1 auto;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.35);
+  transition: background 0.2s ease;
+}
+.ah-progress-seg.ah-progress-fill { background: linear-gradient(90deg, var(--gold), var(--accent)); }
+
+.ah-list {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ah-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 13px 16px;
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+}
+.ah-item:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(18, 49, 40, 0.18); }
+.ah-item.ah-checked {
+  background: rgba(234, 255, 242, 0.95);
+  border-color: rgba(47, 143, 107, 0.55);
+}
+
+.ah-checkbox {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid rgba(47, 143, 107, 0.45);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.ah-item.ah-checked .ah-checkbox {
+  background: linear-gradient(135deg, var(--gold), var(--accent));
+  border-color: transparent;
+  transform: scale(1.05);
+}
+.ah-checkbox svg {
+  width: 14px;
+  height: 14px;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.ah-item.ah-checked .ah-checkbox svg { opacity: 1; transform: scale(1); }
+
+.ah-item-text { flex: 1 1 auto; }
+.ah-item-title { font-weight: 600; font-size: 0.95rem; color: var(--ink); display: block; }
+.ah-item.ah-checked .ah-item-title { color: var(--accent-strong); }
+.ah-item-subtitle { font-size: 0.78rem; color: var(--ink-soft); display: block; margin-top: 2px; }
+
+.ah-status {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #eafff2;
+  opacity: 0.85;
+}
+
+.ah-footer {
+  text-align: center;
+  padding: 10px 0 30px;
+}
+.ah-footer a {
+  color: #eafff2;
+  font-size: 0.75rem;
+  opacity: 0.7;
+  text-decoration: none;
+}
+.ah-footer a:hover { opacity: 1; text-decoration: underline; }
+
+@media (max-width: 420px) {
+  .ah-main { padding: 4px 14px 50px; }
+}
