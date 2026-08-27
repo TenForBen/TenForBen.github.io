@@ -83,10 +83,13 @@ service cloud.firestore {
     // this is written ONCE, at Game Over, and never updated again.
     match /geostreakRuns/{runId} {
       // Private — a player can only read their own run history, never
-      // anyone else's. This is real per-round detail, not just a headline
-      // number, so (unlike the public leaderboard) there's no reason for
-      // it to be world-readable.
-      allow read: if request.auth != null && resource.data.uid == request.auth.uid;
+      // anyone else's, unless they're one of the hardcoded master UIDs
+      // below (History page's "All Players" tab). This is real per-round
+      // detail, not just a headline number, so (unlike the public
+      // leaderboard) there's no reason for it to be world-readable by
+      // default.
+      allow read: if request.auth != null
+        && (resource.data.uid == request.auth.uid || isMaster());
 
       allow create: if request.auth != null
         && request.auth.uid == request.resource.data.uid
@@ -97,6 +100,19 @@ service cloud.firestore {
       allow update: if false;
       allow delete: if false;
     }
+  }
+
+  // History page's "All Players" tab — a hardcoded allowlist, not a
+  // Firestore-stored role, since there's no admin UI to manage one and
+  // this is a small personal project. Empty by default (matches nobody).
+  // Must be kept in sync by hand with MASTER_UIDS in historyPage.js —
+  // that copy only controls whether the tab is shown, this one is the
+  // real enforcement, so a UID added to one but not the other either
+  // shows a tab that 403s (JS updated, rules not yet republished) or
+  // grants access with no visible way to use it (rules updated, JS not
+  // yet redeployed) — republish/redeploy both together.
+  function isMaster() {
+    return request.auth != null && request.auth.uid in ['B0N7TfmkrXTaYjB2TBCVOBVtIhM2'];
   }
 
   function isValidEntry(data) {

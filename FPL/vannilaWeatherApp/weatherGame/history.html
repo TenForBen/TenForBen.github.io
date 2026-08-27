@@ -60,8 +60,36 @@
       color: #6b7fa8;
       font-family: "Courier New", Courier, monospace;
       font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+    .gs-copy-uid {
+      text-align: center;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
       margin-bottom: 28px;
     }
+    .gs-copy-uid a { color: #6b7fa8; }
+    .gs-copy-uid a:hover { color: #7dd3fc; }
+
+    .gs-history-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .gs-tab-btn {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+      color: #93a4c3;
+      background: transparent;
+      border: 1px solid #1b2a4a;
+      border-radius: 4px;
+      padding: 6px 14px;
+      cursor: pointer;
+    }
+    .gs-tab-btn:hover { color: #7dd3fc; border-color: #1f6feb; }
+    .gs-tab-btn.gs-tab-active { color: #060a14; background: #7dd3fc; border-color: #7dd3fc; }
 
     h2.gs-section-title {
       font-family: "Courier New", Courier, monospace;
@@ -197,6 +225,7 @@
     @media print {
       body { background: #fff; color: #14213d; }
       .gs-header, .gs-run-caret, .gs-run-export-btn { display: none; }
+      .gs-copy-uid, .gs-history-tabs { display: none !important; }
       h1, .gs-status, h2.gs-section-title { color: #14213d; }
       .gs-run-card, .gs-run-card-best {
         background: #fff;
@@ -235,13 +264,22 @@
   <main class="container">
     <h1>Your Run History</h1>
     <p class="gs-status" id="hStatus">Loading&hellip;</p>
+    <p class="gs-copy-uid"><a href="#" id="hCopyUid" style="display: none;">Copy my player ID</a></p>
+
+    <!-- Master accounts only (see MASTER_UIDS in historyPage.js) — hidden
+         for everyone else, since it wouldn't work for them anyway:
+         firestore.rules' isMaster() is the real gate. -->
+    <div class="gs-history-tabs" id="hTabs" style="display: none;">
+      <button type="button" id="hTabMine" class="gs-tab-btn gs-tab-active">My Runs</button>
+      <button type="button" id="hTabAll" class="gs-tab-btn">All Players</button>
+    </div>
 
     <div id="hBestSection">
       <h2 class="gs-section-title">🏆 Personal Best</h2>
       <div id="hBest"></div>
     </div>
 
-    <h2 class="gs-section-title">All Runs</h2>
+    <h2 class="gs-section-title" id="hListTitle">All Runs</h2>
     <div id="hList"></div>
   </main>
 
