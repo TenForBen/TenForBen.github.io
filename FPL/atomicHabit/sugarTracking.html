@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sugar Control — TENFORBEN</title>
+  <link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text x=%228%22 y=%2213%22 font-size=%2214%22 text-anchor=%22middle%22>%F0%9F%8D%AC</text></svg>"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="ah-header">
+    <div class="ah-brand">TENFORBEN — Sugar Control</div>
+    <a class="ah-back-link" href="index.html">&larr; Atomic Habits</a>
+  </header>
+
+  <main class="ah-main">
+    <div class="ah-datebar">
+      <button type="button" id="stPrevDay" class="ah-nav-btn" aria-label="Previous day">&larr;</button>
+      <div class="ah-date-info">
+        <span class="ah-date-label" id="stDateLabel">Today</span>
+        <span class="ah-date-value" id="stDateValue"></span>
+      </div>
+      <button type="button" id="stNextDay" class="ah-nav-btn" aria-label="Next day">&rarr;</button>
+      <button type="button" id="stCalendarBtn" class="ah-calendar-btn" aria-label="Pick a date">&#128197;</button>
+      <button type="button" id="stTodayBtn" class="ah-today-btn">Today</button>
+      <!-- Real date picker, invisible — stCalendarBtn above opens it via
+           showPicker(). Backdated entry: any past date is fair game,
+           future dates are blocked via max below. -->
+      <input type="date" id="stDateInput" class="ah-calendar-input" tabindex="-1" aria-hidden="true" />
+    </div>
+
+    <p class="ah-streak" id="stStreak"></p>
+
+    <div class="ah-progress" id="stProgress">
+      <span class="ah-progress-seg"></span>
+      <span class="ah-progress-seg"></span>
+      <span class="ah-progress-seg"></span>
+    </div>
+
+    <ul class="ah-list" id="stList"></ul>
+
+    <p class="ah-status" id="stStatus"></p>
+  </main>
+
+  <footer class="ah-footer">
+    <a href="README.md">About this tracker</a>
+  </footer>
+
+  <script src="sugarTracking.js"></script>
+</body>
+</html>
