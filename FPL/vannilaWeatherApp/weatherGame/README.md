@@ -625,6 +625,144 @@ their history once:
   along the way (20 reads flat -> 11 for a first page), since most visits
   never go past page 1.
 
+## Time Quiz
+
+A Kahoot-style companion mode, not a variant of the streak itself — same
+core loop as GeoStreak (type a city whose current temperature matches a
+condition, judged live against OpenWeatherMap), but a fixed 15-question
+quiz instead of an infinite streak, scored by how fast you answer rather
+than how long you survive. Play it at
+[`timeQuiz.html`](./timeQuiz.html) ("Start Time Quiz", next to the
+renamed "Start Streak Game" button on GeoStreak's own start screen).
+
+Standalone for now, deliberately: no shared/live session, no
+leaderboard, no run history. Everything in [`timeQuiz.js`](./timeQuiz.js)
+is built with a later multiplayer mode in mind without actually building
+one yet — see "Built for later" below.
+
+### Scoring
+
+20 seconds per question, split linearly into 1000 points: answer in 1s
+and it's worth 950, in 5s it's worth 750, right at the buzzer it's worth
+0. A wrong city — or the right temperature in the wrong region — scores
+a flat 0 regardless of how fast it came in. `computePoints()` is the
+whole formula: `round(1000 * (1 - elapsedSeconds / 20))`, clamped to
+`[0, 1000]`.
+
+The clock itself is `performance.now()`-based, not `Date.now()` —
+immune to a system clock adjustment mid-question — and the score-worthy
+elapsed time is captured **the instant Submit is clicked**, before the
+network round-trip to look the city up even starts. A slow OpenWeatherMap
+response costs nothing; only how long you took to type and hit Submit
+does.
+
+No streak, no elimination: a wrong answer doesn't end the quiz, it just
+scores 0 and moves on — all 15 questions play out every time.
+
+### Question generation — region-scoped, season-aware
+
+Each question names one of six regions (India, United States, Canada,
+Europe, South America, Africa) and a temperature condition; the answer
+has to satisfy both — right temperature in the wrong region scores 0,
+same as a wrong temperature. `REGIONS` in `timeQuiz.js` holds, per
+region: which country codes qualify (`sys.country` on the OpenWeatherMap
+response, checked against a broad-but-not-exhaustive list — easy to
+extend), and a **[min, max] range** — not a short fixed list — per
+tier/direction: `moderate` for questions 1–10, `tough` for 11–15, the
+same "gets harder partway through" shape GeoStreak's own tough-round
+rule already uses.
+
+**Mixing is ported straight from GeoStreak's own `pickThreshold()`,** not
+reinvented: a random integer from the range, tracked in a per-
+region/tier/direction "already asked" set that won't repeat a value
+until the whole range is exhausted (then refills) — earlier versions of
+this page drew from a short fixed list of 3-4 numbers per region, which
+repeated constantly and felt scripted rather than random. Direction
+(above/below) strictly **alternates** question to question, same as
+GeoStreak's `nextDirection` — not a fresh coin flip each time — with the
+starting side randomised per quiz.
+
+**Which regions actually get asked is a checkbox picker on the start
+screen** — any combination, remembered across visits in
+`localStorage["timeQuiz_lastRegions"]`. Leaving every box unchecked
+plays **India only** rather than refusing to start; `buildQuestions()`
+takes the active region list as a parameter for exactly this. One real
+bug this surfaced: the "avoid picking the same region twice in a row"
+logic used to spin forever with only one region selected, since there's
+no alternative to fall back to — a single-region quiz (the India-only
+default, or any one box checked alone) is now special-cased to just
+repeat that one region, rather than routing through the general
+avoid-repeats loop at all.
+
+The thresholds themselves are hand-picked for **the season this was
+built in** (August/September — northern-hemisphere late summer,
+southern-hemisphere late winter), not generic year-round numbers: India's
+moderate pool stays on the "still hot" side since nearly the whole
+country is 25–35°C right now, while its tough pool's "below 5°C" only
+has an answer at real altitude (Leh, Manali, Darjeeling) — genuinely
+hard, not unanswerable. South America and Africa both currently span a
+real hot/cold split within one region (equatorial/northern areas warm
+year-round, southern-hemisphere portions in winter), so both directions
+are fair game there — unlike a region that's uniformly one season, where
+only one direction stays answerable. Revisit `REGIONS` by hand each
+season; nothing here recalculates it automatically.
+
+### Reusing a city mid-quiz
+
+Same city twice this quiz is flagged, not silently accepted — same idea
+as GeoStreak's own `usedCities` check in `submitGuess()`, ported here as
+a `usedCities` Set reset at the start of each quiz. Checked twice:
+before the network lookup (the raw typed string, lowercased — catches an
+immediate retype) and again once it resolves (the canonical
+`"name|country"` key — catches "Auckland" then "Auckland,NZ" resolving
+to the same place despite different raw text). Either check flags rather
+than scores 0: the clock keeps running, nothing is submitted, and the
+hint below the input says which city was already used — the player gets
+another real attempt at the same question, not a wasted one.
+
+### The gap between questions
+
+The fixed pause between questions (`GAP_SECONDS`) shows a large
+monospace countdown — the same `.tq-timer` styling as the live 20-second
+question clock, not a small text note — so it reads as a real countdown
+rather than an afterthought. A "Next question now" button still fires
+the advance early; the countdown is what happens if nothing is clicked.
+
+### Nickname
+
+`timeQuiz.js` shows "Playing as {nickname}" on the start screen and
+"{nickname}'s score" on the results screen — reading the exact same
+`localStorage["geoStreakGame_nickname"]` key GeoStreak's own
+`leaderboard.js` writes, so whatever name was set there just shows up
+here with no separate entry flow. Read-only on this page: editing a
+nickname stays GeoStreak's job. Computed **once** per page load and
+reused everywhere it's shown, rather than re-read per render —
+`leaderboard.js`'s own `getNickname()` falls back to a fresh random
+placeholder on every call when nothing's saved, which would otherwise
+show a different made-up name on the start screen than on the results
+screen.
+
+### Built for later: same quiz for everyone
+
+`buildQuestions(seed)` is a pure function of its seed — a seeded PRNG
+(`mulberry32`), not `Math.random()` — so the exact same 15 questions,
+in the exact same order, come out of the exact same seed every time.
+Solo play just seeds it from the clock, but a future "one admin starts
+it, everyone gets the same quiz" mode only needs to broadcast that one
+seed number to every player, not synchronize the actual question list.
+Nothing else here (timers, scoring, region-matching) assumes anything
+about who else might be playing.
+
+### Not in this version
+
+- **No live multiplayer** — see "Built for later" above for what's
+  already in place toward it.
+- **No persistence beyond a personal best.** `timeQuiz_bestScore` in
+  `localStorage` is the only thing saved — no Firestore, no leaderboard,
+  no per-question history the way GeoStreak's Run History keeps.
+- **No admin/host controls** — "1 admin can start the quiz" from the
+  original ask is exactly the multiplayer piece not built yet.
+
 ## Visual design
 
 Dark "weather station console" theme — deep navy background, a small
