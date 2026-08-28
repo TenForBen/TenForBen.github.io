@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/minty/bootstrap.min.css"
+  />
+  <title>Time Quiz — TENFORBEN Station</title>
+  <link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text x=%228%22 y=%2213%22 font-size=%2214%22 text-anchor=%22middle%22>%E2%8F%B1%EF%B8%8F</text></svg>"
+  />
+  <style>
+    body {
+      background: #060a14;
+      color: #cfe8ff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+    }
+
+    .tq-header {
+      background: linear-gradient(180deg, #0a1226 0%, #060a14 100%);
+      border-bottom: 1px solid #1b2a4a;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .tq-brand {
+      font-family: "Courier New", Courier, monospace;
+      letter-spacing: 1px;
+      font-size: 1rem;
+      color: #7dd3fc;
+    }
+    .tq-back-link {
+      font-family: "Courier New", Courier, monospace;
+      color: #93a4c3;
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+    .tq-back-link:hover { color: #7dd3fc; text-decoration: underline; }
+
+    main.tq-main {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 28px 20px 60px;
+    }
+
+    .tq-panel {
+      background: #0c1630;
+      border: 1px solid #1b2a4a;
+      border-radius: 10px;
+      padding: 24px 22px;
+      text-align: center;
+    }
+    .tq-panel h3 {
+      font-family: "Courier New", Courier, monospace;
+      color: #7dd3fc;
+      margin-bottom: 10px;
+    }
+    .tq-panel-sub {
+      color: #9db4de;
+      margin-bottom: 18px;
+    }
+    .tq-nickname {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+      color: #6b7fa8;
+      margin: -4px 0 14px;
+    }
+    .tq-howto {
+      text-align: left;
+      color: #93a4c3;
+      font-size: 0.85rem;
+      margin: 18px 0 0;
+      padding-left: 20px;
+    }
+    .tq-howto li { margin-bottom: 6px; }
+    .tq-best {
+      font-family: "Courier New", Courier, monospace;
+      color: #6b7fa8;
+      font-size: 0.8rem;
+      margin-top: 14px;
+    }
+
+    .tq-region-picker {
+      background: #0a1226;
+      border: 1px solid #1b2a4a;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin: 4px 0 18px;
+      text-align: left;
+    }
+    .tq-region-picker-label {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #6b7fa8;
+      margin: 0 0 10px;
+    }
+    .tq-region-checks {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 10px;
+    }
+    .tq-region-check-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      color: #cfe8ff;
+      cursor: pointer;
+      margin: 0;
+      font-weight: normal;
+    }
+    .tq-region-check {
+      width: 16px;
+      height: 16px;
+      accent-color: #7dd3fc;
+      cursor: pointer;
+    }
+
+    /* ---- Question screen ---- */
+    .tq-progress {
+      text-align: center;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.8rem;
+      color: #6b7fa8;
+      margin-bottom: 10px;
+    }
+    .tq-score-live {
+      text-align: center;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      color: #7dd3fc;
+      margin-bottom: 14px;
+    }
+    .tq-timer {
+      text-align: center;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 2.4rem;
+      font-weight: bold;
+      color: #7dd3fc;
+      margin-bottom: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+    .tq-timer.tq-timer-warn { color: #f0b429; }
+    .tq-timer.tq-timer-danger { color: #f87171; }
+    .tq-timer-bar-wrap {
+      height: 6px;
+      background: #101c3c;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+    .tq-timer-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #7dd3fc, #f0b429, #f87171);
+      transition: width 0.03s linear;
+    }
+    .tq-condition {
+      background: #0c1630;
+      border: 1px solid #1b2a4a;
+      border-radius: 10px;
+      padding: 22px;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .tq-region-badge {
+      display: inline-block;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #7dd3fc;
+      background: #101c3c;
+      border: 1px solid #1b2a4a;
+      border-radius: 20px;
+      padding: 4px 12px;
+      margin-bottom: 12px;
+    }
+    .tq-condition-text {
+      font-size: 1.3rem;
+      color: #e2ecff;
+      font-weight: 600;
+    }
+    .tq-input-row {
+      display: flex;
+      gap: 8px;
+    }
+    .tq-hint {
+      min-height: 1.4em;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #f0b429;
+      margin-top: 8px;
+    }
+
+    /* ---- Per-question result overlay ---- */
+    .tq-result-panel {
+      background: #0c1630;
+      border: 1px solid #1b2a4a;
+      border-radius: 10px;
+      padding: 26px 22px;
+      text-align: center;
+    }
+    .tq-result-badge {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      padding: 6px 16px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: 14px;
+    }
+    .tq-result-correct { color: #4ade80; border: 1px solid #4ade80; }
+    .tq-result-wrong { color: #f87171; border: 1px solid #f87171; }
+    .tq-result-detail {
+      color: #9db4de;
+      margin-bottom: 4px;
+    }
+    .tq-result-points {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #7dd3fc;
+      margin: 10px 0;
+    }
+    .tq-result-total {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.85rem;
+      color: #6b7fa8;
+      margin-bottom: 18px;
+    }
+    .tq-next-note {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      color: #6b7fa8;
+      margin-top: 12px;
+    }
+
+    /* ---- Final screen ---- */
+    .tq-final-score {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 3rem;
+      font-weight: bold;
+      color: #7dd3fc;
+      margin: 6px 0;
+    }
+    .tq-final-sub {
+      color: #9db4de;
+      margin-bottom: 20px;
+    }
+    .tq-breakdown {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      margin-top: 18px;
+      text-align: left;
+    }
+    .tq-breakdown th {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #6b7fa8;
+      padding: 6px 8px 6px 0;
+      border-bottom: 1px solid #1b2a4a;
+    }
+    .tq-breakdown td {
+      padding: 7px 8px 7px 0;
+      border-bottom: 1px solid #101a30;
+      color: #cfe8ff;
+    }
+    .tq-breakdown tr:last-child td { border-bottom: none; }
+    .tq-row-correct { color: #4ade80 !important; }
+    .tq-row-wrong { color: #f87171 !important; }
+    .tq-final-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 22px;
+    }
+  </style>
+</head>
+<body>
+  <header class="tq-header">
+    <div class="tq-brand">TENFORBEN // STATION — Time Quiz</div>
+    <a class="tq-back-link" href="geoStreakGame.html">&larr; GeoStreak</a>
+  </header>
+
+  <main class="tq-main">
+    <div id="tqStart"></div>
+    <div id="tqQuestion" style="display: none;"></div>
+    <div id="tqResult" style="display: none;"></div>
+    <div id="tqFinal" style="display: none;"></div>
+  </main>
+
+  <script src="../fetch.js"></script>
+  <script src="timeQuiz.js"></script>
+</body>
+</html>

@@ -545,7 +545,8 @@ class UI {
         <p class="gs-panel-sub">
           Name a city whose current temperature matches the condition. Keep the streak alive.
         </p>
-        <button type="button" id="gsStartBtn" class="btn btn-primary">Start Game</button>
+        <button type="button" id="gsStartBtn" class="btn btn-primary">Start Streak Game</button>
+        <a href="timeQuiz.html" class="btn btn-warning" id="gsTimeQuizBtn">Start Time Quiz</a>
         <ul class="gs-howto">
           <li>20 seconds per round.</li>
           <li>Each city can only be used once per run.</li>
