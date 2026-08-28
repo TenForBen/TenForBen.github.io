@@ -112,7 +112,7 @@ service cloud.firestore {
   // grants access with no visible way to use it (rules updated, JS not
   // yet redeployed) — republish/redeploy both together.
   function isMaster() {
-    return request.auth != null && request.auth.uid in ['B0N7TfmkrXTaYjB2TBCVOBVtIhM2', 'MsRKlqcPecOBng8SHekRF5YCVFJ3', 'WmoVyIkr2eVCtQHMPwoiTnKWZQp1'];
+    return request.auth != null && request.auth.uid in ['B0N7TfmkrXTaYjB2TBCVOBVtIhM2', 'MsRKlqcPecOBng8SHekRF5YCVFJ3', 'WmoVyIkr2eVCtQHMPwoiTnKWZQp1', 'M9odxs0JSTPAnFuewYOCB2BEPR03'];
   }
 
   function isValidEntry(data) {
