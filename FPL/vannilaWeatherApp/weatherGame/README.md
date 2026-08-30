@@ -276,12 +276,18 @@ elements:
   `showStartScreen()` synchronously as soon as it loads, and that needs
   the `Leaderboard` global (and `escapeHtml` from `../ui.js`) to already
   exist.
-- **`history.html`** / **`historyPage.js`** — the Run History page. A
-  separate page load, so it can't reuse `leaderboard.js`'s in-memory
-  Firebase state — it does its own minimal sign-in + query, self-contained
-  like `southernHemisphere/app.js` (its own small `escapeHtml`/
-  `flagEmoji`, rather than loading `../ui.js` for just those two
-  functions). Read-only: this page never writes to Firestore.
+- **`history.html`** / **`historyPage.js`** — the Run History page,
+  covering **both** games (a "GeoStreak"/"Time Quiz" switcher up top —
+  see [Leaderboard, Run History & Insights](#leaderboard-run-history--insights)
+  under Time Quiz). A separate page load, so it can't reuse
+  `leaderboard.js`'s in-memory Firebase state — it does its own minimal
+  sign-in + query, self-contained like `southernHemisphere/app.js` (its
+  own small `escapeHtml`/`flagEmoji`, rather than loading `../ui.js` for
+  just those two functions). Read-only: this page never writes to Firestore.
+- **`timeQuiz.html`** / **`timeQuiz.js`** / **`timeQuizLeaderboard.js`** —
+  Time Quiz itself, and its own leaderboard/run-history/insights module
+  (see [Time Quiz](#time-quiz) below). Same `firebaseConfig.js` /
+  `firestore.rules` as GeoStreak — one Firebase project, both games.
 - **`checklist/`** — not GeoStreak, not a game at all. A separate personal
   daily habit tracker, currently `localStorage`-only with a Firebase
   upgrade (reusing this same project) planned next — see
@@ -635,10 +641,13 @@ than how long you survive. Play it at
 [`timeQuiz.html`](./timeQuiz.html) ("Start Time Quiz", next to the
 renamed "Start Streak Game" button on GeoStreak's own start screen).
 
-Standalone for now, deliberately: no shared/live session, no
-leaderboard, no run history. Everything in [`timeQuiz.js`](./timeQuiz.js)
+No shared/live session yet — everything in [`timeQuiz.js`](./timeQuiz.js)
 is built with a later multiplayer mode in mind without actually building
-one yet — see "Built for later" below.
+one yet, see "Built for later" below — but it does have its own online
+leaderboard, full run history, and global "most used" insights, same
+Firebase project and same player identity as GeoStreak's; see
+[Leaderboard, Run History &amp; Insights](#leaderboard-run-history--insights)
+further down.
 
 ### Scoring
 
@@ -708,29 +717,34 @@ apart across 1000 simulated quizzes; the rest are those narrow-range
 cases with nowhere else to go).
 
 **Which regions actually get asked is a checkbox picker on the start
-screen** — any combination, remembered across visits in
-`localStorage["timeQuiz_lastRegions"]`. Leaving every box unchecked
-plays **World** rather than refusing to start; `buildQuestions()` takes
-the active region list as a parameter for exactly this. One real bug
-this surfaced: the "avoid picking the same region twice in a row" logic
-used to spin forever with only one region selected, since there's no
-alternative to fall back to — a single-region quiz (the World default,
-or any one box checked alone) is now special-cased to just repeat that
-one region, rather than routing through the general avoid-repeats loop
-at all.
+screen** — any combination, remembered across visits as
+`playerState.lastRegions` (see [Leaderboard, Run History &amp;
+Insights](#leaderboard-run-history--insights) below for where that state
+actually lives now). Leaving every box unchecked plays **World** rather
+than refusing to start; `buildQuestions()` takes the active region list
+as a parameter for exactly this. One real bug this surfaced: the "avoid
+picking the same region twice in a row" logic used to spin forever with
+only one region selected, since there's no alternative to fall back to —
+a single-region quiz (the World default, or any one box checked alone)
+is now special-cased to just repeat that one region, rather than routing
+through the general avoid-repeats loop at all.
 
 **The picker itself starts locked.** A first-time (or so-far-not-good-
 enough) player never sees the checkboxes at all — just a note explaining
 what unlocks them — and every quiz runs World-only regardless. Finishing
 a single quiz with `UNLOCK_CORRECT_COUNT` (10) or more correct, or a
 score of `UNLOCK_SCORE` (8,000) or higher, sets
-`localStorage["timeQuiz_regionsUnlocked"]` permanently (checked once per
-finished quiz in `renderFinal()`, never re-locked once set) and shows a
-"🎉 Region selection unlocked" note right there on the results screen —
-but the picker itself only appears the *next* time the start screen
-renders fresh, not retroactively within the run that just unlocked it,
-since `renderStart()` is what decides whether to show it and that
-already ran before this quiz existed.
+`playerState.regionsUnlocked` permanently (checked once per finished quiz
+in `renderFinal()`, never re-locked once set) and shows a "🎉 Region
+selection unlocked" note right there on the results screen — but the
+picker itself only appears the *next* time the start screen renders
+fresh, not retroactively within the run that just unlocked it, since
+`renderStart()` is what decides whether to show it. "Play Again" on the
+results screen goes back through `renderStart()` for exactly this reason
+— it used to wire straight to `startQuiz()`, which silently forced every
+replay back to World (it reads `.tq-region-check:checked` from a DOM that
+only exists on the start screen) regardless of what had just been
+unlocked; fixed alongside this same migration.
 
 The thresholds themselves are hand-picked for **the season this was
 built in** (August/September — northern-hemisphere late summer,
@@ -768,6 +782,25 @@ to the same place despite different raw text). Either check flags rather
 than scores 0: the clock keeps running, nothing is submitted, and the
 hint below the input says which city was already used — the player gets
 another real attempt at the same question, not a wasted one.
+
+### Quitting early
+
+A small "&#9209; Quit" button sits next to the timer on the question screen
+(`.tq-quit-btn`, muted like GeoStreak's own `.gs-pause-btn` but with a red
+hover, since this one ends the quiz rather than pausing it). Clicking it
+(after a native `confirm()`, the only irreversible action on this page)
+locks in whatever's been scored on already-answered questions as the
+final result — the question in progress at the moment of quitting is
+simply dropped, not scored as wrong or timed out. `renderFinal()` uses
+`answers.length` rather than the fixed `QUESTION_COUNT` everywhere it
+matters (the "N / M correct" line, the Firestore run's `questionCount`),
+and the results heading gets a "(quit early)" suffix plus a "quit after N
+of 15" note — so a 6-question quit reads honestly as 6 played, not as 9
+wrong answers it never actually faced. Region-unlock, best-score, and
+leaderboard submission all use whatever score/correct-count actually
+accumulated — no special-casing beyond that; the existing thresholds
+already handle a shorter run correctly (10+ correct genuinely can't
+happen before question 10, quit or not).
 
 ### The gap between questions
 
@@ -829,13 +862,145 @@ seed number to every player, not synchronize the actual question list.
 Nothing else here (timers, scoring, region-matching) assumes anything
 about who else might be playing.
 
+### Leaderboard, Run History &amp; Insights
+
+Same Firebase project as GeoStreak, same player — `timeQuizLeaderboard.js`
+(loaded on `timeQuiz.html`, alongside GeoStreak's own `leaderboard.js`
+loaded on `geoStreakGame.html`) signs in anonymously the same way, and
+since Firebase anonymous auth persists **per browser, not per page**, it
+resolves to the exact same `uid` GeoStreak already established — there's
+no separate "Time Quiz account." The nickname is the same story: both
+files read/write `localStorage["geoStreakGame_nickname"]`, so a name set
+on either page just shows up on the other. A visitor who opens Time Quiz
+before ever touching GeoStreak still gets asked to name themselves — a
+"Playing as ___ [Save]" row on the start screen (`nicknameRowHtml()`/
+`wireNicknameRow()`), simpler than GeoStreak's own setup-row/header-display
+toggle since this page has no persistent header slot to swap it into.
+
+Three collections mirror GeoStreak's own shape, `bestScore` (0–15,000: 15
+questions × 1,000 points max) standing in for `bestStreak`:
+
+- **`timeQuizLeaderboard/{uid}`** — all-time personal best, upserted only
+  when a run's score beats the stored one (same improvement-only
+  `firestore.rules` gate as `geostreakLeaderboard`).
+- **`timeQuizDaily/{uid}_{date}`** — the "Today" tab, same
+  Europe/Berlin-anchored calendar day as `geostreakDaily`.
+- **`timeQuizRuns/{runId}`** — one document per finished quiz, written
+  unconditionally (score of 0 included), same private
+  own-runs-or-master-only read rule as `geostreakRuns`:
+  ```
+  { uid, nickname, score, correctCount, questionCount,
+    regions: ["India", "United States"], rounds: [...15 entries...],
+    playedAt: <server timestamp> }
+  ```
+  `rounds` is exactly the `answers` array `timeQuiz.js` already builds for
+  its own results-screen breakdown table (region/condition/detail/correct/
+  elapsed/points) — sent as-is, not reshaped.
+
+**A fourth collection, `timeQuizPlayers/{uid}`, replaced this page's
+`localStorage` entirely** — best score, lifetime `totalCorrect`/
+`totalAttempts`/`totalRuns`, the permanent region-unlock flag, and the
+last-picked regions used to be five separate `localStorage` keys; now
+they're one private document (own-uid read/write only — unlike the public
+leaderboard collections above, there's no reason for a player's own
+settings to be world-readable):
+```
+{ bestScore: 11250, totalCorrect: 340, totalAttempts: 512, totalRuns: 38,
+  regionsUnlocked: true, lastRegions: ["india", "us"], updatedAt: <server timestamp> }
+```
+Fetched **once** per page load (`TimeQuizBoard.loadPlayerState()`, awaited
+by `init()` before the very first `renderStart()`) and kept as an
+in-memory `playerState` object from there — mutated directly as a quiz
+plays out (`recordAttempt()` on every question, the unlock/best-score
+checks in `renderFinal()`) and flushed back to Firestore in exactly
+**one write per finished quiz** (`TimeQuizBoard.savePlayerState()`), not
+a write per field-change. `firestore.rules`' `isValidPlayerState()` +
+the update rule's four `>=` comparisons (plus "`regionsUnlocked` can flip
+false&rarr;true but never back") enforce the same "personal stats only
+move one direction" guarantee as everywhere else in this file, just
+without requiring `bestScore` specifically to have improved on any given
+write — unlike `timeQuizLeaderboard`, this document is meant to be
+written on **every** completed quiz, not just a new personal best.
+
+**The tradeoff**: this page now has no local fallback at all for that
+state. If Firebase is unreachable — not configured, offline, blocked by
+an extension — `loadPlayerState()` resolves to a fresh all-zero
+`playerState` for the whole session (never throws, same "fail open with
+defaults" reasoning as the rest of this file) and `savePlayerState()`
+silently no-ops on the way out, same as every other background write
+here. The quiz is still fully playable either way; what's lost in that
+scenario is exactly what used to survive a page reload for free — best
+score, lifetime totals, region-unlock progress, and remembered region
+picks all reset to zero/locked/empty next load instead of persisting.
+Accepted deliberately: `localStorage` was a workaround for not having a
+per-player datastore yet, and now that the leaderboard/run-history/tally
+collections above already require Firebase to mean anything, keeping a
+second, divergent, offline-only copy of the same numbers wasn't worth
+the two-sources-of-truth complexity it added.
+
+The leaderboard panel (Overall/Today tabs, paginated 10-per-page) shows on
+the start screen and the results screen, same as GeoStreak's own panel
+shows on start/pause/game-over — never mid-quiz.
+
+**"Your Best 10"** skips a second Firestore query: instead of a
+`uid == me` + `orderBy(score, desc)` composite index on top of the one
+`uid == me` + `orderBy(playedAt, desc)` already needs, it fetches the 50
+most recent runs (`BEST_RUNS_LOOKBACK` in `timeQuizLeaderboard.js`) and
+sorts by score client-side — same "no second query" reasoning
+`historyPage.js`'s single-best-run comment already gives for GeoStreak,
+extended from one run to ten. Only wrong once more than 50 quizzes have
+been played since an old top-10 run aged out of that window.
+
+**Insights — Most Used Cities / Most Used Countries** — shown below the
+how-to-play list on the start screen, and unlike GeoStreak's own
+per-browser city tally (a `localStorage` count, see `ui.js`'s
+`buildCityInsightsHtml()`), this one is **global**: every player's
+accepted answers (correct or not — resolving to a real city is the bar,
+same moment `countryCities` already gets updated in `submitAnswer()`)
+increment the same two shared, ownerless counter collections:
+
+- **`timeQuizCityTally/{slug}`** — `{ city, country, count, lastUsedAt }`,
+  doc id a sanitized `"country_city"` slug (`tallyDocId()`), not a uid.
+- **`timeQuizCountryTally/{countryCode}`** — `{ country, count, lastUsedAt }`.
+
+`firestore.rules` has no per-owner check for either (there isn't one) —
+the only thing enforced is **count can only go up, by exactly 1, per
+write**, plus `city`/`country` staying fixed for a given doc id, the same
+"client-judged, but at least monotonic" guarantee the streak/score
+improvement gates give elsewhere in this file. `FieldValue.increment(1)`
+against a field that doesn't exist yet resolves to `0 + 1`, which is what
+`isValidCityTallyCreate()`/`isValidCountryTallyCreate()`'s `count == 1`
+check is looking for. Both insight lists are a single-field `orderBy` —
+neither needs a composite index.
+
+**Run History** (`history.html`) now has a "GeoStreak" / "Time Quiz"
+switcher above the existing Mine/All Players tabs (`wireGameTabs()` in
+`historyPage.js`) — the two games' runs live in different collections
+with a different round shape, so `GAMES` in that file holds, per game,
+which collection to query and how to render a card
+(`buildTimeQuizRunCard()`/`buildTimeQuizRoundsTable()` for Time Quiz,
+reusing the existing GeoStreak renderers unchanged). Time Quiz's "best"
+section shows the **Best 10** cards described above instead of GeoStreak's
+single Personal Best card; the Mine/All Players master gate
+(`MASTER_UIDS`/`isMaster()`) is unchanged and applies to both games.
+
+**Extra one-time setup**, on top of whatever GeoStreak's own Leaderboard
+section already had you do: republish the updated `firestore.rules` (same
+Firestore Database -> Rules -> paste -> Publish step), then create two more
+composite indexes the same way History's own `geostreakRuns` one was
+created — load the Today tab and the History page's Time Quiz view once
+each, open the browser console, follow the "this query requires an index"
+link:
+- `timeQuizDaily`: `date` Ascending + `bestScore` Descending.
+- `timeQuizRuns`: `uid` Ascending + `playedAt` Descending.
+
+(`timeQuizPlayers` needs no index of its own — `loadPlayerState()` reads
+one document straight by its id, never queries the collection.)
+
 ### Not in this version
 
 - **No live multiplayer** — see "Built for later" above for what's
   already in place toward it.
-- **No persistence beyond a personal best.** `timeQuiz_bestScore` in
-  `localStorage` is the only thing saved — no Firestore, no leaderboard,
-  no per-question history the way GeoStreak's Run History keeps.
 - **No admin/host controls** — "1 admin can start the quiz" from the
   original ask is exactly the multiplayer piece not built yet.
 

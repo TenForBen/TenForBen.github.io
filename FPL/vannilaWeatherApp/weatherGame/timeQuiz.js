@@ -18,12 +18,11 @@ const MODERATE_COUNT = 10; // first 10 easier, last 5 tougher — same shape as 
 const QUESTION_SECONDS = 20;
 const MAX_POINTS = 1000;
 const GAP_SECONDS = 5; // pause between questions before auto-advancing
-const BEST_SCORE_KEY = "timeQuiz_bestScore";
 // Region selection stays locked to World-only until a completed quiz
 // hits either bar — proving a base level of comfort with the game
 // before customizing it further. Permanent once unlocked (checked once
-// per finished quiz in renderFinal(), never re-locked).
-const REGIONS_UNLOCK_KEY = "timeQuiz_regionsUnlocked";
+// per finished quiz in renderFinal(), never re-locked) — see
+// `playerState.regionsUnlocked` below.
 const UNLOCK_CORRECT_COUNT = 10; // out of QUESTION_COUNT (15)
 const UNLOCK_SCORE = 8000;
 
@@ -294,19 +293,17 @@ function buildTallyHtml(countryCitiesMap) {
 }
 
 // Same nickname as GeoStreak itself — same localStorage key
-// leaderboard.js's getNickname() reads/writes, duplicated here rather
-// than shared (Leaderboard's IIFE doesn't expose it, and this page has
-// no build step to import it from another file anyway). Read-only here:
-// editing a nickname stays GeoStreak's own page's job. Computed once and
-// cached rather than re-read per render — leaderboard.js's own
+// timeQuizLeaderboard.js's getNickname() reads/writes (and GeoStreak's own
+// leaderboard.js also writes), so whichever page a name was set on just
+// shows up on the other with no separate entry flow. `let`, not `const`:
+// unlike before, this page now also has its own "Playing as" row (see
+// renderStart()), and TimeQuizBoard.wireNicknameRow()'s onSave callback
+// keeps this in sync the moment a name is saved here. Computed once at
+// load and reused everywhere it's shown, rather than re-read per render —
 // getNickname() falls back to a *fresh* random name on every call when
-// none is saved, which would show a different placeholder name on the
-// start screen vs. the final screen if this page called it more than once.
-function randomNickname() {
-  return `Player${Math.floor(1000 + Math.random() * 9000)}`;
-}
-const NICKNAME_KEY = "geoStreakGame_nickname";
-const nickname = localStorage.getItem(NICKNAME_KEY) || randomNickname();
+// none is saved yet, which would otherwise show a different placeholder
+// name on the start screen than on the final screen.
+let nickname = TimeQuizBoard.getNickname();
 
 // ---- State ----------------------------------------------------------
 
@@ -321,22 +318,34 @@ let timerInterval = null;
 let submitted = false; // guards against a stray Enter/click after the question already resolved
 let usedCities = new Set(); // reset each startQuiz() — same-city-twice-this-quiz gets flagged, not silently accepted
 let countryCities = new Map(); // ISO country code -> city names used from it this quiz, for the tally shown during the gap
+let lastActiveRegionLabels = []; // set in startQuiz(), read by renderFinal()'s submitRunHistory() call
+let lastCheckedRegionKeys = []; // set in startQuiz() — the raw checkbox values (before defaulting to World), persisted as playerState.lastRegions
+
+// Best score, lifetime totals, the permanent region-unlock flag, and the
+// last-picked regions — one Firestore document (`timeQuizPlayers/{uid}`,
+// see timeQuizLeaderboard.js), not five separate localStorage keys.
+// Fetched once via init() below and kept in memory from there: mutated
+// directly as a quiz plays out (recordAttempt(), renderFinal()) and
+// flushed back to Firestore in one write per finished quiz
+// (TimeQuizBoard.savePlayerState()), rather than round-tripping to
+// Firestore on every read. If Firebase is unreachable this stays at its
+// all-zero default for the whole session — no local fallback anymore,
+// by design (see the README's Leaderboard section for the tradeoff).
+let playerState = { bestScore: 0, totalCorrect: 0, totalAttempts: 0, totalRuns: 0, regionsUnlocked: false, lastRegions: [] };
+
+// "Attempts" means questions faced, not just correct guesses — every
+// question increments it exactly once, whether answered right, wrong, or
+// timed out. In-memory only; the actual Firestore write happens once, at
+// the end of the quiz (renderFinal() -> TimeQuizBoard.savePlayerState()).
+function recordAttempt(correct) {
+  playerState.totalAttempts += 1;
+  if (correct) playerState.totalCorrect += 1;
+}
 
 const startEl = document.getElementById("tqStart");
 const questionEl = document.getElementById("tqQuestion");
 const resultEl = document.getElementById("tqResult");
 const finalEl = document.getElementById("tqFinal");
-
-function getBestScore() {
-  return Number(localStorage.getItem(BEST_SCORE_KEY)) || 0;
-}
-function saveBestScore(score) {
-  if (score > getBestScore()) localStorage.setItem(BEST_SCORE_KEY, String(score));
-}
-
-function regionsUnlocked() {
-  return localStorage.getItem(REGIONS_UNLOCK_KEY) === "true";
-}
 
 function showOnly(el) {
   [startEl, questionEl, resultEl, finalEl].forEach((e) => {
@@ -344,21 +353,10 @@ function showOnly(el) {
   });
 }
 
-const LAST_REGIONS_KEY = "timeQuiz_lastRegions";
-
-function loadLastRegions() {
-  try {
-    const raw = JSON.parse(localStorage.getItem(LAST_REGIONS_KEY) || "[]");
-    return Array.isArray(raw) ? raw.filter((k) => REGION_KEYS.includes(k)) : [];
-  } catch (err) {
-    return [];
-  }
-}
-
 function renderStart() {
-  const best = getBestScore();
-  const lastRegions = loadLastRegions();
-  const unlocked = regionsUnlocked();
+  const best = playerState.bestScore;
+  const lastRegions = playerState.lastRegions.filter((k) => REGION_KEYS.includes(k));
+  const unlocked = playerState.regionsUnlocked;
   const regionPickerHtml = unlocked
     ? `
       <div class="tq-region-picker">
@@ -385,7 +383,7 @@ function renderStart() {
   startEl.innerHTML = `
     <div class="tq-panel">
       <h3>Time Quiz</h3>
-      <p class="tq-nickname">Playing as ${nickname}</p>
+      ${TimeQuizBoard.nicknameRowHtml()}
       <p class="tq-panel-sub">
         ${QUESTION_COUNT} questions, ${QUESTION_SECONDS}s each. Name a city
         matching the region and temperature condition — the faster you
@@ -402,8 +400,25 @@ function renderStart() {
       </ul>
       ${best > 0 ? `<p class="tq-best">Best score, this browser: ${best.toLocaleString()}</p>` : ""}
     </div>
+
+    <div class="tq-panel" style="margin-top: 18px;">
+      <h3>Insights</h3>
+      <p class="tq-panel-sub" style="margin-bottom: 10px;">Most used across every player, worldwide.</p>
+      <div class="tq-insights-row" id="tqInsightsBody"><p class="tq-leaderboard-note">Loading&hellip;</p></div>
+    </div>
+
+    <div id="tqLeaderboardPanel" style="margin-top: 18px;"></div>
+
+    <div class="tq-panel" style="margin-top: 18px;">
+      <h3>Your Best 10</h3>
+      <div id="tqBestRunsBody"><p class="tq-leaderboard-note">Loading&hellip;</p></div>
+    </div>
   `;
   document.getElementById("tqStartBtn").addEventListener("click", startQuiz);
+  TimeQuizBoard.wireNicknameRow((newName) => { nickname = newName; });
+  TimeQuizBoard.renderInsights("tqInsightsBody");
+  TimeQuizBoard.renderLeaderboardPanel("tqLeaderboardPanel");
+  TimeQuizBoard.renderMyBestRuns("tqBestRunsBody");
   showOnly(startEl);
 }
 
@@ -411,11 +426,12 @@ function startQuiz() {
   // No checkboxes exist in the DOM at all while locked (see renderStart()),
   // so `checked` naturally comes back empty then — this just makes the
   // World-only behavior explicit rather than incidental.
-  const checked = regionsUnlocked()
+  const checked = playerState.regionsUnlocked
     ? Array.from(document.querySelectorAll(".tq-region-check:checked")).map((el) => el.value)
     : [];
   const activeRegions = checked.length > 0 ? checked : DEFAULT_REGION_KEYS;
-  localStorage.setItem(LAST_REGIONS_KEY, JSON.stringify(checked)); // remembers the actual checkboxes, not the India fallback
+  lastCheckedRegionKeys = checked; // remembers the actual checkboxes, not the World fallback — persisted in renderFinal()
+  lastActiveRegionLabels = activeRegions.map((key) => REGIONS[key].label);
   questions = buildQuestions(Date.now() ^ Math.floor(Math.random() * 0xffffffff), activeRegions);
   qIndex = 0;
   totalScore = 0;
@@ -431,7 +447,10 @@ function showQuestion() {
   questionEl.innerHTML = `
     <p class="tq-progress">Question ${qIndex + 1} / ${QUESTION_COUNT}</p>
     <p class="tq-score-live">Score so far: ${totalScore.toLocaleString()}</p>
-    <p class="tq-timer" id="tqTimer">${formatTimer(QUESTION_SECONDS)}</p>
+    <div class="tq-timer-row">
+      <p class="tq-timer" id="tqTimer">${formatTimer(QUESTION_SECONDS)}</p>
+      <button type="button" id="tqQuitBtn" class="tq-quit-btn">&#9209; Quit</button>
+    </div>
     <p class="tq-points-preview" id="tqPointsPreview">${MAX_POINTS.toLocaleString()} pts if correct now</p>
     <div class="tq-timer-bar-wrap"><div class="tq-timer-bar" id="tqTimerBar" style="width: 100%;"></div></div>
     <div class="tq-condition">
@@ -450,9 +469,23 @@ function showQuestion() {
   input.focus();
   input.addEventListener("keydown", (e) => { if (e.key === "Enter") submitAnswer(); });
   document.getElementById("tqSubmitBtn").addEventListener("click", submitAnswer);
+  document.getElementById("tqQuitBtn").addEventListener("click", quitQuiz);
 
   questionStartTime = performance.now();
   startTimer();
+}
+
+// Ends the quiz right here, mid-question — whatever's been scored on
+// already-answered questions (`answers`, `totalScore`) stands as final;
+// the question in progress when Quit was clicked is simply dropped, not
+// scored as wrong or timed-out. A native confirm() rather than a custom
+// dialog, since this is the only destructive/irreversible action in this
+// page and doesn't warrant its own UI.
+function quitQuiz() {
+  if (!confirm("Quit now? Your current score will be locked in as your final score.")) return;
+  clearInterval(timerInterval);
+  submitted = true; // guards against a stray timer tick firing resolveAnswer() after this
+  renderFinal();
 }
 
 function startTimer() {
@@ -542,6 +575,7 @@ async function submitAnswer() {
   usedCities.add(resolvedKey);
   if (!countryCities.has(data.sys.country)) countryCities.set(data.sys.country, []);
   countryCities.get(data.sys.country).push(data.name);
+  TimeQuizBoard.recordCityUsage(data.name, data.sys.country); // fire-and-forget global tally, correct or not
 
   resolveAnswer(data, elapsedAtSubmit);
 }
@@ -585,6 +619,7 @@ function resolveAnswer(data, elapsedSeconds) {
     elapsed,
     points,
   });
+  recordAttempt(correct); // lifetime counters, every question — answered, wrong, or timed out
 
   renderQuestionResult(correct, detail, points, data);
 }
@@ -713,14 +748,31 @@ function renderQuestionResult(correct, detail, points, data) {
 }
 
 function renderFinal() {
-  saveBestScore(totalScore);
   const correctCount = answers.filter((a) => a.correct).length;
+  const questionsPlayed = answers.length; // < QUESTION_COUNT when quitQuiz() ended it early
+  const quitEarly = questionsPlayed < QUESTION_COUNT;
 
-  const wasUnlocked = regionsUnlocked();
+  // All of this quiz's contribution to lifetime state, folded into the
+  // one in-memory object and flushed to Firestore in a single write below
+  // — no per-field localStorage calls anymore.
+  const wasUnlocked = playerState.regionsUnlocked;
+  if (totalScore > playerState.bestScore) playerState.bestScore = totalScore;
+  playerState.totalRuns += 1;
   if (correctCount >= UNLOCK_CORRECT_COUNT || totalScore >= UNLOCK_SCORE) {
-    localStorage.setItem(REGIONS_UNLOCK_KEY, "true");
+    playerState.regionsUnlocked = true;
   }
-  const justUnlocked = !wasUnlocked && regionsUnlocked();
+  playerState.lastRegions = lastCheckedRegionKeys;
+  const justUnlocked = !wasUnlocked && playerState.regionsUnlocked;
+
+  // Fire-and-forget, same as GeoStreak's own Game Over write — never
+  // blocks or delays showing the results screen below. `questionsPlayed`,
+  // not QUESTION_COUNT, so a quit-early run's stored questionCount matches
+  // `rounds.length` (firestore.rules requires exactly that).
+  const stats = { totalCorrect: playerState.totalCorrect, totalAttempts: playerState.totalAttempts, totalRuns: playerState.totalRuns };
+  TimeQuizBoard.submitScore(totalScore, stats);
+  TimeQuizBoard.submitDailyScore(totalScore, stats);
+  TimeQuizBoard.submitRunHistory(totalScore, correctCount, questionsPlayed, lastActiveRegionLabels, answers);
+  TimeQuizBoard.savePlayerState(playerState);
 
   const rows = answers.map((a, i) => `
     <tr class="${a.correct ? "tq-row-correct" : "tq-row-wrong"}">
@@ -735,10 +787,10 @@ function renderFinal() {
 
   finalEl.innerHTML = `
     <div class="tq-panel">
-      <h3>Quiz complete</h3>
+      <h3>Quiz complete${quitEarly ? " (quit early)" : ""}</h3>
       <p class="tq-nickname">${nickname}'s score</p>
       <p class="tq-final-score">${totalScore.toLocaleString()}</p>
-      <p class="tq-final-sub">${correctCount} / ${QUESTION_COUNT} correct &middot; best this browser: ${getBestScore().toLocaleString()}</p>
+      <p class="tq-final-sub">${correctCount} / ${questionsPlayed} correct${quitEarly ? ` &middot; quit after ${questionsPlayed} of ${QUESTION_COUNT}` : ""} &middot; best score, this browser: ${playerState.bestScore.toLocaleString()}</p>
       ${justUnlocked ? `<p class="tq-unlock-note">&#127881; Region selection unlocked — pick one next time.</p>` : ""}
       <div class="tq-final-actions">
         <button type="button" id="tqReplayBtn" class="btn btn-primary">Play Again</button>
@@ -749,9 +801,36 @@ function renderFinal() {
         <tbody>${rows}</tbody>
       </table>
     </div>
+
+    <div id="tqLeaderboardPanel" style="margin-top: 18px;"></div>
+
+    <div class="tq-panel" style="margin-top: 18px;">
+      <h3>Your Best 10</h3>
+      <div id="tqBestRunsBody"><p class="tq-leaderboard-note">Loading&hellip;</p></div>
+    </div>
   `;
   showOnly(finalEl);
-  document.getElementById("tqReplayBtn").addEventListener("click", startQuiz);
+  // Back to the start screen, not straight into another quiz — the start
+  // screen is what actually decides whether the region picker shows
+  // (renderStart() reads playerState.regionsUnlocked), so this is what
+  // makes an unlock earned just now actually reachable on the very next
+  // attempt, exactly as described on this screen's own unlock note above.
+  // (Previously wired straight to startQuiz(), which — reading
+  // .tq-region-check:checked from a DOM that only exists on the start
+  // screen — silently forced every replay back to World regardless of
+  // what was unlocked or previously picked.)
+  document.getElementById("tqReplayBtn").addEventListener("click", renderStart);
+  TimeQuizBoard.renderLeaderboardPanel("tqLeaderboardPanel");
+  TimeQuizBoard.renderMyBestRuns("tqBestRunsBody");
 }
 
-renderStart();
+// playerState has to be fetched from Firestore before the very first
+// renderStart() — unlike before, there's no synchronous localStorage read
+// to fall back on for that initial paint. loadPlayerState() itself never
+// throws (not configured / offline / brand-new player all resolve to the
+// same all-zero default), so this always reaches renderStart().
+async function init() {
+  playerState = await TimeQuizBoard.loadPlayerState();
+  renderStart();
+}
+init();

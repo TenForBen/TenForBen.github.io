@@ -266,6 +266,13 @@
     <p class="gs-status" id="hStatus">Loading&hellip;</p>
     <p class="gs-copy-uid"><a href="#" id="hCopyUid" style="display: none;">Copy my player ID</a></p>
 
+    <!-- Which game's runs to show — always visible, unlike the Master-only
+         tabs below. GeoStreak first since it's the older/default game. -->
+    <div class="gs-history-tabs" id="hGameTabs">
+      <button type="button" id="hGameGeo" class="gs-tab-btn gs-tab-active">GeoStreak</button>
+      <button type="button" id="hGameTimeQuiz" class="gs-tab-btn">Time Quiz</button>
+    </div>
+
     <!-- Master accounts only (see MASTER_UIDS in historyPage.js) — hidden
          for everyone else, since it wouldn't work for them anyway:
          firestore.rules' isMaster() is the real gate. -->
@@ -275,7 +282,7 @@
     </div>
 
     <div id="hBestSection">
-      <h2 class="gs-section-title">🏆 Personal Best</h2>
+      <h2 class="gs-section-title" id="hBestTitle">🏆 Personal Best</h2>
       <div id="hBest"></div>
     </div>
 
