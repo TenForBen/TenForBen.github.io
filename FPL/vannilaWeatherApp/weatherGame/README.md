@@ -755,8 +755,13 @@ another real attempt at the same question, not a wasted one.
 The fixed pause between questions (`GAP_SECONDS`) shows a large
 monospace countdown — the same `.tq-timer` styling as the live 20-second
 question clock, not a small text note — so it reads as a real countdown
-rather than an afterthought. A "Next question now" button still fires
-the advance early; the countdown is what happens if nothing is clicked.
+rather than an afterthought, ticking down to **2 decimals**
+(`formatGapTimer()`, `performance.now()`-based like the question clock
+itself, not a 1-second `setInterval` jumping in whole numbers). A "Next
+question now" button still fires the advance early; the countdown is
+what happens if nothing is clicked. The panel also repeats "Question N /
+15" — the same progress line the question screen shows — so it's still
+visible during the pause, not just while a question is live.
 
 Beyond city/country/temp, the result panel also shows **Coordinates**
 (linked out to Google Maps, the same `?api=1&query=lat,lon` pattern used
@@ -770,6 +775,15 @@ rather than delaying the panel — `loadElevation()` checks the target
 element still exists before writing to it, so a player who's already
 moved on to the next question by the time it resolves just means the
 value never gets written anywhere, not an error.
+
+**A country tally, same "🇧🇷 BR ×2 | 🇦🇷 AR ×1" chips as GeoStreak's own**
+(`ui.js#updateCountryTally`) — ported here as `buildTallyHtml()` rather
+than shared, since that one writes straight into a DOM element and this
+page rebuilds the whole result panel's HTML each question. `countryCities`
+(a `Map<countryCode, cityName[]>`, reset each quiz) is filled alongside
+`usedCities` the moment a city is accepted, so it's always in sync with
+what's actually been used. Each chip is hoverable/focusable and expands
+a popover listing the specific cities, same as GeoStreak's.
 
 ### Nickname
 

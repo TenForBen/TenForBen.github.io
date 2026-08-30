@@ -248,6 +248,44 @@ function formatTimer(secondsLeft) {
   return Math.max(0, secondsLeft).toFixed(3);
 }
 
+// The gap timer only needs to read as "a real countdown", not a scoring
+// clock — 2 decimals rather than the question timer's 3.
+function formatGapTimer(secondsLeft) {
+  return Math.max(0, secondsLeft).toFixed(2);
+}
+
+// Emoji flag from a country code (regional-indicator letters), e.g.
+// "NZ" -> 🇳🇿 — same technique ui.js's flagEmoji() uses, duplicated here
+// per this page's own no-build-step convention.
+function flagEmoji(countryCode) {
+  const cc = String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "");
+  if (cc.length !== 2) return "";
+  return String.fromCodePoint(...[...cc].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65));
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, (ch) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+  }[ch]));
+}
+
+// Same shape as ui.js's updateCountryTally() — "🇧🇷 BR ×2 | 🇦🇷 AR ×1" —
+// ported here rather than shared: it writes straight into an element
+// there, but this page rebuilds the whole result panel's innerHTML each
+// question, so this returns a string to be spliced in instead.
+function buildTallyHtml(countryCitiesMap) {
+  if (countryCitiesMap.size === 0) return "";
+  const chips = [...countryCitiesMap.entries()]
+    .map(([code, cities]) => `
+      <span class="tq-tally-chip" tabindex="0">
+        ${flagEmoji(code)} ${escapeHtml(code)} &times;${cities.length}
+        <span class="tq-tally-popover">${cities.map(escapeHtml).join("<br>")}</span>
+      </span>
+    `)
+    .join(" &nbsp;|&nbsp; ");
+  return `<p class="tq-tally">${chips}</p>`;
+}
+
 // Same nickname as GeoStreak itself — same localStorage key
 // leaderboard.js's getNickname() reads/writes, duplicated here rather
 // than shared (Leaderboard's IIFE doesn't expose it, and this page has
@@ -275,6 +313,7 @@ let questionStartTime = null; // performance.now() when the current question app
 let timerInterval = null;
 let submitted = false; // guards against a stray Enter/click after the question already resolved
 let usedCities = new Set(); // reset each startQuiz() — same-city-twice-this-quiz gets flagged, not silently accepted
+let countryCities = new Map(); // ISO country code -> city names used from it this quiz, for the tally shown during the gap
 
 const startEl = document.getElementById("tqStart");
 const questionEl = document.getElementById("tqQuestion");
@@ -352,6 +391,7 @@ function startQuiz() {
   totalScore = 0;
   answers = [];
   usedCities = new Set();
+  countryCities = new Map();
   showQuestion();
 }
 
@@ -459,6 +499,8 @@ async function submitAnswer() {
   }
   usedCities.add(typed.toLowerCase());
   usedCities.add(resolvedKey);
+  if (!countryCities.has(data.sys.country)) countryCities.set(data.sys.country, []);
+  countryCities.get(data.sys.country).push(data.name);
 
   resolveAnswer(data, elapsedAtSubmit);
 }
@@ -570,12 +612,14 @@ async function loadElevation(lat, lon) {
 function renderQuestionResult(correct, detail, points, data) {
   resultEl.innerHTML = `
     <div class="tq-result-panel">
+      <p class="tq-progress">Question ${qIndex + 1} / ${QUESTION_COUNT}</p>
       <span class="tq-result-badge ${correct ? "tq-result-correct" : "tq-result-wrong"}">${correct ? "CORRECT" : "INCORRECT"}</span>
       <p class="tq-result-detail">${detail}</p>
       ${data ? buildResultDetailRows(data) : ""}
       <p class="tq-result-points">+${points.toLocaleString()}</p>
       <p class="tq-result-total">Score so far: ${totalScore.toLocaleString()}</p>
-      <p class="tq-timer" id="tqGapTimer">${GAP_SECONDS}</p>
+      ${buildTallyHtml(countryCities)}
+      <p class="tq-timer" id="tqGapTimer">${formatGapTimer(GAP_SECONDS)}</p>
       <p class="tq-next-note">
         ${qIndex + 1 < QUESTION_COUNT ? "until the next question" : "until your results"}
       </p>
@@ -589,23 +633,24 @@ function renderQuestionResult(correct, detail, points, data) {
 
   document.getElementById("tqNextBtn").addEventListener("click", advance);
 
-  // Auto-advance after GAP_SECONDS — the fixed "gap between questions" —
-  // shown as the same big countdown style as the question timer itself
-  // (`.tq-timer`), not a small text note, so it reads as a real
-  // countdown rather than an afterthought. A click on Next (above) fires
-  // it early rather than forcing a full wait every single time.
-  let remaining = GAP_SECONDS;
+  // Auto-advance after GAP_SECONDS — shown as a live, 2-decimal countdown
+  // (performance.now()-based, same technique startTimer() uses for the
+  // question clock, not a 1-second setInterval ticking whole numbers) so
+  // it reads as a real countdown rather than an afterthought. A click on
+  // Next (above) fires it early rather than forcing a full wait every
+  // single time.
+  const gapStart = performance.now();
   const gapTimerEl = document.getElementById("tqGapTimer");
   const gapInterval = setInterval(() => {
-    remaining -= 1;
+    const left = GAP_SECONDS - (performance.now() - gapStart) / 1000;
     if (!document.getElementById("tqGapTimer")) { clearInterval(gapInterval); return; } // already advanced
-    if (remaining <= 0) {
+    if (left <= 0) {
       clearInterval(gapInterval);
       advance();
     } else {
-      gapTimerEl.textContent = String(remaining);
+      gapTimerEl.textContent = formatGapTimer(left);
     }
-  }, 1000);
+  }, 31);
 
   // Both the Next button and the auto-timer call this — clearInterval()
   // makes a second call from the timer harmless in the normal case, but

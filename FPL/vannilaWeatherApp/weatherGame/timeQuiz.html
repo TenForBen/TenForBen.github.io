@@ -274,6 +274,43 @@
       margin-top: 12px;
     }
 
+    /* Same shape as geoStreakGame.html's .gs-tally-chip / .gs-tally-popover
+       — a hoverable/focusable "flag CODE ×N" chip that expands a small
+       popover listing the actual cities. */
+    .tq-tally {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.85rem;
+      color: #9db4de;
+      margin: 4px 0 0;
+    }
+    .tq-tally-chip {
+      position: relative;
+      cursor: default;
+      border-bottom: 1px dotted #4a5f8f;
+      outline: none;
+    }
+    .tq-tally-popover {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0f1830;
+      border: 1px solid #2c3d63;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: #cfe0ff;
+      white-space: nowrap;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      z-index: 10;
+    }
+    .tq-tally-chip:hover .tq-tally-popover,
+    .tq-tally-chip:focus .tq-tally-popover {
+      display: block;
+    }
+
     /* ---- Final screen ---- */
     .tq-final-score {
       font-family: "Courier New", Courier, monospace;
