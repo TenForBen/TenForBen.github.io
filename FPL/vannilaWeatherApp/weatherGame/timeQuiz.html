@@ -165,6 +165,34 @@
     }
     .tq-timer.tq-timer-warn { color: #f0b429; }
     .tq-timer.tq-timer-danger { color: #f87171; }
+
+    /* Wraps the question-screen timer + Quit button side by side — the
+       gap-screen countdown (#tqGapTimer) reuses .tq-timer standalone, not
+       inside this row, so its own centering/margin is untouched. */
+    .tq-timer-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 0;
+    }
+    .tq-timer-row .tq-timer { margin-bottom: 0; }
+    /* Deliberately muted, same idea as GeoStreak's own .gs-pause-btn — not
+       something to reach for without meaning to — but with a red hover
+       instead of blue, since this one ends the quiz rather than just
+       pausing it. */
+    .tq-quit-btn {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      color: #93a4c3;
+      background: transparent;
+      border: 1px solid #1b2a4a;
+      border-radius: 4px;
+      padding: 4px 10px;
+      cursor: pointer;
+    }
+    .tq-quit-btn:hover { color: #f87171; border-color: #f87171; }
     .tq-points-preview {
       text-align: center;
       font-family: "Courier New", Courier, monospace;
@@ -378,6 +406,180 @@
       justify-content: center;
       margin-top: 22px;
     }
+
+    /* ---- Nickname row ("Playing as ___ [Save]") — see
+       timeQuizLeaderboard.js's nicknameRowHtml(). Same layout as the
+       question screen's .tq-input-row, just its own top label. ---- */
+    .tq-player-bar {
+      max-width: 420px;
+      margin: 0 auto 18px;
+      text-align: left;
+    }
+    .tq-player-label {
+      display: block;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #6b7fa8;
+      margin-bottom: 6px;
+    }
+
+    /* ---- Leaderboard / Best-10 panel — same shape as GeoStreak's own
+       .gs-leaderboard-* rules in geoStreakGame.html, duplicated here with
+       a tq- prefix per this page's self-contained-CSS convention (see
+       .tq-tally-chip vs .gs-tally-chip above). ---- */
+    .tq-leaderboard-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+    .tq-leaderboard-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      padding: 5px 4px;
+      border-bottom: 1px solid #1b2a4a;
+    }
+    .tq-leaderboard-list li:last-child { border-bottom: none; }
+    .tq-leaderboard-list li.tq-leaderboard-me {
+      background: #12244a;
+      border-radius: 4px;
+    }
+    .tq-leaderboard-rank {
+      font-family: "Courier New", Courier, monospace;
+      color: #6b7fa8;
+      width: 2.2em;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .tq-leaderboard-name {
+      color: #cfe8ff;
+      flex: 1 1 auto;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .tq-leaderboard-streak {
+      font-family: "Courier New", Courier, monospace;
+      color: #7dd3fc;
+      font-weight: bold;
+    }
+    .tq-leaderboard-runs,
+    .tq-leaderboard-correct,
+    .tq-leaderboard-avg {
+      font-family: "Courier New", Courier, monospace;
+      color: #6b7fa8;
+      font-size: 0.75rem;
+      width: 2.6em;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .tq-leaderboard-header-list { margin-bottom: 2px; }
+    .tq-leaderboard-header-row {
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.7rem !important;
+      color: #6b7fa8;
+      font-weight: bold;
+    }
+    .tq-leaderboard-header-row .tq-leaderboard-name { color: #6b7fa8; }
+    .tq-leaderboard-note {
+      color: #6b7fa8;
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+
+    .tq-lb-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .tq-page-btn {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+      color: #93a4c3;
+      background: transparent;
+      border: 1px solid #1b2a4a;
+      border-radius: 4px;
+      padding: 4px 10px;
+      cursor: pointer;
+    }
+    .tq-page-btn:hover:not(:disabled) { color: #7dd3fc; border-color: #1f6feb; }
+    .tq-page-btn:disabled { color: #40506e; cursor: not-allowed; }
+    .tq-page-label {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      color: #6b7fa8;
+    }
+
+    .tq-leaderboard-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .tq-tab-btn {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+      color: #93a4c3;
+      background: transparent;
+      border: 1px solid #1b2a4a;
+      border-radius: 4px;
+      padding: 5px 14px;
+      cursor: pointer;
+    }
+    .tq-tab-btn:hover { color: #7dd3fc; border-color: #1f6feb; }
+    .tq-tab-btn.tq-tab-active {
+      color: #7dd3fc;
+      border-color: #7dd3fc;
+      background: #12244a;
+    }
+
+    /* ---- Insights (Most Used Cities/Countries) — same list shape as
+       GeoStreak's .gs-city-list, side by side in two columns. ---- */
+    .tq-insights-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      text-align: left;
+      margin: 4px 0 0;
+    }
+    .tq-insight-col { flex: 1 1 160px; min-width: 0; }
+    .tq-insight-label {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.6rem;
+      letter-spacing: 1.5px;
+      color: #6b7fa8;
+      margin: 0 0 6px;
+    }
+    .tq-city-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+    .tq-city-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.8rem;
+      padding: 3px 4px;
+      border-bottom: 1px solid #1b2a4a;
+    }
+    .tq-city-list li:last-child { border-bottom: none; }
+    .tq-city-name { color: #cfe8ff; }
+    .tq-city-count {
+      font-family: "Courier New", Courier, monospace;
+      color: #7dd3fc;
+      white-space: nowrap;
+    }
   </style>
 </head>
 <body>
@@ -387,13 +589,30 @@
   </header>
 
   <main class="tq-main">
-    <div id="tqStart"></div>
+    <!-- Filled by renderStart() once timeQuiz.js's init() resolves the
+         player's Firestore state — briefly shows a loading note rather
+         than sitting blank, since that fetch (unlike the old
+         localStorage read it replaced) isn't instant. -->
+    <div id="tqStart">
+      <div class="tq-panel"><p class="tq-panel-sub">Loading&hellip;</p></div>
+    </div>
     <div id="tqQuestion" style="display: none;"></div>
     <div id="tqResult" style="display: none;"></div>
     <div id="tqFinal" style="display: none;"></div>
   </main>
 
   <script src="../fetch.js"></script>
+
+  <!-- Firebase (compat build, same as geoStreakGame.html) — optional, see
+       firebaseConfig.js and timeQuizLeaderboard.js. Must load before
+       timeQuiz.js: renderStart() calls into the `TimeQuizBoard` global as
+       soon as it runs. -->
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+  <script src="firebaseConfig.js"></script>
+  <script src="timeQuizLeaderboard.js"></script>
+
   <script src="timeQuiz.js"></script>
 </body>
 </html>
