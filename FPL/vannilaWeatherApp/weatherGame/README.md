@@ -661,18 +661,23 @@ scores 0 and moves on — all 15 questions play out every time.
 
 ### Question generation — region-scoped, season-aware
 
-Each question names one of six regions (India, United States, Canada,
-Europe, South America, Africa) and a temperature condition; the answer
-has to satisfy both — right temperature in the wrong region scores 0,
-same as a wrong temperature. `REGIONS` in `timeQuiz.js` holds, per
-region: which country codes qualify (`sys.country` on the OpenWeatherMap
+Each question names one of seven regions (**World**, India, United
+States, Canada, Europe, South America, Africa) and a temperature
+condition; the answer has to satisfy both — right temperature in the
+wrong region scores 0, same as a wrong temperature. World is the one
+exception: `countryCodes: null` means no restriction at all, any
+resolved city counts. `REGIONS` in `timeQuiz.js` holds, per region:
+which country codes qualify (`sys.country` on the OpenWeatherMap
 response, checked against a broad-but-not-exhaustive list — easy to
 extend), and a **[min, max] range** — not a short fixed list — per
 tier/direction: `moderate` for questions 1–10, `tough` for 11–15, the
 same "gets harder partway through" shape GeoStreak's own tough-round
-rule already uses.
+rule already uses. Every range across every region stays inside
+`GLOBAL_MIN`/`GLOBAL_MAX` (6–32°C, mirroring GeoStreak's own normal-mode
+5–32°C bounds) — an earlier version ranged as wide as 2–41°C, which
+produced genuinely unfair edge questions.
 
-**Mixing is ported straight from GeoStreak's own `pickThreshold()`,** not
+**Mixing is ported from GeoStreak's own `pickThreshold()`,** not
 reinvented: a random integer from the range, tracked in a per-
 region/tier/direction "already asked" set that won't repeat a value
 until the whole range is exhausted (then refills) — earlier versions of
@@ -682,30 +687,55 @@ repeated constantly and felt scripted rather than random. Direction
 GeoStreak's `nextDirection` — not a fresh coin flip each time — with the
 starting side randomised per quiz.
 
+**Adjacent questions avoid landing near each other**, an addition
+GeoStreak's own version doesn't need (it isn't a fixed-length quiz, so
+"what came right before" isn't as noticeable there). Since direction
+always alternates, a naive version could follow "ABOVE 6°C" with "BELOW
+6°C" right after — two different questions that read as a jarring flip
+on the same number, not real variety. `pickThreshold()` takes an
+`avoidNear` value (the previous question's threshold) and excludes
+anything within `minGap` (4°C) of it *if* that still leaves a candidate
+— a handful of regions have ranges narrower than `2×minGap`, where no
+candidate can ever be far enough away, so this is a best-effort
+preference, not a hard guarantee (~97.5% of adjacent pairs stay ≥4°C
+apart across 1000 simulated quizzes; the rest are those narrow-range
+cases with nowhere else to go).
+
 **Which regions actually get asked is a checkbox picker on the start
 screen** — any combination, remembered across visits in
 `localStorage["timeQuiz_lastRegions"]`. Leaving every box unchecked
-plays **India only** rather than refusing to start; `buildQuestions()`
-takes the active region list as a parameter for exactly this. One real
-bug this surfaced: the "avoid picking the same region twice in a row"
-logic used to spin forever with only one region selected, since there's
-no alternative to fall back to — a single-region quiz (the India-only
-default, or any one box checked alone) is now special-cased to just
-repeat that one region, rather than routing through the general
-avoid-repeats loop at all.
+plays **World** rather than refusing to start; `buildQuestions()` takes
+the active region list as a parameter for exactly this. One real bug
+this surfaced: the "avoid picking the same region twice in a row" logic
+used to spin forever with only one region selected, since there's no
+alternative to fall back to — a single-region quiz (the World default,
+or any one box checked alone) is now special-cased to just repeat that
+one region, rather than routing through the general avoid-repeats loop
+at all.
 
 The thresholds themselves are hand-picked for **the season this was
 built in** (August/September — northern-hemisphere late summer,
 southern-hemisphere late winter), not generic year-round numbers: India's
-moderate pool stays on the "still hot" side since nearly the whole
-country is 25–35°C right now, while its tough pool's "below 5°C" only
-has an answer at real altitude (Leh, Manali, Darjeeling) — genuinely
-hard, not unanswerable. South America and Africa both currently span a
-real hot/cold split within one region (equatorial/northern areas warm
+moderate range stays on the "still hot" side since nearly the whole
+country is 24–30°C+ right now, while its tough "below" range only has an
+answer at real altitude (Leh, Manali, Darjeeling) — genuinely hard, not
+unanswerable. South America and Africa both currently span a real
+hot/cold split within one region (equatorial/northern areas warm
 year-round, southern-hemisphere portions in winter), so both directions
 are fair game there — unlike a region that's uniformly one season, where
 only one direction stays answerable. Revisit `REGIONS` by hand each
 season; nothing here recalculates it automatically.
+
+### A not-found lookup doesn't end the question
+
+A typo (or a name OpenWeatherMap just can't resolve) used to score a
+flat 0 immediately — now it's handled exactly like GeoStreak's own
+`submitGuess()` handles the same case: a hint ("Nothing found for
+'X'. Try another city — the clock's still running.") and another real
+attempt, clock still running, rather than the question ending on what
+was probably a spelling mistake. The question is only actually over once
+the 20s clock itself runs out (`startTimer()`'s own timeout call into
+`resolveAnswer()`) or a real city resolves.
 
 ### Reusing a city mid-quiz
 
@@ -727,6 +757,19 @@ monospace countdown — the same `.tq-timer` styling as the live 20-second
 question clock, not a small text note — so it reads as a real countdown
 rather than an afterthought. A "Next question now" button still fires
 the advance early; the countdown is what happens if nothing is clicked.
+
+Beyond city/country/temp, the result panel also shows **Coordinates**
+(linked out to Google Maps, the same `?api=1&query=lat,lon` pattern used
+throughout this site), **Local time** and **Day length** — all three
+computed straight from the OpenWeatherMap response already in hand, no
+extra request — and **Elevation**, which isn't part of that response and
+needs its own call (`fetch.js#getElevation`, the same Open-Elevation
+lookup the main app's result card already uses). That one loads
+asynchronously after the panel renders (shown as "…" until it resolves)
+rather than delaying the panel — `loadElevation()` checks the target
+element still exists before writing to it, so a player who's already
+moved on to the next question by the time it resolves just means the
+value never gets written anywhere, not an error.
 
 ### Nickname
 
