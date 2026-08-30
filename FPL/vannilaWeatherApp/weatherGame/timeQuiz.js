@@ -20,12 +20,20 @@ const MAX_POINTS = 1000;
 const GAP_SECONDS = 5; // pause between questions before auto-advancing
 const BEST_SCORE_KEY = "timeQuiz_bestScore";
 
+// ---- Global bounds every region's ranges stay inside — GeoStreak's own
+// normal-mode MIN/MAX_THRESHOLD is 5-32; this mirrors that rather than
+// the wider, more extreme spread an earlier version of this table used
+// (down to 2°C, up to 41°C), which produced genuinely unfair questions
+// at the edges.
+const GLOBAL_MIN = 6;
+const GLOBAL_MAX = 32;
+
 // ---- Regions: which countries qualify, and which temperature RANGES are
 // fair game right now (August/September — northern-hemisphere late
-// summer, southern-hemisphere late winter). Deliberately season-aware
-// rather than just "anything above/below X": an unreachable condition
-// (e.g. "Australia above 28°C" in their winter) isn't a hard question,
-// it's an unfair one.
+// summer, southern-hemisphere late winter), all nested inside
+// [GLOBAL_MIN, GLOBAL_MAX]. Deliberately season-aware rather than just
+// "anything above/below X": an unreachable condition (e.g. "Australia
+// above 28°C" in their winter) isn't a hard question, it's an unfair one.
 //
 // Each region/tier/direction is a [min, max] RANGE, not a short fixed
 // list — questions are meant to feel different from each other, and a
@@ -36,24 +44,31 @@ const BEST_SCORE_KEY = "timeQuiz_bestScore";
 // until the whole range is exhausted (then refills). Country-code lists
 // are broad-coverage, not exhaustive — easy to extend.
 const REGIONS = {
+  // No country restriction at all (countryCodes: null) — any resolved
+  // city counts. The default when nothing's checked on the start screen;
+  // see DEFAULT_REGION_KEYS below.
+  world: {
+    label: "World",
+    countryCodes: null,
+    moderate: { above: [16, 26], below: [12, 22] },
+    tough: { above: [27, 32], below: [6, 11] },
+  },
   india: {
     label: "India",
     countryCodes: ["IN"],
-    // August in India is hot almost everywhere (25-35°C+) except
-    // Himalayan hill stations — so the moderate range stays on the
-    // "still hot" side, and the tough "below" range only has an answer
-    // at real altitude (Leh, Manali, Darjeeling). That's the example
-    // this whole region table is built around. Also the fallback region
-    // when nothing is picked on the start screen — see
-    // DEFAULT_REGION_KEYS below.
-    moderate: { above: [26, 34], below: [18, 24] },
-    tough: { above: [35, 40], below: [3, 9] },
+    // August in India is hot almost everywhere except Himalayan hill
+    // stations — so the moderate range stays on the "still hot" side,
+    // and the tough "below" range only has an answer at real altitude
+    // (Leh, Manali, Darjeeling). That's the example this whole region
+    // table is built around.
+    moderate: { above: [24, 30], below: [14, 20] },
+    tough: { above: [27, 32], below: [6, 11] },
   },
   us: {
     label: "United States",
     countryCodes: ["US"],
-    moderate: { above: [18, 26], below: [22, 29] },
-    tough: { above: [34, 39], below: [2, 11] }, // above: Southwest desert; below: Alaska, high Rockies
+    moderate: { above: [18, 24], below: [16, 22] },
+    tough: { above: [26, 32], below: [6, 11] }, // above: Southwest desert; below: Alaska, high Rockies
   },
   canada: {
     label: "Canada",
@@ -62,8 +77,8 @@ const REGIONS = {
     // northern territories stay cool even now — the tough "below" range
     // leans on Yukon/NWT/Nunavut the same way India's leans on
     // Himalayan altitude.
-    moderate: { above: [16, 23], below: [22, 29] },
-    tough: { above: [29, 34], below: [2, 9] },
+    moderate: { above: [16, 22], below: [18, 24] },
+    tough: { above: [24, 30], below: [6, 10] },
   },
   europe: {
     label: "Europe",
@@ -74,8 +89,8 @@ const REGIONS = {
       "AL", "EE", "LV", "LT", "MT", "CY", "LI", "MC", "AD", "SM",
       "VA", "UA", "BY", "MD",
     ],
-    moderate: { above: [18, 25], below: [23, 29] },
-    tough: { above: [31, 36], below: [3, 11] }, // above: southern-Europe heatwave; below: Scandinavia/Iceland
+    moderate: { above: [18, 24], below: [17, 23] },
+    tough: { above: [26, 32], below: [6, 11] }, // above: southern-Europe heatwave; below: Scandinavia/Iceland
   },
   southAmerica: {
     label: "South America",
@@ -85,8 +100,8 @@ const REGIONS = {
     // Venezuela, Ecuador, northern Brazil) stays warm year-round —
     // unlike Australia/NZ, this continent genuinely spans both right
     // now, so both directions are fair game at the moderate tier too.
-    moderate: { above: [23, 29], below: [15, 21] },
-    tough: { above: [31, 36], below: [2, 9] },
+    moderate: { above: [21, 27], below: [13, 19] },
+    tough: { above: [28, 32], below: [6, 10] },
   },
   africa: {
     label: "Africa",
@@ -100,15 +115,15 @@ const REGIONS = {
     // Africa is scorching in August, southern Africa (South Africa,
     // Namibia, Lesotho) is in winter and genuinely cool, sometimes
     // near-freezing overnight at altitude.
-    moderate: { above: [24, 31], below: [17, 23] },
-    tough: { above: [36, 41], below: [2, 9] },
+    moderate: { above: [22, 28], below: [15, 21] },
+    tough: { above: [28, 32], below: [6, 10] },
   },
 };
 
 const REGION_KEYS = Object.keys(REGIONS);
 // If the player starts a quiz with no region checked, this is what runs
 // instead of refusing to start.
-const DEFAULT_REGION_KEYS = ["india"];
+const DEFAULT_REGION_KEYS = ["world"];
 
 // ---- Seeded RNG (mulberry32) — deterministic given a seed, so a future
 // "same quiz for everyone" mode just needs to share the seed. Falls back
@@ -133,13 +148,22 @@ function shuffle(arr, rng) {
   return out;
 }
 
-// Ported straight from GeoStreak's own pickThreshold() in app.js: a
-// random integer from [min, max] that hasn't already come out of this
-// exact `usedSet` — once every value in the range has been asked, the
-// set clears and the cycle starts over. This is what actually produces
-// "mixing": a wide range plus no-repeat-until-exhausted, not a handful
-// of hardcoded numbers to draw from.
-function pickThreshold(usedSet, min, max, rng) {
+// Ported from GeoStreak's own pickThreshold() in app.js: a random
+// integer from [min, max] that hasn't already come out of this exact
+// `usedSet` — once every value in the range has been asked, the set
+// clears and the cycle starts over. That's what produces real "mixing":
+// a wide range plus no-repeat-until-exhausted, not a handful of
+// hardcoded numbers to draw from.
+//
+// `avoidNear`/`minGap` are this page's own addition, not in GeoStreak's
+// version: since direction strictly alternates every question, the
+// naive version could follow e.g. "ABOVE 6°C" with "BELOW 6°C" right
+// after — technically two different questions, but they read as a
+// jarring flip on the same number rather than genuine variety. When a
+// previous threshold is passed, candidates within `minGap` of it are
+// excluded first — but only if that still leaves at least one option;
+// a narrow range shouldn't be able to lock the picker out entirely.
+function pickThreshold(usedSet, min, max, rng, avoidNear = null, minGap = 4) {
   const remaining = [];
   for (let t = min; t <= max; t++) {
     if (!usedSet.has(t)) remaining.push(t);
@@ -148,7 +172,12 @@ function pickThreshold(usedSet, min, max, rng) {
     usedSet.clear();
     for (let t = min; t <= max; t++) remaining.push(t);
   }
-  const threshold = remaining[Math.floor(rng() * remaining.length)];
+  let candidates = remaining;
+  if (avoidNear != null) {
+    const farEnough = remaining.filter((t) => Math.abs(t - avoidNear) >= minGap);
+    if (farEnough.length > 0) candidates = farEnough;
+  }
+  const threshold = candidates[Math.floor(rng() * candidates.length)];
   usedSet.add(threshold);
   return threshold;
 }
@@ -186,14 +215,16 @@ function buildQuestions(seed, regionKeys = REGION_KEYS) {
 
   let direction = rng() < 0.5 ? "above" : "below";
   const usedThresholds = {}; // "region|tier|direction" -> Set, one pool per combo, same split GeoStreak keeps between normal/tough
+  let prevThreshold = null; // fed to pickThreshold() as avoidNear, so back-to-back questions don't land on/near the same number
 
   return regionCycle.map((regionKey, i) => {
     const tier = i < MODERATE_COUNT ? "moderate" : "tough";
     const [min, max] = REGIONS[regionKey][tier][direction];
     const poolKey = `${regionKey}|${tier}|${direction}`;
     if (!usedThresholds[poolKey]) usedThresholds[poolKey] = new Set();
-    const threshold = pickThreshold(usedThresholds[poolKey], min, max, rng);
+    const threshold = pickThreshold(usedThresholds[poolKey], min, max, rng, prevThreshold);
     const question = { regionKey, tier, direction, threshold };
+    prevThreshold = threshold;
     direction = direction === "above" ? "below" : "above"; // strictly alternate for the next question
     return question;
   });
@@ -287,7 +318,7 @@ function renderStart() {
         answer, the more it's worth.
       </p>
       <div class="tq-region-picker">
-        <p class="tq-region-picker-label">Regions (pick any — none picked plays India only)</p>
+        <p class="tq-region-picker-label">Regions (pick any — none picked plays World)</p>
         <div class="tq-region-checks">
           ${REGION_KEYS.map((key) => `
             <label class="tq-region-check-label">
@@ -405,29 +436,43 @@ async function submitAnswer() {
     data = null;
   }
 
-  if (data) {
-    const resolvedKey = `${data.name}|${data.sys.country}`.toLowerCase();
-    if (usedCities.has(resolvedKey)) {
-      submitted = false; // give the attempt back — this one didn't count
-      document.getElementById("tqSubmitBtn").disabled = false;
-      hintEl.textContent = `You've already used ${data.name}, ${data.sys.country} this quiz. Try a different city.`;
-      input.focus();
-      return;
-    }
-    usedCities.add(typed.toLowerCase());
-    usedCities.add(resolvedKey);
+  // Not found (a typo, most likely) is a lookup failure, not a wrong
+  // answer — same as GeoStreak's own submitGuess(), which just hints
+  // and lets the player try again rather than ending the round. The
+  // question is only actually over once the 20s clock itself runs out
+  // (startTimer()'s own resolveAnswer(null) call, not this one).
+  if (!data) {
+    submitted = false;
+    document.getElementById("tqSubmitBtn").disabled = false;
+    hintEl.textContent = `Nothing found for "${typed}". Try another city — the clock's still running.`;
+    input.focus();
+    return;
   }
 
-  resolveAnswer(data, elapsedAtSubmit, typed);
+  const resolvedKey = `${data.name}|${data.sys.country}`.toLowerCase();
+  if (usedCities.has(resolvedKey)) {
+    submitted = false; // give the attempt back — this one didn't count
+    document.getElementById("tqSubmitBtn").disabled = false;
+    hintEl.textContent = `You've already used ${data.name}, ${data.sys.country} this quiz. Try a different city.`;
+    input.focus();
+    return;
+  }
+  usedCities.add(typed.toLowerCase());
+  usedCities.add(resolvedKey);
+
+  resolveAnswer(data, elapsedAtSubmit);
 }
 
-// `data` is the OpenWeatherMap response (or null if not found/timed out
-// or the clock ran out with nothing typed). `elapsedSeconds` defaults to
-// the full 20s on a genuine timeout. Double-resolution is already
-// prevented upstream — submitAnswer() sets `submitted` synchronously
-// before its network await, and startTimer()'s timeout branch only
-// calls this when `!submitted` — so nothing further to guard here.
-function resolveAnswer(data, elapsedSeconds, typed) {
+// `data` is the OpenWeatherMap response, or null — which, now that
+// submitAnswer() handles a not-found lookup itself (hint + retry, never
+// reaching here), only ever means the 20s clock ran out with nothing
+// resolved. `elapsedSeconds` is omitted by that one remaining caller
+// (startTimer()'s timeout branch), so it defaults to the full 20s.
+// Double-resolution is already prevented upstream — submitAnswer() sets
+// `submitted` synchronously before its network await, and startTimer()'s
+// timeout branch only calls this when `!submitted` — so nothing further
+// to guard here.
+function resolveAnswer(data, elapsedSeconds) {
   submitted = true;
   clearInterval(timerInterval);
   const elapsed = elapsedSeconds != null ? elapsedSeconds : QUESTION_SECONDS;
@@ -437,9 +482,9 @@ function resolveAnswer(data, elapsedSeconds, typed) {
   let correct = false;
   let detail;
   if (!data) {
-    detail = typed ? `"${typed}" not found` : "Time's up — no answer";
+    detail = "Time's up — no answer";
   } else {
-    const inRegion = region.countryCodes.includes(data.sys.country);
+    const inRegion = region.countryCodes === null || region.countryCodes.includes(data.sys.country);
     const temp = Math.round(data.main.temp);
     const tempOk = q.direction === "above" ? temp >= q.threshold : temp <= q.threshold;
     correct = inRegion && tempOk;
@@ -458,14 +503,76 @@ function resolveAnswer(data, elapsedSeconds, typed) {
     points,
   });
 
-  renderQuestionResult(correct, detail, points);
+  renderQuestionResult(correct, detail, points, data);
 }
 
-function renderQuestionResult(correct, detail, points) {
+// Signed decimal degrees -> "19.07° N" / "72.88° E", same N/S-E/W
+// convention southernHemisphere/app.js's formatCoord() uses.
+function formatCoord(value, isLatitude) {
+  const direction = isLatitude ? (value >= 0 ? "N" : "S") : (value >= 0 ? "E" : "W");
+  return `${Math.abs(value).toFixed(2)}&deg; ${direction}`;
+}
+
+// A snapshot of that city's local clock right now — not ticking, this
+// panel is only on screen for a few seconds. `timezone` is OpenWeatherMap's
+// offset in seconds from UTC.
+function formatLocalTimeAt(timezoneOffsetSeconds) {
+  const d = new Date(Date.now() + timezoneOffsetSeconds * 1000);
+  const p = (n) => String(n).padStart(2, "0");
+  return `${p(d.getUTCHours())}:${p(d.getUTCMinutes())}`;
+}
+
+function formatDayLength(sunrise, sunset) {
+  const totalSeconds = Math.max(0, sunset - sunrise);
+  const h = Math.floor(totalSeconds / 3600);
+  const m = Math.floor((totalSeconds % 3600) / 60);
+  return `${h}h ${m}m`;
+}
+
+// Extra context beyond city/temp for the result panel — coordinates
+// (linked out to Google Maps, same ?api=1&query=lat,lon pattern used
+// throughout this site), local time and day length (both computable
+// straight from the weather response already in hand), and elevation,
+// which isn't part of that response — see loadElevation() below, which
+// fills it in asynchronously once (if) it arrives.
+function buildResultDetailRows(data) {
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${data.coord.lat},${data.coord.lon}`;
+  const coordsText = `${formatCoord(data.coord.lat, true)}, ${formatCoord(data.coord.lon, false)}`;
+  const rows = [
+    ["Coordinates", `<a href="${mapsUrl}" target="_blank" rel="noopener">${coordsText}</a>`],
+    ["Elevation", `<span id="tqElevation">&hellip;</span>`],
+    ["Local time", formatLocalTimeAt(data.timezone)],
+    ["Day length", formatDayLength(data.sys.sunrise, data.sys.sunset)],
+  ];
+  return `
+    <div class="tq-result-details">
+      ${rows.map(([label, value]) => `
+        <div class="tq-result-detail-row">
+          <span class="tq-result-detail-label">${label}</span>
+          <span class="tq-result-detail-value">${value}</span>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+// Best-effort, same as everywhere else this API is used (see
+// fetch.js#getElevation) — never blocks the result panel from showing,
+// and the `tqElevation` existence check covers the case where the
+// player's already moved on to the next question before this resolves.
+async function loadElevation(lat, lon) {
+  const meters = await ft.getElevation(lat, lon);
+  const el = document.getElementById("tqElevation");
+  if (!el) return;
+  el.textContent = meters != null ? `${meters.toLocaleString()} m` : "&mdash;";
+}
+
+function renderQuestionResult(correct, detail, points, data) {
   resultEl.innerHTML = `
     <div class="tq-result-panel">
       <span class="tq-result-badge ${correct ? "tq-result-correct" : "tq-result-wrong"}">${correct ? "CORRECT" : "INCORRECT"}</span>
       <p class="tq-result-detail">${detail}</p>
+      ${data ? buildResultDetailRows(data) : ""}
       <p class="tq-result-points">+${points.toLocaleString()}</p>
       <p class="tq-result-total">Score so far: ${totalScore.toLocaleString()}</p>
       <p class="tq-timer" id="tqGapTimer">${GAP_SECONDS}</p>
@@ -478,6 +585,7 @@ function renderQuestionResult(correct, detail, points) {
     </div>
   `;
   showOnly(resultEl);
+  if (data) loadElevation(data.coord.lat, data.coord.lon);
 
   document.getElementById("tqNextBtn").addEventListener("click", advance);
 
