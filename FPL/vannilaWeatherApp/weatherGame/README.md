@@ -276,18 +276,26 @@ elements:
   `showStartScreen()` synchronously as soon as it loads, and that needs
   the `Leaderboard` global (and `escapeHtml` from `../ui.js`) to already
   exist.
-- **`history.html`** / **`historyPage.js`** — the Run History page,
-  covering **both** games (a "GeoStreak"/"Time Quiz" switcher up top —
-  see [Leaderboard, Run History & Insights](#leaderboard-run-history--insights)
-  under Time Quiz). A separate page load, so it can't reuse
+- **`history.html`** / **`historyPage.js`** — GeoStreak's own Run History
+  page. (An earlier version of this file briefly covered Time Quiz too, via
+  a "GeoStreak"/"Time Quiz" switcher — reverted in favor of Time Quiz
+  getting its own dedicated page instead; see
+  [Leaderboard, Run History &amp; Insights](#leaderboard-run-history--insights)
+  under Time Quiz.) A separate page load, so it can't reuse
   `leaderboard.js`'s in-memory Firebase state — it does its own minimal
   sign-in + query, self-contained like `southernHemisphere/app.js` (its
   own small `escapeHtml`/`flagEmoji`, rather than loading `../ui.js` for
   just those two functions). Read-only: this page never writes to Firestore.
 - **`timeQuiz.html`** / **`timeQuiz.js`** / **`timeQuizLeaderboard.js`** —
-  Time Quiz itself, and its own leaderboard/run-history/insights module
-  (see [Time Quiz](#time-quiz) below). Same `firebaseConfig.js` /
+  Time Quiz itself, and its own leaderboard/insights module (see
+  [Time Quiz](#time-quiz) below). Same `firebaseConfig.js` /
   `firestore.rules` as GeoStreak — one Firebase project, both games.
+- **`timeQuizHistory.html`** / **`timeQuizHistoryPage.js`** — Time Quiz's
+  own Run History page (insights + Best 10 + every attempt, Mine/All
+  Players tabs), linked from `timeQuiz.html`'s header. Self-contained,
+  same convention as `history.html`/`historyPage.js` — its own sign-in,
+  own small `escapeHtml`/`flagEmoji`/run-card renderers, no shared state
+  with `timeQuizLeaderboard.js`.
 - **`checklist/`** — not GeoStreak, not a game at all. A separate personal
   daily habit tracker, currently `localStorage`-only with a Firebase
   upgrade (reusing this same project) planned next — see
@@ -839,17 +847,19 @@ a popover listing the specific cities, same as GeoStreak's.
 
 ### Nickname
 
-`timeQuiz.js` shows "Playing as {nickname}" on the start screen and
-"{nickname}'s score" on the results screen — reading the exact same
-`localStorage["geoStreakGame_nickname"]` key GeoStreak's own
-`leaderboard.js` writes, so whatever name was set there just shows up
-here with no separate entry flow. Read-only on this page: editing a
-nickname stays GeoStreak's job. Computed **once** per page load and
-reused everywhere it's shown, rather than re-read per render —
-`leaderboard.js`'s own `getNickname()` falls back to a fresh random
-placeholder on every call when nothing's saved, which would otherwise
-show a different made-up name on the start screen than on the results
-screen.
+`timeQuiz.js` shows "{nickname}'s score" on the results screen, reading
+the exact same `localStorage["geoStreakGame_nickname"]` key GeoStreak's
+own `leaderboard.js` writes — whatever name was set there just shows up
+here too. Unlike an earlier version of this page, editing isn't
+GeoStreak-only anymore: see [Leaderboard, Run History &amp;
+Insights](#leaderboard-run-history--insights) below for the header
+setup-row/display toggle this page now has of its own. `nickname` is
+still computed **once** per page load and reused everywhere it's shown
+(kept in sync on save via an `onSave` callback, not re-read from
+`localStorage`), rather than re-read per render — `getNickname()` falls
+back to a fresh random placeholder on every call when nothing's saved,
+which would otherwise show a different made-up name on the start screen
+than on the results screen.
 
 ### Built for later: same quiz for everyone
 
@@ -871,11 +881,22 @@ since Firebase anonymous auth persists **per browser, not per page**, it
 resolves to the exact same `uid` GeoStreak already established — there's
 no separate "Time Quiz account." The nickname is the same story: both
 files read/write `localStorage["geoStreakGame_nickname"]`, so a name set
-on either page just shows up on the other. A visitor who opens Time Quiz
-before ever touching GeoStreak still gets asked to name themselves — a
-"Playing as ___ [Save]" row on the start screen (`nicknameRowHtml()`/
-`wireNicknameRow()`), simpler than GeoStreak's own setup-row/header-display
-toggle since this page has no persistent header slot to swap it into.
+on either page just shows up on the other.
+
+**Same setup-row/header-display toggle as GeoStreak**, not a simplified
+version of it: a "Playing as ___ [Save]" row (`#tqPlayerBar`, static
+markup above `#tqStart` in `timeQuiz.html` — not rebuilt on every
+`renderStart()`, so it survives across every screen) is shown only until
+a name is actually saved, then replaced for good by a small header chip
+(`#tqHeaderNicknameWrap`/`#tqHeaderNickname`) with a "change" link that
+brings the setup row back on demand. `wireNicknameInput()` in
+`timeQuizLeaderboard.js` is a direct port of `leaderboard.js`'s own
+`wireNicknameInput()` — same `showSetupRow()`/`showHeaderDisplay()`
+toggle, wired once at page load (`timeQuiz.js`'s `init()`) rather than
+per-render, now that the toggle lives outside the JS-rebuilt screens. An
+earlier version of this page showed the editable row inline, every single
+time the start screen rendered — a visitor who'd already named themselves
+still saw a form to fill in on every visit, instead of just their name.
 
 Three collections mirror GeoStreak's own shape, `bestScore` (0–15,000: 15
 questions × 1,000 points max) standing in for `bestStreak`:
@@ -951,13 +972,14 @@ sorts by score client-side — same "no second query" reasoning
 extended from one run to ten. Only wrong once more than 50 quizzes have
 been played since an old top-10 run aged out of that window.
 
-**Insights — Most Used Cities / Most Used Countries** — shown below the
-how-to-play list on the start screen, and unlike GeoStreak's own
-per-browser city tally (a `localStorage` count, see `ui.js`'s
-`buildCityInsightsHtml()`), this one is **global**: every player's
-accepted answers (correct or not — resolving to a real city is the bar,
-same moment `countryCities` already gets updated in `submitAnswer()`)
-increment the same two shared, ownerless counter collections:
+**Insights — Top Cities / Top Countries** — shown below the how-to-play
+list on the start screen (and again, in full, on the dedicated History
+page below), and unlike GeoStreak's own per-browser city tally (a
+`localStorage` count, see `ui.js`'s `buildCityInsightsHtml()`), this one
+is **global**: every player's accepted answers (correct or not —
+resolving to a real city is the bar, same moment `countryCities` already
+gets updated in `submitAnswer()`) increment the same two shared,
+ownerless counter collections:
 
 - **`timeQuizCityTally/{slug}`** — `{ city, country, count, lastUsedAt }`,
   doc id a sanitized `"country_city"` slug (`tallyDocId()`), not a uid.
@@ -970,32 +992,62 @@ write**, plus `city`/`country` staying fixed for a given doc id, the same
 improvement gates give elsewhere in this file. `FieldValue.increment(1)`
 against a field that doesn't exist yet resolves to `0 + 1`, which is what
 `isValidCityTallyCreate()`/`isValidCountryTallyCreate()`'s `count == 1`
-check is looking for. Both insight lists are a single-field `orderBy` —
-neither needs a composite index.
+check is looking for.
 
-**Run History** (`history.html`) now has a "GeoStreak" / "Time Quiz"
-switcher above the existing Mine/All Players tabs (`wireGameTabs()` in
-`historyPage.js`) — the two games' runs live in different collections
-with a different round shape, so `GAMES` in that file holds, per game,
-which collection to query and how to render a card
-(`buildTimeQuizRunCard()`/`buildTimeQuizRoundsTable()` for Time Quiz,
-reusing the existing GeoStreak renderers unchanged). Time Quiz's "best"
-section shows the **Best 10** cards described above instead of GeoStreak's
-single Personal Best card; the Mine/All Players master gate
-(`MASTER_UIDS`/`isMaster()`) is unchanged and applies to both games.
+**Top 10 per page, paginated** — `INSIGHT_PAGE_SIZE` in
+`timeQuizLeaderboard.js`, same `PAGE_SIZE + 1`-row trick the leaderboard
+panel already uses to learn whether a Next page exists, with each of the
+two lists (cities, countries) tracking its own cursor stack independently
+(`insightPagination.city`/`.country`). An earlier version capped both
+lists at a flat top 5 with no way to see further down the ranking. Still
+a single-field `orderBy` each — neither list needs a composite index.
+
+### Time Quiz's own Run History page
+
+`timeQuizHistory.html` (linked from `timeQuiz.html`'s header, next to the
+nickname chip) — a dedicated page, not a tab bolted onto GeoStreak's own
+`history.html`. An earlier version tried exactly that (a "GeoStreak" /
+"Time Quiz" switcher inside the shared page); reverted, since it meant
+two games with genuinely different round shapes fighting over one set of
+containers for no real benefit once each game already has everything
+else (its own Firebase module, its own start screen) as a separate page.
+`history.html` is GeoStreak-only again.
+
+`timeQuizHistoryPage.js` is self-contained, same convention as
+`historyPage.js` — its own sign-in, its own small
+`escapeHtml`/`flagEmoji`/`buildRunCard`/`buildRoundsTable`, its own copy
+of the paginated-insights logic described above (duplicated, not
+imported, since this is a separate page load with no shared Firebase
+state to reuse). It shows, top to bottom:
+
+- The same paginated **Top Cities / Top Countries** insights as the
+  start screen, in full (not truncated to what fits alongside the
+  how-to-play list).
+- **Your Best 10** — same 50-most-recent-runs-sorted-client-side
+  derivation as the panel on `timeQuiz.html`'s own start/results screens.
+- **All Attempts** — every run on this browser, newest first, each
+  expandable into its full question-by-question breakdown and
+  exportable as a PDF (identical `wireRunToggles()`/`wireExportButtons()`
+  behavior to GeoStreak's own history page).
+- A **Mine / All Players** switch, master-only — reuses the exact same
+  hardcoded `MASTER_UIDS` allowlist as `historyPage.js` (and the same
+  `isMaster()` in `firestore.rules`, which already covered `timeQuizRuns`
+  from when that collection was first added) — a GeoStreak master
+  automatically sees every player's Time Quiz attempts too, since it's
+  the same allowlist, not a second one to maintain.
 
 **Extra one-time setup**, on top of whatever GeoStreak's own Leaderboard
 section already had you do: republish the updated `firestore.rules` (same
 Firestore Database -> Rules -> paste -> Publish step), then create two more
 composite indexes the same way History's own `geostreakRuns` one was
-created — load the Today tab and the History page's Time Quiz view once
-each, open the browser console, follow the "this query requires an index"
-link:
+created — load the Today tab and `timeQuizHistory.html` once each, open
+the browser console, follow the "this query requires an index" link:
 - `timeQuizDaily`: `date` Ascending + `bestScore` Descending.
 - `timeQuizRuns`: `uid` Ascending + `playedAt` Descending.
 
-(`timeQuizPlayers` needs no index of its own — `loadPlayerState()` reads
-one document straight by its id, never queries the collection.)
+(`timeQuizPlayers` and the two tally collections need no index of their
+own — `loadPlayerState()` reads one document straight by its id, and the
+tally lists are a single-field `orderBy` each.)
 
 ### Not in this version
 

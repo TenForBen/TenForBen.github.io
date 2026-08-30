@@ -1,19 +1,16 @@
-// Run history for both games — GeoStreak's geostreakRuns collection and
-// Time Quiz's timeQuizRuns, switched between via the "GeoStreak"/"Time
-// Quiz" buttons at the top of the page (see GAMES/currentGame below).
-// Reads are scoped to the signed-in player's own runs by firestore.rules
-// (a player can only read documents where uid == their own auth uid).
-// Entirely read-only: this page never writes anything.
+// GeoStreak run history — reads from Firestore's geostreakRuns collection,
+// scoped to the signed-in player's own runs by firestore.rules (a player
+// can only read documents where uid == their own auth uid). Entirely
+// read-only: this page never writes anything.
 //
 // Self-contained like southernHemisphere/app.js — its own small
 // escapeHtml/flagEmoji helpers rather than loading ../ui.js, since this
 // page doesn't need the rest of what that file does.
 
-// How many of the most recent runs to pull per visit. GeoStreak's
-// "Personal Best" and Time Quiz's "Best 10" are both computed client-side
-// from whatever this fetches, not a separate query — see the README's
-// Leaderboard section for why (avoids needing a second Firestore index)
-// and what 100 reads per visit actually costs.
+// How many of the most recent runs to pull per visit. "Personal best" is
+// computed client-side from whatever this fetches, not a separate query —
+// see the README's Leaderboard section for why (avoids needing a second
+// Firestore index) and what 100 reads per visit actually costs.
 const RUNS_LIMIT = 100;
 
 // Anonymous-auth UIDs allowed to see the "All Players" tab — everyone
@@ -197,102 +194,6 @@ function buildRunCard(run, { best = false, showNickname = false } = {}) {
   `;
 }
 
-// ---- Time Quiz's own run card — different round shape (region/condition/
-// detail/correct/elapsed/points, from timeQuizLeaderboard.js's
-// submitRunHistory()) than GeoStreak's, so its own table rather than
-// reworking buildRoundsTable() to branch on shape. No Distance column —
-// a quiz's questions jump between arbitrary regions, not a single
-// traveled chain of cities the way one GeoStreak run's guesses are.
-function buildTimeQuizRoundsTable(rounds) {
-  const rows = rounds.map((r, i) => `
-    <tr>
-      <td>${i + 1}</td>
-      <td>${escapeHtml(r.region)}</td>
-      <td>${escapeHtml(r.condition)}</td>
-      <td>${escapeHtml(r.detail)}</td>
-      <td>${r.correct
-        ? '<span class="gs-badge gs-badge-correct">CORRECT</span>'
-        : '<span class="gs-badge gs-badge-incorrect">INCORRECT</span>'}</td>
-      <td>${r.elapsed.toFixed(2)}s</td>
-      <td>${r.points}</td>
-    </tr>
-  `).join("");
-
-  return `
-    <table class="gs-round-table">
-      <thead>
-        <tr><th>#</th><th>Region</th><th>Condition</th><th>Your answer</th><th>Result</th><th>Time</th><th>Points</th></tr>
-      </thead>
-      <tbody>${rows}</tbody>
-    </table>
-  `;
-}
-
-// Same `best`/`showNickname` split as buildRunCard() above — `best` picks
-// the highlighted-border styling (used for each of Time Quiz's "Best 10"
-// cards, not just a single one), `showNickname` is the master-only "All
-// Players" tab.
-function buildTimeQuizRunCard(run, { best = false, showNickname = false } = {}) {
-  const regionsLabel = escapeHtml((run.regions && run.regions.length ? run.regions : ["World"]).join(", "));
-  const correctLabel = `${run.correctCount}/${run.questionCount} correct`;
-  const meta = showNickname
-    ? `${escapeHtml(run.nickname || "Anonymous")} &middot; ${correctLabel} &middot; ${regionsLabel} &middot; ${formatPlayedAt(run.playedAt)}`
-    : `${correctLabel} &middot; ${regionsLabel} &middot; ${formatPlayedAt(run.playedAt)}`;
-  return `
-    <div class="gs-run-card${best ? " gs-run-card-best" : ""}">
-      <div class="gs-run-header-row">
-        <button type="button" class="gs-run-toggle" aria-expanded="false">
-          <span class="gs-run-streak">${run.score.toLocaleString()}</span>
-          <span class="gs-run-meta">${meta}</span>
-          <span class="gs-run-caret">&#9656;</span>
-        </button>
-        <button type="button" class="gs-run-export-btn" title="Export this run as PDF">&#128196;</button>
-      </div>
-      <div class="gs-run-detail" style="display: none;">
-        ${buildTimeQuizRoundsTable(run.rounds || [])}
-      </div>
-    </div>
-  `;
-}
-
-// Which game's runs are on screen, and how to render them — switched by
-// the "GeoStreak"/"Time Quiz" buttons (wireGameTabs()) rather than two
-// separate pages, since everything below the game switcher (Mine/All
-// Players tabs, run cards, export) is otherwise identical either way.
-const GAMES = {
-  geostreak: {
-    collection: "geostreakRuns",
-    bestTitle: "🏆 Personal Best",
-    emptyLabel: "GeoStreak",
-    emptyLink: "geoStreakGame.html",
-    buildCard: buildRunCard,
-    // GeoStreak's single highest-streak run, same "no second query" logic
-    // the file already used before Time Quiz existed.
-    buildBestSection: (runs) => {
-      const best = runs.reduce((a, b) => (b.finalStreak > a.finalStreak ? b : a), runs[0]);
-      return buildRunCard(best, { best: true });
-    },
-  },
-  timeQuiz: {
-    collection: "timeQuizRuns",
-    bestTitle: "🏆 Your Best 10",
-    emptyLabel: "Time Quiz",
-    emptyLink: "timeQuiz.html",
-    buildCard: buildTimeQuizRunCard,
-    // Same "no second query" idea, extended from one best run to ten: sort
-    // the RUNS_LIMIT most-recent-by-playedAt runs by score client-side and
-    // take the top 10, rather than a separate uid+score composite-index
-    // query. Only wrong once more than RUNS_LIMIT quizzes have been played
-    // since an old top-10 run fell out of the fetched window.
-    buildBestSection: (runs) => {
-      const best10 = [...runs].sort((a, b) => b.score - a.score).slice(0, 10);
-      return best10.map((r) => buildTimeQuizRunCard(r, { best: true })).join("");
-    },
-  },
-};
-let currentGame = "geostreak";
-let currentView = "mine"; // "mine" | "all" — "all" only ever reachable by a master uid
-
 function wireRunToggles(container) {
   container.querySelectorAll(".gs-run-toggle").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -363,37 +264,35 @@ function wireCopyUidLink(uid) {
 }
 
 async function loadMyRuns(db, uid) {
-  const game = GAMES[currentGame];
   const statusEl = document.getElementById("hStatus");
   const bestSectionEl = document.getElementById("hBestSection");
-  const bestTitleEl = document.getElementById("hBestTitle");
   const bestEl = document.getElementById("hBest");
   const listEl = document.getElementById("hList");
   bestSectionEl.style.display = "";
-  bestTitleEl.textContent = game.bestTitle;
   document.getElementById("hListTitle").textContent = "All Runs";
 
-  const snap = await db.collection(game.collection)
+  const snap = await db.collection("geostreakRuns")
     .where("uid", "==", uid)
     .orderBy("playedAt", "desc")
     .limit(RUNS_LIMIT)
     .get();
 
   if (snap.empty) {
-    statusEl.innerHTML = `No runs recorded on this browser yet — play a round of <a href="${game.emptyLink}">${game.emptyLabel}</a> first.`;
+    statusEl.innerHTML = 'No runs recorded on this browser yet — play a round of <a href="geoStreakGame.html">GeoStreak</a> first.';
     bestSectionEl.style.display = "none";
     listEl.innerHTML = "";
     return;
   }
 
   const runs = snap.docs.map((doc) => doc.data());
+  const best = runs.reduce((a, b) => (b.finalStreak > a.finalStreak ? b : a), runs[0]);
 
   statusEl.textContent = runs.length === RUNS_LIMIT
     ? `Showing your ${RUNS_LIMIT} most recent runs.`
     : `${runs.length} run${runs.length === 1 ? "" : "s"} on this account.`;
 
-  bestEl.innerHTML = game.buildBestSection(runs);
-  listEl.innerHTML = runs.map((r) => game.buildCard(r)).join("");
+  bestEl.innerHTML = buildRunCard(best, { best: true });
+  listEl.innerHTML = runs.map((r) => buildRunCard(r)).join("");
   wireRunToggles(bestEl);
   wireRunToggles(listEl);
   wireExportButtons(bestEl);
@@ -407,14 +306,13 @@ async function loadMyRuns(db, uid) {
 // as loadMyRuns(), just spread across everyone instead of one player — a
 // recent-activity feed, not a complete archive.
 async function loadAllRuns(db) {
-  const game = GAMES[currentGame];
   const statusEl = document.getElementById("hStatus");
   const bestSectionEl = document.getElementById("hBestSection");
   const listEl = document.getElementById("hList");
   bestSectionEl.style.display = "none";
   document.getElementById("hListTitle").textContent = "All Players — Recent Runs";
 
-  const snap = await db.collection(game.collection)
+  const snap = await db.collection("geostreakRuns")
     .orderBy("playedAt", "desc")
     .limit(RUNS_LIMIT)
     .get();
@@ -430,17 +328,9 @@ async function loadAllRuns(db) {
     ? `Showing the ${RUNS_LIMIT} most recent runs across every player.`
     : `${runs.length} run${runs.length === 1 ? "" : "s"} recorded across every player.`;
 
-  listEl.innerHTML = runs.map((r) => game.buildCard(r, { showNickname: true })).join("");
+  listEl.innerHTML = runs.map((r) => buildRunCard(r, { showNickname: true })).join("");
   wireRunToggles(listEl);
   wireExportButtons(listEl);
-}
-
-// Re-runs whichever load currentView currently points at — shared by the
-// Mine/All Players tabs and the GeoStreak/Time Quiz game switcher, so
-// flipping either one re-fetches against the right combination of both.
-function reload(db, uid) {
-  const promise = currentView === "all" ? loadAllRuns(db) : loadMyRuns(db, uid);
-  promise.catch((err) => reportLoadError(err));
 }
 
 function wireHistoryTabs(db, uid) {
@@ -451,42 +341,14 @@ function wireHistoryTabs(db, uid) {
 
   tabsEl.style.display = "flex";
   mineBtn.addEventListener("click", () => {
-    if (currentView === "mine") return;
-    currentView = "mine";
     mineBtn.classList.add("gs-tab-active");
     allBtn.classList.remove("gs-tab-active");
-    reload(db, uid);
+    loadMyRuns(db, uid).catch((err) => reportLoadError(err));
   });
   allBtn.addEventListener("click", () => {
-    if (currentView === "all") return;
-    currentView = "all";
     allBtn.classList.add("gs-tab-active");
     mineBtn.classList.remove("gs-tab-active");
-    reload(db, uid);
-  });
-}
-
-// Always visible (unlike the master-only Mine/All Players tabs above) —
-// every visitor can switch between their own GeoStreak and Time Quiz
-// history. Re-triggers whichever of loadMyRuns/loadAllRuns currentView
-// currently points at, same as wireHistoryTabs() does on its own switch.
-function wireGameTabs(db, uid) {
-  const geoBtn = document.getElementById("hGameGeo");
-  const tqBtn = document.getElementById("hGameTimeQuiz");
-  if (!geoBtn || !tqBtn) return;
-  geoBtn.addEventListener("click", () => {
-    if (currentGame === "geostreak") return;
-    currentGame = "geostreak";
-    geoBtn.classList.add("gs-tab-active");
-    tqBtn.classList.remove("gs-tab-active");
-    reload(db, uid);
-  });
-  tqBtn.addEventListener("click", () => {
-    if (currentGame === "timeQuiz") return;
-    currentGame = "timeQuiz";
-    tqBtn.classList.add("gs-tab-active");
-    geoBtn.classList.remove("gs-tab-active");
-    reload(db, uid);
+    loadAllRuns(db).catch((err) => reportLoadError(err));
   });
 }
 
@@ -531,7 +393,6 @@ async function main() {
 
     wireCopyUidLink(user.uid);
     wireHistoryTabs(db, user.uid);
-    wireGameTabs(db, user.uid);
     await loadMyRuns(db, user.uid);
   } catch (err) {
     reportLoadError(err);

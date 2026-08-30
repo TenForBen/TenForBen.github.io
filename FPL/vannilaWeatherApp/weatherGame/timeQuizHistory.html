@@ -7,10 +7,10 @@
     rel="stylesheet"
     href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/minty/bootstrap.min.css"
   />
-  <title>Run History — TENFORBEN Station</title>
+  <title>Time Quiz History — TENFORBEN Station</title>
   <link
     rel="icon"
-    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text x=%228%22 y=%2213%22 font-size=%2214%22 text-anchor=%22middle%22>%F0%9F%A6%96</text></svg>"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text x=%228%22 y=%2213%22 font-size=%2214%22 text-anchor=%22middle%22>%E2%8F%B1%EF%B8%8F</text></svg>"
   />
   <style>
     body {
@@ -100,7 +100,7 @@
       margin: 32px 0 14px;
     }
 
-    /* ---- run cards ---- */
+    /* ---- run cards (same shape as GeoStreak's own history.html) ---- */
     .gs-run-card {
       background: #0c1630;
       border: 1px solid #1b2a4a;
@@ -199,14 +199,6 @@
     }
     .gs-badge-correct { color: #16a34a; }
     .gs-badge-incorrect { color: #dc2626; }
-    .gs-badge-timeout { color: #f0b429; }
-
-    /* How close a reading landed to the threshold it was judged against,
-       independent of correct/incorrect — exactly at the threshold (gold)
-       or within 2 degrees of it (green). See tempClosenessClass() in
-       historyPage.js. */
-    .gs-temp-gold { color: #f0b429; font-weight: bold; }
-    .gs-temp-green { color: #16a34a; font-weight: bold; }
 
     .gs-empty-note {
       text-align: center;
@@ -216,16 +208,88 @@
     }
     .gs-empty-note a { color: #7dd3fc; }
 
-    /* Printing (or "Save as PDF", the same browser feature) gets its own
-       light, ink-friendly theme rather than the dark console look — a
-       dark background either wastes a page of ink or, worse, prints as
-       invisible white-on-white if the browser's "background graphics"
-       option is off. Everything below only applies inside a print
-       context; the on-screen page is untouched. */
+    /* ---- Insights (Most Used Cities/Countries), paginated — same shape
+       as timeQuiz.html's own .tq-insight-col / .tq-city-list, duplicated
+       here per this project's self-contained-per-page convention. ---- */
+    .tq-insights-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      text-align: left;
+    }
+    .tq-insight-col { flex: 1 1 260px; min-width: 0; }
+    .tq-insight-label {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.6rem;
+      letter-spacing: 1.5px;
+      color: #6b7fa8;
+      margin: 0 0 6px;
+    }
+    .tq-city-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+    .tq-city-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      padding: 5px 4px;
+      border-bottom: 1px solid #1b2a4a;
+    }
+    .tq-city-list li:last-child { border-bottom: none; }
+    .tq-leaderboard-rank {
+      font-family: "Courier New", Courier, monospace;
+      color: #6b7fa8;
+      width: 2.2em;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .tq-city-name { color: #cfe8ff; flex: 1 1 auto; }
+    .tq-city-count {
+      font-family: "Courier New", Courier, monospace;
+      color: #7dd3fc;
+      white-space: nowrap;
+    }
+    .tq-leaderboard-note {
+      color: #6b7fa8;
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+    .tq-lb-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .tq-page-btn {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+      color: #93a4c3;
+      background: transparent;
+      border: 1px solid #1b2a4a;
+      border-radius: 4px;
+      padding: 4px 10px;
+      cursor: pointer;
+    }
+    .tq-page-btn:hover:not(:disabled) { color: #7dd3fc; border-color: #1f6feb; }
+    .tq-page-btn:disabled { color: #40506e; cursor: not-allowed; }
+    .tq-page-label {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      color: #6b7fa8;
+    }
+
+    /* Printing gets its own light, ink-friendly theme — same reasoning as
+       GeoStreak's own history.html. */
     @media print {
       body { background: #fff; color: #14213d; }
       .gs-header, .gs-run-caret, .gs-run-export-btn { display: none; }
-      .gs-copy-uid, .gs-history-tabs { display: none !important; }
+      .gs-copy-uid, .gs-history-tabs, .tq-insights-row { display: none !important; }
       h1, .gs-status, h2.gs-section-title { color: #14213d; }
       .gs-run-card, .gs-run-card-best {
         background: #fff;
@@ -242,14 +306,7 @@
       .gs-round-table td { color: #14213d; border-bottom-color: #eee; }
       .gs-badge-correct { color: #15803d; }
       .gs-badge-incorrect { color: #b91c1c; }
-      .gs-badge-timeout { color: #b45309; }
-      .gs-temp-gold { color: #b45309; }
-      .gs-temp-green { color: #15803d; }
 
-      /* Set on <body> by a per-run "export this run" click (see
-         wireExportButtons in historyPage.js) — hides every OTHER run card
-         so the PDF contains just the one the player asked for, not the
-         whole page. */
       body.gs-printing-one .gs-run-card:not(.gs-print-target) { display: none; }
       body.gs-printing-one h2.gs-section-title { display: none; }
     }
@@ -257,36 +314,49 @@
 </head>
 <body>
   <header class="gs-header">
-    <div class="gs-brand">TENFORBEN // STATION — Run History</div>
-    <a class="gs-back-link" href="geoStreakGame.html">&larr; GeoStreak</a>
+    <div class="gs-brand">TENFORBEN // STATION — Time Quiz History</div>
+    <a class="gs-back-link" href="timeQuiz.html">&larr; Time Quiz</a>
   </header>
 
   <main class="container">
-    <h1>Your Run History</h1>
-    <p class="gs-status" id="hStatus">Loading&hellip;</p>
-    <p class="gs-copy-uid"><a href="#" id="hCopyUid" style="display: none;">Copy my player ID</a></p>
+    <h1>Time Quiz History</h1>
+    <p class="gs-status" id="tqhStatus">Loading&hellip;</p>
+    <p class="gs-copy-uid"><a href="#" id="tqhCopyUid" style="display: none;">Copy my player ID</a></p>
 
-    <!-- Master accounts only (see MASTER_UIDS in historyPage.js) — hidden
-         for everyone else, since it wouldn't work for them anyway:
-         firestore.rules' isMaster() is the real gate. -->
-    <div class="gs-history-tabs" id="hTabs" style="display: none;">
-      <button type="button" id="hTabMine" class="gs-tab-btn gs-tab-active">My Runs</button>
-      <button type="button" id="hTabAll" class="gs-tab-btn">All Players</button>
+    <!-- Master accounts only (same MASTER_UIDS/isMaster() allowlist as
+         GeoStreak's own history.html) — hidden for everyone else. -->
+    <div class="gs-history-tabs" id="tqhTabs" style="display: none;">
+      <button type="button" id="tqhTabMine" class="gs-tab-btn gs-tab-active">My Attempts</button>
+      <button type="button" id="tqhTabAll" class="gs-tab-btn">All Players</button>
     </div>
 
-    <div id="hBestSection">
-      <h2 class="gs-section-title">🏆 Personal Best</h2>
-      <div id="hBest"></div>
+    <h2 class="gs-section-title">Insights — Most Used Worldwide</h2>
+    <div class="tq-insights-row">
+      <div class="tq-insight-col">
+        <p class="tq-insight-label">TOP CITIES</p>
+        <div id="tqhCityList"><p class="tq-leaderboard-note">Loading&hellip;</p></div>
+        <div id="tqhCityPagination" class="tq-lb-pagination"></div>
+      </div>
+      <div class="tq-insight-col">
+        <p class="tq-insight-label">TOP COUNTRIES</p>
+        <div id="tqhCountryList"><p class="tq-leaderboard-note">Loading&hellip;</p></div>
+        <div id="tqhCountryPagination" class="tq-lb-pagination"></div>
+      </div>
     </div>
 
-    <h2 class="gs-section-title" id="hListTitle">All Runs</h2>
-    <div id="hList"></div>
+    <div id="tqhBestSection">
+      <h2 class="gs-section-title">🏆 Your Best 10</h2>
+      <div id="tqhBest"></div>
+    </div>
+
+    <h2 class="gs-section-title" id="tqhListTitle">All Attempts</h2>
+    <div id="tqhList"></div>
   </main>
 
   <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
   <script src="firebaseConfig.js"></script>
-  <script src="historyPage.js"></script>
+  <script src="timeQuizHistoryPage.js"></script>
 </body>
 </html>

@@ -296,10 +296,11 @@ function buildTallyHtml(countryCitiesMap) {
 // timeQuizLeaderboard.js's getNickname() reads/writes (and GeoStreak's own
 // leaderboard.js also writes), so whichever page a name was set on just
 // shows up on the other with no separate entry flow. `let`, not `const`:
-// unlike before, this page now also has its own "Playing as" row (see
-// renderStart()), and TimeQuizBoard.wireNicknameRow()'s onSave callback
-// keeps this in sync the moment a name is saved here. Computed once at
-// load and reused everywhere it's shown, rather than re-read per render —
+// this page's header shows/edits it too (the static #tqPlayerBar/
+// #tqHeaderNicknameWrap in timeQuiz.html, wired once in init() below via
+// TimeQuizBoard.wireNicknameInput()), and its onSave callback keeps this
+// in sync the moment a name is saved there. Computed once at load and
+// reused everywhere it's shown, rather than re-read per render —
 // getNickname() falls back to a *fresh* random name on every call when
 // none is saved yet, which would otherwise show a different placeholder
 // name on the start screen than on the final screen.
@@ -383,7 +384,6 @@ function renderStart() {
   startEl.innerHTML = `
     <div class="tq-panel">
       <h3>Time Quiz</h3>
-      ${TimeQuizBoard.nicknameRowHtml()}
       <p class="tq-panel-sub">
         ${QUESTION_COUNT} questions, ${QUESTION_SECONDS}s each. Name a city
         matching the region and temperature condition — the faster you
@@ -415,7 +415,6 @@ function renderStart() {
     </div>
   `;
   document.getElementById("tqStartBtn").addEventListener("click", startQuiz);
-  TimeQuizBoard.wireNicknameRow((newName) => { nickname = newName; });
   TimeQuizBoard.renderInsights("tqInsightsBody");
   TimeQuizBoard.renderLeaderboardPanel("tqLeaderboardPanel");
   TimeQuizBoard.renderMyBestRuns("tqBestRunsBody");
@@ -829,7 +828,13 @@ function renderFinal() {
 // to fall back on for that initial paint. loadPlayerState() itself never
 // throws (not configured / offline / brand-new player all resolve to the
 // same all-zero default), so this always reaches renderStart().
+//
+// wireNicknameInput() is called here, once — not inside renderStart() —
+// since #tqPlayerBar/#tqHeaderNicknameWrap are now static markup in
+// timeQuiz.html (not rebuilt on every renderStart() call), same as
+// GeoStreak's own #gsPlayerBar/#gsHeaderNicknameWrap.
 async function init() {
+  TimeQuizBoard.wireNicknameInput((newName) => { nickname = newName; });
   playerState = await TimeQuizBoard.loadPlayerState();
   renderStart();
 }

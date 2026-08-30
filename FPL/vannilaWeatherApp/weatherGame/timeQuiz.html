@@ -41,6 +41,25 @@
       text-decoration: none;
     }
     .tq-back-link:hover { color: #7dd3fc; text-decoration: underline; }
+    .tq-header-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .tq-header-nickname-wrap {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding-right: 4px;
+      border-right: 1px solid #1b2a4a;
+      margin-right: 2px;
+    }
+    .tq-header-nickname {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: #f0b429;
+    }
 
     main.tq-main {
       max-width: 520px;
@@ -407,8 +426,8 @@
       margin-top: 22px;
     }
 
-    /* ---- Nickname row ("Playing as ___ [Save]") — see
-       timeQuizLeaderboard.js's nicknameRowHtml(). Same layout as the
+    /* ---- Nickname row ("Playing as ___ [Save]") — static markup, see
+       timeQuizLeaderboard.js's wireNicknameInput(). Same layout as the
        question screen's .tq-input-row, just its own top label. ---- */
     .tq-player-bar {
       max-width: 420px;
@@ -585,10 +604,42 @@
 <body>
   <header class="tq-header">
     <div class="tq-brand">TENFORBEN // STATION — Time Quiz</div>
-    <a class="tq-back-link" href="geoStreakGame.html">&larr; GeoStreak</a>
+    <div class="tq-header-links">
+      <!-- Shown once a nickname has been saved (see
+           timeQuizLeaderboard.js's showHeaderDisplay()); until then
+           #tqPlayerBar below handles the first save. Same toggle
+           GeoStreak's own geoStreakGame.html header uses. -->
+      <span id="tqHeaderNicknameWrap" class="tq-header-nickname-wrap" style="display: none;">
+        <span id="tqHeaderNickname" class="tq-header-nickname"></span>
+        <a href="#" id="tqChangeNickname" class="tq-back-link">change</a>
+      </span>
+      <a class="tq-back-link" href="timeQuizHistory.html">History</a>
+      <a class="tq-back-link" href="geoStreakGame.html">&larr; GeoStreak</a>
+    </div>
   </header>
 
   <main class="tq-main">
+    <!-- One-time nickname setup — shown until a name is actually saved,
+         then replaced for good by the header's #tqHeaderNicknameWrap
+         above (its "change" link brings this back on demand). Static
+         markup, NOT rebuilt by renderStart(), so it (and whatever
+         visibility state it's in) survives across every screen the same
+         way GeoStreak's own #gsPlayerBar does. -->
+    <div id="tqPlayerBar" style="display: none;">
+      <span class="tq-player-label">Playing as</span>
+      <div class="tq-input-row">
+        <input
+          type="text"
+          id="tqNickname"
+          class="form-control"
+          maxlength="20"
+          placeholder="Your name"
+          autocomplete="off"
+        />
+        <button type="button" id="tqNicknameSave" class="btn btn-secondary">Save</button>
+      </div>
+    </div>
+
     <!-- Filled by renderStart() once timeQuiz.js's init() resolves the
          player's Firestore state — briefly shows a loading note rather
          than sitting blank, since that fetch (unlike the old

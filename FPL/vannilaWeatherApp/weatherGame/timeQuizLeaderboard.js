@@ -12,7 +12,7 @@
 // already established, and the nickname lives in the same
 // localStorage["geoStreakGame_nickname"] key both pages read. A brand-new
 // visitor who lands on Time Quiz first (never having opened GeoStreak) is
-// still asked to name themselves here — see wireNicknameRow() below —
+// still asked to name themselves here — see wireNicknameInput() below —
 // exactly like GeoStreak's own first-visit flow.
 //
 // Entirely optional, same guard as leaderboard.js: if firebaseConfig.js
@@ -27,7 +27,7 @@ const TimeQuizBoard = (() => {
   const PLAYERS_COLLECTION = "timeQuizPlayers";
   const PAGE_SIZE = 10;
   const BEST_RUNS_LOOKBACK = 50; // most-recent runs fetched to derive "best 10" client-side — see showMyBestRuns()
-  const INSIGHT_LIMIT = 5;
+  const INSIGHT_PAGE_SIZE = 10;
 
   // Same Europe/Berlin-anchored "today" as GeoStreak's leaderboard.js —
   // see that file's DAILY_TIMEZONE comment for why a fixed zone instead of
@@ -92,41 +92,64 @@ const TimeQuizBoard = (() => {
       });
   }
 
-  // A single always-visible "Playing as ___ [Save]" row, rendered wherever
-  // the caller points it — simpler than GeoStreak's toggle between a
-  // one-time setup row and a permanent header display, since this page has
-  // no persistent header nickname slot to show. Wired fresh every render
-  // (renderStart()/renderFinal() rebuild their container's innerHTML each
-  // time), same convention timeQuiz.js already uses for every other
-  // control on those screens.
-  function nicknameRowHtml() {
-    return `
-      <div class="tq-player-bar">
-        <span class="tq-player-label">Playing as</span>
-        <div class="tq-input-row">
-          <input type="text" id="tqNickname" class="form-control" maxlength="20" placeholder="Your name" autocomplete="off" value="${escapeHtml(getNickname())}" />
-          <button type="button" id="tqNicknameSave" class="btn btn-secondary">Save</button>
-        </div>
-      </div>
-    `;
+  // Same toggle GeoStreak's own leaderboard.js uses: a one-time setup row
+  // (#tqPlayerBar, static markup above #tqStart in timeQuiz.html — NOT
+  // rebuilt by renderStart(), so it survives across screens the same way
+  // GeoStreak's #gsPlayerBar does) shown only until a name is actually
+  // saved, then replaced for good by a small header chip
+  // (#tqHeaderNicknameWrap) with a "change" link that brings the setup
+  // row back on demand. Exactly one of the two shows at any moment.
+  function showSetupRow() {
+    const bar = document.getElementById("tqPlayerBar");
+    const headerWrap = document.getElementById("tqHeaderNicknameWrap");
+    if (bar) bar.style.display = "block";
+    if (headerWrap) headerWrap.style.display = "none";
   }
 
-  // `onSave(newName)` lets the caller keep its own cached copy of the
-  // nickname (timeQuiz.js reads it once at load, same reasoning
+  function showHeaderDisplay() {
+    const bar = document.getElementById("tqPlayerBar");
+    const headerWrap = document.getElementById("tqHeaderNicknameWrap");
+    const headerName = document.getElementById("tqHeaderNickname");
+    if (bar) bar.style.display = "none";
+    if (headerWrap) headerWrap.style.display = "flex";
+    if (headerName) headerName.textContent = getNickname();
+  }
+
+  // Called once, at page load (from timeQuiz.js's own init(), not
+  // TimeQuizBoard's own init() — that one only handles Firebase/auth
+  // setup and runs before timeQuiz.js has an onSave callback ready to
+  // pass in). `onSave(newName)` lets the caller keep its own cached copy
+  // of the nickname (timeQuiz.js reads it once at load, same reasoning
   // leaderboard.js's own comment gives — a fresh getNickname() call would
   // hand back a *different* random placeholder each time nothing's been
   // saved yet) in sync the moment a name is actually saved here.
-  function wireNicknameRow(onSave) {
+  function wireNicknameInput(onSave) {
     const input = document.getElementById("tqNickname");
     const saveBtn = document.getElementById("tqNicknameSave");
+    const changeLink = document.getElementById("tqChangeNickname");
     if (!input || !saveBtn) return;
+
+    input.value = getNickname();
+    if (hasNickname()) {
+      showHeaderDisplay();
+    } else {
+      showSetupRow();
+    }
+
     saveBtn.addEventListener("click", () => {
       input.value = setNickname(input.value);
-      saveBtn.textContent = "Saved";
-      setTimeout(() => { saveBtn.textContent = "Save"; }, 1200);
+      showHeaderDisplay();
       if (onSave) onSave(input.value);
     });
     input.addEventListener("keydown", (e) => { if (e.key === "Enter") saveBtn.click(); });
+    if (changeLink) {
+      changeLink.addEventListener("click", (e) => {
+        e.preventDefault(); // it's a styling convenience, not a real link
+        showSetupRow();
+        input.focus();
+        input.select();
+      });
+    }
   }
 
   // Doc id for the shared city-tally counter — Firestore ids can't contain
@@ -487,26 +510,91 @@ const TimeQuizBoard = (() => {
     }
   }
 
-  function renderTallyList(docs, labelFn) {
-    if (docs.length === 0) return '<p class="tq-leaderboard-note">No data yet — be the first!</p>';
-    const rows = docs.map((doc) => {
-      const d = doc.data();
-      return `
-        <li>
-          <span class="tq-city-name">${escapeHtml(labelFn(d))}</span>
-          <span class="tq-city-count">${d.count.toLocaleString()}</span>
-        </li>
-      `;
-    }).join("");
-    return `<ul class="tq-city-list">${rows}</ul>`;
-  }
-
-  // Global insight — every player's answers feed the same two tally
-  // collections, so this is "most used across everyone," not a
+  // Global insight — every player's answers feed the same two shared
+  // tally collections, so this is "most used across everyone," not a
   // per-browser stat (GeoStreak's own city insight, by contrast, is a
   // localStorage-only per-browser tally — see ui.js's
-  // buildCityInsightsHtml()). Two independent single-field orderBy
-  // queries, neither needing a composite index.
+  // buildCityInsightsHtml()). Top 10 per page, same PAGE_SIZE+1-trick
+  // pagination as the leaderboard panel above — one extra row fetched
+  // purely to learn whether a Next page exists. Two independent
+  // single-field orderBy queries, neither needing a composite index.
+  const insightPagination = {
+    city: { cursors: [null], page: 0 },
+    country: { cursors: [null], page: 0 },
+  };
+
+  async function fetchTallyPage(collectionName, kind, pageIndex) {
+    let query = db.collection(collectionName).orderBy("count", "desc");
+    const cursor = insightPagination[kind].cursors[pageIndex];
+    if (cursor) query = query.startAfter(cursor);
+    const snap = await query.limit(INSIGHT_PAGE_SIZE + 1).get();
+    const hasNext = snap.docs.length > INSIGHT_PAGE_SIZE;
+    const pageDocs = snap.docs.slice(0, INSIGHT_PAGE_SIZE);
+    if (hasNext && !insightPagination[kind].cursors[pageIndex + 1]) {
+      insightPagination[kind].cursors[pageIndex + 1] = pageDocs[pageDocs.length - 1];
+    }
+    return { pageDocs, hasNext };
+  }
+
+  function renderTallyPagination(container, kind, pageIndex, hasNext) {
+    if (!container) return;
+    if (pageIndex === 0 && !hasNext) {
+      container.innerHTML = "";
+      return;
+    }
+    container.innerHTML = `
+      <button type="button" class="tq-page-btn" data-action="prev" ${pageIndex === 0 ? "disabled" : ""}>&larr; Prev</button>
+      <span class="tq-page-label">Page ${pageIndex + 1}</span>
+      <button type="button" class="tq-page-btn" data-action="next" ${hasNext ? "" : "disabled"}>Next &rarr;</button>
+    `;
+    container.querySelectorAll("button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const delta = btn.dataset.action === "next" ? 1 : -1;
+        renderTallyPage(kind, insightPagination[kind].page + delta);
+      });
+    });
+  }
+
+  async function renderTallyPage(kind, pageIndex) {
+    const listEl = document.getElementById(kind === "city" ? "tqInsightCityList" : "tqInsightCountryList");
+    const pagEl = document.getElementById(kind === "city" ? "tqInsightCityPagination" : "tqInsightCountryPagination");
+    if (!listEl) return;
+    listEl.innerHTML = '<p class="tq-leaderboard-note">Loading&hellip;</p>';
+    if (pagEl) pagEl.innerHTML = "";
+    try {
+      const collectionName = kind === "city" ? CITY_TALLY_COLLECTION : COUNTRY_TALLY_COLLECTION;
+      const { pageDocs, hasNext } = await fetchTallyPage(collectionName, kind, pageIndex);
+      if (pageDocs.length === 0) {
+        listEl.innerHTML = pageIndex === 0
+          ? '<p class="tq-leaderboard-note">No data yet — be the first!</p>'
+          : '<p class="tq-leaderboard-note">No more entries.</p>';
+        return;
+      }
+      insightPagination[kind].page = pageIndex;
+      const startRank = pageIndex * INSIGHT_PAGE_SIZE + 1;
+      const rows = pageDocs.map((doc, i) => {
+        const d = doc.data();
+        const label = kind === "city" ? `${flagEmoji(d.country)} ${d.city}` : `${flagEmoji(d.country)} ${d.country}`;
+        return `
+          <li>
+            <span class="tq-leaderboard-rank">${startRank + i}</span>
+            <span class="tq-city-name">${escapeHtml(label)}</span>
+            <span class="tq-city-count">${d.count.toLocaleString()}</span>
+          </li>
+        `;
+      }).join("");
+      listEl.innerHTML = `<ul class="tq-city-list">${rows}</ul>`;
+      renderTallyPagination(pagEl, kind, pageIndex, hasNext);
+    } catch (err) {
+      listEl.innerHTML = '<p class="tq-leaderboard-note">Could not load insights.</p>';
+      console.error("TimeQuizBoard: renderTallyPage failed", err);
+    }
+  }
+
+  // Builds the two-column shell once, then lets renderTallyPage() own
+  // each column's own list/pagination from there — same split as
+  // renderLeaderboardPanel() building its shell once and renderPage()
+  // handling the actual data underneath it.
   async function renderInsights(containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
@@ -514,31 +602,26 @@ const TimeQuizBoard = (() => {
       container.innerHTML = '<p class="tq-leaderboard-note">Not configured yet.</p>';
       return;
     }
-    container.innerHTML = '<p class="tq-leaderboard-note">Loading&hellip;</p>';
+    container.innerHTML = `
+      <div class="tq-insight-col">
+        <p class="tq-insight-label">TOP CITIES</p>
+        <div id="tqInsightCityList"><p class="tq-leaderboard-note">Loading&hellip;</p></div>
+        <div id="tqInsightCityPagination" class="tq-lb-pagination"></div>
+      </div>
+      <div class="tq-insight-col">
+        <p class="tq-insight-label">TOP COUNTRIES</p>
+        <div id="tqInsightCountryList"><p class="tq-leaderboard-note">Loading&hellip;</p></div>
+        <div id="tqInsightCountryPagination" class="tq-lb-pagination"></div>
+      </div>
+    `;
     await ready;
     if (!uid) {
       container.innerHTML = '<p class="tq-leaderboard-note">Could not connect.</p>';
       return;
     }
-    try {
-      const [citySnap, countrySnap] = await Promise.all([
-        db.collection(CITY_TALLY_COLLECTION).orderBy("count", "desc").limit(INSIGHT_LIMIT).get(),
-        db.collection(COUNTRY_TALLY_COLLECTION).orderBy("count", "desc").limit(INSIGHT_LIMIT).get(),
-      ]);
-      container.innerHTML = `
-        <div class="tq-insight-col">
-          <p class="tq-insight-label">MOST USED CITIES</p>
-          ${renderTallyList(citySnap.docs, (d) => `${flagEmoji(d.country)} ${d.city}`)}
-        </div>
-        <div class="tq-insight-col">
-          <p class="tq-insight-label">MOST USED COUNTRIES</p>
-          ${renderTallyList(countrySnap.docs, (d) => `${flagEmoji(d.country)} ${d.country}`)}
-        </div>
-      `;
-    } catch (err) {
-      container.innerHTML = '<p class="tq-leaderboard-note">Could not load insights.</p>';
-      console.error("TimeQuizBoard: renderInsights failed", err);
-    }
+    insightPagination.city = { cursors: [null], page: 0 };
+    insightPagination.country = { cursors: [null], page: 0 };
+    await Promise.all([renderTallyPage("city", 0), renderTallyPage("country", 0)]);
   }
 
   // Duplicated from timeQuiz.js's own flagEmoji() per this file's
@@ -553,8 +636,7 @@ const TimeQuizBoard = (() => {
     init,
     getNickname,
     hasNickname,
-    nicknameRowHtml,
-    wireNicknameRow,
+    wireNicknameInput,
     recordCityUsage,
     loadPlayerState,
     savePlayerState,
