@@ -656,6 +656,12 @@ network round-trip to look the city up even starts. A slow OpenWeatherMap
 response costs nothing; only how long you took to type and hit Submit
 does.
 
+Alongside the seconds, a live **"N pts if correct now"** line ticks down
+from 1000 to 0 in step with the clock — the exact same `computePoints()`
+call the real submit uses (`correct: true`, `elapsed` read fresh each
+tick), so it's never a second formula that could drift out of sync with
+actual scoring, just the same one evaluated early.
+
 No streak, no elimination: a wrong answer doesn't end the quiz, it just
 scores 0 and moves on — all 15 questions play out every time.
 
@@ -712,6 +718,19 @@ alternative to fall back to — a single-region quiz (the World default,
 or any one box checked alone) is now special-cased to just repeat that
 one region, rather than routing through the general avoid-repeats loop
 at all.
+
+**The picker itself starts locked.** A first-time (or so-far-not-good-
+enough) player never sees the checkboxes at all — just a note explaining
+what unlocks them — and every quiz runs World-only regardless. Finishing
+a single quiz with `UNLOCK_CORRECT_COUNT` (10) or more correct, or a
+score of `UNLOCK_SCORE` (8,000) or higher, sets
+`localStorage["timeQuiz_regionsUnlocked"]` permanently (checked once per
+finished quiz in `renderFinal()`, never re-locked once set) and shows a
+"🎉 Region selection unlocked" note right there on the results screen —
+but the picker itself only appears the *next* time the start screen
+renders fresh, not retroactively within the run that just unlocked it,
+since `renderStart()` is what decides whether to show it and that
+already ran before this quiz existed.
 
 The thresholds themselves are hand-picked for **the season this was
 built in** (August/September — northern-hemisphere late summer,

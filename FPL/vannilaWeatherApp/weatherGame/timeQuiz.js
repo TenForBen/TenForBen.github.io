@@ -19,6 +19,13 @@ const QUESTION_SECONDS = 20;
 const MAX_POINTS = 1000;
 const GAP_SECONDS = 5; // pause between questions before auto-advancing
 const BEST_SCORE_KEY = "timeQuiz_bestScore";
+// Region selection stays locked to World-only until a completed quiz
+// hits either bar — proving a base level of comfort with the game
+// before customizing it further. Permanent once unlocked (checked once
+// per finished quiz in renderFinal(), never re-locked).
+const REGIONS_UNLOCK_KEY = "timeQuiz_regionsUnlocked";
+const UNLOCK_CORRECT_COUNT = 10; // out of QUESTION_COUNT (15)
+const UNLOCK_SCORE = 8000;
 
 // ---- Global bounds every region's ranges stay inside — GeoStreak's own
 // normal-mode MIN/MAX_THRESHOLD is 5-32; this mirrors that rather than
@@ -327,6 +334,10 @@ function saveBestScore(score) {
   if (score > getBestScore()) localStorage.setItem(BEST_SCORE_KEY, String(score));
 }
 
+function regionsUnlocked() {
+  return localStorage.getItem(REGIONS_UNLOCK_KEY) === "true";
+}
+
 function showOnly(el) {
   [startEl, questionEl, resultEl, finalEl].forEach((e) => {
     e.style.display = e === el ? "block" : "none";
@@ -347,15 +358,9 @@ function loadLastRegions() {
 function renderStart() {
   const best = getBestScore();
   const lastRegions = loadLastRegions();
-  startEl.innerHTML = `
-    <div class="tq-panel">
-      <h3>Time Quiz</h3>
-      <p class="tq-nickname">Playing as ${nickname}</p>
-      <p class="tq-panel-sub">
-        ${QUESTION_COUNT} questions, ${QUESTION_SECONDS}s each. Name a city
-        matching the region and temperature condition — the faster you
-        answer, the more it's worth.
-      </p>
+  const unlocked = regionsUnlocked();
+  const regionPickerHtml = unlocked
+    ? `
       <div class="tq-region-picker">
         <p class="tq-region-picker-label">Regions (pick any — none picked plays World)</p>
         <div class="tq-region-checks">
@@ -367,6 +372,26 @@ function renderStart() {
           `).join("")}
         </div>
       </div>
+    `
+    : `
+      <div class="tq-region-picker tq-region-picker-locked">
+        <p class="tq-region-picker-label">Regions: World (locked)</p>
+        <p class="tq-region-locked-note">
+          Get ${UNLOCK_CORRECT_COUNT}/${QUESTION_COUNT} correct or score ${UNLOCK_SCORE.toLocaleString()}+
+          in a single quiz to unlock picking a region next time.
+        </p>
+      </div>
+    `;
+  startEl.innerHTML = `
+    <div class="tq-panel">
+      <h3>Time Quiz</h3>
+      <p class="tq-nickname">Playing as ${nickname}</p>
+      <p class="tq-panel-sub">
+        ${QUESTION_COUNT} questions, ${QUESTION_SECONDS}s each. Name a city
+        matching the region and temperature condition — the faster you
+        answer, the more it's worth.
+      </p>
+      ${regionPickerHtml}
       <button type="button" id="tqStartBtn" class="btn btn-primary">Start Quiz</button>
       <ul class="tq-howto">
         <li>Each correct answer is worth up to ${MAX_POINTS} points, sliding down to 0 as the clock runs out.</li>
@@ -383,7 +408,12 @@ function renderStart() {
 }
 
 function startQuiz() {
-  const checked = Array.from(document.querySelectorAll(".tq-region-check:checked")).map((el) => el.value);
+  // No checkboxes exist in the DOM at all while locked (see renderStart()),
+  // so `checked` naturally comes back empty then — this just makes the
+  // World-only behavior explicit rather than incidental.
+  const checked = regionsUnlocked()
+    ? Array.from(document.querySelectorAll(".tq-region-check:checked")).map((el) => el.value)
+    : [];
   const activeRegions = checked.length > 0 ? checked : DEFAULT_REGION_KEYS;
   localStorage.setItem(LAST_REGIONS_KEY, JSON.stringify(checked)); // remembers the actual checkboxes, not the India fallback
   questions = buildQuestions(Date.now() ^ Math.floor(Math.random() * 0xffffffff), activeRegions);
@@ -402,6 +432,7 @@ function showQuestion() {
     <p class="tq-progress">Question ${qIndex + 1} / ${QUESTION_COUNT}</p>
     <p class="tq-score-live">Score so far: ${totalScore.toLocaleString()}</p>
     <p class="tq-timer" id="tqTimer">${formatTimer(QUESTION_SECONDS)}</p>
+    <p class="tq-points-preview" id="tqPointsPreview">${MAX_POINTS.toLocaleString()} pts if correct now</p>
     <div class="tq-timer-bar-wrap"><div class="tq-timer-bar" id="tqTimerBar" style="width: 100%;"></div></div>
     <div class="tq-condition">
       <span class="tq-region-badge">${REGIONS[q.regionKey].label}</span>
@@ -427,6 +458,7 @@ function showQuestion() {
 function startTimer() {
   const timerEl = document.getElementById("tqTimer");
   const barEl = document.getElementById("tqTimerBar");
+  const pointsEl = document.getElementById("tqPointsPreview");
   clearInterval(timerInterval);
   timerInterval = setInterval(() => {
     const elapsed = (performance.now() - questionStartTime) / 1000;
@@ -436,6 +468,15 @@ function startTimer() {
     barEl.style.width = `${Math.max(0, (left / QUESTION_SECONDS) * 100)}%`;
     timerEl.classList.toggle("tq-timer-warn", left <= 10 && left > 5);
     timerEl.classList.toggle("tq-timer-danger", left <= 5);
+    // Same computePoints() the real submit uses (correct=true, so this
+    // is "what you'd score if you were right this instant") — never a
+    // separate formula to keep in sync by hand.
+    if (pointsEl) {
+      const pointsNow = computePoints(true, elapsed);
+      pointsEl.textContent = `${pointsNow.toLocaleString()} pts if correct now`;
+      pointsEl.classList.toggle("tq-timer-warn", left <= 10 && left > 5);
+      pointsEl.classList.toggle("tq-timer-danger", left <= 5);
+    }
     if (left <= 0) {
       clearInterval(timerInterval);
       if (!submitted) resolveAnswer(null); // timed out — no city typed
@@ -674,6 +715,13 @@ function renderQuestionResult(correct, detail, points, data) {
 function renderFinal() {
   saveBestScore(totalScore);
   const correctCount = answers.filter((a) => a.correct).length;
+
+  const wasUnlocked = regionsUnlocked();
+  if (correctCount >= UNLOCK_CORRECT_COUNT || totalScore >= UNLOCK_SCORE) {
+    localStorage.setItem(REGIONS_UNLOCK_KEY, "true");
+  }
+  const justUnlocked = !wasUnlocked && regionsUnlocked();
+
   const rows = answers.map((a, i) => `
     <tr class="${a.correct ? "tq-row-correct" : "tq-row-wrong"}">
       <td>${i + 1}</td>
@@ -691,6 +739,7 @@ function renderFinal() {
       <p class="tq-nickname">${nickname}'s score</p>
       <p class="tq-final-score">${totalScore.toLocaleString()}</p>
       <p class="tq-final-sub">${correctCount} / ${QUESTION_COUNT} correct &middot; best this browser: ${getBestScore().toLocaleString()}</p>
+      ${justUnlocked ? `<p class="tq-unlock-note">&#127881; Region selection unlocked — pick one next time.</p>` : ""}
       <div class="tq-final-actions">
         <button type="button" id="tqReplayBtn" class="btn btn-primary">Play Again</button>
         <a href="geoStreakGame.html" class="btn btn-secondary">Back to GeoStreak</a>
