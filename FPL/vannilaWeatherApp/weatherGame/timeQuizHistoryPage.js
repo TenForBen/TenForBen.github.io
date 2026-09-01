@@ -47,27 +47,46 @@ function formatPlayedAt(timestamp) {
   return timestamp.toDate().toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
 }
 
+// Same idea as GeoStreak's own tempClosenessClass() in historyPage.js —
+// how close the actual reading landed to the threshold it was judged
+// against, independent of correct/incorrect. Exactly at the threshold is
+// gold; within 2 degrees either side is green; anything wider (or a run
+// recorded before `temp`/`threshold` were saved per-round) gets no color.
+function tempClosenessClass(temp, threshold) {
+  if (temp == null || threshold == null) return "";
+  const diff = Math.abs(temp - threshold);
+  if (diff === 0) return "tq-temp-gold";
+  if (diff <= 2) return "tq-temp-green";
+  return "";
+}
+
 // ---- Run cards ---------------------------------------------------------
 
 function buildRoundsTable(rounds) {
-  const rows = rounds.map((r, i) => `
-    <tr>
-      <td>${i + 1}</td>
-      <td>${escapeHtml(r.region)}</td>
-      <td>${escapeHtml(r.condition)}</td>
-      <td>${escapeHtml(r.detail)}</td>
-      <td>${r.correct
-        ? '<span class="gs-badge gs-badge-correct">CORRECT</span>'
-        : '<span class="gs-badge gs-badge-incorrect">INCORRECT</span>'}</td>
-      <td>${r.elapsed.toFixed(2)}s</td>
-      <td>${r.points}</td>
-    </tr>
-  `).join("");
+  const rows = rounds.map((r, i) => {
+    const tempCell = r.temp != null
+      ? `<span class="${tempClosenessClass(r.temp, r.threshold)}">${r.temp}&deg;C</span>`
+      : "&mdash;";
+    return `
+      <tr>
+        <td>${i + 1}</td>
+        <td>${escapeHtml(r.region)}</td>
+        <td>${escapeHtml(r.condition)}</td>
+        <td>${escapeHtml(r.detail)}</td>
+        <td>${tempCell}</td>
+        <td>${r.correct
+          ? '<span class="gs-badge gs-badge-correct">CORRECT</span>'
+          : '<span class="gs-badge gs-badge-incorrect">INCORRECT</span>'}</td>
+        <td>${r.elapsed.toFixed(2)}s</td>
+        <td>${r.points}</td>
+      </tr>
+    `;
+  }).join("");
 
   return `
     <table class="gs-round-table">
       <thead>
-        <tr><th>#</th><th>Region</th><th>Condition</th><th>Your answer</th><th>Result</th><th>Time</th><th>Points</th></tr>
+        <tr><th>#</th><th>Region</th><th>Condition</th><th>Your answer</th><th>Temp</th><th>Result</th><th>Time</th><th>Points</th></tr>
       </thead>
       <tbody>${rows}</tbody>
     </table>
@@ -245,8 +264,165 @@ async function renderTallyPage(db, kind, pageIndex) {
   }
 }
 
-function loadInsights(db) {
-  return Promise.all([renderTallyPage(db, "city", 0), renderTallyPage(db, "country", 0)]);
+// Top Countries shows for every viewer; Top Cities only for a master uid
+// — same display-only restriction (not a rules-layer one; both tally
+// collections stay world-readable) as timeQuizLeaderboard.js's own
+// renderInsights(). The column itself doesn't exist in the DOM at all
+// for a non-master viewer, built dynamically here rather than hidden via
+// CSS, same reasoning as that file.
+function loadInsights(db, isMaster) {
+  const container = document.getElementById("tqhInsights");
+  const cityColumnHtml = `
+    <div class="tq-insight-col">
+      <p class="tq-insight-label">TOP CITIES</p>
+      <div id="tqhCityList"><p class="tq-leaderboard-note">Loading&hellip;</p></div>
+      <div id="tqhCityPagination" class="tq-lb-pagination"></div>
+    </div>
+  `;
+  container.innerHTML = `
+    ${isMaster ? cityColumnHtml : ""}
+    <div class="tq-insight-col">
+      <p class="tq-insight-label">TOP COUNTRIES</p>
+      <div id="tqhCountryList"><p class="tq-leaderboard-note">Loading&hellip;</p></div>
+      <div id="tqhCountryPagination" class="tq-lb-pagination"></div>
+    </div>
+  `;
+  const pages = [renderTallyPage(db, "country", 0)];
+  if (isMaster) pages.push(renderTallyPage(db, "city", 0));
+  return Promise.all(pages);
+}
+
+// ---- Leaderboard (Overall/Today) ---------------------------------------
+// Duplicated from timeQuizLeaderboard.js rather than shared — same
+// self-contained-page reasoning as everything else in this file; this
+// page's own sign-in means there's no in-memory Firebase state to reuse.
+const LEADERBOARD_COLLECTION = "timeQuizLeaderboard";
+const DAILY_COLLECTION = "timeQuizDaily";
+const LB_PAGE_SIZE = 10;
+const LB_DAILY_TIMEZONE = "Europe/Berlin";
+
+function lbTodayDateStr() {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: LB_DAILY_TIMEZONE }).format(new Date());
+}
+
+const lbPagination = {
+  overall: { cursors: [null], page: 0 },
+  today: { cursors: [null], page: 0 },
+};
+let lbCurrentTab = "overall";
+
+function renderLbRow(doc, rank, myUid) {
+  const d = doc.data();
+  const runs = typeof d.totalRuns === "number" ? d.totalRuns : null;
+  const correct = typeof d.totalCorrect === "number" ? d.totalCorrect : null;
+  const avg = runs && correct != null ? (correct / runs).toFixed(1) : "—";
+  const mine = doc.id === myUid ? " tq-leaderboard-me" : "";
+  return `
+    <li class="${mine}">
+      <span class="tq-leaderboard-rank">${rank}</span>
+      <span class="tq-leaderboard-name">${escapeHtml(d.nickname || "Anonymous")}</span>
+      <span class="tq-leaderboard-streak" title="Best score">${d.bestScore.toLocaleString()}</span>
+      <span class="tq-leaderboard-runs" title="Total quizzes">${runs ?? "—"}</span>
+      <span class="tq-leaderboard-correct" title="Total correct">${correct ?? "—"}</span>
+      <span class="tq-leaderboard-avg" title="Correct ÷ quizzes">${avg}</span>
+    </li>
+  `;
+}
+
+async function fetchLbPage(db, tab, pageIndex) {
+  let query = tab === "today"
+    ? db.collection(DAILY_COLLECTION).where("date", "==", lbTodayDateStr()).orderBy("bestScore", "desc")
+    : db.collection(LEADERBOARD_COLLECTION).orderBy("bestScore", "desc");
+  const cursor = lbPagination[tab].cursors[pageIndex];
+  if (cursor) query = query.startAfter(cursor);
+  const snap = await query.limit(LB_PAGE_SIZE + 1).get();
+  const hasNext = snap.docs.length > LB_PAGE_SIZE;
+  const pageDocs = snap.docs.slice(0, LB_PAGE_SIZE);
+  if (hasNext && !lbPagination[tab].cursors[pageIndex + 1]) {
+    lbPagination[tab].cursors[pageIndex + 1] = pageDocs[pageDocs.length - 1];
+  }
+  return { pageDocs, hasNext };
+}
+
+function renderLbPagination(container, db, tab, pageIndex, hasNext, myUid) {
+  if (!container) return;
+  if (pageIndex === 0 && !hasNext) {
+    container.innerHTML = "";
+    return;
+  }
+  container.innerHTML = `
+    <button type="button" class="tq-page-btn" data-action="prev" ${pageIndex === 0 ? "disabled" : ""}>&larr; Prev</button>
+    <span class="tq-page-label">Page ${pageIndex + 1}</span>
+    <button type="button" class="tq-page-btn" data-action="next" ${hasNext ? "" : "disabled"}>Next &rarr;</button>
+  `;
+  container.querySelectorAll("button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const delta = btn.dataset.action === "next" ? 1 : -1;
+      renderLbPage(db, tab, lbPagination[tab].page + delta, myUid);
+    });
+  });
+}
+
+async function renderLbPage(db, tab, pageIndex, myUid) {
+  const listEl = document.getElementById("tqhLeaderboardList");
+  const pagEl = document.getElementById("tqhLeaderboardPagination");
+  if (!listEl) return;
+  listEl.innerHTML = '<p class="tq-leaderboard-note">Loading&hellip;</p>';
+  if (pagEl) pagEl.innerHTML = "";
+  try {
+    const { pageDocs, hasNext } = await fetchLbPage(db, tab, pageIndex);
+    if (pageDocs.length === 0) {
+      listEl.innerHTML = pageIndex === 0
+        ? `<p class="tq-leaderboard-note">${tab === "today" ? "No one's played today yet — be the first!" : "No scores yet — be the first!"}</p>`
+        : '<p class="tq-leaderboard-note">No more scores.</p>';
+      return;
+    }
+    lbPagination[tab].page = pageIndex;
+    const startRank = pageIndex * LB_PAGE_SIZE + 1;
+    const rows = pageDocs.map((doc, i) => renderLbRow(doc, startRank + i, myUid)).join("");
+    listEl.innerHTML = `<ul class="tq-leaderboard-list">${rows}</ul>`;
+    renderLbPagination(pagEl, db, tab, pageIndex, hasNext, myUid);
+  } catch (err) {
+    listEl.innerHTML = err && err.code === "failed-precondition"
+      ? '<p class="tq-leaderboard-note">This needs a Firestore index — open the browser console for a one-click link to create it.</p>'
+      : '<p class="tq-leaderboard-note">Could not load leaderboard.</p>';
+    console.error("Time Quiz History: renderLbPage failed", err);
+  }
+}
+
+function switchLbTab(db, tab, myUid) {
+  if (tab === lbCurrentTab) return;
+  lbCurrentTab = tab;
+  document.getElementById("tqhLbTabOverall").classList.toggle("gs-tab-active", tab === "overall");
+  document.getElementById("tqhLbTabToday").classList.toggle("gs-tab-active", tab === "today");
+  renderLbPage(db, tab, 0, myUid);
+}
+
+function loadLeaderboard(db, myUid) {
+  lbCurrentTab = "overall";
+  lbPagination.overall = { cursors: [null], page: 0 };
+  lbPagination.today = { cursors: [null], page: 0 };
+  document.getElementById("tqhLbTabOverall").addEventListener("click", () => switchLbTab(db, "overall", myUid));
+  document.getElementById("tqhLbTabToday").addEventListener("click", () => switchLbTab(db, "today", myUid));
+  return renderLbPage(db, "overall", 0, myUid);
+}
+
+// ---- Header nickname --------------------------------------------------
+// Read-only display, unlike timeQuiz.html's own editable header chip —
+// this is a stats page, not gameplay, so renaming stays that page's job.
+// Reads the exact same localStorage["geoStreakGame_nickname"] key every
+// other page in this project reads/writes. Green rather than the usual
+// amber when the viewer is a master, so master status is visible at a
+// glance without needing to open devtools.
+function renderHeaderNickname(isMaster) {
+  const wrap = document.getElementById("tqhHeaderNicknameWrap");
+  const nameEl = document.getElementById("tqhHeaderNickname");
+  if (!wrap || !nameEl) return;
+  const nickname = localStorage.getItem("geoStreakGame_nickname");
+  if (!nickname) return; // never set on this browser — nothing to show
+  nameEl.textContent = nickname;
+  nameEl.classList.toggle("tqh-header-nickname-master", isMaster);
+  wrap.style.display = "flex";
 }
 
 // ---- My Attempts / All Players -----------------------------------------
@@ -373,8 +549,8 @@ async function main() {
   if (!configured) {
     statusEl.textContent = "History isn't configured yet — see firebaseConfig.js.";
     bestSectionEl.style.display = "none";
-    document.getElementById("tqhCityList").innerHTML = '<p class="tq-leaderboard-note">Not configured yet.</p>';
-    document.getElementById("tqhCountryList").innerHTML = '<p class="tq-leaderboard-note">Not configured yet.</p>';
+    document.getElementById("tqhInsights").innerHTML = '<p class="tq-leaderboard-note">Not configured yet.</p>';
+    document.getElementById("tqhLeaderboardBody").innerHTML = '<p class="tq-leaderboard-note">Not configured yet.</p>';
     return;
   }
 
@@ -391,10 +567,16 @@ async function main() {
         resolve(u);
       });
     });
+    const isMaster = MASTER_UIDS.includes(user.uid);
 
     wireCopyUidLink(user.uid);
     wireHistoryTabs(db, user.uid);
-    await Promise.all([loadMyRuns(db, user.uid), loadInsights(db)]);
+    renderHeaderNickname(isMaster);
+    await Promise.all([
+      loadMyRuns(db, user.uid),
+      loadInsights(db, isMaster),
+      loadLeaderboard(db, user.uid),
+    ]);
   } catch (err) {
     reportLoadError(err);
   }

@@ -121,30 +121,26 @@
       color: #6b7fa8;
       margin: 0 0 10px;
     }
-    .tq-region-checks {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px 10px;
+    /* One row per STAGES entry — cleared (checkmark), current (arrow), or
+       still locked (padlock), so the whole campaign's shape is visible at
+       a glance. Replaces an earlier version's multi-select checkbox grid,
+       now that exactly one stage is ever active at a time. */
+    .tq-stage-roadmap {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 10px;
     }
-    .tq-region-check-label {
+    .tq-stage-roadmap li {
       display: flex;
       align-items: center;
       gap: 8px;
       font-size: 0.88rem;
-      color: #cfe8ff;
-      cursor: pointer;
-      margin: 0;
-      font-weight: normal;
+      padding: 3px 0;
     }
-    .tq-region-check {
-      width: 16px;
-      height: 16px;
-      accent-color: #7dd3fc;
-      cursor: pointer;
-    }
-    .tq-region-picker-locked {
-      text-align: center;
-    }
+    .tq-stage-icon { width: 1.2em; text-align: center; flex-shrink: 0; }
+    .tq-stage-cleared { color: #4ade80; }
+    .tq-stage-current { color: #7dd3fc; font-weight: bold; }
+    .tq-stage-locked { color: #6b7fa8; }
     .tq-region-locked-note {
       color: #9db4de;
       font-size: 0.82rem;
@@ -419,6 +415,26 @@
     .tq-breakdown tr:last-child td { border-bottom: none; }
     .tq-row-correct { color: #4ade80 !important; }
     .tq-row-wrong { color: #f87171 !important; }
+    /* How close a reading landed to the threshold it was judged against,
+       independent of correct/incorrect — same idea (and same colors) as
+       GeoStreak's own .gs-temp-gold/.gs-temp-green in history.html.
+       Exactly at the threshold is gold; within 2 degrees either side is
+       green. See tempClosenessClass() in timeQuiz.js. */
+    .tq-temp-gold { color: #f0b429; font-weight: bold; }
+    .tq-temp-green { color: #16a34a; font-weight: bold; }
+    /* The gap screen's growing "questions so far" recap — same table
+       styling as .tq-breakdown, just its own top spacing since it sits
+       inside the result panel rather than the final screen. */
+    .tq-recap-title {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #6b7fa8;
+      text-align: left;
+      margin: 18px 0 0;
+    }
+    .tq-recap-table { margin-top: 6px; }
     .tq-final-actions {
       display: flex;
       gap: 10px;

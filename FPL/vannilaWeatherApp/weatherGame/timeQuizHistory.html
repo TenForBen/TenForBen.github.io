@@ -41,6 +41,24 @@
       text-decoration: none;
     }
     .gs-back-link:hover { color: #7dd3fc; text-decoration: underline; }
+    .tqh-header-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .tqh-header-nickname-wrap {
+      display: none;
+    }
+    .tqh-header-nickname {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: #f0b429;
+    }
+    /* Master viewers only — see renderHeaderNickname() in
+       timeQuizHistoryPage.js. Green rather than the usual amber, so
+       master status reads at a glance without opening devtools. */
+    .tqh-header-nickname.tqh-header-nickname-master { color: #4ade80; }
 
     main.container {
       padding-top: 28px;
@@ -200,6 +218,14 @@
     .gs-badge-correct { color: #16a34a; }
     .gs-badge-incorrect { color: #dc2626; }
 
+    /* How close a reading landed to the threshold it was judged against,
+       independent of correct/incorrect — exactly at the threshold (gold)
+       or within 2 degrees of it (green). Same colors as GeoStreak's own
+       .gs-temp-gold/.gs-temp-green in history.html. See
+       tempClosenessClass() in timeQuizHistoryPage.js. */
+    .tq-temp-gold { color: #f0b429; font-weight: bold; }
+    .tq-temp-green { color: #16a34a; font-weight: bold; }
+
     .gs-empty-note {
       text-align: center;
       color: #6b7fa8;
@@ -284,12 +310,74 @@
       color: #6b7fa8;
     }
 
+    /* ---- Leaderboard (Overall/Today) — same shape as timeQuiz.html's
+       own .tq-leaderboard-*, duplicated here per this page's
+       self-contained convention. Reuses .gs-tab-btn/.gs-tab-active for
+       the Overall/Today tabs (same classes the Mine/All Players tabs
+       above already use) rather than a second tab styling. ---- */
+    .tq-leaderboard-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .tq-leaderboard-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+    .tq-leaderboard-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      padding: 5px 4px;
+      border-bottom: 1px solid #1b2a4a;
+    }
+    .tq-leaderboard-list li:last-child { border-bottom: none; }
+    .tq-leaderboard-list li.tq-leaderboard-me {
+      background: #12244a;
+      border-radius: 4px;
+    }
+    .tq-leaderboard-name {
+      color: #cfe8ff;
+      flex: 1 1 auto;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .tq-leaderboard-streak {
+      font-family: "Courier New", Courier, monospace;
+      color: #7dd3fc;
+      font-weight: bold;
+    }
+    .tq-leaderboard-runs,
+    .tq-leaderboard-correct,
+    .tq-leaderboard-avg {
+      font-family: "Courier New", Courier, monospace;
+      color: #6b7fa8;
+      font-size: 0.75rem;
+      width: 2.6em;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .tq-leaderboard-header-list { margin-bottom: 2px; }
+    .tq-leaderboard-header-row {
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.7rem !important;
+      color: #6b7fa8;
+      font-weight: bold;
+    }
+    .tq-leaderboard-header-row .tq-leaderboard-name { color: #6b7fa8; }
+
     /* Printing gets its own light, ink-friendly theme — same reasoning as
        GeoStreak's own history.html. */
     @media print {
       body { background: #fff; color: #14213d; }
       .gs-header, .gs-run-caret, .gs-run-export-btn { display: none; }
-      .gs-copy-uid, .gs-history-tabs, .tq-insights-row { display: none !important; }
+      .gs-copy-uid, .gs-history-tabs, .tq-insights-row, #tqhLeaderboardBody { display: none !important; }
       h1, .gs-status, h2.gs-section-title { color: #14213d; }
       .gs-run-card, .gs-run-card-best {
         background: #fff;
@@ -315,7 +403,15 @@
 <body>
   <header class="gs-header">
     <div class="gs-brand">TENFORBEN // STATION — Time Quiz History</div>
-    <a class="gs-back-link" href="timeQuiz.html">&larr; Time Quiz</a>
+    <div class="tqh-header-links">
+      <!-- Only shown once a nickname has actually been saved (see
+           renderHeaderNickname() in timeQuizHistoryPage.js) — a
+           brand-new visitor still sees the back-link either way. -->
+      <span class="tqh-header-nickname-wrap" id="tqhHeaderNicknameWrap">
+        <span class="tqh-header-nickname" id="tqhHeaderNickname"></span>
+      </span>
+      <a class="gs-back-link" href="timeQuiz.html">&larr; Time Quiz</a>
+    </div>
   </header>
 
   <main class="container">
@@ -331,17 +427,30 @@
     </div>
 
     <h2 class="gs-section-title">Insights — Most Used Worldwide</h2>
-    <div class="tq-insights-row">
-      <div class="tq-insight-col">
-        <p class="tq-insight-label">TOP CITIES</p>
-        <div id="tqhCityList"><p class="tq-leaderboard-note">Loading&hellip;</p></div>
-        <div id="tqhCityPagination" class="tq-lb-pagination"></div>
+    <!-- Filled by loadInsights() — Top Countries for every viewer, Top
+         Cities column only added for a master uid. Built dynamically
+         rather than two hardcoded columns, so a non-master viewer's DOM
+         never contains the Top Cities markup at all. -->
+    <div class="tq-insights-row" id="tqhInsights"><p class="tq-leaderboard-note">Loading&hellip;</p></div>
+
+    <h2 class="gs-section-title">Leaderboard</h2>
+    <div id="tqhLeaderboardBody">
+      <div class="tq-leaderboard-tabs">
+        <button type="button" id="tqhLbTabOverall" class="gs-tab-btn gs-tab-active">Overall</button>
+        <button type="button" id="tqhLbTabToday" class="gs-tab-btn">Today</button>
       </div>
-      <div class="tq-insight-col">
-        <p class="tq-insight-label">TOP COUNTRIES</p>
-        <div id="tqhCountryList"><p class="tq-leaderboard-note">Loading&hellip;</p></div>
-        <div id="tqhCountryPagination" class="tq-lb-pagination"></div>
-      </div>
+      <ul class="tq-leaderboard-list tq-leaderboard-header-list">
+        <li class="tq-leaderboard-header-row">
+          <span class="tq-leaderboard-rank">#</span>
+          <span class="tq-leaderboard-name">Name</span>
+          <span class="tq-leaderboard-streak" title="Best score">Score</span>
+          <span class="tq-leaderboard-runs" title="Total quizzes">Runs</span>
+          <span class="tq-leaderboard-correct" title="Total correct">Cor</span>
+          <span class="tq-leaderboard-avg" title="Correct ÷ quizzes">Avg</span>
+        </li>
+      </ul>
+      <div id="tqhLeaderboardList"></div>
+      <div id="tqhLeaderboardPagination" class="tq-lb-pagination"></div>
     </div>
 
     <div id="tqhBestSection">

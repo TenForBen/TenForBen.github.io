@@ -682,90 +682,90 @@ actual scoring, just the same one evaluated early.
 No streak, no elimination: a wrong answer doesn't end the quiz, it just
 scores 0 and moves on — all 15 questions play out every time.
 
-### Question generation — region-scoped, season-aware
+### Question generation — a linear stage campaign
 
-Each question names one of seven regions (**World**, India, United
-States, Canada, Europe, South America, Africa) and a temperature
-condition; the answer has to satisfy both — right temperature in the
-wrong region scores 0, same as a wrong temperature. World is the one
-exception: `countryCodes: null` means no restriction at all, any
-resolved city counts. `REGIONS` in `timeQuiz.js` holds, per region:
-which country codes qualify (`sys.country` on the OpenWeatherMap
-response, checked against a broad-but-not-exhaustive list — easy to
-extend), and a **[min, max] range** — not a short fixed list — per
-tier/direction: `moderate` for questions 1–10, `tough` for 11–15, the
-same "gets harder partway through" shape GeoStreak's own tough-round
-rule already uses. Every range across every region stays inside
-`GLOBAL_MIN`/`GLOBAL_MAX` (6–32°C, mirroring GeoStreak's own normal-mode
-5–32°C bounds) — an earlier version ranged as wide as 2–41°C, which
-produced genuinely unfair edge questions.
+Each question names the **current stage** and a temperature condition;
+the answer has to satisfy both — right temperature outside the stage's
+countries scores 0, same as a wrong temperature. `STAGES` in
+`timeQuiz.js` is an ordered array — **World → India → Europe → North
+America → South America → Hemisphere Challenge** — and exactly **one**
+stage is ever active at a time (`playerState.stageIndex`), not a
+multi-select checkbox picker. World's `countryCodes: null` means no
+restriction at all, any resolved city counts; every other stage checks
+`sys.country` on the OpenWeatherMap response against its own list.
 
-**Mixing is ported from GeoStreak's own `pickThreshold()`,** not
-reinvented: a random integer from the range, tracked in a per-
-region/tier/direction "already asked" set that won't repeat a value
-until the whole range is exhausted (then refills) — earlier versions of
-this page drew from a short fixed list of 3-4 numbers per region, which
-repeated constantly and felt scripted rather than random. Direction
-(above/below) strictly **alternates** question to question, same as
-GeoStreak's `nextDirection` — not a fresh coin flip each time — with the
-starting side randomised per quiz.
+**No moderate/tough split within a quiz anymore** — an earlier version
+ran questions 1–10 against an easier range and 11–15 against a harder one
+*within the same region*; now each stage has one flat `[min, max]` range
+for all 15 questions, and difficulty instead comes from *which stage*
+you're on. World and the Hemisphere Challenge share the widest range
+(`GLOBAL_MIN`/`GLOBAL_MAX`, 6–32°C); India/Europe/North America/South
+America each narrow that a little (7–30°C down to 5–30°C) to keep the
+mid-campaign stages from feeling identical to World.
 
-**Adjacent questions avoid landing near each other**, an addition
-GeoStreak's own version doesn't need (it isn't a fixed-length quiz, so
-"what came right before" isn't as noticeable there). Since direction
-always alternates, a naive version could follow "ABOVE 6°C" with "BELOW
-6°C" right after — two different questions that read as a jarring flip
-on the same number, not real variety. `pickThreshold()` takes an
-`avoidNear` value (the previous question's threshold) and excludes
-anything within `minGap` (4°C) of it *if* that still leaves a candidate
-— a handful of regions have ranges narrower than `2×minGap`, where no
-candidate can ever be far enough away, so this is a best-effort
-preference, not a hard guarantee (~97.5% of adjacent pairs stay ≥4°C
-apart across 1000 simulated quizzes; the rest are those narrow-range
-cases with nowhere else to go).
+**Mixing is still `pickThreshold()`**, unchanged in mechanism: a random
+integer from the stage's range, tracked in a per-direction "already
+asked" set that won't repeat a value until the whole range is exhausted
+(then refills), with adjacent questions avoiding landing near each other
+(`avoidNear`/`minGap`, same as before) so direction alternation never
+produces a jarring "ABOVE 6°C" immediately followed by "BELOW 6°C."
+Direction (above/below) strictly alternates question to question, same
+as GeoStreak's own `nextDirection`, starting side randomised per quiz.
 
-**Which regions actually get asked is a checkbox picker on the start
-screen** — any combination, remembered across visits as
-`playerState.lastRegions` (see [Leaderboard, Run History &amp;
-Insights](#leaderboard-run-history--insights) below for where that state
-actually lives now). Leaving every box unchecked plays **World** rather
-than refusing to start; `buildQuestions()` takes the active region list
-as a parameter for exactly this. One real bug this surfaced: the "avoid
-picking the same region twice in a row" logic used to spin forever with
-only one region selected, since there's no alternative to fall back to —
-a single-region quiz (the World default, or any one box checked alone)
-is now special-cased to just repeat that one region, rather than routing
-through the general avoid-repeats loop at all.
+**Advancing is strict and permanent.** Finishing a quiz on the current
+stage with `UNLOCK_CORRECT_COUNT` (10) or more correct, or a score of
+`UNLOCK_SCORE` (8,000) or higher — the **same bar at every stage**, World
+through the finale — advances `playerState.stageIndex` by exactly one,
+shows a "🎉 {next stage} unlocked" note on the results screen, and stays
+that way for good (never re-locked). The new stage only becomes active
+the *next* quiz, not retroactively within the run that just cleared it,
+since `renderStart()` is what decides which stage to play and that
+already ran before this quiz existed — "Play Again" on the results
+screen goes back through `renderStart()` for exactly this reason (an
+earlier, region-picker version of this page had a real bug here: "Play
+Again" wired straight to `startQuiz()`, which read a region checkbox
+picker that only existed in the start screen's own DOM, silently forcing
+every replay back to World regardless of what had just been unlocked;
+fixed alongside this same stage rework). The start screen also shows a
+**stage roadmap** (`renderStart()`'s `roadmapHtml`) — a checkmark for
+every cleared stage, an arrow on the current one, a padlock on the rest —
+so the whole campaign's shape is visible at a glance, not just which
+stage is active right now.
 
-**The picker itself starts locked.** A first-time (or so-far-not-good-
-enough) player never sees the checkboxes at all — just a note explaining
-what unlocks them — and every quiz runs World-only regardless. Finishing
-a single quiz with `UNLOCK_CORRECT_COUNT` (10) or more correct, or a
-score of `UNLOCK_SCORE` (8,000) or higher, sets
-`playerState.regionsUnlocked` permanently (checked once per finished quiz
-in `renderFinal()`, never re-locked once set) and shows a "🎉 Region
-selection unlocked" note right there on the results screen — but the
-picker itself only appears the *next* time the start screen renders
-fresh, not retroactively within the run that just unlocked it, since
-`renderStart()` is what decides whether to show it. "Play Again" on the
-results screen goes back through `renderStart()` for exactly this reason
-— it used to wire straight to `startQuiz()`, which silently forced every
-replay back to World (it reads `.tq-region-check:checked` from a DOM that
-only exists on the start screen) regardless of what had just been
-unlocked; fixed alongside this same migration.
+**The Hemisphere Challenge (the finale) borrows GeoStreak's own
+tough-round mechanic wholesale** rather than reinventing it: every
+question pins a hemisphere requirement (Northern or Southern) on top of
+the temperature condition, ported straight from `app.js`'s
+`nextHemisphere`/`hemisphereCorrect` logic — hemisphere alternates
+question to question as its own independent sequence (so a quiz sees all
+four direction×hemisphere combinations, not always the same pairing),
+and a resolved city has to land in the right half of the globe (equator
+counts as northern, `lat >= 0`) *and* satisfy the threshold to count as
+correct. No country restriction on this stage, same as World.
 
 The thresholds themselves are hand-picked for **the season this was
 built in** (August/September — northern-hemisphere late summer,
-southern-hemisphere late winter), not generic year-round numbers: India's
-moderate range stays on the "still hot" side since nearly the whole
-country is 24–30°C+ right now, while its tough "below" range only has an
-answer at real altitude (Leh, Manali, Darjeeling) — genuinely hard, not
-unanswerable. South America and Africa both currently span a real
-hot/cold split within one region (equatorial/northern areas warm
-year-round, southern-hemisphere portions in winter), so both directions
-are fair game there — unlike a region that's uniformly one season, where
-only one direction stays answerable. Revisit `REGIONS` by hand each
-season; nothing here recalculates it automatically.
+southern-hemisphere late winter), not generic year-round numbers.
+Revisit `STAGES` by hand each season; nothing here recalculates it
+automatically.
+
+### The wait between questions grows with the quiz
+
+`gapSecondsAfterQuestion()` replaces what used to be a flat 5-second
+pause: 5s after question 1, 7s after question 2 (5 + 2), 10s from
+question 3 onward (7 + 3 already hits `GAP_SECONDS_MAX`) — each step is
+the previous gap plus that question's own 1-based number, capped at 10.
+A player who's been going a few questions gets a little more breathing
+room before the next one shows up, rather than the same pause the whole
+way through.
+
+**The gap screen also shows a running recap of every question asked so
+far this quiz** (`buildBreakdownRows()`, shared with the final results
+table so the two never drift out of sync), not just the one that just
+resolved — a small table under the countdown listing region, condition,
+answer, temperature, time, and points for every question 1 through the
+current one. It grows by one row each time, so by question 15 the gap
+screen and the final results table show the exact same list.
 
 ### A not-found lookup doesn't end the question
 
@@ -810,18 +810,18 @@ accumulated — no special-casing beyond that; the existing thresholds
 already handle a shorter run correctly (10+ correct genuinely can't
 happen before question 10, quit or not).
 
-### The gap between questions
+### The result panel
 
-The fixed pause between questions (`GAP_SECONDS`) shows a large
-monospace countdown — the same `.tq-timer` styling as the live 20-second
-question clock, not a small text note — so it reads as a real countdown
-rather than an afterthought, ticking down to **2 decimals**
-(`formatGapTimer()`, `performance.now()`-based like the question clock
-itself, not a 1-second `setInterval` jumping in whole numbers). A "Next
-question now" button still fires the advance early; the countdown is
-what happens if nothing is clicked. The panel also repeats "Question N /
-15" — the same progress line the question screen shows — so it's still
-visible during the pause, not just while a question is live.
+The pause between questions (its length set by `gapSecondsAfterQuestion()`,
+see above) shows a large monospace countdown — the same `.tq-timer`
+styling as the live 20-second question clock, not a small text note — so
+it reads as a real countdown rather than an afterthought, ticking down to
+**2 decimals** (`formatGapTimer()`, `performance.now()`-based like the
+question clock itself, not a 1-second `setInterval` jumping in whole
+numbers). A "Next question now" button still fires the advance early; the
+countdown is what happens if nothing is clicked. The panel also repeats
+"Question N / 15" — the same progress line the question screen shows —
+so it's still visible during the pause, not just while a question is live.
 
 Beyond city/country/temp, the result panel also shows **Coordinates**
 (linked out to Google Maps, the same `?api=1&query=lat,lon` pattern used
@@ -844,6 +844,24 @@ page rebuilds the whole result panel's HTML each question. `countryCities`
 `usedCities` the moment a city is accepted, so it's always in sync with
 what's actually been used. Each chip is hoverable/focusable and expands
 a popover listing the specific cities, same as GeoStreak's.
+
+### Temperature closeness coloring
+
+Both the recap table (gap screen) and the final results table color each
+question's **Temp** cell by how close the actual reading landed to the
+threshold it was judged against — independent of correct/incorrect, same
+idea (and same colors) as GeoStreak's own `tempClosenessClass()` in
+`historyPage.js`: exactly at the threshold is gold, within 2 degrees
+either side is green, anything wider gets no color. `resolveAnswer()`
+now stores `temp` (the rounded reading, or `null` on a timeout) and
+`threshold` alongside each answer specifically so this can be computed —
+an earlier version only kept a pre-formatted `detail` string like "Kochi,
+IN — 29°C," with no structured number to color against. The same
+coloring applies on `timeQuizHistory.html`'s own attempt tables
+(`tempClosenessClass()` duplicated into `timeQuizHistoryPage.js`, per
+that file's self-contained convention) — a run recorded before this
+existed has no `temp`/`threshold` on its rounds and just shows "—", same
+"older data degrades gracefully" pattern as everywhere else in this file.
 
 ### Nickname
 
@@ -920,28 +938,42 @@ questions × 1,000 points max) standing in for `bestStreak`:
 
 **A fourth collection, `timeQuizPlayers/{uid}`, replaced this page's
 `localStorage` entirely** — best score, lifetime `totalCorrect`/
-`totalAttempts`/`totalRuns`, the permanent region-unlock flag, and the
-last-picked regions used to be five separate `localStorage` keys; now
+`totalAttempts`/`totalRuns`, and progress through the `STAGES` campaign
+(`stageIndex`) used to be several separate `localStorage` keys; now
 they're one private document (own-uid read/write only — unlike the public
 leaderboard collections above, there's no reason for a player's own
 settings to be world-readable):
 ```
 { bestScore: 11250, totalCorrect: 340, totalAttempts: 512, totalRuns: 38,
-  regionsUnlocked: true, lastRegions: ["india", "us"], updatedAt: <server timestamp> }
+  stageIndex: 2, updatedAt: <server timestamp> }
 ```
 Fetched **once** per page load (`TimeQuizBoard.loadPlayerState()`, awaited
 by `init()` before the very first `renderStart()`) and kept as an
 in-memory `playerState` object from there — mutated directly as a quiz
-plays out (`recordAttempt()` on every question, the unlock/best-score
-checks in `renderFinal()`) and flushed back to Firestore in exactly
-**one write per finished quiz** (`TimeQuizBoard.savePlayerState()`), not
-a write per field-change. `firestore.rules`' `isValidPlayerState()` +
-the update rule's four `>=` comparisons (plus "`regionsUnlocked` can flip
-false&rarr;true but never back") enforce the same "personal stats only
-move one direction" guarantee as everywhere else in this file, just
-without requiring `bestScore` specifically to have improved on any given
-write — unlike `timeQuizLeaderboard`, this document is meant to be
-written on **every** completed quiz, not just a new personal best.
+plays out (`recordAttempt()` on every question, the stage-advance/
+best-score checks in `renderFinal()`) and flushed back to Firestore in
+exactly **one write per finished quiz** (`TimeQuizBoard.savePlayerState()`),
+not a write per field-change. `firestore.rules`' `isValidPlayerState()` +
+the update rule's `>=` comparisons (`stageIndex` can only advance, never
+retreat) enforce the same "personal stats only move one direction"
+guarantee as everywhere else in this file, just without requiring
+`bestScore` specifically to have improved on any given write — unlike
+`timeQuizLeaderboard`, this document is meant to be written on **every**
+completed quiz, not just a new personal best.
+
+**Migrated from `regionsUnlocked`/`lastRegions`** when stages became
+linear: `loadPlayerState()` reads a doc with no `stageIndex` field as
+`stageIndex: 1` (India) if `regionsUnlocked` was `true`, or `0` (World)
+otherwise — there's no way to know which *specific* stage an old
+"everything unlocked" player would have reached under the strictly
+linear rule, so this is a judgment call, not a precise migration.
+`savePlayerState()` then writes back with a full `.set(state)`
+(deliberately **not** `{merge: true}`) — a merge only touches the keys
+you send, so the old `regionsUnlocked`/`lastRegions` fields would
+otherwise sit in the stored document forever, which would make
+`isValidPlayerState()`'s `hasOnly()` check reject every future write for
+that player. A full replace clears them out in one shot, the first time
+that player finishes a quiz after the migration.
 
 **The tradeoff**: this page now has no local fallback at all for that
 state. If Firebase is unreachable — not configured, offline, blocked by
@@ -1002,6 +1034,19 @@ two lists (cities, countries) tracking its own cursor stack independently
 lists at a flat top 5 with no way to see further down the ranking. Still
 a single-field `orderBy` each — neither list needs a composite index.
 
+**Top Cities is master-only; Top Countries shows for everyone.**
+City-level detail reads as more revealing than a country-level count, so
+`renderInsights()` builds the Top Cities column into the DOM at all only
+for a `MASTER_UIDS` uid — a non-master viewer's page never even requests
+that column's data. This is a **display** choice made in
+`timeQuizLeaderboard.js`/`timeQuizHistoryPage.js`, not a `firestore.rules`
+restriction — both tally collections stay world-readable at the rules
+layer (same as the leaderboard itself), so it's not a security boundary,
+just what the page chooses to render. `MASTER_UIDS` is now duplicated a
+*third* time (`timeQuizLeaderboard.js`, alongside `historyPage.js`'s and
+`timeQuizHistoryPage.js`'s own copies) — kept in sync by hand, same
+caveat the History page's own Master Access section already documents.
+
 ### Time Quiz's own Run History page
 
 `timeQuizHistory.html` (linked from `timeQuiz.html`'s header, next to the
@@ -1020,15 +1065,28 @@ of the paginated-insights logic described above (duplicated, not
 imported, since this is a separate page load with no shared Firebase
 state to reuse). It shows, top to bottom:
 
-- The same paginated **Top Cities / Top Countries** insights as the
-  start screen, in full (not truncated to what fits alongside the
-  how-to-play list).
+- A **header nickname chip**, read-only (unlike `timeQuiz.html`'s own
+  editable one — renaming stays that page's job), reading the same
+  `localStorage["geoStreakGame_nickname"]` key. **Green rather than
+  amber for a master viewer** (`renderHeaderNickname()`'s
+  `tqh-header-nickname-master` class) — master status visible at a
+  glance, not just by knowing to look for the extra tabs below.
+- The same paginated **Top Cities (master-only) / Top Countries**
+  insights as the start screen, in full (not truncated to what fits
+  alongside the how-to-play list).
+- The **Leaderboard** (Overall/Today, paginated) — duplicated from
+  `timeQuizLeaderboard.js` (`loadLeaderboard()`/`renderLbPage()` etc. in
+  `timeQuizHistoryPage.js`) rather than loaded as a shared module, same
+  "separate page, separate Firebase sign-in" reasoning as everything else
+  here. An earlier version of this page had no leaderboard at all — only
+  reachable from `timeQuiz.html` itself.
 - **Your Best 10** — same 50-most-recent-runs-sorted-client-side
   derivation as the panel on `timeQuiz.html`'s own start/results screens.
 - **All Attempts** — every run on this browser, newest first, each
-  expandable into its full question-by-question breakdown and
-  exportable as a PDF (identical `wireRunToggles()`/`wireExportButtons()`
-  behavior to GeoStreak's own history page).
+  expandable into its full question-by-question breakdown (now with the
+  same Temp-closeness coloring described above) and exportable as a PDF
+  (identical `wireRunToggles()`/`wireExportButtons()` behavior to
+  GeoStreak's own history page).
 - A **Mine / All Players** switch, master-only — reuses the exact same
   hardcoded `MASTER_UIDS` allowlist as `historyPage.js` (and the same
   `isMaster()` in `firestore.rules`, which already covered `timeQuizRuns`
