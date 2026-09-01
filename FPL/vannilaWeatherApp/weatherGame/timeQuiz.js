@@ -578,7 +578,7 @@ function resolveAnswer(data, elapsedSeconds) {
   totalScore += points;
   answers.push({
     region: stage.label,
-    condition: `${q.hemisphere ? (q.hemisphere === "north" ? "N, " : "S, ") : ""}${q.direction === "above" ? "≥" : "≤"} ${q.threshold}°C`,
+    condition: `${q.hemisphere ? (q.hemisphere === "north" ? "Northern, " : "Southern, ") : ""}${q.direction === "above" ? "Above" : "Below"} ${q.threshold}°C`,
     detail,
     correct,
     elapsed,
@@ -657,17 +657,24 @@ async function loadElevation(lat, lon) {
 // question) slice of `answers`. Temp is colored via tempClosenessClass(),
 // independent of correct/incorrect, same as GeoStreak's own history table.
 function buildBreakdownRows(list) {
-  return list.map((a, i) => `
-    <tr class="${a.correct ? "tq-row-correct" : "tq-row-wrong"}">
-      <td>${i + 1}</td>
-      <td>${a.region}</td>
-      <td>${a.condition}</td>
-      <td>${a.detail}</td>
-      <td>${a.temp != null ? `<span class="${tempClosenessClass(a.temp, a.threshold)}">${a.temp}&deg;C</span>` : "&mdash;"}</td>
-      <td>${a.elapsed.toFixed(2)}s</td>
-      <td>${a.points}</td>
-    </tr>
-  `).join("");
+  // Newest question on top — the row a player just answered (or is
+  // reviewing right after finishing) is the one most worth seeing without
+  // scrolling. `num` is captured before reversing so it still reads as
+  // the real question number (1-15), not the reversed display position.
+  return list
+    .map((a, i) => ({ a, num: i + 1 }))
+    .reverse()
+    .map(({ a, num }) => `
+      <tr class="${a.correct ? "tq-row-correct" : "tq-row-wrong"}">
+        <td>${num}</td>
+        <td>${a.region}</td>
+        <td>${a.condition}</td>
+        <td>${a.detail}</td>
+        <td>${a.temp != null ? `<span class="${tempClosenessClass(a.temp, a.threshold)}">${a.temp}&deg;C</span>` : "&mdash;"}</td>
+        <td>${a.elapsed.toFixed(2)}s</td>
+        <td>${a.points}</td>
+      </tr>
+    `).join("");
 }
 
 const BREAKDOWN_HEADER_ROW = `<tr><th>#</th><th>Region</th><th>Condition</th><th>Your answer</th><th>Temp</th><th>Time</th><th>Points</th></tr>`;
