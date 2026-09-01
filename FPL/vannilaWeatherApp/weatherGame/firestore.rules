@@ -177,12 +177,18 @@ service cloud.firestore {
       allow delete: if false;
     }
 
-    // A player's own Time Quiz state — best score, lifetime counters, the
-    // permanent region-unlock flag, and their last-picked regions. This
-    // used to be five separate localStorage keys; now it's one private
-    // document (own-uid read/write only, no reason for this to be public
-    // the way the leaderboard is) that timeQuiz.js fetches once per page
-    // load and writes back once per finished quiz. Unlike
+    // A player's own Time Quiz state — best score, lifetime counters, and
+    // progress through the STAGES campaign (timeQuiz.js), keyed by a
+    // numeric stageIndex (0 = World, up through the Hemisphere Challenge
+    // finale). One private document (own-uid read/write only, no reason
+    // for this to be public the way the leaderboard is) that timeQuiz.js
+    // fetches once per page load and writes back once per finished quiz —
+    // via a full `.set(data)` (no `{merge: true}`), so an older document
+    // still carrying the previous version's fields (`regionsUnlocked`,
+    // `lastRegions`, from before stages were linear) gets replaced
+    // outright rather than merged, which is what actually lets
+    // isValidPlayerState()'s hasOnly() keep working for a returning
+    // player instead of permanently rejecting every future write. Unlike
     // timeQuizLeaderboard above, this is NOT gated on beating a previous
     // best — it's meant to be written on every single completed quiz,
     // improvement or not, since it's this player's own persistent state,
@@ -194,11 +200,17 @@ service cloud.firestore {
         && request.auth.uid == uid
         && isValidPlayerState(request.resource.data);
 
-      // Every numeric field is one-directional (a lifetime counter, or a
-      // personal best) and regionsUnlocked can flip false -> true but
-      // never back — same "can only go up" philosophy as the improvement
-      // gates elsewhere in this file, just without requiring bestScore
-      // specifically to have improved THIS write.
+      // Every field is one-directional — lifetime counters and bestScore
+      // only ever go up, and stageIndex can only advance, never retreat —
+      // same "can only go up" philosophy as the improvement gates
+      // elsewhere in this file, just without requiring bestScore
+      // specifically to have improved THIS write. `resource.data.get(...)`
+      // rather than plain dot access on `stageIndex` specifically — a
+      // pre-migration document has bestScore/totalCorrect/totalAttempts/
+      // totalRuns already (those existed before stages existed) but has
+      // no `stageIndex` key at all, and reading a genuinely missing map
+      // key errors the whole rule out (denying the write, forever, for
+      // that player) rather than just being falsy the way it would in JS.
       allow update: if request.auth != null
         && request.auth.uid == uid
         && isValidPlayerState(request.resource.data)
@@ -206,7 +218,7 @@ service cloud.firestore {
         && request.resource.data.totalCorrect >= resource.data.totalCorrect
         && request.resource.data.totalAttempts >= resource.data.totalAttempts
         && request.resource.data.totalRuns >= resource.data.totalRuns
-        && (request.resource.data.regionsUnlocked == true || resource.data.regionsUnlocked != true);
+        && request.resource.data.stageIndex >= resource.data.get('stageIndex', 0);
 
       allow delete: if false;
     }
@@ -359,18 +371,19 @@ service cloud.firestore {
       && data.lastUsedAt == request.time;
   }
 
-  // `lastRegions` isn't checked against the actual set of known region
-  // keys (that list lives in timeQuiz.js, not here) — just capped in size
-  // and element type, same "shape/bounds only" shallowness as isValidRun()
-  // and isValidTimeQuizRun() above.
+  // `stageIndex` isn't checked against the actual STAGES array (that
+  // lives in timeQuiz.js, not here) beyond a generous upper bound — same
+  // "shape/bounds only" shallowness as isValidRun() and
+  // isValidTimeQuizRun() above. 10 is comfortably above STAGES.length
+  // today (6) so a future stage or two can be added without a rules
+  // change; it's a sanity ceiling, not meant to track the real count.
   function isValidPlayerState(data) {
-    return data.keys().hasOnly(['bestScore', 'totalCorrect', 'totalAttempts', 'totalRuns', 'regionsUnlocked', 'lastRegions', 'updatedAt'])
+    return data.keys().hasOnly(['bestScore', 'totalCorrect', 'totalAttempts', 'totalRuns', 'stageIndex', 'updatedAt'])
       && data.bestScore is int && data.bestScore >= 0 && data.bestScore <= 15000
       && data.totalCorrect is int && data.totalCorrect >= 0
       && data.totalAttempts is int && data.totalAttempts >= data.totalCorrect
       && data.totalRuns is int && data.totalRuns >= 0
-      && data.regionsUnlocked is bool
-      && data.lastRegions is list && data.lastRegions.size() <= 10
+      && data.stageIndex is int && data.stageIndex >= 0 && data.stageIndex <= 10
       && data.updatedAt == request.time;
   }
 }

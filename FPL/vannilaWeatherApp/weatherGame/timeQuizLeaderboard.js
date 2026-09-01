@@ -24,6 +24,13 @@ const TimeQuizBoard = (() => {
   const RUNS_COLLECTION = "timeQuizRuns";
   const CITY_TALLY_COLLECTION = "timeQuizCityTally";
   const COUNTRY_TALLY_COLLECTION = "timeQuizCountryTally";
+  // Same hardcoded allowlist as historyPage.js's/timeQuizHistoryPage.js's
+  // own MASTER_UIDS — a third independent copy, kept in sync by hand
+  // (there's no shared source between three separate self-contained page
+  // scripts). Gates which half of the Insights panel a viewer sees: Top
+  // Countries for everyone, Top Cities for masters only — see
+  // renderInsights() below.
+  const MASTER_UIDS = ["B0N7TfmkrXTaYjB2TBCVOBVtIhM2", "MsRKlqcPecOBng8SHekRF5YCVFJ3", "WmoVyIkr2eVCtQHMPwoiTnKWZQp1", "M9odxs0JSTPAnFuewYOCB2BEPR03"];
   const PLAYERS_COLLECTION = "timeQuizPlayers";
   const PAGE_SIZE = 10;
   const BEST_RUNS_LOOKBACK = 50; // most-recent runs fetched to derive "best 10" client-side — see showMyBestRuns()
@@ -200,18 +207,26 @@ const TimeQuizBoard = (() => {
     totalCorrect: 0,
     totalAttempts: 0,
     totalRuns: 0,
-    regionsUnlocked: false,
-    lastRegions: [],
+    stageIndex: 0,
   };
 
   // Replaces this page's old localStorage-backed state entirely — best
-  // score, lifetime counters, the permanent region-unlock flag, and the
-  // last-picked regions all live in one `timeQuizPlayers/{uid}` document
-  // now. Fetched exactly once per page load (timeQuiz.js caches the
-  // result in memory and mutates it in place through a finished quiz, see
+  // score, lifetime counters, and progress through timeQuiz.js's STAGES
+  // campaign all live in one `timeQuizPlayers/{uid}` document now.
+  // Fetched exactly once per page load (timeQuiz.js caches the result in
+  // memory and mutates it in place through a finished quiz, see
   // savePlayerState() below), not re-read on every render. Falls back to
   // a fresh, all-zero state whenever there's nothing to read yet — not
   // configured, offline, or a genuinely new player with no doc.
+  //
+  // A doc written before stages were linear has `regionsUnlocked`/
+  // `lastRegions` instead of `stageIndex` — migrated one-way, once, right
+  // here: a player who'd already unlocked every region under the old
+  // system starts at stage 1 (India) rather than back at square one;
+  // everyone else starts at 0 (World). There's no way to know which
+  // *specific* stage an old "everything unlocked" player would have
+  // reached under the new linear rule, so this is a judgment call, not a
+  // precise migration.
   async function loadPlayerState() {
     if (!configured) return { ...DEFAULT_PLAYER_STATE };
     await ready;
@@ -220,13 +235,15 @@ const TimeQuizBoard = (() => {
       const doc = await db.collection(PLAYERS_COLLECTION).doc(uid).get();
       if (!doc.exists) return { ...DEFAULT_PLAYER_STATE };
       const d = doc.data();
+      const stageIndex = typeof d.stageIndex === "number"
+        ? d.stageIndex
+        : (d.regionsUnlocked ? 1 : 0);
       return {
         bestScore: d.bestScore || 0,
         totalCorrect: d.totalCorrect || 0,
         totalAttempts: d.totalAttempts || 0,
         totalRuns: d.totalRuns || 0,
-        regionsUnlocked: !!d.regionsUnlocked,
-        lastRegions: Array.isArray(d.lastRegions) ? d.lastRegions : [],
+        stageIndex,
       };
     } catch (err) {
       console.error("TimeQuizBoard: loadPlayerState failed", err);
@@ -235,13 +252,22 @@ const TimeQuizBoard = (() => {
   }
 
   // One write per finished quiz — `state` is the caller's own in-memory
-  // copy, already updated (bestScore/totals/unlock/lastRegions all
-  // reflect the quiz that just ended) before this is called, not
-  // re-derived here. Fire-and-forget, same "shouldn't block or interrupt
-  // the results screen" reasoning as every other background write in this
-  // file — a failed write just means this session's in-memory copy is
-  // ahead of what's stored; the next page load (or another device) would
-  // miss the update, not this one.
+  // copy, already updated (bestScore/totals/stageIndex all reflect the
+  // quiz that just ended) before this is called, not re-derived here.
+  // Fire-and-forget, same "shouldn't block or interrupt the results
+  // screen" reasoning as every other background write in this file — a
+  // failed write just means this session's in-memory copy is ahead of
+  // what's stored; the next page load (or another device) would miss the
+  // update, not this one.
+  //
+  // A full `.set(state)`, deliberately NOT `{merge: true}` — this always
+  // sends the complete current state, so there's nothing to merge, and a
+  // plain set() actually REPLACES the document. That matters for a
+  // player migrating off the old regionsUnlocked/lastRegions shape: a
+  // merge would leave those old fields sitting in the stored document
+  // forever (merge only touches the keys you send), which would make
+  // firestore.rules' isValidPlayerState() hasOnly() check fail on every
+  // future write. A full replace clears them out in one shot.
   async function savePlayerState(state) {
     if (!configured) return;
     await ready;
@@ -252,10 +278,9 @@ const TimeQuizBoard = (() => {
         totalCorrect: state.totalCorrect,
         totalAttempts: state.totalAttempts,
         totalRuns: state.totalRuns,
-        regionsUnlocked: state.regionsUnlocked,
-        lastRegions: state.lastRegions,
+        stageIndex: state.stageIndex,
         updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-      }, { merge: true });
+      });
     } catch (err) {
       console.error("TimeQuizBoard: savePlayerState failed", err);
     }
@@ -404,7 +429,16 @@ const TimeQuizBoard = (() => {
       container.innerHTML = `<ul class="tq-leaderboard-list">${rows}</ul>`;
       renderPagination(paginationEl, tab, pageIndex, hasNext);
     } catch (err) {
-      container.innerHTML = '<p class="tq-leaderboard-note">Could not load leaderboard.</p>';
+      // Today's query (date == X + orderBy bestScore) needs a composite
+      // index Firestore doesn't build automatically — until it's created
+      // (see the README's Leaderboard, Run History & Insights section)
+      // every load of this tab fails this way, which otherwise looks
+      // identical to "nobody's played today," not an error. Same
+      // failed-precondition handling historyPage.js's own
+      // reportLoadError() already uses for the same reason.
+      container.innerHTML = err && err.code === "failed-precondition"
+        ? '<p class="tq-leaderboard-note">This needs a Firestore index — open the browser console for a one-click link to create it.</p>'
+        : '<p class="tq-leaderboard-note">Could not load leaderboard.</p>';
       console.error("TimeQuizBoard: renderPage failed", err);
     }
   }
@@ -591,10 +625,18 @@ const TimeQuizBoard = (() => {
     }
   }
 
-  // Builds the two-column shell once, then lets renderTallyPage() own
-  // each column's own list/pagination from there — same split as
-  // renderLeaderboardPanel() building its shell once and renderPage()
-  // handling the actual data underneath it.
+  // Builds the shell once, then lets renderTallyPage() own each column's
+  // own list/pagination from there — same split as renderLeaderboardPanel()
+  // building its shell once and renderPage() handling the actual data
+  // underneath it.
+  //
+  // Top Countries shows for every viewer; Top Cities only for a master
+  // uid (MASTER_UIDS above) — city-level detail reads as more revealing
+  // than a country-level count, so it's held back the same way run-by-run
+  // detail is already private in firestore.rules (`timeQuizRuns`'
+  // own-uid-or-master read rule), even though these two tally collections
+  // themselves are world-readable at the rules layer — this is a display
+  // choice in this file, not an access-control one enforced server-side.
   async function renderInsights(containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
@@ -602,26 +644,33 @@ const TimeQuizBoard = (() => {
       container.innerHTML = '<p class="tq-leaderboard-note">Not configured yet.</p>';
       return;
     }
-    container.innerHTML = `
+    container.innerHTML = '<p class="tq-leaderboard-note">Loading&hellip;</p>';
+    await ready;
+    if (!uid) {
+      container.innerHTML = '<p class="tq-leaderboard-note">Could not connect.</p>';
+      return;
+    }
+    const isMaster = MASTER_UIDS.includes(uid);
+    const cityColumnHtml = `
       <div class="tq-insight-col">
         <p class="tq-insight-label">TOP CITIES</p>
         <div id="tqInsightCityList"><p class="tq-leaderboard-note">Loading&hellip;</p></div>
         <div id="tqInsightCityPagination" class="tq-lb-pagination"></div>
       </div>
+    `;
+    container.innerHTML = `
+      ${isMaster ? cityColumnHtml : ""}
       <div class="tq-insight-col">
         <p class="tq-insight-label">TOP COUNTRIES</p>
         <div id="tqInsightCountryList"><p class="tq-leaderboard-note">Loading&hellip;</p></div>
         <div id="tqInsightCountryPagination" class="tq-lb-pagination"></div>
       </div>
     `;
-    await ready;
-    if (!uid) {
-      container.innerHTML = '<p class="tq-leaderboard-note">Could not connect.</p>';
-      return;
-    }
     insightPagination.city = { cursors: [null], page: 0 };
     insightPagination.country = { cursors: [null], page: 0 };
-    await Promise.all([renderTallyPage("city", 0), renderTallyPage("country", 0)]);
+    const pages = [renderTallyPage("country", 0)];
+    if (isMaster) pages.push(renderTallyPage("city", 0));
+    await Promise.all(pages);
   }
 
   // Duplicated from timeQuiz.js's own flagEmoji() per this file's

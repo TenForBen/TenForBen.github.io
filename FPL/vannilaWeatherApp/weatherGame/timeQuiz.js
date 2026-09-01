@@ -14,19 +14,21 @@
 // UI is simple enough not to need them.
 
 const QUESTION_COUNT = 15;
-const MODERATE_COUNT = 10; // first 10 easier, last 5 tougher — same shape as GeoStreak's own question-11-gets-tough rule
 const QUESTION_SECONDS = 20;
 const MAX_POINTS = 1000;
-const GAP_SECONDS = 5; // pause between questions before auto-advancing
-// Region selection stays locked to World-only until a completed quiz
-// hits either bar — proving a base level of comfort with the game
-// before customizing it further. Permanent once unlocked (checked once
-// per finished quiz in renderFinal(), never re-locked) — see
-// `playerState.regionsUnlocked` below.
+// Wait between questions grows as the quiz goes on: 5s after Q1, 7s after
+// Q2 (5+2), 10s from Q3 onward (7+3 already hits the cap) — see
+// gapSecondsAfterQuestion() below.
+const GAP_SECONDS_MAX = 10;
+// A stage stays active until a completed quiz on it hits either bar —
+// proving a base level of comfort before advancing. Permanent once
+// cleared (checked once per finished quiz in renderFinal(), never
+// re-locked) — see `playerState.stageIndex` below. Same bar at every
+// stage, World through the Hemisphere Challenge.
 const UNLOCK_CORRECT_COUNT = 10; // out of QUESTION_COUNT (15)
 const UNLOCK_SCORE = 8000;
 
-// ---- Global bounds every region's ranges stay inside — GeoStreak's own
+// ---- Global bounds World's own range stays inside — GeoStreak's own
 // normal-mode MIN/MAX_THRESHOLD is 5-32; this mirrors that rather than
 // the wider, more extreme spread an earlier version of this table used
 // (down to 2°C, up to 41°C), which produced genuinely unfair questions
@@ -34,59 +36,25 @@ const UNLOCK_SCORE = 8000;
 const GLOBAL_MIN = 6;
 const GLOBAL_MAX = 32;
 
-// ---- Regions: which countries qualify, and which temperature RANGES are
-// fair game right now (August/September — northern-hemisphere late
-// summer, southern-hemisphere late winter), all nested inside
-// [GLOBAL_MIN, GLOBAL_MAX]. Deliberately season-aware rather than just
-// "anything above/below X": an unreachable condition (e.g. "Australia
-// above 28°C" in their winter) isn't a hard question, it's an unfair one.
+// ---- Stages: a strict, linear progression — exactly ONE stage is ever
+// playable at a time (`playerState.stageIndex`), each with its own flat
+// [min, max] temperature range. Unlike an earlier version of this page,
+// there's no moderate/tough split within a quiz anymore and no
+// multi-region checkbox picker — the stage itself IS the difficulty
+// step, and clearing one advances to exactly the next.
 //
-// Each region/tier/direction is a [min, max] RANGE, not a short fixed
-// list — questions are meant to feel different from each other, and a
-// handful of discrete choices repeated across 10-15 questions doesn't.
-// `pickThreshold()` below draws a random integer from that range the
-// same way GeoStreak's own pickThreshold() does: tracked in a per-
-// region/tier/direction "already asked" set that doesn't allow a repeat
-// until the whole range is exhausted (then refills). Country-code lists
-// are broad-coverage, not exhaustive — easy to extend.
-const REGIONS = {
-  // No country restriction at all (countryCodes: null) — any resolved
-  // city counts. The default when nothing's checked on the start screen;
-  // see DEFAULT_REGION_KEYS below.
-  world: {
-    label: "World",
-    countryCodes: null,
-    moderate: { above: [16, 26], below: [12, 22] },
-    tough: { above: [27, 32], below: [6, 11] },
-  },
-  india: {
-    label: "India",
-    countryCodes: ["IN"],
-    // August in India is hot almost everywhere except Himalayan hill
-    // stations — so the moderate range stays on the "still hot" side,
-    // and the tough "below" range only has an answer at real altitude
-    // (Leh, Manali, Darjeeling). That's the example this whole region
-    // table is built around.
-    moderate: { above: [24, 30], below: [14, 20] },
-    tough: { above: [27, 32], below: [6, 11] },
-  },
-  us: {
-    label: "United States",
-    countryCodes: ["US"],
-    moderate: { above: [18, 24], below: [16, 22] },
-    tough: { above: [26, 32], below: [6, 11] }, // above: Southwest desert; below: Alaska, high Rockies
-  },
-  canada: {
-    label: "Canada",
-    countryCodes: ["CA"],
-    // August is full summer in populated southern Canada but the
-    // northern territories stay cool even now — the tough "below" range
-    // leans on Yukon/NWT/Nunavut the same way India's leans on
-    // Himalayan altitude.
-    moderate: { above: [16, 22], below: [18, 24] },
-    tough: { above: [24, 30], below: [6, 10] },
-  },
-  europe: {
+// The final stage borrows GeoStreak's own tough-round mechanic wholesale
+// (`hemisphere: true`) rather than reinventing it — see buildQuestions()
+// and resolveAnswer() below for the hemisphere handling, ported from
+// app.js's own nextHemisphere/hemisphereCorrect logic.
+const STAGES = [
+  // No country restriction (countryCodes: null) — any resolved city
+  // counts. GLOBAL_MIN/MAX rather than a narrower range, since "no
+  // restriction on where" is what already made this the easiest stage.
+  { key: "world", label: "World", countryCodes: null, min: GLOBAL_MIN, max: GLOBAL_MAX, hemisphere: false },
+  { key: "india", label: "India", countryCodes: ["IN"], min: 10, max: 30, hemisphere: false },
+  {
+    key: "europe",
     label: "Europe",
     countryCodes: [
       "FR", "DE", "IT", "ES", "PT", "NL", "BE", "LU", "CH", "AT",
@@ -95,41 +63,25 @@ const REGIONS = {
       "AL", "EE", "LV", "LT", "MT", "CY", "LI", "MC", "AD", "SM",
       "VA", "UA", "BY", "MD",
     ],
-    moderate: { above: [18, 24], below: [17, 23] },
-    tough: { above: [26, 32], below: [6, 11] }, // above: southern-Europe heatwave; below: Scandinavia/Iceland
+    min: 7,
+    max: 30,
+    hemisphere: false,
   },
-  southAmerica: {
+  { key: "na", label: "North America", countryCodes: ["US", "CA"], min: 5, max: 30, hemisphere: false },
+  {
+    key: "sa",
     label: "South America",
     countryCodes: ["AR", "BR", "CL", "CO", "PE", "VE", "EC", "BO", "PY", "UY", "GY", "SR"],
-    // Southern-hemisphere winter in the southern cone (Argentina, Chile,
-    // Uruguay) at the same time the equatorial north (Colombia,
-    // Venezuela, Ecuador, northern Brazil) stays warm year-round —
-    // unlike Australia/NZ, this continent genuinely spans both right
-    // now, so both directions are fair game at the moderate tier too.
-    moderate: { above: [21, 27], below: [13, 19] },
-    tough: { above: [28, 32], below: [6, 10] },
+    min: 5,
+    max: 30,
+    hemisphere: false,
   },
-  africa: {
-    label: "Africa",
-    countryCodes: [
-      "DZ", "EG", "LY", "TN", "MA", "SD", "SS", "ET", "KE", "TZ",
-      "UG", "RW", "BI", "SO", "DJ", "ER", "NG", "GH", "CI", "SN",
-      "ML", "NE", "TD", "CM", "CD", "CG", "GA", "GQ", "CF", "ZA",
-      "NA", "BW", "ZW", "ZM", "MW", "MZ", "AO", "LS", "SZ", "MG", "MU",
-    ],
-    // Same hot-north/cold-south split as South America right now: North
-    // Africa is scorching in August, southern Africa (South Africa,
-    // Namibia, Lesotho) is in winter and genuinely cool, sometimes
-    // near-freezing overnight at altitude.
-    moderate: { above: [22, 28], below: [15, 21] },
-    tough: { above: [28, 32], below: [6, 10] },
-  },
-};
-
-const REGION_KEYS = Object.keys(REGIONS);
-// If the player starts a quiz with no region checked, this is what runs
-// instead of refusing to start.
-const DEFAULT_REGION_KEYS = ["world"];
+  // The finale: no country restriction (world-wide, same as the World
+  // stage) but every question also pins a hemisphere requirement on top
+  // of the temperature one — a resolved city has to be in the right
+  // half of the globe AND satisfy the threshold. See resolveAnswer().
+  { key: "hemisphere", label: "Hemisphere Challenge", countryCodes: null, min: 5, max: 30, hemisphere: true },
+];
 
 // ---- Seeded RNG (mulberry32) — deterministic given a seed, so a future
 // "same quiz for everyone" mode just needs to share the seed. Falls back
@@ -143,15 +95,6 @@ function mulberry32(seed) {
     t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
-}
-
-function shuffle(arr, rng) {
-  const out = arr.slice();
-  for (let i = out.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1));
-    [out[i], out[j]] = [out[j], out[i]];
-  }
-  return out;
 }
 
 // Ported from GeoStreak's own pickThreshold() in app.js: a random
@@ -188,57 +131,40 @@ function pickThreshold(usedSet, min, max, rng, avoidNear = null, minGap = 4) {
   return threshold;
 }
 
-// 15 questions, cycling through `regionKeys` in shuffled order (repeating
-// as needed — e.g. 15 questions over 2 selected regions means each shows
-// up 7-8 times), avoiding an immediate repeat where possible. First
-// MODERATE_COUNT questions draw from each region's `moderate` range, the
-// rest from `tough`. Direction (above/below) strictly ALTERNATES question
-// to question, same as GeoStreak's own nextDirection — not a fresh coin
-// flip each time — with the starting side randomised per quiz.
-//
-// With exactly one region selected (India alone, the default — or any
-// single checkbox), "avoid an immediate repeat" can never be satisfied
-// after the first question, since there's no other region to fall back
-// to — the loop below would spin forever trying anyway. That case is
-// special-cased instead of feeding it through the general loop.
-function buildQuestions(seed, regionKeys = REGION_KEYS) {
+// 15 questions, all from the SAME stage — a strict linear progression
+// means exactly one stage is ever active, so there's no region cycling
+// to do anymore. Direction (above/below) strictly ALTERNATES question to
+// question, same as GeoStreak's own nextDirection — not a fresh coin
+// flip each time — with the starting side randomised per quiz. On the
+// Hemisphere Challenge stage, hemisphere alternates the same way, as its
+// own independent sequence (ported from app.js's nextHemisphere), so the
+// two together produce all four combinations (N+above, N+below, S+above,
+// S+below) across a quiz rather than always pairing the same two.
+function buildQuestions(seed, stage) {
   const rng = mulberry32(seed);
-  const activeKeys = regionKeys.length > 0 ? regionKeys : DEFAULT_REGION_KEYS;
-
-  let regionCycle;
-  if (activeKeys.length <= 1) {
-    regionCycle = new Array(QUESTION_COUNT).fill(activeKeys[0]);
-  } else {
-    regionCycle = [];
-    while (regionCycle.length < QUESTION_COUNT) {
-      for (const key of shuffle(activeKeys, rng)) {
-        if (regionCycle[regionCycle.length - 1] === key) continue; // avoid an immediate repeat when possible
-        regionCycle.push(key);
-        if (regionCycle.length >= QUESTION_COUNT) break;
-      }
-    }
-  }
-
   let direction = rng() < 0.5 ? "above" : "below";
-  const usedThresholds = {}; // "region|tier|direction" -> Set, one pool per combo, same split GeoStreak keeps between normal/tough
+  let hemisphere = stage.hemisphere ? (rng() < 0.5 ? "north" : "south") : null;
+  const usedThresholds = { above: new Set(), below: new Set() };
   let prevThreshold = null; // fed to pickThreshold() as avoidNear, so back-to-back questions don't land on/near the same number
 
-  return regionCycle.map((regionKey, i) => {
-    const tier = i < MODERATE_COUNT ? "moderate" : "tough";
-    const [min, max] = REGIONS[regionKey][tier][direction];
-    const poolKey = `${regionKey}|${tier}|${direction}`;
-    if (!usedThresholds[poolKey]) usedThresholds[poolKey] = new Set();
-    const threshold = pickThreshold(usedThresholds[poolKey], min, max, rng, prevThreshold);
-    const question = { regionKey, tier, direction, threshold };
+  const questions = [];
+  for (let i = 0; i < QUESTION_COUNT; i++) {
+    const threshold = pickThreshold(usedThresholds[direction], stage.min, stage.max, rng, prevThreshold);
+    questions.push({ direction, threshold, hemisphere });
     prevThreshold = threshold;
     direction = direction === "above" ? "below" : "above"; // strictly alternate for the next question
-    return question;
-  });
+    if (stage.hemisphere) hemisphere = hemisphere === "north" ? "south" : "north";
+  }
+  return questions;
 }
 
-function conditionText(q) {
-  const region = REGIONS[q.regionKey];
-  return `Name a city in ${region.label.toUpperCase()} ${q.direction === "above" ? "ABOVE" : "BELOW"} ${q.threshold}°C`;
+function conditionText(q, stage) {
+  const dirWord = q.direction === "above" ? "ABOVE" : "BELOW";
+  if (q.hemisphere) {
+    const hemiWord = q.hemisphere === "north" ? "NORTHERN" : "SOUTHERN";
+    return `Name a city in the ${hemiWord} HEMISPHERE ${dirWord} ${q.threshold}°C`;
+  }
+  return `Name a city in ${stage.label.toUpperCase()} ${dirWord} ${q.threshold}°C`;
 }
 
 // ---- Scoring — 20 seconds split into 1000 points, straight line: 1s
@@ -258,6 +184,33 @@ function formatTimer(secondsLeft) {
 // clock — 2 decimals rather than the question timer's 3.
 function formatGapTimer(secondsLeft) {
   return Math.max(0, secondsLeft).toFixed(2);
+}
+
+// Wait time between questions grows with the quiz: 5s after Q1, then each
+// next question's gap is the previous gap plus that question's own
+// (1-based) number, capped at GAP_SECONDS_MAX — 5, 7, 10, 10, 10, ... A
+// player who's been going a few questions gets a little more breathing
+// room before the next one, rather than a flat pause throughout.
+function gapSecondsAfterQuestion(questionNumber) {
+  let gap = 5;
+  for (let n = 2; n <= questionNumber; n++) {
+    gap = Math.min(GAP_SECONDS_MAX, gap + n);
+  }
+  return gap;
+}
+
+// Same idea as GeoStreak's own tempClosenessClass() in historyPage.js —
+// how close the actual reading landed to the threshold it was judged
+// against, independent of correct/incorrect (a near-miss and a
+// comfortable pass both worth calling out). Exactly at the threshold is
+// gold; within 2 degrees either side is green; anything wider (or no
+// reading at all, e.g. a timeout) gets no color.
+function tempClosenessClass(temp, threshold) {
+  if (temp == null || threshold == null) return "";
+  const diff = Math.abs(temp - threshold);
+  if (diff === 0) return "tq-temp-gold";
+  if (diff <= 2) return "tq-temp-green";
+  return "";
 }
 
 // Emoji flag from a country code (regional-indicator letters), e.g.
@@ -319,12 +272,11 @@ let timerInterval = null;
 let submitted = false; // guards against a stray Enter/click after the question already resolved
 let usedCities = new Set(); // reset each startQuiz() — same-city-twice-this-quiz gets flagged, not silently accepted
 let countryCities = new Map(); // ISO country code -> city names used from it this quiz, for the tally shown during the gap
-let lastActiveRegionLabels = []; // set in startQuiz(), read by renderFinal()'s submitRunHistory() call
-let lastCheckedRegionKeys = []; // set in startQuiz() — the raw checkbox values (before defaulting to World), persisted as playerState.lastRegions
+let currentStage = STAGES[0]; // set in startQuiz() from playerState.stageIndex — read by conditionText()/resolveAnswer()/showQuestion()
 
-// Best score, lifetime totals, the permanent region-unlock flag, and the
-// last-picked regions — one Firestore document (`timeQuizPlayers/{uid}`,
-// see timeQuizLeaderboard.js), not five separate localStorage keys.
+// Best score, lifetime totals, and progress through STAGES — one
+// Firestore document (`timeQuizPlayers/{uid}`, see
+// timeQuizLeaderboard.js), not a handful of separate localStorage keys.
 // Fetched once via init() below and kept in memory from there: mutated
 // directly as a quiz plays out (recordAttempt(), renderFinal()) and
 // flushed back to Firestore in one write per finished quiz
@@ -332,7 +284,7 @@ let lastCheckedRegionKeys = []; // set in startQuiz() — the raw checkbox value
 // Firestore on every read. If Firebase is unreachable this stays at its
 // all-zero default for the whole session — no local fallback anymore,
 // by design (see the README's Leaderboard section for the tradeoff).
-let playerState = { bestScore: 0, totalCorrect: 0, totalAttempts: 0, totalRuns: 0, regionsUnlocked: false, lastRegions: [] };
+let playerState = { bestScore: 0, totalCorrect: 0, totalAttempts: 0, totalRuns: 0, stageIndex: 0 };
 
 // "Attempts" means questions faced, not just correct guesses — every
 // question increments it exactly once, whether answered right, wrong, or
@@ -354,49 +306,60 @@ function showOnly(el) {
   });
 }
 
+// Clamped in every place playerState.stageIndex is read, not just here —
+// a value that predates STAGES growing/shrinking (or a stray out-of-range
+// write) should degrade to "the last real stage" rather than an
+// undefined array access.
+function clampStageIndex(index) {
+  return Math.max(0, Math.min(STAGES.length - 1, index));
+}
+
 function renderStart() {
   const best = playerState.bestScore;
-  const lastRegions = playerState.lastRegions.filter((k) => REGION_KEYS.includes(k));
-  const unlocked = playerState.regionsUnlocked;
-  const regionPickerHtml = unlocked
-    ? `
-      <div class="tq-region-picker">
-        <p class="tq-region-picker-label">Regions (pick any — none picked plays World)</p>
-        <div class="tq-region-checks">
-          ${REGION_KEYS.map((key) => `
-            <label class="tq-region-check-label">
-              <input type="checkbox" class="tq-region-check" value="${key}" ${lastRegions.includes(key) ? "checked" : ""} />
-              ${REGIONS[key].label}
-            </label>
-          `).join("")}
-        </div>
-      </div>
-    `
-    : `
-      <div class="tq-region-picker tq-region-picker-locked">
-        <p class="tq-region-picker-label">Regions: World (locked)</p>
-        <p class="tq-region-locked-note">
-          Get ${UNLOCK_CORRECT_COUNT}/${QUESTION_COUNT} correct or score ${UNLOCK_SCORE.toLocaleString()}+
-          in a single quiz to unlock picking a region next time.
-        </p>
-      </div>
-    `;
+  const stageIndex = clampStageIndex(playerState.stageIndex);
+  const stage = STAGES[stageIndex];
+  const isFinalStage = stageIndex === STAGES.length - 1;
+
+  // One line per stage — cleared (checkmark), current (arrow), or still
+  // locked (padlock) — so the whole campaign's shape is visible at a
+  // glance, not just which one is active right now.
+  const roadmapHtml = `
+    <ol class="tq-stage-roadmap">
+      ${STAGES.map((s, i) => `
+        <li class="${i < stageIndex ? "tq-stage-cleared" : i === stageIndex ? "tq-stage-current" : "tq-stage-locked"}">
+          <span class="tq-stage-icon">${i < stageIndex ? "&#10003;" : i === stageIndex ? "&#9654;" : "&#128274;"}</span>
+          ${s.label}
+        </li>
+      `).join("")}
+    </ol>
+  `;
+  const stagePanelHtml = `
+    <div class="tq-region-picker">
+      <p class="tq-region-picker-label">Stage ${stageIndex + 1} / ${STAGES.length}: ${stage.label}</p>
+      ${roadmapHtml}
+      <p class="tq-region-locked-note">
+        ${isFinalStage
+          ? "Final stage — every question also pins a hemisphere, on top of the temperature condition."
+          : `Get ${UNLOCK_CORRECT_COUNT}/${QUESTION_COUNT} correct or score ${UNLOCK_SCORE.toLocaleString()}+ in a single quiz to advance to ${STAGES[stageIndex + 1].label}.`}
+      </p>
+    </div>
+  `;
   startEl.innerHTML = `
     <div class="tq-panel">
       <h3>Time Quiz</h3>
       <p class="tq-panel-sub">
         ${QUESTION_COUNT} questions, ${QUESTION_SECONDS}s each. Name a city
-        matching the region and temperature condition — the faster you
-        answer, the more it's worth.
+        matching the current stage and temperature condition — the faster
+        you answer, the more it's worth.
       </p>
-      ${regionPickerHtml}
+      ${stagePanelHtml}
       <button type="button" id="tqStartBtn" class="btn btn-primary">Start Quiz</button>
       <ul class="tq-howto">
         <li>Each correct answer is worth up to ${MAX_POINTS} points, sliding down to 0 as the clock runs out.</li>
-        <li>A wrong city, or one outside the named region, scores 0 for that question.</li>
+        <li>A wrong city, or one outside the current stage, scores 0 for that question.</li>
         <li>No streak, no elimination — all ${QUESTION_COUNT} questions play out regardless of how you're doing.</li>
-        <li>Questions 1&ndash;${MODERATE_COUNT} stay moderate; ${MODERATE_COUNT + 1}&ndash;${QUESTION_COUNT} get tougher.</li>
-        <li>Every question comes from exactly one region — never mixed within a single question.</li>
+        <li>Stages unlock one at a time — you're always playing exactly one, never a mix.</li>
+        <li>The wait between questions grows as you go: 5s, 7s, then 10s from question 3 onward.</li>
       </ul>
       ${best > 0 ? `<p class="tq-best">Best score, this browser: ${best.toLocaleString()}</p>` : ""}
     </div>
@@ -422,16 +385,8 @@ function renderStart() {
 }
 
 function startQuiz() {
-  // No checkboxes exist in the DOM at all while locked (see renderStart()),
-  // so `checked` naturally comes back empty then — this just makes the
-  // World-only behavior explicit rather than incidental.
-  const checked = playerState.regionsUnlocked
-    ? Array.from(document.querySelectorAll(".tq-region-check:checked")).map((el) => el.value)
-    : [];
-  const activeRegions = checked.length > 0 ? checked : DEFAULT_REGION_KEYS;
-  lastCheckedRegionKeys = checked; // remembers the actual checkboxes, not the World fallback — persisted in renderFinal()
-  lastActiveRegionLabels = activeRegions.map((key) => REGIONS[key].label);
-  questions = buildQuestions(Date.now() ^ Math.floor(Math.random() * 0xffffffff), activeRegions);
+  currentStage = STAGES[clampStageIndex(playerState.stageIndex)];
+  questions = buildQuestions(Date.now() ^ Math.floor(Math.random() * 0xffffffff), currentStage);
   qIndex = 0;
   totalScore = 0;
   answers = [];
@@ -453,8 +408,8 @@ function showQuestion() {
     <p class="tq-points-preview" id="tqPointsPreview">${MAX_POINTS.toLocaleString()} pts if correct now</p>
     <div class="tq-timer-bar-wrap"><div class="tq-timer-bar" id="tqTimerBar" style="width: 100%;"></div></div>
     <div class="tq-condition">
-      <span class="tq-region-badge">${REGIONS[q.regionKey].label}</span>
-      <p class="tq-condition-text">${conditionText(q)}</p>
+      <span class="tq-region-badge">${currentStage.label}</span>
+      <p class="tq-condition-text">${conditionText(q, currentStage)}</p>
     </div>
     <div class="tq-input-row">
       <input type="text" id="tqCityInput" class="form-control" placeholder="Type a city name..." autocomplete="off" />
@@ -593,30 +548,43 @@ function resolveAnswer(data, elapsedSeconds) {
   clearInterval(timerInterval);
   const elapsed = elapsedSeconds != null ? elapsedSeconds : QUESTION_SECONDS;
   const q = questions[qIndex];
-  const region = REGIONS[q.regionKey];
+  const stage = currentStage;
 
   let correct = false;
   let detail;
+  let temp = null;
   if (!data) {
     detail = "Time's up — no answer";
   } else {
-    const inRegion = region.countryCodes === null || region.countryCodes.includes(data.sys.country);
-    const temp = Math.round(data.main.temp);
+    const inRegion = stage.countryCodes === null || stage.countryCodes.includes(data.sys.country);
+    temp = Math.round(data.main.temp);
     const tempOk = q.direction === "above" ? temp >= q.threshold : temp <= q.threshold;
-    correct = inRegion && tempOk;
+    // Hemisphere Challenge questions (q.hemisphere set) need the temperature
+    // AND the hemisphere condition both satisfied — ported straight from
+    // GeoStreak's own tough-round check in app.js. Equator (lat 0) counts
+    // as northern, same >= 0 convention ui.js already uses elsewhere.
+    let hemisphereOk = true;
+    if (q.hemisphere) {
+      const northern = data.coord.lat >= 0;
+      hemisphereOk = q.hemisphere === "north" ? northern : !northern;
+    }
+    correct = inRegion && tempOk && hemisphereOk;
     detail = `${data.name}, ${data.sys.country} — ${temp}°C`;
-    if (!inRegion) detail += ` (not in ${region.label})`;
+    if (!inRegion) detail += ` (not in ${stage.label})`;
+    else if (!hemisphereOk) detail += ` (wrong hemisphere)`;
   }
 
   const points = computePoints(correct, elapsed);
   totalScore += points;
   answers.push({
-    region: region.label,
-    condition: `${q.direction === "above" ? "≥" : "≤"} ${q.threshold}°C`,
+    region: stage.label,
+    condition: `${q.hemisphere ? (q.hemisphere === "north" ? "N, " : "S, ") : ""}${q.direction === "above" ? "≥" : "≤"} ${q.threshold}°C`,
     detail,
     correct,
     elapsed,
     points,
+    temp,
+    threshold: q.threshold,
   });
   recordAttempt(correct); // lifetime counters, every question — answered, wrong, or timed out
 
@@ -684,7 +652,30 @@ async function loadElevation(lat, lon) {
   el.textContent = meters != null ? `${meters.toLocaleString()} m` : "&mdash;";
 }
 
+// Shared by the gap screen's running recap and the final results table —
+// same columns either way, just a different (and growing, question to
+// question) slice of `answers`. Temp is colored via tempClosenessClass(),
+// independent of correct/incorrect, same as GeoStreak's own history table.
+function buildBreakdownRows(list) {
+  return list.map((a, i) => `
+    <tr class="${a.correct ? "tq-row-correct" : "tq-row-wrong"}">
+      <td>${i + 1}</td>
+      <td>${a.region}</td>
+      <td>${a.condition}</td>
+      <td>${a.detail}</td>
+      <td>${a.temp != null ? `<span class="${tempClosenessClass(a.temp, a.threshold)}">${a.temp}&deg;C</span>` : "&mdash;"}</td>
+      <td>${a.elapsed.toFixed(2)}s</td>
+      <td>${a.points}</td>
+    </tr>
+  `).join("");
+}
+
+const BREAKDOWN_HEADER_ROW = `<tr><th>#</th><th>Region</th><th>Condition</th><th>Your answer</th><th>Temp</th><th>Time</th><th>Points</th></tr>`;
+
 function renderQuestionResult(correct, detail, points, data) {
+  // Wait time itself grows with the quiz — see gapSecondsAfterQuestion().
+  const gapSeconds = gapSecondsAfterQuestion(qIndex + 1);
+
   resultEl.innerHTML = `
     <div class="tq-result-panel">
       <p class="tq-progress">Question ${qIndex + 1} / ${QUESTION_COUNT}</p>
@@ -694,13 +685,18 @@ function renderQuestionResult(correct, detail, points, data) {
       <p class="tq-result-points">+${points.toLocaleString()}</p>
       <p class="tq-result-total">Score so far: ${totalScore.toLocaleString()}</p>
       ${buildTallyHtml(countryCities)}
-      <p class="tq-timer" id="tqGapTimer">${formatGapTimer(GAP_SECONDS)}</p>
+      <p class="tq-timer" id="tqGapTimer">${formatGapTimer(gapSeconds)}</p>
       <p class="tq-next-note">
         ${qIndex + 1 < QUESTION_COUNT ? "until the next question" : "until your results"}
       </p>
       <button type="button" id="tqNextBtn" class="btn btn-secondary">
         ${qIndex + 1 < QUESTION_COUNT ? "Next question now" : "See results now"}
       </button>
+      <h4 class="tq-recap-title">Questions so far</h4>
+      <table class="tq-breakdown tq-recap-table">
+        <thead>${BREAKDOWN_HEADER_ROW}</thead>
+        <tbody>${buildBreakdownRows(answers)}</tbody>
+      </table>
     </div>
   `;
   showOnly(resultEl);
@@ -708,7 +704,7 @@ function renderQuestionResult(correct, detail, points, data) {
 
   document.getElementById("tqNextBtn").addEventListener("click", advance);
 
-  // Auto-advance after GAP_SECONDS — shown as a live, 2-decimal countdown
+  // Auto-advance after `gapSeconds` — shown as a live, 2-decimal countdown
   // (performance.now()-based, same technique startTimer() uses for the
   // question clock, not a 1-second setInterval ticking whole numbers) so
   // it reads as a real countdown rather than an afterthought. A click on
@@ -717,7 +713,7 @@ function renderQuestionResult(correct, detail, points, data) {
   const gapStart = performance.now();
   const gapTimerEl = document.getElementById("tqGapTimer");
   const gapInterval = setInterval(() => {
-    const left = GAP_SECONDS - (performance.now() - gapStart) / 1000;
+    const left = gapSeconds - (performance.now() - gapStart) / 1000;
     if (!document.getElementById("tqGapTimer")) { clearInterval(gapInterval); return; } // already advanced
     if (left <= 0) {
       clearInterval(gapInterval);
@@ -754,14 +750,16 @@ function renderFinal() {
   // All of this quiz's contribution to lifetime state, folded into the
   // one in-memory object and flushed to Firestore in a single write below
   // — no per-field localStorage calls anymore.
-  const wasUnlocked = playerState.regionsUnlocked;
+  const wasStageIndex = clampStageIndex(playerState.stageIndex);
   if (totalScore > playerState.bestScore) playerState.bestScore = totalScore;
   playerState.totalRuns += 1;
-  if (correctCount >= UNLOCK_CORRECT_COUNT || totalScore >= UNLOCK_SCORE) {
-    playerState.regionsUnlocked = true;
+  const clearedStage = correctCount >= UNLOCK_CORRECT_COUNT || totalScore >= UNLOCK_SCORE;
+  if (clearedStage && wasStageIndex < STAGES.length - 1) {
+    playerState.stageIndex = wasStageIndex + 1;
   }
-  playerState.lastRegions = lastCheckedRegionKeys;
-  const justUnlocked = !wasUnlocked && playerState.regionsUnlocked;
+  const newStageIndex = clampStageIndex(playerState.stageIndex);
+  const justAdvanced = newStageIndex > wasStageIndex;
+  const nextStage = STAGES[newStageIndex];
 
   // Fire-and-forget, same as GeoStreak's own Game Over write — never
   // blocks or delays showing the results screen below. `questionsPlayed`,
@@ -770,19 +768,8 @@ function renderFinal() {
   const stats = { totalCorrect: playerState.totalCorrect, totalAttempts: playerState.totalAttempts, totalRuns: playerState.totalRuns };
   TimeQuizBoard.submitScore(totalScore, stats);
   TimeQuizBoard.submitDailyScore(totalScore, stats);
-  TimeQuizBoard.submitRunHistory(totalScore, correctCount, questionsPlayed, lastActiveRegionLabels, answers);
+  TimeQuizBoard.submitRunHistory(totalScore, correctCount, questionsPlayed, [currentStage.label], answers);
   TimeQuizBoard.savePlayerState(playerState);
-
-  const rows = answers.map((a, i) => `
-    <tr class="${a.correct ? "tq-row-correct" : "tq-row-wrong"}">
-      <td>${i + 1}</td>
-      <td>${a.region}</td>
-      <td>${a.condition}</td>
-      <td>${a.detail}</td>
-      <td>${a.elapsed.toFixed(2)}s</td>
-      <td>${a.points}</td>
-    </tr>
-  `).join("");
 
   finalEl.innerHTML = `
     <div class="tq-panel">
@@ -790,14 +777,14 @@ function renderFinal() {
       <p class="tq-nickname">${nickname}'s score</p>
       <p class="tq-final-score">${totalScore.toLocaleString()}</p>
       <p class="tq-final-sub">${correctCount} / ${questionsPlayed} correct${quitEarly ? ` &middot; quit after ${questionsPlayed} of ${QUESTION_COUNT}` : ""} &middot; best score, this browser: ${playerState.bestScore.toLocaleString()}</p>
-      ${justUnlocked ? `<p class="tq-unlock-note">&#127881; Region selection unlocked — pick one next time.</p>` : ""}
+      ${justAdvanced ? `<p class="tq-unlock-note">&#127881; ${nextStage.label} unlocked — your next quiz starts there.</p>` : ""}
       <div class="tq-final-actions">
         <button type="button" id="tqReplayBtn" class="btn btn-primary">Play Again</button>
         <a href="geoStreakGame.html" class="btn btn-secondary">Back to GeoStreak</a>
       </div>
       <table class="tq-breakdown">
-        <thead><tr><th>#</th><th>Region</th><th>Condition</th><th>Your answer</th><th>Time</th><th>Points</th></tr></thead>
-        <tbody>${rows}</tbody>
+        <thead>${BREAKDOWN_HEADER_ROW}</thead>
+        <tbody>${buildBreakdownRows(answers)}</tbody>
       </table>
     </div>
 
@@ -810,14 +797,13 @@ function renderFinal() {
   `;
   showOnly(finalEl);
   // Back to the start screen, not straight into another quiz — the start
-  // screen is what actually decides whether the region picker shows
-  // (renderStart() reads playerState.regionsUnlocked), so this is what
-  // makes an unlock earned just now actually reachable on the very next
+  // screen is what actually decides which stage is active
+  // (renderStart() reads playerState.stageIndex), so this is what makes
+  // an advance earned just now actually reachable on the very next
   // attempt, exactly as described on this screen's own unlock note above.
-  // (Previously wired straight to startQuiz(), which — reading
-  // .tq-region-check:checked from a DOM that only exists on the start
-  // screen — silently forced every replay back to World regardless of
-  // what was unlocked or previously picked.)
+  // (Previously wired straight to startQuiz() with a region checkbox
+  // picker that only existed on the start screen's own DOM — a
+  // now-removed bug from when regions were still player-picked.)
   document.getElementById("tqReplayBtn").addEventListener("click", renderStart);
   TimeQuizBoard.renderLeaderboardPanel("tqLeaderboardPanel");
   TimeQuizBoard.renderMyBestRuns("tqBestRunsBody");
