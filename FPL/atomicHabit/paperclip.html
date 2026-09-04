@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paperclip — TENFORBEN</title>
+  <link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text x=%228%22 y=%2213%22 font-size=%2214%22 text-anchor=%22middle%22>%F0%9F%93%8E</text></svg>"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="ah-header">
+    <div class="ah-brand">TENFORBEN — Paperclip</div>
+    <div class="ah-header-links">
+      <!-- Shown once a real name has been saved (see paperclip.js's
+           showHeaderDisplay()); until then #ahPlayerBar below handles
+           setup. Same toggle GeoStreak's own header uses, just backed by
+           paperclipProfiles/{uid} in Firestore instead of localStorage. -->
+      <span id="ahHeaderNicknameWrap" class="ah-header-nickname-wrap" style="display: none;">
+        <span id="ahHeaderNickname" class="ah-header-nickname"></span>
+        <a href="#" id="ahChangeNickname" class="ah-back-link">change</a>
+      </span>
+      <a class="ah-back-link" href="paperclipHistory.html">History</a>
+      <a class="ah-back-link" href="index.html">&larr; Atomic Habits</a>
+    </div>
+  </header>
+
+  <main class="ah-main">
+    <div class="ah-card" id="ahPlayerBar" style="display: none;">
+      <span class="ah-player-label">Playing as</span>
+      <div class="ah-input-row">
+        <input type="text" id="ahNicknameInput" placeholder="Your name" maxlength="20" autocomplete="off" />
+        <button type="button" id="ahNicknameSave" class="ah-btn ah-btn-primary">Save</button>
+      </div>
+    </div>
+
+    <div class="ah-card">
+      <p class="ah-kicker">The paperclip strategy</p>
+      <h1 style="font-size: 1.3rem; margin-bottom: 6px;">Paperclip</h1>
+      <p>Trent Dyrsmid's own trick, from the book: a paperclip moved from
+      one jar to another for every sales call made. Here it's one
+      11-minute Pomodoro per clip, twenty clips a day, per activity.</p>
+    </div>
+
+    <div class="ah-card" id="ahActivityCard">
+      <p class="ah-kicker">Activity</p>
+      <p id="ahStatus" class="ah-status-note">Loading&hellip;</p>
+      <div id="ahActivityBody" style="display: none;">
+        <div class="ah-activity-row" id="ahActivityRow">
+          <select id="ahActivitySelect" class="ah-activity-select"></select>
+          <button type="button" id="ahNewActivityBtn" class="ah-btn ah-btn-secondary">+ New</button>
+        </div>
+        <div class="ah-new-activity-form" id="ahNewActivityForm" style="display: none;">
+          <input type="text" id="ahNewActivityInput" placeholder="Name it, or leave blank" maxlength="40" autocomplete="off" />
+          <button type="button" id="ahNewActivityCreateBtn" class="ah-btn ah-btn-primary">Create</button>
+          <button type="button" id="ahNewActivityCancelBtn" class="ah-btn ah-btn-secondary">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ah-card" id="ahTrackerCard" style="display: none;">
+      <p class="ah-kicker" id="ahTrackerDate"></p>
+      <h2 id="ahActivityName" style="font-size: 1.15rem; margin-bottom: 10px;"></h2>
+
+      <div class="ah-basket-row">
+        <div class="ah-basket">
+          <p class="ah-basket-label">Unfinished</p>
+          <p class="ah-basket-count" id="ahBasket1Count"></p>
+          <div class="ah-clip-grid" id="ahBasket1Grid"></div>
+        </div>
+        <div class="ah-basket">
+          <p class="ah-basket-label">Finished</p>
+          <p class="ah-basket-count" id="ahBasket2Count"></p>
+          <div class="ah-clip-grid" id="ahBasket2Grid"></div>
+        </div>
+      </div>
+
+      <div class="ah-pomodoro" id="ahPomodoroArea"></div>
+    </div>
+  </main>
+
+  <footer class="ah-footer">
+    <a href="README.md">About this tracker</a>
+  </footer>
+
+  <!-- Firebase (compat build, same version as ../vannilaWeatherApp/
+       weatherGame's own pages) — reuses that same project rather than a
+       new one; see firestore.rules' Paperclip section there. -->
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+  <script src="../vannilaWeatherApp/weatherGame/firebaseConfig.js"></script>
+  <script src="paperclip.js"></script>
+</body>
+</html>

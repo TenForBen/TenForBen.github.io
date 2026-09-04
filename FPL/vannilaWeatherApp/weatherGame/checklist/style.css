@@ -39,6 +39,11 @@ body {
   font-size: 1.05rem;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
+.mc-header-links {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
 .mc-back-link {
   color: #ffe9c2;
   font-size: 0.85rem;
