@@ -300,6 +300,14 @@ elements:
   daily habit tracker, currently `localStorage`-only with a Firebase
   upgrade (reusing this same project) planned next — see
   [`checklist/README.md`](./checklist/README.md).
+- **`firestore.rules`' Paperclip section** — a third corner of the site
+  reusing this same Firebase project: `../../atomicHabit/paperclip.html`,
+  a Pomodoro-driven habit tracker unrelated to GeoStreak, referencing
+  `firebaseConfig.js` directly from that sibling folder rather than
+  duplicating it. See [`../../atomicHabit/README.md`](../../atomicHabit/README.md)
+  for what it actually does — this file only carries its collection
+  rules (`paperclipProfiles`/`paperclipActivities`/`paperclipDays`), same
+  as it does for `morningChecklist` above.
 
 ## Leaderboard
 

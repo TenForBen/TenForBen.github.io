@@ -291,3 +291,212 @@ body {
 @media (max-width: 420px) {
   .ah-main { padding: 4px 14px 50px; }
 }
+
+/* ---- Paperclip (paperclip.html / paperclipHistory.html) — nickname
+   header chip, activity picker, and the two-basket Pomodoro tracker.
+   Everything here is Firestore-backed, not localStorage, unlike the
+   date-bar/checkbox styling above (sugarTracking.html). ---- */
+.ah-header-links {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.ah-header-nickname-wrap {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding-right: 4px;
+  border-right: 1px solid rgba(255, 255, 255, 0.35);
+  margin-right: 2px;
+}
+.ah-header-nickname {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--gold);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+/* One-time setup row, same toggle idea as GeoStreak's own
+   #gsPlayerBar/#gsHeaderNicknameWrap — shown until a name is actually
+   saved to `paperclipProfiles/{uid}`, then replaced for good by the
+   header chip above. */
+.ah-player-bar { text-align: left; }
+.ah-player-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+.ah-input-row { display: flex; gap: 8px; }
+.ah-input-row input[type="text"] {
+  flex: 1 1 auto;
+  border: 1px solid rgba(47, 143, 107, 0.35);
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--ink);
+}
+.ah-input-row input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.ah-btn {
+  border: none;
+  border-radius: 10px;
+  padding: 9px 16px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ah-btn-primary { background: var(--accent); color: #fff; }
+.ah-btn-primary:hover { background: var(--accent-strong); }
+.ah-btn-primary:disabled { background: #9db8ab; cursor: not-allowed; }
+.ah-btn-secondary {
+  background: rgba(47, 143, 107, 0.12);
+  color: var(--accent-strong);
+  border: 1px solid rgba(47, 143, 107, 0.3);
+}
+.ah-btn-secondary:hover { background: rgba(47, 143, 107, 0.22); }
+.ah-btn-danger { background: #c2542f; color: #fff; }
+.ah-btn-danger:hover { background: #a4451f; }
+
+/* Activity picker — a <select> plus a "+ New" affordance, and the
+   inline create-activity form it reveals. */
+.ah-activity-row { display: flex; gap: 8px; align-items: center; }
+.ah-activity-select {
+  flex: 1 1 auto;
+  border: 1px solid rgba(47, 143, 107, 0.35);
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--ink);
+  background: #fff;
+}
+.ah-new-activity-form {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.ah-status-note {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  padding: 10px 0;
+}
+
+/* Two baskets side by side — unfinished (left) draining into finished
+   (right) as Pomodoros complete. Simple graphics on purpose: a wrapped
+   grid of 📎 rather than any drawn/animated illustration. */
+.ah-basket-row {
+  display: flex;
+  gap: 14px;
+  margin: 4px 0 16px;
+}
+.ah-basket {
+  flex: 1 1 0;
+  min-width: 0;
+  background: rgba(47, 143, 107, 0.06);
+  border: 1px solid rgba(47, 143, 107, 0.2);
+  border-radius: 14px;
+  padding: 12px 14px;
+  text-align: center;
+}
+.ah-basket-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 8px;
+}
+.ah-basket-count {
+  font-weight: 700;
+  color: var(--accent-strong);
+  margin: 0 0 8px;
+}
+.ah-clip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  justify-content: center;
+  min-height: 1.6em;
+}
+.ah-clip {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+/* The clip that just moved this instant — a brief highlight so a
+   Pomodoro's payoff actually reads as something happening, not just a
+   silently-updated count. */
+@keyframes ah-clip-land {
+  0% { transform: scale(1.8); opacity: 0.3; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.ah-clip-new { animation: ah-clip-land 0.4s ease; }
+
+.ah-pomodoro {
+  text-align: center;
+  margin-bottom: 8px;
+}
+.ah-pomodoro-timer {
+  font-variant-numeric: tabular-nums;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+  margin: 0 0 10px;
+}
+.ah-pomodoro-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.ah-pomodoro-done {
+  text-align: center;
+  font-weight: 700;
+  color: var(--accent-strong);
+  padding: 10px 0;
+}
+
+/* History page's per-day list. */
+.ah-day-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ah-day-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+.ah-day-date { flex: 1 1 auto; font-size: 0.88rem; font-weight: 600; }
+.ah-day-count {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--accent-strong);
+  white-space: nowrap;
+}
+.ah-day-bar-wrap {
+  flex: 1 1 100px;
+  height: 6px;
+  background: rgba(47, 143, 107, 0.15);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.ah-day-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--accent));
+}

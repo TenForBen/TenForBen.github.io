@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paperclip History — TENFORBEN</title>
+  <link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text x=%228%22 y=%2213%22 font-size=%2214%22 text-anchor=%22middle%22>%F0%9F%93%8E</text></svg>"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="ah-header">
+    <div class="ah-brand">TENFORBEN — Paperclip History</div>
+    <div class="ah-header-links">
+      <!-- Read-only display — unlike paperclip.html's own editable
+           chip, renaming stays that page's job. -->
+      <span id="ahHeaderNicknameWrap" class="ah-header-nickname-wrap" style="display: none;">
+        <span id="ahHeaderNickname" class="ah-header-nickname"></span>
+      </span>
+      <a class="ah-back-link" href="paperclip.html">&larr; Paperclip</a>
+    </div>
+  </header>
+
+  <main class="ah-main">
+    <div class="ah-card">
+      <p class="ah-kicker">Activity</p>
+      <p id="aphStatus" class="ah-status-note">Loading&hellip;</p>
+      <select id="aphActivitySelect" class="ah-activity-select" style="display: none;"></select>
+    </div>
+
+    <div class="ah-card" id="aphDaysCard" style="display: none;">
+      <p class="ah-kicker">Day by day</p>
+      <ul class="ah-day-list" id="aphDayList"></ul>
+    </div>
+  </main>
+
+  <footer class="ah-footer">
+    <a href="README.md">About this tracker</a>
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+  <script src="../vannilaWeatherApp/weatherGame/firebaseConfig.js"></script>
+  <script src="paperclipHistoryPage.js"></script>
+</body>
+</html>

@@ -77,6 +77,69 @@ service cloud.firestore {
       allow delete: if false;
     }
 
+    // ---- Paperclip (Atomic Habits) --------------------------------------
+    // Another separate personal tool sharing this project, same as
+    // Morning Checklist above (see ../../FPL/atomicHabit/README.md) — a
+    // Pomodoro-driven habit tracker in the spirit of Trent Dyrsmid's own
+    // paperclip strategy from the book: each "activity" gets a 20-clip
+    // basket that resets daily, one clip moved from the unfinished
+    // basket to the finished one per completed 11-minute Pomodoro.
+    // Nothing here is localStorage-backed, unlike this folder's other
+    // habit pages (sugarTracking.html) — every read/write goes through
+    // Firestore, including the nickname itself.
+    match /paperclipProfiles/{uid} {
+      // Private — a nickname here isn't a public ranking the way
+      // GeoStreak's leaderboard is, just this player's own identity for
+      // their own pages. `lastActiveActivityId` remembers which activity
+      // to resume on next visit, standing in for what would otherwise be
+      // a localStorage key.
+      allow read: if request.auth != null && request.auth.uid == uid;
+
+      allow create: if request.auth != null
+        && request.auth.uid == uid
+        && isValidPaperclipProfile(request.resource.data);
+
+      allow update: if request.auth != null
+        && request.auth.uid == uid
+        && isValidPaperclipProfile(request.resource.data);
+
+      allow delete: if false;
+    }
+
+    // One document per activity ever created, auto-generated id. Write-
+    // once — same "historical record, not editable" shape as
+    // geostreakRuns/timeQuizRuns below — renaming isn't a feature here;
+    // create a new activity instead.
+    match /paperclipActivities/{activityId} {
+      allow read: if request.auth != null && resource.data.uid == request.auth.uid;
+
+      allow create: if request.auth != null
+        && request.auth.uid == request.resource.data.uid
+        && isValidPaperclipActivity(request.resource.data);
+
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    // One document per activity per calendar day (doc id
+    // "{activityId}_{date}"), `clipsMoved` counting 1..20 as Pomodoros
+    // complete that day — same increment-by-exactly-1 discipline as the
+    // Time Quiz tally collections below, just privately owned instead of
+    // a shared counter.
+    match /paperclipDays/{docId} {
+      allow read: if request.auth != null && resource.data.uid == request.auth.uid;
+
+      allow create: if request.auth != null
+        && request.auth.uid == request.resource.data.uid
+        && isValidPaperclipDayCreate(request.resource.data);
+
+      allow update: if request.auth != null
+        && request.auth.uid == resource.data.uid
+        && isValidPaperclipDayUpdate(request.resource.data, resource.data);
+
+      allow delete: if false;
+    }
+
     // Full per-run history (every round's question + guess + result), for
     // the History page's "replay one of my runs" view. One document per
     // completed run, auto-generated id — unlike the leaderboard above,
@@ -276,6 +339,56 @@ service cloud.firestore {
       && data.uid is string
       && data.date is string && data.date.size() == 10
       && data.checked is list && data.checked.size() == 7
+      && data.updatedAt == request.time;
+  }
+
+  // `nicknameChosen` tells "the player actually saved a name" apart from
+  // "this is still the auto-generated PlayerNNNN placeholder" — GeoStreak
+  // gets that distinction for free from whether its localStorage key was
+  // ever written at all; Paperclip has no such signal since the
+  // placeholder itself has to be persisted here too (this doc's nickname
+  // is never allowed to be empty), so it needs its own explicit flag.
+  function isValidPaperclipProfile(data) {
+    return data.keys().hasOnly(['nickname', 'nicknameChosen', 'lastActiveActivityId', 'updatedAt'])
+      && data.nickname is string && data.nickname.size() > 0 && data.nickname.size() <= 20
+      && data.nicknameChosen is bool
+      && (!('lastActiveActivityId' in data) || (data.lastActiveActivityId is string && data.lastActiveActivityId.size() > 0))
+      && data.updatedAt == request.time;
+  }
+
+  function isValidPaperclipActivity(data) {
+    return data.keys().hasOnly(['uid', 'name', 'createdAt'])
+      && data.uid is string
+      && data.name is string && data.name.size() > 0 && data.name.size() <= 40
+      && data.createdAt == request.time;
+  }
+
+  // `clipsMoved == 1` on create — a day's doc is only ever created lazily,
+  // at the moment the FIRST Pomodoro of that day completes, not
+  // preemptively when the page loads. Mirrors the tally collections'
+  // `count == 1` create check for the same reason (FieldValue.increment
+  // isn't used here since this is a plain integer set, not a shared
+  // counter, but the "first write is always 1" shape is identical).
+  function isValidPaperclipDayCreate(data) {
+    return data.keys().hasOnly(['uid', 'activityId', 'date', 'clipsMoved', 'updatedAt'])
+      && data.uid is string
+      && data.activityId is string
+      && data.date is string && data.date.size() == 10
+      && data.clipsMoved is int && data.clipsMoved == 1
+      && data.updatedAt == request.time;
+  }
+
+  // `uid`/`activityId`/`date` pinned to the doc's own identity (the doc id
+  // already encodes activityId+date, and uid never changes hands) —
+  // `clipsMoved` may only go up by exactly 1 per write, capped at 20
+  // (enforced here, not just by the client, so a determined cheater can't
+  // just send 20 immediately).
+  function isValidPaperclipDayUpdate(data, existing) {
+    return data.keys().hasOnly(['uid', 'activityId', 'date', 'clipsMoved', 'updatedAt'])
+      && data.uid == existing.uid
+      && data.activityId == existing.activityId
+      && data.date == existing.date
+      && data.clipsMoved is int && data.clipsMoved == existing.clipsMoved + 1 && data.clipsMoved <= 20
       && data.updatedAt == request.time;
   }
 
