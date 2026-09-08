@@ -692,15 +692,16 @@ scores 0 and moves on — all 15 questions play out every time.
 
 ### Question generation — a linear stage campaign
 
-Each question names the **current stage** and a temperature condition;
-the answer has to satisfy both — right temperature outside the stage's
-countries scores 0, same as a wrong temperature. `STAGES` in
+Each question names the **stage picked for that quiz** and a temperature
+condition; the answer has to satisfy both — right temperature outside
+the stage's countries scores 0, same as a wrong temperature. `STAGES` in
 `timeQuiz.js` is an ordered array — **World → India → Europe → North
 America → South America → Hemisphere Challenge** — and exactly **one**
-stage is ever active at a time (`playerState.stageIndex`), not a
-multi-select checkbox picker. World's `countryCodes: null` means no
-restriction at all, any resolved city counts; every other stage checks
-`sys.country` on the OpenWeatherMap response against its own list.
+stage is ever active *within a single quiz* (never mixed question to
+question), not a multi-select checkbox picker. World's `countryCodes:
+null` means no restriction at all, any resolved city counts; every other
+stage checks `sys.country` on the OpenWeatherMap response against its own
+list.
 
 **No moderate/tough split within a quiz anymore** — an earlier version
 ran questions 1–10 against an easier range and 11–15 against a harder one
@@ -720,25 +721,38 @@ produces a jarring "ABOVE 6°C" immediately followed by "BELOW 6°C."
 Direction (above/below) strictly alternates question to question, same
 as GeoStreak's own `nextDirection`, starting side randomised per quiz.
 
-**Advancing is strict and permanent.** Finishing a quiz on the current
-stage with `UNLOCK_CORRECT_COUNT` (10) or more correct, or a score of
+**Every unlocked stage stays playable — not just the newest one.** The
+start screen's roadmap (`renderStart()`'s `roadmapHtml`) turns each
+cleared-or-current stage (index `<= playerState.stageIndex`) into a radio
+button, defaulting to the frontier (the highest unlocked stage, same as
+the only option that existed before this picker did) — a checkmark for
+every already-cleared stage, an arrow on the current one, and a plain
+(non-interactive) padlock row for anything still beyond the frontier.
+Picking an earlier stage and starting a quiz plays that stage's own
+questions end to end, same as any other quiz.
+
+**Advancing is strict, permanent, and frontier-only.** Finishing a quiz
+with `UNLOCK_CORRECT_COUNT` (10) or more correct, or a score of
 `UNLOCK_SCORE` (8,000) or higher — the **same bar at every stage**, World
 through the finale — advances `playerState.stageIndex` by exactly one,
 shows a "🎉 {next stage} unlocked" note on the results screen, and stays
-that way for good (never re-locked). The new stage only becomes active
+that way for good (never re-locked) — **but only if the quiz was actually
+played on the frontier stage.** `startQuiz()` remembers which radio was
+picked (`pickedStageIndex`); `renderFinal()` compares it against
+`playerState.stageIndex` *before* this run's own contribution and only
+advances when they match. Clearing the bar on a replayed, already-cleared
+earlier stage never pushes progress further, no matter the score —
+without this check, grinding an easy early stage could unlock far harder
+ones without ever attempting them. The new stage only becomes selectable
 the *next* quiz, not retroactively within the run that just cleared it,
-since `renderStart()` is what decides which stage to play and that
-already ran before this quiz existed — "Play Again" on the results
-screen goes back through `renderStart()` for exactly this reason (an
-earlier, region-picker version of this page had a real bug here: "Play
-Again" wired straight to `startQuiz()`, which read a region checkbox
-picker that only existed in the start screen's own DOM, silently forcing
-every replay back to World regardless of what had just been unlocked;
-fixed alongside this same stage rework). The start screen also shows a
-**stage roadmap** (`renderStart()`'s `roadmapHtml`) — a checkmark for
-every cleared stage, an arrow on the current one, a padlock on the rest —
-so the whole campaign's shape is visible at a glance, not just which
-stage is active right now.
+since `renderStart()` is what builds the roadmap and that already ran
+before this quiz existed — "Play Again" on the results screen goes back
+through `renderStart()` for exactly this reason (an earlier, region-picker
+version of this page had a real bug here: "Play Again" wired straight to
+`startQuiz()`, which read a region checkbox picker that only existed in
+the start screen's own DOM, silently forcing every replay back to World
+regardless of what had just been unlocked; fixed alongside the original
+stage rework, well before this picker existed).
 
 **The Hemisphere Challenge (the finale) borrows GeoStreak's own
 tough-round mechanic wholesale** rather than reinventing it: every
