@@ -27,6 +27,11 @@ const GAP_SECONDS_MAX = 10;
 // stage, World through the Hemisphere Challenge.
 const UNLOCK_CORRECT_COUNT = 10; // out of QUESTION_COUNT (15)
 const UNLOCK_SCORE = 8000;
+// Minimum spacing enforced between two SAME-direction thresholds (see
+// buildQuestions()'s lastThresholdByDirection) — raised from an earlier
+// version's 4, which compared against the immediately-previous question
+// overall (any direction) rather than the previous same-direction one.
+const MIN_THRESHOLD_GAP = 5;
 
 // ---- Global bounds World's own range stays inside — GeoStreak's own
 // normal-mode MIN/MAX_THRESHOLD is 5-32; this mirrors that rather than
@@ -52,7 +57,21 @@ const STAGES = [
   // counts. GLOBAL_MIN/MAX rather than a narrower range, since "no
   // restriction on where" is what already made this the easiest stage.
   { key: "world", label: "World", countryCodes: null, min: GLOBAL_MIN, max: GLOBAL_MAX, hemisphere: false },
-  { key: "india", label: "India", countryCodes: ["IN"], min: 10, max: 30, hemisphere: false },
+  {
+    key: "india",
+    label: "India",
+    countryCodes: ["IN"],
+    min: 10,
+    max: 30,
+    hemisphere: false,
+    // India during the day is hot enough almost everywhere that "name a
+    // city BELOW 10°C" has no fair answer outside a couple of Himalayan
+    // valleys; at night the reverse is true for "ABOVE 30°C". Rather
+    // than reworking the whole range, stageRangeForDirection() just nudges
+    // the wrong-for-the-time-of-day direction's own edge in by one degree
+    // so that single extreme value is never picked — see that function.
+    daynight: { timezone: "Asia/Kolkata", dayStartHour: 11, dayEndHour: 18 },
+  },
   {
     key: "europe",
     label: "Europe",
@@ -105,14 +124,12 @@ function mulberry32(seed) {
 // hardcoded numbers to draw from.
 //
 // `avoidNear`/`minGap` are this page's own addition, not in GeoStreak's
-// version: since direction strictly alternates every question, the
-// naive version could follow e.g. "ABOVE 6°C" with "BELOW 6°C" right
-// after — technically two different questions, but they read as a
-// jarring flip on the same number rather than genuine variety. When a
-// previous threshold is passed, candidates within `minGap` of it are
-// excluded first — but only if that still leaves at least one option;
-// a narrow range shouldn't be able to lock the picker out entirely.
-function pickThreshold(usedSet, min, max, rng, avoidNear = null, minGap = 4) {
+// version: candidates within `minGap` of `avoidNear` are excluded first —
+// but only if that still leaves at least one option; a narrow range
+// shouldn't be able to lock the picker out entirely. buildQuestions()
+// below feeds this the previous SAME-direction threshold, not just
+// whatever question came immediately before.
+function pickThreshold(usedSet, min, max, rng, avoidNear = null, minGap = MIN_THRESHOLD_GAP) {
   const remaining = [];
   for (let t = min; t <= max; t++) {
     if (!usedSet.has(t)) remaining.push(t);
@@ -131,6 +148,28 @@ function pickThreshold(usedSet, min, max, rng, avoidNear = null, minGap = 4) {
   return threshold;
 }
 
+// Time-of-day awareness — only India (`daynight` in STAGES) has this
+// configured today; a stage without it just returns its own flat
+// [min, max] unchanged. During the configured local daytime window, the
+// coldest "below" edge is nudged in by one (never asks BELOW stage.min);
+// outside it (nighttime), the hottest "above" edge is nudged in by one
+// (never asks ABOVE stage.max) — `hourCycle: "h23"` rather than relying
+// on `hour12: false` alone, which some engines still render as "24" at
+// midnight instead of "0".
+function stageRangeForDirection(stage, direction) {
+  let [min, max] = [stage.min, stage.max];
+  if (!stage.daynight) return [min, max];
+  const hour = Number(new Intl.DateTimeFormat("en-US", {
+    timeZone: stage.daynight.timezone,
+    hourCycle: "h23",
+    hour: "numeric",
+  }).format(new Date()));
+  const isDaytime = hour >= stage.daynight.dayStartHour && hour < stage.daynight.dayEndHour;
+  if (isDaytime && direction === "below") min += 1;
+  if (!isDaytime && direction === "above") max -= 1;
+  return [min, max];
+}
+
 // 15 questions, all from the SAME stage — a strict linear progression
 // means exactly one stage is ever active, so there's no region cycling
 // to do anymore. Direction (above/below) strictly ALTERNATES question to
@@ -145,13 +184,20 @@ function buildQuestions(seed, stage) {
   let direction = rng() < 0.5 ? "above" : "below";
   let hemisphere = stage.hemisphere ? (rng() < 0.5 ? "north" : "south") : null;
   const usedThresholds = { above: new Set(), below: new Set() };
-  let prevThreshold = null; // fed to pickThreshold() as avoidNear, so back-to-back questions don't land on/near the same number
+  // Fed to pickThreshold() as avoidNear — the previous threshold from
+  // the SAME direction (always 2 questions back, since direction
+  // strictly alternates), not the immediately-previous question overall.
+  // A1 -> B -> A2 only needs A2 kept >= MIN_THRESHOLD_GAP from A1; the B
+  // in between doesn't factor in, since it already reads as a different
+  // question by virtue of its own direction.
+  const lastThresholdByDirection = { above: null, below: null };
 
   const questions = [];
   for (let i = 0; i < QUESTION_COUNT; i++) {
-    const threshold = pickThreshold(usedThresholds[direction], stage.min, stage.max, rng, prevThreshold);
+    const [min, max] = stageRangeForDirection(stage, direction);
+    const threshold = pickThreshold(usedThresholds[direction], min, max, rng, lastThresholdByDirection[direction]);
     questions.push({ direction, threshold, hemisphere });
-    prevThreshold = threshold;
+    lastThresholdByDirection[direction] = threshold;
     direction = direction === "above" ? "below" : "above"; // strictly alternate for the next question
     if (stage.hemisphere) hemisphere = hemisphere === "north" ? "south" : "north";
   }

@@ -715,11 +715,39 @@ mid-campaign stages from feeling identical to World.
 **Mixing is still `pickThreshold()`**, unchanged in mechanism: a random
 integer from the stage's range, tracked in a per-direction "already
 asked" set that won't repeat a value until the whole range is exhausted
-(then refills), with adjacent questions avoiding landing near each other
-(`avoidNear`/`minGap`, same as before) so direction alternation never
-produces a jarring "ABOVE 6°C" immediately followed by "BELOW 6°C."
-Direction (above/below) strictly alternates question to question, same
-as GeoStreak's own `nextDirection`, starting side randomised per quiz.
+(then refills). Direction (above/below) strictly alternates question to
+question, same as GeoStreak's own `nextDirection`, starting side
+randomised per quiz.
+
+**Spacing is checked against the previous SAME-direction threshold, not
+whatever question came immediately before.** Since direction always
+alternates, that's always exactly 2 questions back —
+`lastThresholdByDirection` in `buildQuestions()` remembers ABOVE and
+BELOW's own most recent values independently, and `pickThreshold()`'s
+`avoidNear`/`MIN_THRESHOLD_GAP` (5°) requires the new pick to clear that
+gap from its own direction's last one specifically. Concretely: ABOVE 18
+→ BELOW 23 → ABOVE 25 is fine even though 18 and 25 are only 7° apart in
+absolute terms and BELOW 23 sits right in between — what actually has to
+clear 5° is ABOVE-to-ABOVE (18 → 25, a 7° gap) and, two questions later,
+ABOVE 25 → (something) needs to clear 5° from 25, not from 18. An earlier
+version compared against the immediately-previous question regardless of
+direction, which produced spacing that didn't track either direction's
+own sequence particularly well. Only applied if it still leaves a
+candidate — a narrow range shouldn't be able to lock the picker out
+entirely.
+
+**India additionally narrows by time of day**, via a `daynight` field
+only India's entry in `STAGES` has: `{ timezone: "Asia/Kolkata",
+dayStartHour: 11, dayEndHour: 18 }`. During that local daytime window,
+`stageRangeForDirection()` nudges the BELOW direction's own range floor
+up by one (never asks "BELOW 10°C" — India during the day is hot enough
+almost everywhere that this has no fair answer outside a couple of
+Himalayan valleys); outside it, at night, it nudges the ABOVE
+direction's ceiling down by one instead (never asks "ABOVE 30°C" — the
+reverse problem once most of the country's cooled off). Every other
+stage has no `daynight` config and is completely unaffected. Uses
+`hourCycle: "h23"` rather than relying on `hour12: false` alone, which
+some JS engines still render as "24" at midnight instead of "0."
 
 **Every unlocked stage stays playable — not just the newest one.** The
 start screen's roadmap (`renderStart()`'s `roadmapHtml`) turns each
