@@ -141,6 +141,25 @@
     .tq-stage-cleared { color: #4ade80; }
     .tq-stage-current { color: #7dd3fc; font-weight: bold; }
     .tq-stage-locked { color: #6b7fa8; }
+    /* Any unlocked stage (cleared or current) is a real radio choice —
+       only stages still beyond the frontier stay plain, non-interactive
+       .tq-stage-locked rows. */
+    .tq-stage-selectable { padding: 0; }
+    .tq-stage-radio-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      padding: 3px 0;
+      cursor: pointer;
+      font-weight: inherit;
+      margin: 0;
+    }
+    .tq-stage-radio {
+      accent-color: #7dd3fc;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
     .tq-region-locked-note {
       color: #9db4de;
       font-size: 0.82rem;

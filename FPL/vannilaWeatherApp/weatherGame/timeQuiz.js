@@ -272,7 +272,8 @@ let timerInterval = null;
 let submitted = false; // guards against a stray Enter/click after the question already resolved
 let usedCities = new Set(); // reset each startQuiz() — same-city-twice-this-quiz gets flagged, not silently accepted
 let countryCities = new Map(); // ISO country code -> city names used from it this quiz, for the tally shown during the gap
-let currentStage = STAGES[0]; // set in startQuiz() from playerState.stageIndex — read by conditionText()/resolveAnswer()/showQuestion()
+let currentStage = STAGES[0]; // set in startQuiz() from the picked radio — read by conditionText()/resolveAnswer()/showQuestion()
+let pickedStageIndex = 0; // same moment, read by renderFinal() to gate whether this run can advance playerState.stageIndex
 
 // Best score, lifetime totals, and progress through STAGES — one
 // Firestore document (`timeQuizPlayers/{uid}`, see
@@ -320,27 +321,42 @@ function renderStart() {
   const stage = STAGES[stageIndex];
   const isFinalStage = stageIndex === STAGES.length - 1;
 
-  // One line per stage — cleared (checkmark), current (arrow), or still
-  // locked (padlock) — so the whole campaign's shape is visible at a
-  // glance, not just which one is active right now.
+  // One line per stage. Anything already unlocked (index <= stageIndex)
+  // is a real radio choice — clearing a new stage doesn't retire the
+  // ones before it, so a player can go back and replay an earlier one
+  // any time. Anything beyond stageIndex stays a plain locked row, not a
+  // choice. Defaults to the frontier stage (the highest unlocked one),
+  // same as the only option that existed before this picker did.
   const roadmapHtml = `
     <ol class="tq-stage-roadmap">
-      ${STAGES.map((s, i) => `
-        <li class="${i < stageIndex ? "tq-stage-cleared" : i === stageIndex ? "tq-stage-current" : "tq-stage-locked"}">
-          <span class="tq-stage-icon">${i < stageIndex ? "&#10003;" : i === stageIndex ? "&#9654;" : "&#128274;"}</span>
-          ${s.label}
-        </li>
-      `).join("")}
+      ${STAGES.map((s, i) => {
+        if (i > stageIndex) {
+          return `
+            <li class="tq-stage-locked">
+              <span class="tq-stage-icon">&#128274;</span> ${s.label}
+            </li>
+          `;
+        }
+        const cleared = i < stageIndex;
+        return `
+          <li class="tq-stage-selectable ${cleared ? "tq-stage-cleared" : "tq-stage-current"}">
+            <label class="tq-stage-radio-label">
+              <input type="radio" name="tqStagePick" class="tq-stage-radio" value="${i}" ${i === stageIndex ? "checked" : ""} />
+              <span class="tq-stage-icon">${cleared ? "&#10003;" : "&#9654;"}</span> ${s.label}
+            </label>
+          </li>
+        `;
+      }).join("")}
     </ol>
   `;
   const stagePanelHtml = `
     <div class="tq-region-picker">
-      <p class="tq-region-picker-label">Stage ${stageIndex + 1} / ${STAGES.length}: ${stage.label}</p>
+      <p class="tq-region-picker-label">${stageIndex > 0 ? "Pick a stage to play" : "Stage"} (${stageIndex + 1} / ${STAGES.length} unlocked)</p>
       ${roadmapHtml}
       <p class="tq-region-locked-note">
         ${isFinalStage
           ? "Final stage — every question also pins a hemisphere, on top of the temperature condition."
-          : `Get ${UNLOCK_CORRECT_COUNT}/${QUESTION_COUNT} correct or score ${UNLOCK_SCORE.toLocaleString()}+ in a single quiz to advance to ${STAGES[stageIndex + 1].label}.`}
+          : `Get ${UNLOCK_CORRECT_COUNT}/${QUESTION_COUNT} correct or score ${UNLOCK_SCORE.toLocaleString()}+ on ${stage.label} to advance to ${STAGES[stageIndex + 1].label}. Replaying an earlier stage never advances you further.`}
       </p>
     </div>
   `;
@@ -385,7 +401,17 @@ function renderStart() {
 }
 
 function startQuiz() {
-  currentStage = STAGES[clampStageIndex(playerState.stageIndex)];
+  // Reads whichever radio the player picked on the start screen (see
+  // renderStart()'s roadmap) — defaults to the frontier stage if
+  // something went wrong and nothing's checked. `pickedStageIndex` is
+  // remembered separately from `currentStage` so renderFinal() can tell
+  // "played the frontier stage" (eligible to advance) apart from
+  // "replayed an earlier one" (never advances further), even though a
+  // full page reload before finishing would lose that distinction —
+  // same tradeoff every other in-progress, unsaved game state here has.
+  const checkedRadio = document.querySelector('input[name="tqStagePick"]:checked');
+  pickedStageIndex = checkedRadio ? Number(checkedRadio.value) : clampStageIndex(playerState.stageIndex);
+  currentStage = STAGES[pickedStageIndex];
   questions = buildQuestions(Date.now() ^ Math.floor(Math.random() * 0xffffffff), currentStage);
   qIndex = 0;
   totalScore = 0;
@@ -761,7 +787,13 @@ function renderFinal() {
   if (totalScore > playerState.bestScore) playerState.bestScore = totalScore;
   playerState.totalRuns += 1;
   const clearedStage = correctCount >= UNLOCK_CORRECT_COUNT || totalScore >= UNLOCK_SCORE;
-  if (clearedStage && wasStageIndex < STAGES.length - 1) {
+  // Only clearing the bar on the FRONTIER stage (the highest one already
+  // unlocked) can push it further — replaying an earlier, already-
+  // unlocked stage never advances progress, no matter the score. Without
+  // this check, grinding an easy early stage could unlock far harder
+  // ones without ever attempting them.
+  const wasPlayingFrontier = pickedStageIndex === wasStageIndex;
+  if (clearedStage && wasPlayingFrontier && wasStageIndex < STAGES.length - 1) {
     playerState.stageIndex = wasStageIndex + 1;
   }
   const newStageIndex = clampStageIndex(playerState.stageIndex);
