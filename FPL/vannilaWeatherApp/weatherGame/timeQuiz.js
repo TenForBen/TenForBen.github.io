@@ -426,12 +426,6 @@ function renderStart() {
       ${best > 0 ? `<p class="tq-best">Best score, this browser: ${best.toLocaleString()}</p>` : ""}
     </div>
 
-    <div class="tq-panel" style="margin-top: 18px;">
-      <h3>Insights</h3>
-      <p class="tq-panel-sub" style="margin-bottom: 10px;">Most used across every player, worldwide.</p>
-      <div class="tq-insights-row" id="tqInsightsBody"><p class="tq-leaderboard-note">Loading&hellip;</p></div>
-    </div>
-
     <div id="tqLeaderboardPanel" style="margin-top: 18px;"></div>
 
     <div class="tq-panel" style="margin-top: 18px;">
@@ -440,7 +434,6 @@ function renderStart() {
     </div>
   `;
   document.getElementById("tqStartBtn").addEventListener("click", startQuiz);
-  TimeQuizBoard.renderInsights("tqInsightsBody");
   TimeQuizBoard.renderLeaderboardPanel("tqLeaderboardPanel");
   TimeQuizBoard.renderMyBestRuns("tqBestRunsBody");
   showOnly(startEl);
@@ -659,6 +652,10 @@ function resolveAnswer(data, elapsedSeconds) {
     threshold: q.threshold,
   });
   recordAttempt(correct); // lifetime counters, every question — answered, wrong, or timed out
+  // Fire-and-forget, same as recordCityUsage() above — feeds the
+  // dedicated Insights page's global "Top 10 Fastest Responses" ranking.
+  // Only a scored (correct) answer is worth ranking there.
+  if (correct) TimeQuizBoard.recordFastestAnswer(points, elapsed, data.name, data.sys.country);
 
   renderQuestionResult(correct, detail, points, data);
 }

@@ -296,6 +296,11 @@ elements:
   same convention as `history.html`/`historyPage.js` — its own sign-in,
   own small `escapeHtml`/`flagEmoji`/run-card renderers, no shared state
   with `timeQuizLeaderboard.js`.
+- **`timeQuizInsights.html`** / **`timeQuizInsightsPage.js`** — Time
+  Quiz's global "Top 10 Fastest Responses" leaderboard, linked from
+  `timeQuiz.html`'s header. Self-contained like the pages above, with one
+  difference: no anonymous sign-in step, since the collection it reads is
+  public (`allow read: if true`) and there's nothing to wait on first.
 - **`checklist/`** — not GeoStreak, not a game at all. A separate personal
   daily habit tracker, currently `localStorage`-only with a Firebase
   upgrade (reusing this same project) planned next — see
@@ -1054,14 +1059,12 @@ sorts by score client-side — same "no second query" reasoning
 extended from one run to ten. Only wrong once more than 50 quizzes have
 been played since an old top-10 run aged out of that window.
 
-**Insights — Top Cities / Top Countries** — shown below the how-to-play
-list on the start screen (and again, in full, on the dedicated History
-page below), and unlike GeoStreak's own per-browser city tally (a
-`localStorage` count, see `ui.js`'s `buildCityInsightsHtml()`), this one
-is **global**: every player's accepted answers (correct or not —
-resolving to a real city is the bar, same moment `countryCities` already
-gets updated in `submitAnswer()`) increment the same two shared,
-ownerless counter collections:
+**Insights — Top Cities / Top Countries** — every player's accepted
+answers (correct or not — resolving to a real city is the bar, same
+moment `countryCities` already gets updated in `submitAnswer()`)
+increment the same two shared, ownerless counter collections, unlike
+GeoStreak's own per-browser city tally (a `localStorage` count, see
+`ui.js`'s `buildCityInsightsHtml()`):
 
 - **`timeQuizCityTally/{slug}`** — `{ city, country, count, lastUsedAt }`,
   doc id a sanitized `"country_city"` slug (`tallyDocId()`), not a uid.
@@ -1076,26 +1079,77 @@ against a field that doesn't exist yet resolves to `0 + 1`, which is what
 `isValidCityTallyCreate()`/`isValidCountryTallyCreate()`'s `count == 1`
 check is looking for.
 
-**Top 10 per page, paginated** — `INSIGHT_PAGE_SIZE` in
-`timeQuizLeaderboard.js`, same `PAGE_SIZE + 1`-row trick the leaderboard
-panel already uses to learn whether a Next page exists, with each of the
-two lists (cities, countries) tracking its own cursor stack independently
-(`insightPagination.city`/`.country`). An earlier version capped both
-lists at a flat top 5 with no way to see further down the ranking. Still
-a single-field `orderBy` each — neither list needs a composite index.
+**Shown on the History page and the dedicated Insights page below, not
+the start screen anymore.** An earlier version of `timeQuiz.js` also
+rendered a paginated copy of this (Top 10 per page,
+`TimeQuizBoard.renderInsights()`) below the start screen's how-to-play
+list; removed once `timeQuizHistory.html` already covered the exact same
+thing in full, so keeping a second, truncated copy on the homepage was
+pure duplication — `recordCityUsage()` itself (still called from
+`submitAnswer()` on every accepted answer) is unaffected, only the
+homepage's own rendering of it is gone. Both surviving copies (History
+and the new Insights page) work identically: **Top Cities is
+master-only; Top Countries shows for everyone** — city-level detail
+reads as more revealing than a country-level count, so each page's own
+`loadInsights()`/`loadTallies()` builds the Top Cities column into the
+DOM at all only for a `MASTER_UIDS` uid. This is a **display** choice,
+not a `firestore.rules` restriction — both tally collections stay
+world-readable at the rules layer (same as the leaderboard itself).
 
-**Top Cities is master-only; Top Countries shows for everyone.**
-City-level detail reads as more revealing than a country-level count, so
-`renderInsights()` builds the Top Cities column into the DOM at all only
-for a `MASTER_UIDS` uid — a non-master viewer's page never even requests
-that column's data. This is a **display** choice made in
-`timeQuizLeaderboard.js`/`timeQuizHistoryPage.js`, not a `firestore.rules`
-restriction — both tally collections stay world-readable at the rules
-layer (same as the leaderboard itself), so it's not a security boundary,
-just what the page chooses to render. `MASTER_UIDS` is now duplicated a
-*third* time (`timeQuizLeaderboard.js`, alongside `historyPage.js`'s and
-`timeQuizHistoryPage.js`'s own copies) — kept in sync by hand, same
-caveat the History page's own Master Access section already documents.
+### The dedicated Insights page — Top 10 Fastest Responses
+
+`timeQuizInsights.html` (linked from `timeQuiz.html`'s header, next to
+History) — a **global, cross-player ranking of individual answered
+questions**, not quiz totals: the 10 highest-scoring (equivalently,
+fastest — score is a direct function of elapsed time for a correct
+answer) single answers ever recorded, anyone's, anywhere. Columns: Name,
+Points, City, Date &amp; Time.
+
+This needed a genuinely new collection, not a query over the existing
+ones — `timeQuizRuns` embeds each quiz's 15 answers as a `rounds` array
+field, and Firestore can't sort or query *into* an array field across
+documents (there's no "give me the single highest-scoring round across
+every run ever written" query it can express). **`timeQuizFastestAnswers`**
+is one document per correct, scored answer instead — written by
+`TimeQuizBoard.recordFastestAnswer()`, called from `resolveAnswer()` in
+`timeQuiz.js` right alongside `recordCityUsage()` (same fire-and-forget,
+don't-block-the-question-flow treatment), but only when the answer
+actually scored:
+
+```
+{ uid, nickname, points, elapsed, city, country, answeredAt: <server timestamp> }
+```
+
+Public (`allow read: if true`), like the tally collections and the
+leaderboard — this is the whole point, a cross-player ranking has to be
+readable by everyone, not gated behind auth. Write-once, same as every
+other "historical record" collection in this file — no update, no
+delete. `loadFastestAnswers()` in `timeQuizInsightsPage.js` doesn't wait
+on sign-in at all — `allow read: if true` means a signed-out read already
+works — so it starts immediately, in parallel with the sign-in the page's
+*other* section still needs (below). The query itself
+(`orderBy("points", "desc").limit(10)`) is a single-field `orderBy` — no
+composite index needed.
+
+**The cost this adds**: one extra write per *correct* answer (not one
+per quiz) — up to 15x the write volume of `timeQuizRuns` in the worst
+case (a perfect quiz), though most quizzes won't score every question.
+Still comfortably inside Spark's 20,000 writes/day free cap for a
+personal/small-group scale, same conclusion the README's own worked
+Leaderboard-cost example already reaches for the other collections here.
+
+**The same paginated Most Used Cities/Countries tallies live here too**
+— a third copy of the exact view described above (`timeQuizHistory.html`
+already has the second), ported into `timeQuizInsightsPage.js` rather
+than shared. Same rules either way: Top Countries for every viewer, Top
+Cities only for a `MASTER_UIDS` uid (now duplicated a *fourth* time
+across `historyPage.js`, `timeQuizHistoryPage.js`, `timeQuizLeaderboard.js`'s
+now-removed copy, and this one — kept in sync by hand). Since this
+column needs a resolved `uid` to check master status, `main()` signs in
+anonymously purely for that — a slow or failed sign-in still leaves the
+rest of the page working fine (Fastest Responses already loaded
+independently, and the tally section just falls back to "not a master,"
+same as a genuinely non-master viewer).
 
 ### Time Quiz's own Run History page
 

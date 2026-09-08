@@ -596,44 +596,6 @@
       background: #12244a;
     }
 
-    /* ---- Insights (Most Used Cities/Countries) — same list shape as
-       GeoStreak's .gs-city-list, side by side in two columns. ---- */
-    .tq-insights-row {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      text-align: left;
-      margin: 4px 0 0;
-    }
-    .tq-insight-col { flex: 1 1 160px; min-width: 0; }
-    .tq-insight-label {
-      font-family: "Courier New", Courier, monospace;
-      font-size: 0.6rem;
-      letter-spacing: 1.5px;
-      color: #6b7fa8;
-      margin: 0 0 6px;
-    }
-    .tq-city-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      text-align: left;
-    }
-    .tq-city-list li {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      font-size: 0.8rem;
-      padding: 3px 4px;
-      border-bottom: 1px solid #1b2a4a;
-    }
-    .tq-city-list li:last-child { border-bottom: none; }
-    .tq-city-name { color: #cfe8ff; }
-    .tq-city-count {
-      font-family: "Courier New", Courier, monospace;
-      color: #7dd3fc;
-      white-space: nowrap;
-    }
   </style>
 </head>
 <body>
@@ -648,6 +610,7 @@
         <span id="tqHeaderNickname" class="tq-header-nickname"></span>
         <a href="#" id="tqChangeNickname" class="tq-back-link">change</a>
       </span>
+      <a class="tq-back-link" href="timeQuizInsights.html">Insights</a>
       <a class="tq-back-link" href="timeQuizHistory.html">History</a>
       <a class="tq-back-link" href="geoStreakGame.html">&larr; GeoStreak</a>
     </div>

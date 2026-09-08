@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/minty/bootstrap.min.css"
+  />
+  <title>Time Quiz Insights — TENFORBEN Station</title>
+  <link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text x=%228%22 y=%2213%22 font-size=%2214%22 text-anchor=%22middle%22>%E2%8F%B1%EF%B8%8F</text></svg>"
+  />
+  <style>
+    body {
+      background: #060a14;
+      color: #cfe8ff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+    }
+
+    .gs-header {
+      background: linear-gradient(180deg, #0a1226 0%, #060a14 100%);
+      border-bottom: 1px solid #1b2a4a;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .gs-brand {
+      font-family: "Courier New", Courier, monospace;
+      letter-spacing: 1px;
+      font-size: 1rem;
+      color: #7dd3fc;
+    }
+    .gs-header-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .gs-back-link {
+      font-family: "Courier New", Courier, monospace;
+      color: #93a4c3;
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+    .gs-back-link:hover { color: #7dd3fc; text-decoration: underline; }
+
+    main.container {
+      padding-top: 28px;
+      padding-bottom: 60px;
+      max-width: 700px;
+    }
+
+    h1 {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 1.4rem;
+      color: #e2ecff;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+    .gs-status {
+      text-align: center;
+      color: #6b7fa8;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+    h2.gs-section-title {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #6b7fa8;
+      margin: 32px 0 14px;
+    }
+
+    .gs-round-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+    .gs-round-table th {
+      text-align: left;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.68rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #6b7fa8;
+      padding: 8px 10px 8px 0;
+      border-bottom: 1px solid #1b2a4a;
+    }
+    .gs-round-table td {
+      padding: 9px 10px 9px 0;
+      border-bottom: 1px solid #101a30;
+    }
+    .gs-round-table tbody tr:last-child td { border-bottom: none; }
+    .tqi-rank {
+      font-family: "Courier New", Courier, monospace;
+      color: #6b7fa8;
+      width: 2em;
+    }
+    .tqi-points {
+      font-family: "Courier New", Courier, monospace;
+      color: #7dd3fc;
+      font-weight: bold;
+    }
+
+    /* ---- Most Used Cities/Countries, paginated — same shape as
+       timeQuizHistory.html's own copy, duplicated here per this
+       project's self-contained-page convention. ---- */
+    .tq-insights-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      text-align: left;
+    }
+    .tq-insight-col { flex: 1 1 260px; min-width: 0; }
+    .tq-insight-label {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.6rem;
+      letter-spacing: 1.5px;
+      color: #6b7fa8;
+      margin: 0 0 6px;
+    }
+    .tq-city-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+    .tq-city-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      padding: 5px 4px;
+      border-bottom: 1px solid #1b2a4a;
+    }
+    .tq-city-list li:last-child { border-bottom: none; }
+    .tq-leaderboard-rank {
+      font-family: "Courier New", Courier, monospace;
+      color: #6b7fa8;
+      width: 2.2em;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .tq-city-name { color: #cfe8ff; flex: 1 1 auto; }
+    .tq-city-count {
+      font-family: "Courier New", Courier, monospace;
+      color: #7dd3fc;
+      white-space: nowrap;
+    }
+    .tq-leaderboard-note {
+      color: #6b7fa8;
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+    .tq-lb-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .tq-page-btn {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+      color: #93a4c3;
+      background: transparent;
+      border: 1px solid #1b2a4a;
+      border-radius: 4px;
+      padding: 4px 10px;
+      cursor: pointer;
+    }
+    .tq-page-btn:hover:not(:disabled) { color: #7dd3fc; border-color: #1f6feb; }
+    .tq-page-btn:disabled { color: #40506e; cursor: not-allowed; }
+    .tq-page-label {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      color: #6b7fa8;
+    }
+  </style>
+</head>
+<body>
+  <header class="gs-header">
+    <div class="gs-brand">TENFORBEN // STATION — Time Quiz Insights</div>
+    <div class="gs-header-links">
+      <a class="gs-back-link" href="timeQuizHistory.html">History</a>
+      <a class="gs-back-link" href="timeQuiz.html">&larr; Time Quiz</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Time Quiz Insights</h1>
+    <p class="gs-status" id="tqiStatus">Loading&hellip;</p>
+
+    <h2 class="gs-section-title">&#127942; Top 10 Fastest Responses</h2>
+    <table class="gs-round-table">
+      <thead>
+        <tr><th>#</th><th>Name</th><th>Points</th><th>City</th><th>Date &amp; Time</th></tr>
+      </thead>
+      <tbody id="tqiFastestRows"></tbody>
+    </table>
+
+    <h2 class="gs-section-title">Most Used Worldwide</h2>
+    <div class="tq-insights-row" id="tqiTallies"></div>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+  <script src="firebaseConfig.js"></script>
+  <script src="timeQuizInsightsPage.js"></script>
+</body>
+</html>
