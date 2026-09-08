@@ -24,17 +24,10 @@ const TimeQuizBoard = (() => {
   const RUNS_COLLECTION = "timeQuizRuns";
   const CITY_TALLY_COLLECTION = "timeQuizCityTally";
   const COUNTRY_TALLY_COLLECTION = "timeQuizCountryTally";
-  // Same hardcoded allowlist as historyPage.js's/timeQuizHistoryPage.js's
-  // own MASTER_UIDS — a third independent copy, kept in sync by hand
-  // (there's no shared source between three separate self-contained page
-  // scripts). Gates which half of the Insights panel a viewer sees: Top
-  // Countries for everyone, Top Cities for masters only — see
-  // renderInsights() below.
-  const MASTER_UIDS = ["B0N7TfmkrXTaYjB2TBCVOBVtIhM2", "MsRKlqcPecOBng8SHekRF5YCVFJ3", "WmoVyIkr2eVCtQHMPwoiTnKWZQp1", "M9odxs0JSTPAnFuewYOCB2BEPR03"];
+  const FASTEST_ANSWERS_COLLECTION = "timeQuizFastestAnswers";
   const PLAYERS_COLLECTION = "timeQuizPlayers";
   const PAGE_SIZE = 10;
   const BEST_RUNS_LOOKBACK = 50; // most-recent runs fetched to derive "best 10" client-side — see showMyBestRuns()
-  const INSIGHT_PAGE_SIZE = 10;
 
   // Same Europe/Berlin-anchored "today" as GeoStreak's leaderboard.js —
   // see that file's DAILY_TIMEZONE comment for why a fixed zone instead of
@@ -544,141 +537,30 @@ const TimeQuizBoard = (() => {
     }
   }
 
-  // Global insight — every player's answers feed the same two shared
-  // tally collections, so this is "most used across everyone," not a
-  // per-browser stat (GeoStreak's own city insight, by contrast, is a
-  // localStorage-only per-browser tally — see ui.js's
-  // buildCityInsightsHtml()). Top 10 per page, same PAGE_SIZE+1-trick
-  // pagination as the leaderboard panel above — one extra row fetched
-  // purely to learn whether a Next page exists. Two independent
-  // single-field orderBy queries, neither needing a composite index.
-  const insightPagination = {
-    city: { cursors: [null], page: 0 },
-    country: { cursors: [null], page: 0 },
-  };
-
-  async function fetchTallyPage(collectionName, kind, pageIndex) {
-    let query = db.collection(collectionName).orderBy("count", "desc");
-    const cursor = insightPagination[kind].cursors[pageIndex];
-    if (cursor) query = query.startAfter(cursor);
-    const snap = await query.limit(INSIGHT_PAGE_SIZE + 1).get();
-    const hasNext = snap.docs.length > INSIGHT_PAGE_SIZE;
-    const pageDocs = snap.docs.slice(0, INSIGHT_PAGE_SIZE);
-    if (hasNext && !insightPagination[kind].cursors[pageIndex + 1]) {
-      insightPagination[kind].cursors[pageIndex + 1] = pageDocs[pageDocs.length - 1];
-    }
-    return { pageDocs, hasNext };
-  }
-
-  function renderTallyPagination(container, kind, pageIndex, hasNext) {
-    if (!container) return;
-    if (pageIndex === 0 && !hasNext) {
-      container.innerHTML = "";
-      return;
-    }
-    container.innerHTML = `
-      <button type="button" class="tq-page-btn" data-action="prev" ${pageIndex === 0 ? "disabled" : ""}>&larr; Prev</button>
-      <span class="tq-page-label">Page ${pageIndex + 1}</span>
-      <button type="button" class="tq-page-btn" data-action="next" ${hasNext ? "" : "disabled"}>Next &rarr;</button>
-    `;
-    container.querySelectorAll("button").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const delta = btn.dataset.action === "next" ? 1 : -1;
-        renderTallyPage(kind, insightPagination[kind].page + delta);
-      });
-    });
-  }
-
-  async function renderTallyPage(kind, pageIndex) {
-    const listEl = document.getElementById(kind === "city" ? "tqInsightCityList" : "tqInsightCountryList");
-    const pagEl = document.getElementById(kind === "city" ? "tqInsightCityPagination" : "tqInsightCountryPagination");
-    if (!listEl) return;
-    listEl.innerHTML = '<p class="tq-leaderboard-note">Loading&hellip;</p>';
-    if (pagEl) pagEl.innerHTML = "";
-    try {
-      const collectionName = kind === "city" ? CITY_TALLY_COLLECTION : COUNTRY_TALLY_COLLECTION;
-      const { pageDocs, hasNext } = await fetchTallyPage(collectionName, kind, pageIndex);
-      if (pageDocs.length === 0) {
-        listEl.innerHTML = pageIndex === 0
-          ? '<p class="tq-leaderboard-note">No data yet — be the first!</p>'
-          : '<p class="tq-leaderboard-note">No more entries.</p>';
-        return;
-      }
-      insightPagination[kind].page = pageIndex;
-      const startRank = pageIndex * INSIGHT_PAGE_SIZE + 1;
-      const rows = pageDocs.map((doc, i) => {
-        const d = doc.data();
-        const label = kind === "city" ? `${flagEmoji(d.country)} ${d.city}` : `${flagEmoji(d.country)} ${d.country}`;
-        return `
-          <li>
-            <span class="tq-leaderboard-rank">${startRank + i}</span>
-            <span class="tq-city-name">${escapeHtml(label)}</span>
-            <span class="tq-city-count">${d.count.toLocaleString()}</span>
-          </li>
-        `;
-      }).join("");
-      listEl.innerHTML = `<ul class="tq-city-list">${rows}</ul>`;
-      renderTallyPagination(pagEl, kind, pageIndex, hasNext);
-    } catch (err) {
-      listEl.innerHTML = '<p class="tq-leaderboard-note">Could not load insights.</p>';
-      console.error("TimeQuizBoard: renderTallyPage failed", err);
-    }
-  }
-
-  // Builds the shell once, then lets renderTallyPage() own each column's
-  // own list/pagination from there — same split as renderLeaderboardPanel()
-  // building its shell once and renderPage() handling the actual data
-  // underneath it.
-  //
-  // Top Countries shows for every viewer; Top Cities only for a master
-  // uid (MASTER_UIDS above) — city-level detail reads as more revealing
-  // than a country-level count, so it's held back the same way run-by-run
-  // detail is already private in firestore.rules (`timeQuizRuns`'
-  // own-uid-or-master read rule), even though these two tally collections
-  // themselves are world-readable at the rules layer — this is a display
-  // choice in this file, not an access-control one enforced server-side.
-  async function renderInsights(containerId) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    if (!configured) {
-      container.innerHTML = '<p class="tq-leaderboard-note">Not configured yet.</p>';
-      return;
-    }
-    container.innerHTML = '<p class="tq-leaderboard-note">Loading&hellip;</p>';
+  // One document per correct, scored answer — feeds the dedicated
+  // Insights page's (timeQuizInsights.html) "Top 10 Fastest Responses"
+  // leaderboard, a global ranking across every player's individual
+  // answers. Fire-and-forget, same "shouldn't interrupt the question
+  // flow" reasoning as recordCityUsage() — called right alongside it in
+  // timeQuiz.js's resolveAnswer(), but only when the answer actually
+  // scored (an incorrect or timed-out answer has nothing to rank).
+  async function recordFastestAnswer(points, elapsedSeconds, city, country) {
+    if (!configured || points <= 0) return;
     await ready;
-    if (!uid) {
-      container.innerHTML = '<p class="tq-leaderboard-note">Could not connect.</p>';
-      return;
+    if (!uid) return;
+    try {
+      await db.collection(FASTEST_ANSWERS_COLLECTION).add({
+        uid,
+        nickname: getNickname(),
+        points,
+        elapsed: elapsedSeconds,
+        city,
+        country: String(country).toUpperCase(),
+        answeredAt: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+    } catch (err) {
+      console.error("TimeQuizBoard: recordFastestAnswer failed", err);
     }
-    const isMaster = MASTER_UIDS.includes(uid);
-    const cityColumnHtml = `
-      <div class="tq-insight-col">
-        <p class="tq-insight-label">TOP CITIES</p>
-        <div id="tqInsightCityList"><p class="tq-leaderboard-note">Loading&hellip;</p></div>
-        <div id="tqInsightCityPagination" class="tq-lb-pagination"></div>
-      </div>
-    `;
-    container.innerHTML = `
-      ${isMaster ? cityColumnHtml : ""}
-      <div class="tq-insight-col">
-        <p class="tq-insight-label">TOP COUNTRIES</p>
-        <div id="tqInsightCountryList"><p class="tq-leaderboard-note">Loading&hellip;</p></div>
-        <div id="tqInsightCountryPagination" class="tq-lb-pagination"></div>
-      </div>
-    `;
-    insightPagination.city = { cursors: [null], page: 0 };
-    insightPagination.country = { cursors: [null], page: 0 };
-    const pages = [renderTallyPage("country", 0)];
-    if (isMaster) pages.push(renderTallyPage("city", 0));
-    await Promise.all(pages);
-  }
-
-  // Duplicated from timeQuiz.js's own flagEmoji() per this file's
-  // self-contained convention (no shared import between the two).
-  function flagEmoji(countryCode) {
-    const cc = String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "");
-    if (cc.length !== 2) return "";
-    return String.fromCodePoint(...[...cc].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65));
   }
 
   return {
@@ -687,6 +569,7 @@ const TimeQuizBoard = (() => {
     hasNickname,
     wireNicknameInput,
     recordCityUsage,
+    recordFastestAnswer,
     loadPlayerState,
     savePlayerState,
     submitScore,
@@ -694,7 +577,6 @@ const TimeQuizBoard = (() => {
     submitRunHistory,
     renderLeaderboardPanel,
     renderMyBestRuns,
-    renderInsights,
   };
 })();
 

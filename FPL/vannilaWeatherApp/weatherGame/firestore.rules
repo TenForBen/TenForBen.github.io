@@ -240,6 +240,23 @@ service cloud.firestore {
       allow delete: if false;
     }
 
+    // One document per correct, scored answer — not per quiz. Unlike
+    // timeQuizRuns (private, own-uid-or-master), this is public: it backs
+    // the Insights page's "Top 10 Fastest Responses" leaderboard, a
+    // global ranking across every player's individual answers, which a
+    // private-by-default collection couldn't be queried into (Firestore
+    // can't sort/query into an array field like timeQuizRuns' own
+    // `rounds`, across documents). Write-once, same as every other
+    // "historical record" collection in this file — no update, no delete.
+    match /timeQuizFastestAnswers/{docId} {
+      allow read: if true;
+      allow create: if request.auth != null
+        && request.auth.uid == request.resource.data.uid
+        && isValidFastestAnswer(request.resource.data);
+      allow update: if false;
+      allow delete: if false;
+    }
+
     // A player's own Time Quiz state — best score, lifetime counters, and
     // progress through the STAGES campaign (timeQuiz.js), keyed by a
     // numeric stageIndex (0 = World, up through the Hemisphere Challenge
@@ -482,6 +499,17 @@ service cloud.firestore {
       && data.country == existing.country
       && data.count is int && data.count == existing.count + 1
       && data.lastUsedAt == request.time;
+  }
+
+  function isValidFastestAnswer(data) {
+    return data.keys().hasOnly(['uid', 'nickname', 'points', 'elapsed', 'city', 'country', 'answeredAt'])
+      && data.uid is string
+      && data.nickname is string && data.nickname.size() > 0 && data.nickname.size() <= 20
+      && data.points is int && data.points > 0 && data.points <= 1000
+      && data.elapsed is number && data.elapsed >= 0 && data.elapsed <= 20
+      && data.city is string && data.city.size() > 0 && data.city.size() <= 100
+      && data.country is string && data.country.size() == 2
+      && data.answeredAt == request.time;
   }
 
   // `stageIndex` isn't checked against the actual STAGES array (that
