@@ -86,7 +86,28 @@ const STAGES = [
     max: 30,
     hemisphere: false,
   },
-  { key: "na", label: "North America", countryCodes: ["US", "CA"], min: 5, max: 30, hemisphere: false },
+  {
+    key: "na",
+    label: "North America",
+    // Full continent, not just US/Canada — Mexico, Central America, the
+    // Caribbean, and Greenland (on the North American plate/continent
+    // geographically, despite being Danish territory — and it already
+    // comes up constantly in this app's own insights, e.g. Nuuk).
+    // Deliberately excludes Venezuela/Colombia even though their own
+    // northern coasts are climatically similar — OpenWeatherMap only
+    // returns a country code, not which part of the country a city is
+    // in, so there's no clean way to admit "northern VE/CO" without a
+    // separate latitude check; simpler to just leave both out entirely.
+    countryCodes: [
+      "CA", "US", "MX",
+      "BZ", "GT", "HN", "SV", "NI", "CR", "PA",
+      "CU", "JM", "HT", "DO", "BS", "TT", "BB", "GD", "LC", "VC", "AG", "KN", "DM",
+      "GL",
+    ],
+    min: 5,
+    max: 30,
+    hemisphere: false,
+  },
   {
     key: "sa",
     label: "South America",
