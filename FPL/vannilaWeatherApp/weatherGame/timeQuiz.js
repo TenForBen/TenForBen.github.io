@@ -338,6 +338,58 @@ let questionStartTime = null; // performance.now() when the current question app
 let timerInterval = null;
 let submitted = false; // guards against a stray Enter/click after the question already resolved
 let usedCities = new Set(); // reset each startQuiz() — same-city-twice-this-quiz gets flagged, not silently accepted
+
+// A city answered CORRECTLY can't be reused again for an hour — unlike
+// `usedCities` above, this is deliberately NOT reset in startQuiz(); it
+// persists across quizzes (and, via localStorage, across page reloads —
+// an earlier in-memory-only version lost the whole cooldown on any
+// reload, which defeated the point) for as long as an hour actually
+// takes to pass on this browser. The goal is variety: without this,
+// nothing stops replaying the same known-fast city quiz after quiz,
+// which both plays boring and skews the global Insights tallies toward
+// whatever one player keeps reusing. Only a CORRECT answer's city is
+// ever recorded here (see resolveAnswer()) — an incorrect or timed-out
+// attempt at a city was never really "using" it, so it doesn't block
+// reuse at all. localStorage rather than Firestore: this doesn't need to
+// follow a player across devices, so the extra collection/write cost
+// isn't worth it for what's fundamentally a single-browser pacing rule.
+const CITY_COOLDOWN_MS = 60 * 60 * 1000;
+const CITY_COOLDOWN_STORAGE_KEY = "timeQuiz_recentCorrectCities";
+
+// Expired entries are dropped on load (not just left for isCityOnCooldown()
+// to silently ignore) so the stored blob doesn't grow forever across a
+// browser's whole history of play — every distinct city ever answered
+// correctly would otherwise accumulate indefinitely.
+function loadRecentCorrectCities() {
+  const map = new Map();
+  try {
+    const raw = JSON.parse(localStorage.getItem(CITY_COOLDOWN_STORAGE_KEY) || "{}");
+    const now = Date.now();
+    for (const [key, ts] of Object.entries(raw)) {
+      if (typeof ts === "number" && now - ts < CITY_COOLDOWN_MS) map.set(key, ts);
+    }
+  } catch (err) {
+    console.error("Time Quiz: loadRecentCorrectCities failed", err);
+  }
+  return map;
+}
+
+function saveRecentCorrectCities() {
+  try {
+    localStorage.setItem(CITY_COOLDOWN_STORAGE_KEY, JSON.stringify(Object.fromEntries(recentCorrectCities)));
+  } catch (err) {
+    // Private browsing, storage quota, etc. — the cooldown just won't
+    // persist this write; not fatal to the quiz itself.
+    console.error("Time Quiz: saveRecentCorrectCities failed", err);
+  }
+}
+
+let recentCorrectCities = loadRecentCorrectCities(); // "name|country" lowercased -> Date.now() of last correct use
+
+function isCityOnCooldown(cityKey) {
+  const lastUsed = recentCorrectCities.get(cityKey);
+  return lastUsed != null && (Date.now() - lastUsed) < CITY_COOLDOWN_MS;
+}
 let countryCities = new Map(); // ISO country code -> city names used from it this quiz, for the tally shown during the gap
 let currentStage = STAGES[0]; // set in startQuiz() from the picked radio — read by conditionText()/resolveAnswer()/showQuestion()
 let pickedStageIndex = 0; // same moment, read by renderFinal() to gate whether this run can advance playerState.stageIndex
@@ -611,6 +663,13 @@ async function submitAnswer() {
     input.focus();
     return;
   }
+  if (isCityOnCooldown(resolvedKey)) {
+    submitted = false; // give the attempt back — this one didn't count
+    document.getElementById("tqSubmitBtn").disabled = false;
+    hintEl.textContent = `You answered ${data.name}, ${data.sys.country} correctly recently — try a different city for now.`;
+    input.focus();
+    return;
+  }
   usedCities.add(typed.toLowerCase());
   usedCities.add(resolvedKey);
   if (!countryCities.has(data.sys.country)) countryCities.set(data.sys.country, []);
@@ -658,6 +717,12 @@ function resolveAnswer(data, elapsedSeconds) {
     detail = `${data.name}, ${data.sys.country} — ${temp}°C`;
     if (!inRegion) detail += ` (not in ${stage.label})`;
     else if (!hemisphereOk) detail += ` (wrong hemisphere)`;
+    // Only a CORRECT answer puts a city on cooldown — an incorrect one
+    // was never really "using" it, so it stays freely reusable.
+    if (correct) {
+      recentCorrectCities.set(`${data.name}|${data.sys.country}`.toLowerCase(), Date.now());
+      saveRecentCorrectCities();
+    }
   }
 
   const points = computePoints(correct, elapsed);
