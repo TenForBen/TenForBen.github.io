@@ -13,28 +13,10 @@
 <body>
   <header class="ah-header">
     <div class="ah-brand">TENFORBEN — Abbotsford</div>
-    <div class="ah-header-links">
-      <!-- Shown once a real name has been saved (see abbortsford.js's
-           showHeaderDisplay()); until then #abPlayerBar below handles
-           setup. Same toggle Paperclip's own header uses, just backed by
-           abbotsfordProfiles/{uid} in Firestore. -->
-      <span id="abHeaderNicknameWrap" class="ah-header-nickname-wrap" style="display: none;">
-        <span id="abHeaderNickname" class="ah-header-nickname"></span>
-        <a href="#" id="abChangeNickname" class="ah-back-link">change</a>
-      </span>
-      <a class="ah-back-link" href="index.html">&larr; Atomic Habits</a>
-    </div>
+    <a class="ah-back-link" href="index.html">&larr; Atomic Habits</a>
   </header>
 
   <main class="ah-main">
-    <div class="ah-card" id="abPlayerBar" style="display: none;">
-      <span class="ah-player-label">Playing as</span>
-      <div class="ah-input-row">
-        <input type="text" id="abNicknameInput" placeholder="Your name" maxlength="20" autocomplete="off" />
-        <button type="button" id="abNicknameSave" class="ah-btn ah-btn-primary">Save</button>
-      </div>
-    </div>
-
     <div class="ah-card">
       <p class="ah-kicker">Trent Dyrsmid's own trick</p>
       <h1 style="font-size: 1.3rem; margin-bottom: 6px;">Abbotsford</h1>
@@ -93,13 +75,6 @@
     <a href="README.md">About this tracker</a>
   </footer>
 
-  <!-- Firebase (compat build, same version as ../vannilaWeatherApp/
-       weatherGame's own pages) — reuses that same project rather than a
-       new one; see firestore.rules' Abbotsford section there. -->
-  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
-  <script src="../vannilaWeatherApp/weatherGame/firebaseConfig.js"></script>
   <script src="abbortsford.js"></script>
 </body>
 </html>

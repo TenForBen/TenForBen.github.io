@@ -192,70 +192,31 @@ It's wired with its own `stopPropagation()` on click and keydown so
 tapping it edits the task instead of also toggling it complete/incomplete
 (both handlers live on the same `<li>`).
 
-### Firestore-backed, not localStorage
-
-Started as a `localStorage`-only page (same shape as Sugar Control), then
-migrated to Firestore — nickname and every task now live in the same
-Firebase project GeoStreak/Time Quiz/Paperclip already use
-(`../vannilaWeatherApp/weatherGame/firebaseConfig.js`, referenced
-directly rather than duplicated). `../weatherGame/firestore.rules` has
-the actual collection rules, under its own "Abbotsford (Atomic Habits)"
-section.
-
-**Setup**, if this is your first time enabling it: same one-time steps as
-Paperclip's own section above — the one new thing is **one composite
-index**: open `abbortsford.html` once, open the browser console, follow
-the "this query requires an index" link.
-- `abbotsfordTasks`: `uid` Ascending + `date` Ascending + `createdAt` Ascending.
-
-**One document per task, not one per day** — unlike the old `localStorage`
-shape (a single JSON blob per day holding every task as one array),
-`abbotsfordTasks/{taskId}` is one Firestore document per task ever added
-(auto-generated id), so completing, renaming, or unchecking a single task
-is a small write to just that task's own document — never a
-re-serialize-the-whole-day's-list write the way the array shape would
-need. A day's list is fetched with a `where(uid).where(date).orderBy
-(createdAt)` query instead of a single doc read (the composite index
-above):
+**`localStorage` only, unlike Paperclip** — this one was asked for
+explicitly as a `localStorage`-backed page, same as Sugar Control, not a
+Firestore one. One entry per local calendar day
+(`localStorage["abbotsford_{date}"]`), holding that day's whole task
+array as one JSON blob:
 
 ```
-abbotsfordTasks/{taskId} = {
-  uid: "abc123", date: "2026-09-17", name: "Reply to emails",
-  completed: true, completedAt: <Timestamp>,
-  minutes: 32, clips: 3,
-  createdAt: <Timestamp>, updatedAt: <Timestamp>,
-}
+localStorage["abbotsford_2026-09-17"] = '{"tasks":[
+  {"name":"Reply to emails","completed":true,"completedAt":1758099600000,"createdAt":1758096000000,"minutes":32,"clips":3},
+  {"name":"Water the plants","completed":false,"completedAt":null,"createdAt":1758096300000}
+]}'
 ```
 
 `completedAt` is the actual point of the original ask — knowing **when**
-each task was finished, not just that it eventually was — now a real
-Firestore `Timestamp` (`firebase.firestore.FieldValue.serverTimestamp()`)
-rather than a client-guessable millisecond number, shown on each task row
-as a local time (`formatCompletedAt()`). `minutes`/`clips` only exist on
-a completed task — `firestore.rules`' `isValidAbbotsfordTaskUpdate()`
-requires both when `completed` is `true` and forbids both when it's
-`false`, so unchecking a task (`uncompleteTask()` in `abbortsford.js`,
-using `FieldValue.delete()`) actually removes them rather than leaving
-stale values behind. Toggling is reversible in both directions, unlike
-Paperclip's baskets, since an accidental tap here shouldn't be permanent
-(see "Committing to a task" above for why *completing* one is more
-deliberate than that). Every mutation — add, complete, uncomplete, rename
-— updates **optimistically** first and rolls back (with an alert) only if
-the Firestore write actually fails, same "make it satisfying, don't wait
-on the network" reasoning as Paperclip's own `completePomodoro()`.
-
-### Nickname
-
-Same setup-row/header-chip toggle as Paperclip's own header, backed by an
-`abbotsfordProfiles/{uid}` document — its own separate identity, not
-shared with GeoStreak/Time Quiz/Paperclip's nicknames even though
-(reusing the same Firebase project) the underlying anonymous-auth `uid`
-is the same browser session either way. A brand-new visitor gets a
-`PlayerNNNN` placeholder immediately, persisted right away with
-`nicknameChosen: false` (same reasoning as Paperclip's own profile —
-`firestore.rules` never allows an empty nickname, so there's no "was this
-ever saved" signal to lean on the way an unset `localStorage` key gives
-GeoStreak for free).
+each task was finished, not just that it eventually was, stored as a
+plain millisecond timestamp (`Date.now()`) and shown on each task row as
+a local time (`formatCompletedAt()`). `minutes`/`clips` are only present
+on a task completed after the confirm+minutes prompt was added — a task
+completed before that (or currently unchecked) simply has neither field,
+and the finished-pile count treats a missing `clips` as 1. Unchecking a
+task clears `completedAt`/`minutes`/`clips` back to unset rather than
+keeping stale values for something no longer marked done — toggling is
+reversible in both directions, unlike Paperclip's baskets, since an
+accidental tap here shouldn't be permanent (see "Committing to a task"
+above for why *completing* one is more deliberate than that).
 
 **Same date-bar as Sugar Control** (prev/next, Today, and the 📅
 calendar jump via `showPicker()`) — duplicated rather than shared, same
@@ -279,13 +240,13 @@ classes) across all of them — Sugar Control's date-bar + checkbox-list +
 streak layout for a plain day-level habit, Paperclip's basket/Pomodoro
 classes for a timed one, or (as Abbotsford shows) a mix of both for
 something that's day-scoped but not timer-driven. A Firestore-backed
-habit reuses GeoStreak's project the way Paperclip and Abbotsford do; a
-`localStorage`-only one follows Sugar Control instead.
+habit reuses GeoStreak's project the way Paperclip does; a
+`localStorage`-only one follows Sugar Control/Abbotsford instead.
 
 ## Not in this version
 
-- **Sugar Control has no cross-device sync** — `localStorage` only, same
-  tradeoff `../weatherGame/checklist` currently makes. Paperclip and
-  Abbotsford don't have this limitation; see their own sections above.
+- **Sugar Control and Abbotsford have no cross-device sync** —
+  `localStorage` only, same tradeoff `../weatherGame/checklist` currently
+  makes. Paperclip doesn't have this limitation; see its own section above.
 - No heatmap/calendar *overview* of history — the 📅 button jumps to one
   date at a time, it doesn't show which past days were good at a glance.
