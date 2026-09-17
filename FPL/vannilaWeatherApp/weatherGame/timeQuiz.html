@@ -227,6 +227,21 @@
       cursor: pointer;
     }
     .tq-quit-btn:hover { color: #f87171; border-color: #f87171; }
+
+    .tq-footer {
+      text-align: center;
+      margin-top: 40px;
+    }
+    .tq-footer a {
+      font-family: "Courier New", Courier, monospace;
+      color: #6b7fa8;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+    .tq-footer a:hover {
+      color: #7dd3fc;
+      text-decoration: underline;
+    }
     .tq-points-preview {
       text-align: center;
       font-family: "Courier New", Courier, monospace;
@@ -648,6 +663,10 @@
     <div id="tqQuestion" style="display: none;"></div>
     <div id="tqResult" style="display: none;"></div>
     <div id="tqFinal" style="display: none;"></div>
+
+    <footer class="tq-footer">
+      <a href="../../atomicHabit/index.html">Atomic Habits</a>
+    </footer>
   </main>
 
   <script src="../fetch.js"></script>

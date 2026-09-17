@@ -4,8 +4,9 @@ A personal habit tracker, inspired by James Clear's *Atomic Habits* —
 not part of GeoStreak or the FPL scrapper, just living in its own folder.
 Play it at [`index.html`](./index.html) (a short summary of the book's
 core ideas, plus links to whichever habits are being tracked),
-[`sugarTracking.html`](./sugarTracking.html), the first one, and
-[`paperclip.html`](./paperclip.html), the second.
+[`sugarTracking.html`](./sugarTracking.html), the first one,
+[`paperclip.html`](./paperclip.html), the second, and
+[`abbortsford.html`](./abbortsford.html), the third.
 
 ## Sugar Control
 
@@ -157,21 +158,95 @@ canvas, no library. The newest clip gets a brief scale/fade-in animation
 (`.ah-clip-new` in `style.css`) so a completion actually reads as
 something happening, not a silently-updated number.
 
+## Abbotsford
+
+The third habit — same "move a paperclip from one pile to another"
+mechanic as Paperclip, minus the Pomodoro timer: just a plain
+**day-scoped task list**. Add however many tasks you want for a given
+day, check them off as you go, and one or more 📎 move from **Task
+Remaining** to **Task's Finished** per completion. Named for the same
+Trent Dyrsmid story Paperclip already is — a bank in Abbotsford, Canada,
+where he worked (see [Paperclip](#paperclip) above). Play it at
+[`abbortsford.html`](./abbortsford.html).
+
+### Committing to a task — confirm, then log the time
+
+Checking a task off isn't a silent tap: it asks `confirm("Are you sure
+you want to commit?")` first, then `prompt()`s for how many minutes the
+task actually took. That number decides how many clips land in the
+finished pile (`clipsForMinutes()` in `abbortsford.js`) — a task over
+**20 minutes** earns one clip per **10 minutes**, floored, so a 32-minute
+task is worth 3 clips and a 29-minute one is worth 2; anything 20 minutes
+or under is a flat 1 clip regardless of the exact number. The point is
+to make the finished pile track real effort invested for the day, not
+just a raw count of checked-off tasks. Un-checking a task is still the
+plain, silent, reversible undo it always was — no re-prompting, no
+confirmation — it just clears the timestamp/minutes/clips back out.
+
+### Editing a task's name
+
+Each task row has a small ✏️ button (`.ah-item-edit-btn`) that opens a
+`prompt()` pre-filled with the current name — confirming saves the new
+name in place, cancelling or blanking it out leaves the task untouched.
+It's wired with its own `stopPropagation()` on click and keydown so
+tapping it edits the task instead of also toggling it complete/incomplete
+(both handlers live on the same `<li>`).
+
+**`localStorage` only, unlike Paperclip** — this one was asked for
+explicitly as a `localStorage`-backed page, same as Sugar Control, not a
+Firestore one. One entry per local calendar day
+(`localStorage["abbotsford_{date}"]`), holding that day's whole task
+array as one JSON blob:
+
+```
+localStorage["abbotsford_2026-09-17"] = '{"tasks":[
+  {"name":"Reply to emails","completed":true,"completedAt":1758099600000,"createdAt":1758096000000,"minutes":32,"clips":3},
+  {"name":"Water the plants","completed":false,"completedAt":null,"createdAt":1758096300000}
+]}'
+```
+
+`completedAt` is the actual point of the original ask — knowing **when**
+each task was finished, not just that it eventually was, stored as a
+plain millisecond timestamp (`Date.now()`) and shown on each task row as
+a local time (`formatCompletedAt()`). `minutes`/`clips` are only present
+on a task completed after the confirm+minutes prompt was added — a task
+completed before that (or currently unchecked) simply has neither field,
+and the finished-pile count treats a missing `clips` as 1. Unchecking a
+task clears `completedAt`/`minutes`/`clips` back to unset rather than
+keeping stale values for something no longer marked done — toggling is
+reversible in both directions, unlike Paperclip's baskets, since an
+accidental tap here shouldn't be permanent (see "Committing to a task"
+above for why *completing* one is more deliberate than that).
+
+**Same date-bar as Sugar Control** (prev/next, Today, and the 📅
+calendar jump via `showPicker()`) — duplicated rather than shared, same
+self-contained-page convention as everywhere else in this folder. Tasks
+are per-day and don't roll over: switching days shows that day's own
+list, empty until something's actually been added to it.
+
+**Reuses Paperclip's own basket/clip CSS wholesale** (`.ah-basket-row`,
+`.ah-clip-grid`, `.ah-clip`, `.ah-clip-new`, same 📎 emoji) and Sugar
+Control's own checkbox-list CSS (`.ah-list`, `.ah-item`, `.ah-checkbox`)
+— a plain add-a-task input instead of a fixed period list. The one bit
+of new CSS this page did need is `.ah-item-edit-btn`, for the per-task
+✏️ button described above.
+
 ## Adding another habit
 
 `index.html`'s "Habits I'm tracking" card is a plain hardcoded list —
 add another `<li><a class="ah-habit-link" href="...">...</a></li>` there
 pointing at a new page in this folder. `style.css` is shared (the `ah-*`
 classes) across all of them — Sugar Control's date-bar + checkbox-list +
-streak layout for a plain day-level habit, or Paperclip's basket/Pomodoro
-classes for something that isn't. A Firestore-backed habit reuses
-GeoStreak's project the way Paperclip does; a `localStorage`-only one
-follows Sugar Control instead.
+streak layout for a plain day-level habit, Paperclip's basket/Pomodoro
+classes for a timed one, or (as Abbotsford shows) a mix of both for
+something that's day-scoped but not timer-driven. A Firestore-backed
+habit reuses GeoStreak's project the way Paperclip does; a
+`localStorage`-only one follows Sugar Control/Abbotsford instead.
 
 ## Not in this version
 
-- **Sugar Control has no cross-device sync** — `localStorage` only, same
-  tradeoff `../weatherGame/checklist` currently makes. Paperclip doesn't
-  have this limitation; see its own section above.
+- **Sugar Control and Abbotsford have no cross-device sync** —
+  `localStorage` only, same tradeoff `../weatherGame/checklist` currently
+  makes. Paperclip doesn't have this limitation; see its own section above.
 - No heatmap/calendar *overview* of history — the 📅 button jumps to one
   date at a time, it doesn't show which past days were good at a glance.
