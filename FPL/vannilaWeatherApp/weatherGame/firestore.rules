@@ -140,50 +140,6 @@ service cloud.firestore {
       allow delete: if false;
     }
 
-    // ---- Abbotsford (Atomic Habits) --------------------------------------
-    // Another separate personal tool sharing this project (see
-    // ../../FPL/atomicHabit/README.md) — a plain day-scoped task list using
-    // the same "move a clip from one pile to another" mechanic as Paperclip,
-    // minus the Pomodoro timer. Migrated off localStorage so completing or
-    // editing a task writes straight to Firestore, same as everything else
-    // in this file.
-    match /abbotsfordProfiles/{uid} {
-      // Private — same "own identity for this tool's own pages" shape as
-      // paperclipProfiles above, not a public ranking.
-      allow read: if request.auth != null && request.auth.uid == uid;
-
-      allow create: if request.auth != null
-        && request.auth.uid == uid
-        && isValidAbbotsfordProfile(request.resource.data);
-
-      allow update: if request.auth != null
-        && request.auth.uid == uid
-        && isValidAbbotsfordProfile(request.resource.data);
-
-      allow delete: if false;
-    }
-
-    // One document per task ever added, auto-generated id, `date` a local
-    // calendar-day string same as everywhere else in this file. Unlike
-    // Paperclip's write-once activities/days, a task is genuinely mutable
-    // both ways — checked and unchecked, renamed after the fact — so this
-    // has no "must increase"/write-once guard, just ownership, shape, and
-    // pinning the fields (uid/date/createdAt) that should never change hands
-    // once a task exists.
-    match /abbotsfordTasks/{taskId} {
-      allow read: if request.auth != null && resource.data.uid == request.auth.uid;
-
-      allow create: if request.auth != null
-        && request.auth.uid == request.resource.data.uid
-        && isValidAbbotsfordTaskCreate(request.resource.data);
-
-      allow update: if request.auth != null
-        && request.auth.uid == resource.data.uid
-        && isValidAbbotsfordTaskUpdate(request.resource.data, resource.data);
-
-      allow delete: if false;
-    }
-
     // Full per-run history (every round's question + guess + result), for
     // the History page's "replay one of my runs" view. One document per
     // completed run, auto-generated id — unlike the leaderboard above,
@@ -450,57 +406,6 @@ service cloud.firestore {
       && data.activityId == existing.activityId
       && data.date == existing.date
       && data.clipsMoved is int && data.clipsMoved == existing.clipsMoved + 1 && data.clipsMoved <= 20
-      && data.updatedAt == request.time;
-  }
-
-  // Same `nicknameChosen` reasoning as isValidPaperclipProfile() above —
-  // this doc's placeholder nickname has to be persisted immediately too, so
-  // "still on the placeholder" needs its own explicit flag rather than
-  // riding on an unset localStorage key. No `lastActiveActivityId`-style
-  // field here since Abbotsford has no concept of a "last active" anything.
-  function isValidAbbotsfordProfile(data) {
-    return data.keys().hasOnly(['nickname', 'nicknameChosen', 'updatedAt'])
-      && data.nickname is string && data.nickname.size() > 0 && data.nickname.size() <= 20
-      && data.nicknameChosen is bool
-      && data.updatedAt == request.time;
-  }
-
-  // A task is always created unchecked — completing one is a separate,
-  // deliberate update (see isValidAbbotsfordTaskUpdate below), never part
-  // of the initial add.
-  function isValidAbbotsfordTaskCreate(data) {
-    return data.keys().hasOnly(['uid', 'date', 'name', 'completed', 'completedAt', 'createdAt', 'updatedAt'])
-      && data.uid is string
-      && data.date is string && data.date.size() == 10
-      && data.name is string && data.name.size() > 0 && data.name.size() <= 80
-      && data.completed == false
-      && data.completedAt == null
-      && data.createdAt == request.time
-      && data.updatedAt == request.time;
-  }
-
-  // `uid`/`date`/`createdAt` pinned to the doc's own identity, same
-  // reasoning as isValidPaperclipDayUpdate()'s pinned fields. Renaming a
-  // task only ever touches `name`+`updatedAt`; completing/uncompleting only
-  // ever touches `completed`+`completedAt`(+`minutes`+`clips`)+`updatedAt` —
-  // this rule allows either without needing to tell them apart, since both
-  // are legitimate edits to the same document. `minutes`/`clips` are
-  // required exactly when `completed` is true and forbidden exactly when
-  // it's false, mirroring abbortsford.js's own toggleTask(): completing logs
-  // how long the task took (and the clip bonus that earns), uncompleting is
-  // a plain reversible undo that clears them back out.
-  function isValidAbbotsfordTaskUpdate(data, existing) {
-    return data.keys().hasOnly(['uid', 'date', 'name', 'completed', 'completedAt', 'minutes', 'clips', 'createdAt', 'updatedAt'])
-      && data.uid == existing.uid
-      && data.date == existing.date
-      && data.createdAt == existing.createdAt
-      && data.name is string && data.name.size() > 0 && data.name.size() <= 80
-      && data.completed is bool
-      && (data.completed
-          ? (data.completedAt == request.time
-             && data.minutes is number && data.minutes > 0 && data.minutes <= 1000
-             && data.clips is int && data.clips >= 1 && data.clips <= 100)
-          : (data.completedAt == null && !('minutes' in data) && !('clips' in data)))
       && data.updatedAt == request.time;
   }
 
