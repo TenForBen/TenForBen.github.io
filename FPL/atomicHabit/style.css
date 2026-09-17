@@ -269,6 +269,22 @@ body {
 .ah-item.ah-checked .ah-item-title { color: var(--accent-strong); }
 .ah-item-subtitle { font-size: 0.78rem; color: var(--ink-soft); display: block; margin-top: 2px; }
 
+/* Abbotsford's per-task edit button — a small secondary action inside
+   each .ah-item, kept from also triggering that row's own toggle click
+   via stopPropagation() in abbortsford.js, not via any CSS here. */
+.ah-item-edit-btn {
+  flex-shrink: 0;
+  align-self: center;
+  background: transparent;
+  border: none;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  padding: 4px 6px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.ah-item-edit-btn:hover { color: var(--accent-strong); background: rgba(47, 143, 107, 0.12); }
+
 .ah-status {
   text-align: center;
   font-size: 0.8rem;

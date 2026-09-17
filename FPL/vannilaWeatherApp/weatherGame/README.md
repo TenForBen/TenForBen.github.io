@@ -846,6 +846,44 @@ than scores 0: the clock keeps running, nothing is submitted, and the
 hint below the input says which city was already used — the player gets
 another real attempt at the same question, not a wasted one.
 
+### A correctly-answered city goes on a 1-hour cooldown, across quizzes
+
+Unlike `usedCities` above, `recentCorrectCities` (a `Map<"name|country",
+timestamp>`) is **not** reset in `startQuiz()` — a city answered
+correctly stays off-limits for `CITY_COOLDOWN_MS` (one hour) even across
+separate quizzes. The point is variety: without this, nothing stops
+replaying the same known-fast city quiz after quiz, which is both a
+boring way to play and skews the global Insights tallies toward whatever
+one player happens to keep reusing.
+
+**Backed by `localStorage["timeQuiz_recentCorrectCities"]`, not just an
+in-memory variable** — an earlier version was in-memory only, which lost
+the entire cooldown on any page reload and made it trivial to bypass by
+accident (or on purpose) with an F5. `loadRecentCorrectCities()` reads
+that key once at load, dropping any entry already older than
+`CITY_COOLDOWN_MS` rather than keeping it around forever — without that
+prune step, the stored blob would grow by one entry for every distinct
+city this browser has *ever* answered correctly, not just the ones still
+actually on cooldown. `saveRecentCorrectCities()` writes the whole map
+back on every new correct answer. `localStorage`, not Firestore: this is
+fundamentally a single-browser pacing rule, not something that needs to
+follow a player across devices, so the extra collection and per-answer
+write cost wasn't worth it.
+
+**Only a correct answer ever puts a city on cooldown.** An incorrect
+answer (wrong region, wrong hemisphere, or a right-temperature-wrong-place
+miss) was never really "using" that city in the sense this cooldown cares
+about, so `resolveAnswer()` only calls `recentCorrectCities.set(...)`
+inside the `correct` branch — a city you got wrong stays immediately
+reusable, including on the very next question. The cooldown check itself
+sits in `submitAnswer()`, right alongside the existing same-quiz duplicate
+check (same "flag and give the attempt back" treatment: the clock keeps
+running, nothing is submitted, and the hint says to try a different city
+for now) — checked only after the city resolves (the canonical
+`"name|country"` key), not before, since there's no reasonable way to
+know in advance whether an as-yet-unresolved typed string would land on
+a cooldown.
+
 ### Quitting early
 
 A small "&#9209; Quit" button sits next to the timer on the question screen
