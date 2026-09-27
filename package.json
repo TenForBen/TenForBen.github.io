@@ -18,6 +18,7 @@
   "homepage": "https://github.com/TenForBen/TenForBen.github.io#readme",
   "devDependencies": {
     "@playwright/test": "^1.54.2",
-    "@types/node": "^24.3.0"
+    "@types/node": "^24.3.0",
+    "firebase-admin": "^14.5.0"
   }
 }
