@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/minty/bootstrap.min.css"
+  />
+  <title>DistanceLearningQuiz — TENFORBEN Station</title>
+  <link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text x=%228%22 y=%2213%22 font-size=%2214%22 text-anchor=%22middle%22>%F0%9F%93%8F</text></svg>"
+  />
+  <style>
+    /* Same dark station look as timeQuiz.html, with orange as this quiz's
+       accent (Time Quiz is yellow, GeoStreak blue). Self-contained, dl-
+       prefixed, per this folder's one-stylesheet-per-page convention. */
+    body {
+      background: #060a14;
+      color: #cfe8ff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+    }
+    .dl-header {
+      background: linear-gradient(180deg, #0a1226 0%, #060a14 100%);
+      border-bottom: 1px solid #1b2a4a;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .dl-brand {
+      font-family: "Courier New", Courier, monospace;
+      letter-spacing: 1px;
+      font-size: 1rem;
+      color: #fb923c;
+    }
+    .dl-back-link {
+      font-family: "Courier New", Courier, monospace;
+      color: #93a4c3;
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+    .dl-back-link:hover { color: #fb923c; text-decoration: underline; }
+
+    main.dl-main {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 28px 16px 60px;
+    }
+    .dl-panel {
+      background: #0c1630;
+      border: 1px solid #1b2a4a;
+      border-radius: 10px;
+      padding: 24px 22px;
+      text-align: center;
+    }
+    .dl-panel h3 {
+      font-family: "Courier New", Courier, monospace;
+      color: #fb923c;
+      margin-bottom: 10px;
+    }
+    .dl-panel-sub { color: #9db4de; margin-bottom: 14px; }
+    .dl-nickname {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      color: #6b7fa8;
+      margin: -4px 0 14px;
+    }
+
+    .dl-btn-orange {
+      background: #f97316;
+      border-color: #f97316;
+      color: #fff;
+    }
+    .dl-btn-orange:hover, .dl-btn-orange:focus {
+      background: #ea580c;
+      border-color: #ea580c;
+      color: #fff;
+    }
+    .dl-btn-orange:disabled { background: #9a4a17; border-color: #9a4a17; }
+
+    .dl-round-picker {
+      background: #0a1226;
+      border: 1px solid #1b2a4a;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin: 4px 0 18px;
+      text-align: left;
+    }
+    .dl-picker-label {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #6b7fa8;
+      margin: 0 0 10px;
+    }
+    .dl-round-list { list-style: none; padding: 0; margin: 0; }
+    .dl-round { font-size: 0.9rem; }
+    .dl-round-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      padding: 4px 0;
+      margin: 0;
+      cursor: pointer;
+    }
+    .dl-round-label input { accent-color: #f97316; cursor: pointer; }
+    .dl-round-locked {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 0;
+      color: #6b7fa8;
+    }
+    .dl-round-icon { width: 13px; text-align: center; font-size: 0.75rem; }
+    .dl-round-name { flex: 1 1 auto; }
+    .dl-round-best {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      color: #6b7fa8;
+    }
+
+    .dl-best {
+      font-family: "Courier New", Courier, monospace;
+      color: #6b7fa8;
+      font-size: 0.8rem;
+      margin-top: 14px;
+    }
+    .dl-howto {
+      text-align: left;
+      color: #93a4c3;
+      font-size: 0.85rem;
+      margin: 18px 0 0;
+      padding-left: 20px;
+    }
+    .dl-howto li { margin-bottom: 6px; }
+
+    /* ---- Question screen ---- */
+    .dl-progress {
+      text-align: center;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.8rem;
+      color: #6b7fa8;
+      margin-bottom: 10px;
+    }
+    .dl-score-live {
+      text-align: center;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      color: #fb923c;
+      margin-bottom: 14px;
+    }
+    .dl-timer-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+    .dl-timer {
+      text-align: center;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 2.4rem;
+      font-weight: bold;
+      color: #fb923c;
+      margin-bottom: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+    .dl-timer-row .dl-timer { margin-bottom: 0; }
+    .dl-timer.dl-timer-warn { color: #f0b429; }
+    .dl-timer.dl-timer-danger { color: #f87171; }
+    .dl-quit-btn {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      color: #93a4c3;
+      background: transparent;
+      border: 1px solid #1b2a4a;
+      border-radius: 4px;
+      padding: 4px 10px;
+      cursor: pointer;
+    }
+    .dl-quit-btn:hover { color: #f87171; border-color: #f87171; }
+    .dl-timer-bar-wrap {
+      height: 6px;
+      background: #101c3c;
+      border-radius: 3px;
+      overflow: hidden;
+      margin: 10px 0 22px;
+    }
+    .dl-timer-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #fb923c, #f0b429, #f87171);
+    }
+    .dl-condition {
+      background: #0c1630;
+      border: 1px solid #1b2a4a;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .dl-region-badge {
+      display: inline-block;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #fb923c;
+      background: #101c3c;
+      border: 1px solid #1b2a4a;
+      border-radius: 20px;
+      padding: 4px 12px;
+      margin-bottom: 10px;
+    }
+    .dl-target {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #e2ecff;
+      margin: 0;
+      font-variant-numeric: tabular-nums;
+    }
+    .dl-condition-text { font-size: 1.15rem; color: #cfe8ff; margin: 0; }
+    .dl-input-row { display: flex; gap: 8px; }
+    .dl-hint {
+      min-height: 1.4em;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #f0b429;
+      margin-top: 8px;
+    }
+
+    /* ---- Result between questions ---- */
+    .dl-result-badge {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 1.05rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      padding: 6px 16px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .dl-result-good { color: #4ade80; border: 1px solid #4ade80; }
+    .dl-result-bad { color: #f87171; border: 1px solid #f87171; }
+    .dl-result-points {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #fb923c;
+      margin: 6px 0;
+    }
+    .dl-result-detail { color: #9db4de; }
+    .dl-result-total {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.85rem;
+      color: #6b7fa8;
+      margin-bottom: 14px;
+    }
+
+    /* ---- Final screen ---- */
+    .dl-final-score {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 3rem;
+      font-weight: bold;
+      color: #fb923c;
+      margin: 6px 0;
+    }
+    .dl-final-sub { color: #9db4de; margin-bottom: 10px; }
+    .dl-highscore-note {
+      font-family: "Courier New", Courier, monospace;
+      color: #f0b429;
+      font-size: 0.9rem;
+    }
+    .dl-final-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin: 18px 0;
+    }
+    .dl-table-wrap { overflow-x: auto; }
+    .dl-breakdown {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      text-align: left;
+    }
+    .dl-breakdown th {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #6b7fa8;
+      padding: 6px 8px 6px 0;
+      border-bottom: 1px solid #1b2a4a;
+      white-space: nowrap;
+    }
+    .dl-breakdown td {
+      padding: 7px 8px 7px 0;
+      border-bottom: 1px solid #101a30;
+      color: #cfe8ff;
+    }
+    .dl-pts-good { color: #4ade80 !important; font-weight: bold; }
+    .dl-pts-zero { color: #f87171 !important; }
+    .dl-muted { color: #6b7fa8; font-style: italic; }
+
+    .dl-footer { text-align: center; margin-top: 40px; }
+    .dl-footer a {
+      font-family: "Courier New", Courier, monospace;
+      color: #6b7fa8;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+    .dl-footer a:hover { color: #fb923c; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <header class="dl-header">
+    <div class="dl-brand">TENFORBEN // STATION — DistanceLearningQuiz</div>
+    <a class="dl-back-link" href="geoStreakGame.html">&larr; GeoStreak</a>
+  </header>
+
+  <main class="dl-main">
+    <div id="dlStart"></div>
+    <div id="dlQuestion" style="display: none;"></div>
+    <div id="dlResult" style="display: none;"></div>
+    <div id="dlFinal" style="display: none;"></div>
+
+    <footer class="dl-footer">
+      <a href="timeQuiz.html">Time Quiz</a>
+    </footer>
+  </main>
+
+  <script src="../fetch.js"></script>
+  <script src="distanceLearningStore.js"></script>
+  <script src="distanceLearningQuiz.js"></script>
+</body>
+</html>
