@@ -1266,6 +1266,74 @@ component (city name, flag, coordinates, temperature, conditions) so a
 guess result still looks like a Weather.JS reading, just stamped
 CORRECT/INCORRECT in the corner.
 
+## DistanceLearningQuiz
+
+A third mode, at [`distanceLearningQuiz.html`](./distanceLearningQuiz.html)
+(orange "Start DistanceLearningQuiz" button, under the yellow Time Quiz one
+on GeoStreak's start screen). Instead of temperature it's about distance:
+each question gives a target distance from a centre city, and the city you
+name becomes the next question's centre, so a quiz walks across the map.
+
+### Rounds
+
+India &rarr; World &rarr; Europe &rarr; North America &rarr; Asia &rarr;
+Australia &rarr; Africa. Each round has its own starting capital: New Delhi
+for India, Canberra for Australia, a random regional capital for Europe,
+North America, Asia and Africa, and a random capital from anywhere for
+World. Answers must be inside the round's region, checked by the country
+code OpenWeatherMap returns (same lists as Time Quiz's stages for Europe
+and North America; Russia is left out of both Europe and Asia).
+
+For now the first three rounds are open to everyone and the rest show as
+locked (`UNLOCKED_ROUND_COUNT` in `distanceLearningQuiz.js`); unlock rules
+come later.
+
+### A question
+
+- 15 questions, 20 seconds each. The target is a random multiple of 100
+  between 100 and 2000 km, fresh for every question.
+- Distance is the great-circle (haversine) distance between the centre and
+  the coordinates OpenWeatherMap resolves the answer to.
+- **Points** = `100 × (1 − |target − distance| / target)`, floored at 0 and
+  kept to one decimal. Target 500 km, answer 150 km away: off by 350, so 30
+  points. Target 800 km, answer 940 km away: off by 140, so 82.5 points.
+  Maximum per quiz is 1500.
+- **One warning per question.** The first city that isn't found, or is
+  outside the round's region, only shows a hint. The second one ends the
+  question with 0 points.
+- Running out of time scores 0. After a 0 the centre stays where it was;
+  only a scored answer moves it.
+- Naming the current centre (anything within 5 km of it, so "Delhi" while
+  the centre is New Delhi) or a city already used this quiz is just a hint,
+  not a miss.
+
+### Data — localStorage now, Firestore later
+
+Everything is stored locally by
+[`distanceLearningStore.js`](./distanceLearningStore.js), in three keys
+laid out as the Firestore collections they are meant to become:
+
+| localStorage key | Becomes | One record per |
+|---|---|---|
+| `dlq.player` | `dlqPlayers/{uid}` | player: `playerId`, nickname, overall `highScore`, `roundHighScores` per round, totals |
+| `dlq.runs` | `dlqRuns/{runId}` | finished or quit quiz: round, start city, `startedAt`/`finishedAt`, `durationMs` (time taken for the round), score, and a per-question summary including `timeTakenMs` |
+| `dlq.attempts` | `dlqAttempts/{attemptId}` | every submitted answer and every timeout: what was typed, outcome (`scored`, `not_found`, `wrong_region`, `already_used`, `timeout`), resolved city, distance, points, `elapsedMs` |
+
+The schema for each is written out in comments at the top of each section
+of `distanceLearningStore.js`. Things that make the later migration safe:
+
+- Every record has a client-generated UUID meant to become its Firestore
+  document id, so running the migration twice overwrites rather than
+  duplicates.
+- Every record has `syncedAt: null`; the migration sets it after upload and
+  skips anything already set.
+- The player record has `firebaseUid: null`, to be filled on first sign-in
+  so the local `playerId` can be linked to the Firebase user.
+- Timestamps are ISO strings and durations are integer milliseconds.
+
+The nickname comes from the same `geoStreakGame_nickname` key GeoStreak
+and Time Quiz use.
+
 ## Bug log
 
 Notable bugs, once actually fixed — what broke, what it looked like to a

@@ -215,6 +215,21 @@
 
     /* Deliberately understated next to the Guess button — pausing is a
        side action, and it can't rescue a round that's already running out. */
+    /* DistanceLearningQuiz's own start button, on its own line under the
+       yellow Time Quiz one (see ui.js renderStartScreen()). Orange is that
+       quiz's accent colour throughout distanceLearningQuiz.html. */
+    .gs-dlq-row { margin-top: 10px; }
+    .gs-dlq-btn {
+      background: #f97316;
+      border-color: #f97316;
+      color: #fff;
+    }
+    .gs-dlq-btn:hover, .gs-dlq-btn:focus {
+      background: #ea580c;
+      border-color: #ea580c;
+      color: #fff;
+    }
+
     .gs-pause-btn {
       font-family: "Courier New", Courier, monospace;
       font-size: 0.75rem;
