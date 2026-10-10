@@ -1,7 +1,7 @@
 // DistanceLearningQuiz — a distance-judging companion to GeoStreak and
 // Time Quiz. Each round starts at a capital; every question asks for a city
-// roughly N km (a random multiple of 100, 100-2000) from the current
-// centre, and the city you name becomes the next question's centre, so the
+// roughly N km (random, within that round's range — see ROUNDS) from the
+// current centre, and the city you name becomes the next question's centre, so the
 // quiz walks across the map one answer at a time.
 //
 // Scoring is how close the real distance lands to the target:
@@ -18,9 +18,9 @@
 const QUESTION_COUNT = 15;
 const QUESTION_SECONDS = 20;
 const MAX_POINTS = 100;
-const MIN_TARGET_KM = 100;
-const MAX_TARGET_KM = 2000;
-const GAP_SECONDS = 5; // pause on each question's result before the next one
+// Target distance range per round, overridable on each ROUNDS entry.
+const DEFAULT_RANGE = { min: 100, max: 2000, step: 100 };
+const GAP_SECONDS = 8; // pause on each question's result before the next one; "Next" skips it
 // One warning per question: the first not-found or out-of-region answer
 // only shows a hint; the second ends the question with 0 points.
 const MAX_INVALID_TRIES = 2;
@@ -87,8 +87,8 @@ const ALL_CAPITALS = Object.values(CAPITALS).flat();
 // the same lists as Time Quiz's stages. Russia is left out of both Europe
 // and Asia (it spans both, and OpenWeatherMap only returns a country code).
 const ROUNDS = [
-  { key: "india", label: "India", countryCodes: ["IN"], start: () => capital(["New Delhi", "IN", 28.6139, 77.209]) },
-  { key: "world", label: "World", countryCodes: null, start: () => capital(pickRandom(ALL_CAPITALS)) },
+  { key: "india", label: "India", countryCodes: ["IN"], range: { min: 200, max: 1800, step: 100 }, start: () => capital(["New Delhi", "IN", 28.6139, 77.209]) },
+  { key: "world", label: "World", countryCodes: null, range: { min: 500, max: 15000, step: 500 }, start: () => capital(pickRandom(ALL_CAPITALS)) },
   {
     key: "europe",
     label: "Europe",
@@ -143,9 +143,45 @@ function pickRandom(list) {
   return list[Math.floor(Math.random() * list.length)];
 }
 
-function randomTargetKm() {
-  const steps = (MAX_TARGET_KM - MIN_TARGET_KM) / 100 + 1; // 100, 200, ... 2000
-  return MIN_TARGET_KM + Math.floor(Math.random() * steps) * 100;
+function roundRange(r) {
+  return r.range || DEFAULT_RANGE;
+}
+
+function randomTargetKm(r) {
+  const { min, max, step } = roundRange(r);
+  const steps = (max - min) / step + 1; // e.g. 200, 300, ... 1800
+  return min + Math.floor(Math.random() * steps) * step;
+}
+
+function formatRange(r) {
+  const { min, max } = roundRange(r);
+  return `${min.toLocaleString()}&ndash;${max.toLocaleString()} km`;
+}
+
+// Initial great-circle bearing from a to b, 0-360 clockwise from north —
+// the direction you'd set off in along the shortest line between them.
+function bearingDeg(a, b) {
+  const toRad = (deg) => (deg * Math.PI) / 180;
+  const dLon = toRad(b.lon - a.lon);
+  const y = Math.sin(dLon) * Math.cos(toRad(b.lat));
+  const x = Math.cos(toRad(a.lat)) * Math.sin(toRad(b.lat)) - Math.sin(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.cos(dLon);
+  return ((Math.atan2(y, x) * 180) / Math.PI + 360) % 360;
+}
+
+const COMPASS = [
+  { dir: "N", arrow: "\u2191" }, { dir: "NE", arrow: "\u2197" }, { dir: "E", arrow: "\u2192" }, { dir: "SE", arrow: "\u2198" },
+  { dir: "S", arrow: "\u2193" }, { dir: "SW", arrow: "\u2199" }, { dir: "W", arrow: "\u2190" }, { dir: "NW", arrow: "\u2196" },
+];
+
+// 8-point compass: each direction covers the 45 degrees centred on it.
+function compassPoint(deg) {
+  return COMPASS[Math.round(deg / 45) % 8];
+}
+
+function directionHtml(direction) {
+  if (!direction) return "&ndash;";
+  const point = COMPASS.find((c) => c.dir === direction);
+  return `<span class="dl-dir">${point.arrow} ${direction}</span>`;
 }
 
 function haversineKm(a, b) {
@@ -243,7 +279,7 @@ function renderStart() {
       <li class="dl-round">
         <label class="dl-round-label">
           <input type="radio" name="dlRoundPick" value="${r.key}" ${i === 0 ? "checked" : ""} />
-          <span class="dl-round-name">${i + 1}. ${r.label}</span>
+          <span class="dl-round-name">${i + 1}. ${r.label} <span class="dl-round-range">${formatRange(r)}</span></span>
           <span class="dl-round-best">best ${bestText}</span>
         </label>
       </li>`;
@@ -261,7 +297,7 @@ function renderStart() {
       <button type="button" id="dlStartBtn" class="btn dl-btn-orange">Start Quiz</button>
       <p class="dl-best">High score: ${best ? `${formatPoints(best.score)} / ${QUESTION_COUNT * MAX_POINTS}` : "none yet"}</p>
       <ul class="dl-howto">
-        <li>${QUESTION_COUNT} questions, ${QUESTION_SECONDS} seconds each. Targets are ${MIN_TARGET_KM}&ndash;${MAX_TARGET_KM} km, in steps of 100.</li>
+        <li>${QUESTION_COUNT} questions, ${QUESTION_SECONDS} seconds each. Each round has its own target range, shown next to it above.</li>
         <li>Points = how close the real distance is to the target: spot on is ${MAX_POINTS}, off by the whole target (or more) is 0.</li>
         <li>The city must be inside the round's region. A typo or an out-of-region city gets one warning; the second one scores 0.</li>
         <li>Running out of time scores 0 and keeps the same centre.</li>
@@ -301,7 +337,7 @@ function startRun() {
 
 // ---- Question screen ------------------------------------------------------------
 function showQuestion() {
-  targetKm = randomTargetKm();
+  targetKm = randomTargetKm(round);
   invalidTries = 0;
   tryNumber = 0;
   submitting = false;
@@ -367,7 +403,7 @@ function elapsedMs() {
   return Math.round(performance.now() - questionStart);
 }
 
-function recordAttempt({ input, outcome, resolvedPlace, distanceKm, points }) {
+function recordAttempt({ input, outcome, resolvedPlace, distanceKm, points, bearing = null, direction = null }) {
   tryNumber += 1;
   DistanceLearningStore.saveAttempt({
     runId: run.runId,
@@ -381,9 +417,44 @@ function recordAttempt({ input, outcome, resolvedPlace, distanceKm, points }) {
     outcome,
     resolved: resolvedPlace,
     distanceKm,
+    bearingDeg: bearing,
+    direction,
     points,
     elapsedMs: elapsedMs(),
   });
+}
+
+// Country check for region-restricted rounds. The weather lookup's own
+// country code alone let "Dhaka,IN" through in the India round — the ",IN"
+// steers OpenWeather to a village called Dhāka in Bihar — so two more
+// checks run alongside it:
+//   1. reverse-geocode the resolved coordinates — the country the point
+//      actually sits in;
+//   2. if the player typed a ",XX" suffix, look the bare name up too: if
+//      that resolves outside the region ("Dhaka" -> BD), the suffix was
+//      just steering a famous foreign city to a same-named small town.
+// The bare-name check uses the weather lookup rather than OpenWeather's
+// geocoder, whose top match ranks poorly (it puts Surat in France and
+// Salem in the US). A check that fails to load is skipped rather than
+// blocking the answer. Returns an error message, or null when the answer
+// is in the region.
+async function checkRegion(typed, place) {
+  const codes = round.countryCodes;
+  if (!codes.includes(place.country)) {
+    return `${place.name}, ${place.country} isn't in ${round.label}.`;
+  }
+  const bareName = typed.split(",")[0].trim();
+  const [actualCountry, bare] = await Promise.all([
+    ft.reverseGeocodeCountry(place.lat, place.lon),
+    typed.includes(",") ? ft.getCurrentForGame(bareName) : null,
+  ]);
+  if (actualCountry && !codes.includes(actualCountry)) {
+    return `${place.name} is actually in ${actualCountry}, not ${round.label}.`;
+  }
+  if (bare && !codes.includes(bare.sys.country)) {
+    return `"${bareName}" is ${bare.name}, ${bare.sys.country} — not in ${round.label}.`;
+  }
+  return null;
 }
 
 // A not-found or out-of-region answer: first one warns, second ends the
@@ -429,9 +500,13 @@ async function submitAnswer() {
 
   const place = { name: data.name, country: data.sys.country, lat: data.coord.lat, lon: data.coord.lon };
 
-  if (round.countryCodes && !round.countryCodes.includes(place.country)) {
-    invalidAnswer(typed, "wrong_region", place, `${place.name}, ${place.country} isn't in ${round.label}.`);
-    return;
+  if (round.countryCodes) {
+    const regionError = await checkRegion(typed, place);
+    if (token !== questionToken || resolved) return;
+    if (regionError) {
+      invalidAnswer(typed, "wrong_region", place, regionError);
+      return;
+    }
   }
 
   // Naming the centre again, or a city already used this run, doesn't
@@ -446,11 +521,13 @@ async function submitAnswer() {
   }
 
   const points = computePoints(targetKm, distanceKm);
-  recordAttempt({ input: typed, outcome: "scored", resolvedPlace: place, distanceKm, points });
-  endQuestion({ status: "scored", answer: place, distanceKm, points });
+  const bearing = Math.round(bearingDeg(centre, place));
+  const direction = compassPoint(bearing).dir;
+  recordAttempt({ input: typed, outcome: "scored", resolvedPlace: place, distanceKm, points, bearing, direction });
+  endQuestion({ status: "scored", answer: place, distanceKm, points, bearing, direction });
 }
 
-function endQuestion({ status, answer, distanceKm, points, note }) {
+function endQuestion({ status, answer, distanceKm, points, note, bearing = null, direction = null }) {
   resolved = true;
   clearInterval(timerInterval);
   const fromCentre = { ...centre };
@@ -462,6 +539,8 @@ function endQuestion({ status, answer, distanceKm, points, note }) {
     status,
     answer,
     distanceKm,
+    bearingDeg: bearing,
+    direction,
     points,
     timeTakenMs: Math.min(elapsedMs(), QUESTION_SECONDS * 1000),
     attemptCount: tryNumber,
@@ -474,7 +553,7 @@ function endQuestion({ status, answer, distanceKm, points, note }) {
     usedPlaces.add(placeKey(answer));
   }
 
-  renderQuestionResult({ status, answer, distanceKm, points, note, fromCentre });
+  renderQuestionResult({ status, answer, distanceKm, points, note, fromCentre, direction });
 }
 
 function quitRun() {
@@ -487,7 +566,7 @@ function quitRun() {
 }
 
 // ---- Between questions ------------------------------------------------------------
-function renderQuestionResult({ status, answer, distanceKm, points, note, fromCentre }) {
+function renderQuestionResult({ status, answer, distanceKm, points, note, fromCentre, direction }) {
   const isLast = qIndex + 1 >= QUESTION_COUNT;
   let headline;
   let detail;
@@ -495,7 +574,8 @@ function renderQuestionResult({ status, answer, distanceKm, points, note, fromCe
     const off = distanceKm - targetKm;
     headline = `+${formatPoints(points)}`;
     detail = `
-      ${flagEmoji(answer.country)} ${placeLabel(answer)} is <b>${distanceKm.toLocaleString()} km</b> from ${placeLabel(fromCentre)}
+      <span class="dl-result-dir">${directionHtml(direction)}</span>
+      ${flagEmoji(answer.country)} ${placeLabel(answer)} is <b>${distanceKm.toLocaleString()} km ${direction}</b> of ${placeLabel(fromCentre)}
       <br />Target ${targetKm.toLocaleString()} km &middot; ${off === 0 ? "spot on" : `${Math.abs(off).toLocaleString()} km ${off > 0 ? "over" : "short"}`}`;
   } else if (status === "timeout") {
     headline = "+0";
@@ -547,13 +627,17 @@ function finishRun() {
   record.questionsPlayed = record.questions.length;
   const { isHighScore, isRoundHighScore } = DistanceLearningStore.saveRun(record);
 
+  // Highlight the best-scoring question(s); nothing to highlight if every
+  // question scored 0.
+  const topPoints = Math.max(0, ...record.questions.map((q) => q.points));
   const rows = record.questions.map((q) => `
-    <tr>
+    <tr class="${topPoints > 0 && q.points === topPoints ? "dl-row-top" : ""}">
       <td>${q.number}</td>
       <td>${placeLabel(q.centre)}</td>
       <td>${q.targetKm.toLocaleString()}</td>
       <td>${q.answer ? placeLabel(q.answer) : `<span class="dl-muted">${q.status === "timeout" ? "time's up" : "invalid"}</span>`}</td>
       <td>${q.distanceKm != null ? q.distanceKm.toLocaleString() : "&ndash;"}</td>
+      <td>${directionHtml(q.direction)}</td>
       <td class="${q.points > 0 ? "dl-pts-good" : "dl-pts-zero"}">${formatPoints(q.points)}</td>
       <td>${(q.timeTakenMs / 1000).toFixed(1)}s</td>
     </tr>`).join("");
@@ -570,7 +654,7 @@ function finishRun() {
       </div>
       <div class="dl-table-wrap">
         <table class="dl-breakdown">
-          <thead><tr><th>#</th><th>From</th><th>Target km</th><th>Answer</th><th>Actual km</th><th>Pts</th><th>Time</th></tr></thead>
+          <thead><tr><th>#</th><th>From</th><th>Target km</th><th>Answer</th><th>Actual km</th><th>Dir</th><th>Pts</th><th>Time</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>

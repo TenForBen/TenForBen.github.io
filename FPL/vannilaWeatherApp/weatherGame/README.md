@@ -1280,9 +1280,20 @@ India &rarr; World &rarr; Europe &rarr; North America &rarr; Asia &rarr;
 Australia &rarr; Africa. Each round has its own starting capital: New Delhi
 for India, Canberra for Australia, a random regional capital for Europe,
 North America, Asia and Africa, and a random capital from anywhere for
-World. Answers must be inside the round's region, checked by the country
-code OpenWeatherMap returns (same lists as Time Quiz's stages for Europe
-and North America; Russia is left out of both Europe and Asia).
+World. Answers must be inside the round's region (same country lists as
+Time Quiz's stages for Europe and North America; Russia is left out of both
+Europe and Asia) — see [Region check](#region-check).
+
+Each round has its own target range, shown next to it on the start screen:
+
+| Round | Target range |
+|---|---|
+| India | 200–1800 km, steps of 100 |
+| World | 500–15000 km, steps of 500 |
+| Europe and the locked rounds | 100–2000 km, steps of 100 |
+
+Set per round with `range` on its `ROUNDS` entry; rounds without one use
+`DEFAULT_RANGE`.
 
 For now the first three rounds are open to everyone and the rest show as
 locked (`UNLOCKED_ROUND_COUNT` in `distanceLearningQuiz.js`); unlock rules
@@ -1290,8 +1301,8 @@ come later.
 
 ### A question
 
-- 15 questions, 20 seconds each. The target is a random multiple of 100
-  between 100 and 2000 km, fresh for every question.
+- 15 questions, 20 seconds each. The target is picked at random from the
+  round's range, fresh for every question.
 - Distance is the great-circle (haversine) distance between the centre and
   the coordinates OpenWeatherMap resolves the answer to.
 - **Points** = `100 × (1 − |target − distance| / target)`, floored at 0 and
@@ -1306,6 +1317,31 @@ come later.
 - Naming the current centre (anything within 5 km of it, so "Delhi" while
   the centre is New Delhi) or a city already used this quiz is just a hint,
   not a miss.
+- **Direction.** Every scored answer shows an arrow for one of 8 compass
+  points (N, NE, E, SE, S, SW, W, NW): the initial bearing of the
+  great-circle line from the centre to the answer, rounded to the nearest
+  45°. It's shown large on the result screen between questions and in a
+  "Dir" column of the results table.
+- **Between questions** there's an 8-second pause on the result; "Next
+  question now" skips it.
+- **Results table.** The best-scoring question (or questions, if tied) is
+  highlighted in gold.
+
+### Region check
+
+For a region-restricted round, an answer has to pass three checks:
+
+1. The country code the weather lookup returns is in the round's list.
+2. Reverse geocoding the resolved coordinates (OpenWeather's
+   `/geo/1.0/reverse`) also gives a country in the list.
+3. If the player typed a `,XX` suffix, the name without it must also
+   resolve inside the region. Without this, "Dhaka,IN" steers the lookup to
+   a village called Dhāka in Bihar and passes 1 and 2.
+
+Check 3 uses the same weather lookup rather than OpenWeather's geocoder,
+because the geocoder's top match ranks badly for this: it puts Surat in
+France and Salem in the US. Checks 2 and 3 run in parallel, and either one
+is skipped if its request fails, rather than blocking the answer.
 
 ### Data — localStorage now, Firestore later
 
@@ -1339,6 +1375,15 @@ and Time Quiz use.
 Notable bugs, once actually fixed — what broke, what it looked like to a
 player, and the real cause, newest first. Not every commit, just the ones
 worth a future reader knowing *why* the code is shaped the way it is.
+
+- **2026-10-10 — DistanceLearningQuiz accepted Bangladesh/Sri Lanka cities
+  in the India round.** The region check trusted the single country code
+  from the weather lookup, so a country suffix could steer a foreign city's
+  name to a same-named Indian village: "Dhaka,IN" resolves to Dhāka, Bihar
+  (IN), not Dhaka, Bangladesh, and was accepted. Fixed with two extra
+  checks in `checkRegion()`: reverse geocoding the resolved coordinates, and
+  looking up the name without its suffix ("Dhaka" resolves to BD, so the
+  answer is rejected). See [Region check](#region-check).
 
 - **2026-08-17 — History's INCORRECT badge didn't say why a tough round
   failed.** A tough round (hemisphere + temperature) needs both halves
