@@ -61,6 +61,33 @@ class Fetch {
   // AbortController) — the underlying fetch keeps running in the background
   // if it loses the race. Callers should ignore a result that arrives after
   // their own round has already moved on.
+  // OpenWeather reverse geocoding, used by DistanceLearningQuiz to
+  // double-check a resolved city's country: the country a coordinate
+  // actually sits in. Returns null on any failure (network, timeout,
+  // nothing found) so the caller can skip that check rather than block the
+  // answer.
+  async reverseGeocodeCountry(lat, lon) {
+    const myKey = "39a9a737b07b4b703e3d1cd1e231eedc";
+    const url =
+      `https://api.openweathermap.org/geo/1.0/reverse` +
+      `?lat=${lat}&lon=${lon}&limit=1&appid=${myKey}`;
+    const results = await this.fetchJsonWithTimeout(url, 5000);
+    return Array.isArray(results) && results[0] ? results[0].country : null;
+  }
+
+  async fetchJsonWithTimeout(url, ms) {
+    const timeout = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("Lookup timed out")), ms)
+    );
+    try {
+      const response = await Promise.race([fetch(url), timeout]);
+      if (!response.ok) return null;
+      return await response.json();
+    } catch (err) {
+      return null;
+    }
+  }
+
   async getCurrentForGame(cityName) {
     const timeout = new Promise((_, reject) =>
       setTimeout(() => reject(new Error("GeoStreak lookup timed out")), 5000)

@@ -120,6 +120,12 @@
     }
     .dl-round-icon { width: 13px; text-align: center; font-size: 0.75rem; }
     .dl-round-name { flex: 1 1 auto; }
+    .dl-round-range {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.7rem;
+      color: #6b7fa8;
+      margin-left: 6px;
+    }
     .dl-round-best {
       font-family: "Courier New", Courier, monospace;
       font-size: 0.75rem;
@@ -306,7 +312,26 @@
       border-bottom: 1px solid #101a30;
       color: #cfe8ff;
     }
+    /* The best-scoring question(s) in the results table. */
+    .dl-row-top td {
+      background: rgba(240, 180, 41, 0.2);
+      border-bottom-color: rgba(240, 180, 41, 0.35);
+    }
+    .dl-row-top td:first-child { box-shadow: inset 3px 0 0 #f0b429; }
+    .dl-row-top .dl-pts-good { color: #f0b429 !important; }
     .dl-pts-good { color: #4ade80 !important; font-weight: bold; }
+    /* 8-point compass direction from the centre to the answer. */
+    .dl-dir {
+      font-family: "Courier New", Courier, monospace;
+      white-space: nowrap;
+      color: #fb923c;
+    }
+    .dl-result-dir {
+      display: block;
+      font-size: 2.2rem;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
     .dl-pts-zero { color: #f87171 !important; }
     .dl-muted { color: #6b7fa8; font-style: italic; }
 

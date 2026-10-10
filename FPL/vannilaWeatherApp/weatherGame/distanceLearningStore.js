@@ -103,7 +103,8 @@ const DistanceLearningStore = (() => {
   //     number, centre: { name, country, lat, lon }, targetKm,
   //     status: "scored" | "invalid" | "timeout",
   //     answer: { name, country, lat, lon } | null,
-  //     distanceKm | null, points, timeTakenMs, attemptCount
+  //     distanceKm | null, bearingDeg | null, direction | null,   // direction: "N", "NE", ... "NW"
+  //     points, timeTakenMs, attemptCount
   //   }],
   //   syncedAt
   // }
@@ -145,7 +146,8 @@ const DistanceLearningStore = (() => {
   //   input,                                       // exactly what was typed ("" for a timeout)
   //   outcome: "scored" | "not_found" | "wrong_region" | "already_used" | "timeout",
   //   resolved: { name, country, lat, lon } | null,
-  //   distanceKm | null, points,
+  //   distanceKm | null, bearingDeg | null, direction | null,   // set on "scored" only
+  //   points,
   //   elapsedMs,                                   // since the question appeared
   //   createdAt, syncedAt
   // }
