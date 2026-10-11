@@ -20,7 +20,11 @@ const QUESTION_SECONDS = 20;
 const MAX_POINTS = 100;
 // Target distance range per round, overridable on each ROUNDS entry.
 const DEFAULT_RANGE = { min: 100, max: 2000, step: 100 };
-const GAP_SECONDS = 8; // pause on each question's result before the next one; "Next" skips it
+// Pause on each question's result before the next one; "Next" skips it.
+// The points working is revealed step by step over the first
+// EXPLAIN_SECONDS, leaving the rest to read the finished working.
+const GAP_SECONDS = 10;
+const EXPLAIN_SECONDS = 8;
 // One warning per question: the first not-found or out-of-region answer
 // only shows a hint; the second ends the question with 0 points.
 const MAX_INVALID_TRIES = 2;
@@ -566,31 +570,106 @@ function quitRun() {
 }
 
 // ---- Between questions ------------------------------------------------------------
-function renderQuestionResult({ status, answer, distanceKm, points, note, fromCentre, direction }) {
-  const isLast = qIndex + 1 >= QUESTION_COUNT;
-  let headline;
-  let detail;
+
+// Up to 4 decimals, trailing zeros dropped, real minus sign: 0.175, 0.8058, −3.42.
+function formatDecimal(n) {
+  const rounded = Math.round(n * 10000) / 10000;
+  return rounded < 0 ? `&minus;${-rounded}` : String(rounded);
+}
+
+function formatCoord(value, isLatitude) {
+  const hemi = isLatitude ? (value >= 0 ? "N" : "S") : (value >= 0 ? "E" : "W");
+  return `${Math.abs(value).toFixed(2)}° ${hemi}`;
+}
+
+function mapsUrl(place) {
+  return `https://www.google.com/maps/search/?api=1&query=${place.lat},${place.lon}`;
+}
+
+function coordRow(label, place) {
+  return `
+    <div class="dl-coord-row">
+      <span class="dl-coord-label">${label}</span>
+      <span class="dl-coord-value">
+        ${flagEmoji(place.country)} ${placeLabel(place)} &middot;
+        <a href="${mapsUrl(place)}" target="_blank" rel="noopener">${formatCoord(place.lat, true)}, ${formatCoord(place.lon, false)} &#8599;</a>
+      </span>
+    </div>`;
+}
+
+// One line of the points working: a label column and a single value
+// element (the step is a two-column grid, so the value must be one child).
+function step(label, valueHtml) {
+  return `<span class="dl-step-label">${label}</span><span class="dl-step-value">${valueHtml}</span>`;
+}
+
+// The points working, one step per line, revealed in order on the gap
+// screen. The last step is always the result line.
+function explanationSteps({ status, answer, distanceKm, points, note, fromCentre, direction }) {
+  const centreName = escapeHtml(fromCentre.name);
   if (status === "scored") {
-    const off = distanceKm - targetKm;
-    headline = `+${formatPoints(points)}`;
-    detail = `
-      <span class="dl-result-dir">${directionHtml(direction)}</span>
-      ${flagEmoji(answer.country)} ${placeLabel(answer)} is <b>${distanceKm.toLocaleString()} km ${direction}</b> of ${placeLabel(fromCentre)}
-      <br />Target ${targetKm.toLocaleString()} km &middot; ${off === 0 ? "spot on" : `${Math.abs(off).toLocaleString()} km ${off > 0 ? "over" : "short"}`}`;
-  } else if (status === "timeout") {
-    headline = "+0";
-    detail = `Time's up. The centre stays ${placeLabel(fromCentre)}.`;
-  } else {
-    headline = "+0";
-    detail = `${escapeHtml(note || "Invalid answer.")} The centre stays ${placeLabel(fromCentre)}.`;
+    const target = targetKm.toLocaleString();
+    const distance = distanceKm.toLocaleString();
+    const diff = Math.abs(targetKm - distanceKm);
+    const fraction = diff / targetKm;
+    const closeness = 1 - fraction;
+    const overShort = distanceKm === targetKm ? "spot on" : distanceKm > targetKm ? "over" : "short";
+    const steps = [
+      step("Distance", `${centreName} &rarr; ${escapeHtml(answer.name)} = <b>${distance} km</b> ${directionHtml(direction)}`),
+      step("Difference", `|${target} &minus; ${distance}| = <mark class="dl-hl">${diff.toLocaleString()} km</mark> ${overShort}`),
+      step("Fraction of target", `${diff.toLocaleString()} &divide; ${target} = <mark class="dl-hl">${formatDecimal(fraction)}</mark>`),
+      step("Closeness", `1 &minus; ${formatDecimal(fraction)} = <b>${formatDecimal(closeness)}</b>`),
+    ];
+    if (closeness < 0) {
+      steps.push(step("Points", `below 0, so it counts as <b>0 points</b>`));
+    } else {
+      const raw = Math.round(closeness * 100 * 100) / 100;
+      const rounded = formatPoints(points);
+      steps.push(step("Points", String(raw) !== rounded
+        ? `${formatDecimal(closeness)} &times; 100 = ${raw}, rounded to <b>${rounded} points</b>`
+        : `${formatDecimal(closeness)} &times; 100 = <b>${rounded} points</b>`));
+    }
+    steps.push(`<span class="dl-equation">100 &times; (1 &minus; |${target} &minus; ${distance}| &divide; ${target}) = <b>${formatPoints(points)}</b></span>`);
+    return steps;
   }
+  const reason = status === "timeout"
+    ? `No valid city within ${QUESTION_SECONDS} seconds`
+    : `${escapeHtml(note || "Invalid answer.")} That was the second miss on this question`;
+  return [
+    step("What happened", reason),
+    step("Distance", `nothing to measure from ${centreName}`),
+    step("Points", `<b>0</b>`),
+    step("Next question", `the centre stays <b>${placeLabel(fromCentre)}</b>`),
+  ];
+}
+
+function renderQuestionResult(result) {
+  const { status, answer, distanceKm, points, fromCentre, direction } = result;
+  const isLast = qIndex + 1 >= QUESTION_COUNT;
+  const detail = status === "scored"
+    ? `<span class="dl-result-dir">${directionHtml(direction)}</span>
+       ${flagEmoji(answer.country)} ${placeLabel(answer)} is <b>${distanceKm.toLocaleString()} km ${direction}</b> of ${placeLabel(fromCentre)}`
+    : status === "timeout" ? "Time's up." : "Invalid answer.";
+  // Last place is the centre this question measured from; current place is
+  // where the next question measures from (unchanged after a 0).
+  const coords = status === "scored"
+    ? coordRow("Last place", fromCentre) + coordRow("Current place", answer)
+    : coordRow("Current place", fromCentre);
+  const steps = explanationSteps(result);
 
   resultEl.innerHTML = `
     <div class="dl-panel">
       <p class="dl-progress">Question ${qIndex + 1} / ${QUESTION_COUNT}</p>
       <span class="dl-result-badge ${status === "scored" ? "dl-result-good" : "dl-result-bad"}">${status === "scored" ? "SCORED" : status === "timeout" ? "TIME'S UP" : "INVALID"}</span>
-      <p class="dl-result-points">${headline}</p>
+      <p class="dl-result-points">+${formatPoints(points)}</p>
       <p class="dl-result-detail">${detail}</p>
+      <div class="dl-coords">${coords}</div>
+      <div class="dl-explain">
+        <p class="dl-explain-title">How the points were worked out</p>
+        <ol class="dl-steps">
+          ${steps.map((html) => `<li class="dl-step">${html}</li>`).join("")}
+        </ol>
+      </div>
       <p class="dl-result-total">Score so far: ${formatPoints(run.totalScore)}</p>
       <p class="dl-timer" id="dlGapTimer">${GAP_SECONDS.toFixed(2)}</p>
       <button type="button" id="dlNextBtn" class="btn btn-secondary">${isLast ? "See results now" : "Next question now"}</button>
@@ -609,13 +688,32 @@ function renderQuestionResult({ status, answer, distanceKm, points, note, fromCe
   };
   document.getElementById("dlNextBtn").addEventListener("click", advance);
 
+  // Step i appears at i * EXPLAIN_SECONDS / (n - 1): the first straight
+  // away, the last exactly at EXPLAIN_SECONDS. The newest step is
+  // highlighted until the next one appears; after the last, nothing is.
+  const stepEls = [...resultEl.querySelectorAll(".dl-step")];
+  const stepInterval = EXPLAIN_SECONDS / Math.max(1, stepEls.length - 1);
+  const showSteps = (elapsed) => {
+    const shownCount = Math.min(stepEls.length, Math.floor(elapsed / stepInterval) + 1);
+    stepEls.forEach((el, i) => {
+      el.classList.toggle("dl-step-shown", i < shownCount);
+      el.classList.toggle("dl-step-active", i === shownCount - 1 && elapsed < EXPLAIN_SECONDS + 0.6);
+    });
+  };
+  showSteps(0);
+
   const gapStart = performance.now();
   const gapTimerEl = document.getElementById("dlGapTimer");
   clearInterval(gapInterval);
   gapInterval = setInterval(() => {
-    const left = GAP_SECONDS - (performance.now() - gapStart) / 1000;
-    if (left <= 0) advance();
-    else gapTimerEl.textContent = left.toFixed(2);
+    const elapsed = (performance.now() - gapStart) / 1000;
+    const left = GAP_SECONDS - elapsed;
+    if (left <= 0) {
+      advance();
+      return;
+    }
+    gapTimerEl.textContent = left.toFixed(2);
+    showSteps(elapsed);
   }, 31);
 }
 

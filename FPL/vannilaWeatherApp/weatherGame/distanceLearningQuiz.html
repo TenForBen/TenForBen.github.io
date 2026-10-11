@@ -263,6 +263,110 @@
       margin: 6px 0;
     }
     .dl-result-detail { color: #9db4de; }
+
+    /* Last/current place, each with a Google Maps link. */
+    .dl-coords {
+      text-align: left;
+      background: #0a1226;
+      border: 1px solid #1b2a4a;
+      border-radius: 8px;
+      padding: 4px 14px;
+      margin: 12px 0;
+    }
+    .dl-coord-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      padding: 7px 0;
+      border-bottom: 1px dashed #16213f;
+      font-size: 0.82rem;
+    }
+    .dl-coord-row:last-child { border-bottom: none; }
+    .dl-coord-label {
+      font-family: "Courier New", Courier, monospace;
+      color: #6b7fa8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.68rem;
+      white-space: nowrap;
+    }
+    .dl-coord-value { color: #cfe8ff; text-align: right; }
+    .dl-coord-value a {
+      font-family: "Courier New", Courier, monospace;
+      color: #fb923c;
+      white-space: nowrap;
+    }
+
+    /* Points working, revealed one step at a time over the first 8s of
+       the gap (see renderQuestionResult()). */
+    .dl-explain {
+      text-align: left;
+      background: #0a1226;
+      border: 1px solid #1b2a4a;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+    }
+    .dl-explain-title {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #6b7fa8;
+      margin: 0 0 8px;
+    }
+    .dl-steps { list-style: none; padding: 0; margin: 0; }
+    .dl-step {
+      display: grid;
+      grid-template-columns: 11em 1fr;
+      align-items: baseline;
+      column-gap: 8px;
+      font-size: 0.88rem;
+      color: #cfe8ff;
+      padding: 5px 8px;
+      margin-bottom: 3px;
+      border-left: 3px solid transparent;
+      border-radius: 4px;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.35s ease, transform 0.35s ease, background 0.35s ease, border-color 0.35s ease;
+    }
+    .dl-step-shown { opacity: 1; transform: none; }
+    .dl-step-active {
+      background: rgba(249, 115, 22, 0.14);
+      border-left-color: #f97316;
+    }
+    .dl-step-label {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #6b7fa8;
+    }
+    .dl-hl {
+      background: rgba(240, 180, 41, 0.22);
+      color: #f0b429;
+      font-weight: bold;
+      padding: 0 4px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    .dl-equation {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.9rem;
+      color: #e2ecff;
+      padding: 6px 0 2px;
+      border-top: 1px dashed #1b2a4a;
+    }
+    @media (max-width: 480px) {
+      .dl-step { grid-template-columns: 1fr; row-gap: 1px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .dl-step { transition: none; transform: none; }
+    }
     .dl-result-total {
       font-family: "Courier New", Courier, monospace;
       font-size: 0.85rem;
