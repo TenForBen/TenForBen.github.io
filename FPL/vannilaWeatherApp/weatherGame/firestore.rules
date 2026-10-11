@@ -302,6 +302,74 @@ service cloud.firestore {
 
       allow delete: if false;
     }
+
+    // ---- DistanceLearningQuiz -------------------------------------------
+    // Uploaded from distanceLearningStore.js's localStorage tables by
+    // distanceLearningBoard.js. Runs and attempts keep their client UUID as
+    // the doc id and are write-once; a re-upload of one that already exists
+    // is rejected, which the client treats as "already synced". Private
+    // collections are readable by their owner and by isMaster() — the
+    // "All Players" tab on distanceLearningHistory.html.
+    match /dlqPlayers/{uid} {
+      allow read: if request.auth != null && (request.auth.uid == uid || isMaster());
+
+      allow create: if request.auth != null
+        && request.auth.uid == uid
+        && isValidDlqPlayer(request.resource.data);
+
+      // High score and totals can only go up.
+      allow update: if request.auth != null
+        && request.auth.uid == uid
+        && isValidDlqPlayer(request.resource.data)
+        && request.resource.data.highScore >= resource.data.highScore
+        && request.resource.data.totalRuns >= resource.data.totalRuns
+        && request.resource.data.totalAttempts >= resource.data.totalAttempts;
+
+      allow delete: if false;
+    }
+
+    // Public: backs the leaderboard (Overall + one tab per round).
+    match /dlqLeaderboard/{uid} {
+      allow read: if true;
+
+      allow create: if request.auth != null
+        && request.auth.uid == uid
+        && isValidDlqLeaderboardEntry(request.resource.data);
+
+      allow update: if request.auth != null
+        && request.auth.uid == uid
+        && isValidDlqLeaderboardEntry(request.resource.data)
+        && request.resource.data.bestScore >= resource.data.bestScore
+        && request.resource.data.totalRuns >= resource.data.totalRuns;
+
+      allow delete: if false;
+    }
+
+    match /dlqRuns/{runId} {
+      allow read: if request.auth != null
+        && (resource.data.uid == request.auth.uid || isMaster());
+
+      allow create: if request.auth != null
+        && request.auth.uid == request.resource.data.uid
+        && request.resource.data.runId == runId
+        && isValidDlqRun(request.resource.data);
+
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    match /dlqAttempts/{attemptId} {
+      allow read: if request.auth != null
+        && (resource.data.uid == request.auth.uid || isMaster());
+
+      allow create: if request.auth != null
+        && request.auth.uid == request.resource.data.uid
+        && request.resource.data.attemptId == attemptId
+        && isValidDlqAttempt(request.resource.data);
+
+      allow update: if false;
+      allow delete: if false;
+    }
   }
 
   // History page's "All Players" tab — a hardcoded allowlist, not a
@@ -526,5 +594,68 @@ service cloud.firestore {
       && data.totalRuns is int && data.totalRuns >= 0
       && data.stageIndex is int && data.stageIndex >= 0 && data.stageIndex <= 10
       && data.updatedAt == request.time;
+  }
+
+  // ---- DistanceLearningQuiz validators ------------------------------------
+  // Scores are decimals (82.5), so `is number` rather than `is int`. Max
+  // 100 points a question, 15 questions, so 1500 a quiz. Like the rest of
+  // this file these stop malformed data, not a determined cheater: the
+  // client judges every answer.
+  function isDlqRoundKey(key) {
+    return key in ['india', 'world', 'europe', 'na', 'asia', 'australia', 'africa'];
+  }
+
+  function isValidDlqPlayer(data) {
+    return data.keys().hasOnly(['playerId', 'nickname', 'highScore', 'highScoreRoundKey', 'roundHighScores', 'totalRuns', 'totalAttempts', 'createdAt', 'updatedAt'])
+      && data.playerId is string && data.playerId.size() <= 64
+      && data.nickname is string && data.nickname.size() > 0 && data.nickname.size() <= 20
+      && data.highScore is number && data.highScore >= 0 && data.highScore <= 1500
+      && (data.highScoreRoundKey == null || isDlqRoundKey(data.highScoreRoundKey))
+      && data.roundHighScores is map && data.roundHighScores.size() <= 10
+      && data.totalRuns is int && data.totalRuns >= 0
+      && data.totalAttempts is int && data.totalAttempts >= 0
+      && data.createdAt is string
+      && data.updatedAt == request.time;
+  }
+
+  function isValidDlqLeaderboardEntry(data) {
+    return data.keys().hasOnly(['nickname', 'bestScore', 'roundBest', 'totalRuns', 'updatedAt'])
+      && data.nickname is string && data.nickname.size() > 0 && data.nickname.size() <= 20
+      && data.bestScore is number && data.bestScore >= 0 && data.bestScore <= 1500
+      && data.roundBest is map && data.roundBest.size() <= 10
+      && data.totalRuns is int && data.totalRuns > 0
+      && data.updatedAt == request.time;
+  }
+
+  // Shallow, like isValidTimeQuizRun(): the run's own shape and bounds,
+  // not every field of every element in `questions`.
+  function isValidDlqRun(data) {
+    return data.keys().hasOnly(['uid', 'nickname', 'playedAt', 'schemaVersion', 'runId', 'playerId', 'roundKey', 'roundLabel', 'startCity', 'startedAt', 'finishedAt', 'durationMs', 'totalScore', 'maxScore', 'questionCount', 'questionsPlayed', 'quitEarly', 'questions'])
+      && data.uid is string
+      && data.nickname is string && data.nickname.size() <= 20
+      && data.runId is string && data.runId.size() <= 64
+      && isDlqRoundKey(data.roundKey)
+      && data.startCity is map
+      && data.durationMs is int && data.durationMs >= 0
+      && data.totalScore is number && data.totalScore >= 0 && data.totalScore <= 1500
+      && data.questionCount is int && data.questionCount <= 15
+      && data.questionsPlayed is int && data.questionsPlayed >= 0 && data.questionsPlayed <= 15
+      && data.questions is list && data.questions.size() == data.questionsPlayed
+      && data.quitEarly is bool
+      && data.playedAt == request.time;
+  }
+
+  function isValidDlqAttempt(data) {
+    return data.keys().hasOnly(['uid', 'uploadedAt', 'schemaVersion', 'attemptId', 'runId', 'playerId', 'roundKey', 'questionNumber', 'tryNumber', 'centre', 'targetKm', 'input', 'outcome', 'resolved', 'distanceKm', 'bearingDeg', 'direction', 'points', 'elapsedMs', 'createdAt'])
+      && data.uid is string
+      && data.attemptId is string && data.attemptId.size() <= 64
+      && data.runId is string
+      && isDlqRoundKey(data.roundKey)
+      && data.questionNumber is int && data.questionNumber >= 1 && data.questionNumber <= 15
+      && data.targetKm is int && data.targetKm >= 100 && data.targetKm <= 15000
+      && data.input is string && data.input.size() <= 100
+      && data.outcome in ['scored', 'not_found', 'wrong_region', 'already_used', 'timeout']
+      && data.points is number && data.points >= 0 && data.points <= 100
+      && data.uploadedAt == request.time;
   }
 }

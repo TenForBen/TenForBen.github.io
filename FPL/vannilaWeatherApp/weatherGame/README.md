@@ -1366,32 +1366,73 @@ because the geocoder's top match ranks badly for this: it puts Surat in
 France and Salem in the US. Checks 2 and 3 run in parallel, and either one
 is skipped if its request fails, rather than blocking the answer.
 
-### Data — localStorage now, Firestore later
+### Data — localStorage first, uploaded to Firestore
 
-Everything is stored locally by
-[`distanceLearningStore.js`](./distanceLearningStore.js), in three keys
-laid out as the Firestore collections they are meant to become:
+Everything is saved locally first by
+[`distanceLearningStore.js`](./distanceLearningStore.js), then copied to
+Firestore in the background by
+[`distanceLearningBoard.js`](./distanceLearningBoard.js). The quiz never
+waits on Firebase: with it unconfigured, blocked or down, the quiz still
+works on localStorage alone and uploads later.
 
-| localStorage key | Becomes | One record per |
-|---|---|---|
-| `dlq.player` | `dlqPlayers/{uid}` | player: `playerId`, nickname, overall `highScore`, `roundHighScores` per round, totals |
-| `dlq.runs` | `dlqRuns/{runId}` | finished or quit quiz: round, start city, `startedAt`/`finishedAt`, `durationMs` (time taken for the round), score, and a per-question summary including `timeTakenMs` |
-| `dlq.attempts` | `dlqAttempts/{attemptId}` | every submitted answer and every timeout: what was typed, outcome (`scored`, `not_found`, `wrong_region`, `already_used`, `timeout`), resolved city, distance, points, `elapsedMs` |
+| localStorage key | Firestore | Who can read | One record per |
+|---|---|---|---|
+| `dlq.player` | `dlqPlayers/{uid}` | owner, masters | player: `playerId`, nickname, overall `highScore`, `roundHighScores` per round, totals |
+| — | `dlqLeaderboard/{uid}` | everyone | player: nickname, `bestScore`, `roundBest` per round, `totalRuns` (built from `dlq.player`) |
+| `dlq.runs` | `dlqRuns/{runId}` | owner, masters | finished or quit quiz: round, start city, `startedAt`/`finishedAt`, `durationMs` (time taken for the round), score, and a per-question summary including `timeTakenMs` |
+| `dlq.attempts` | `dlqAttempts/{attemptId}` | owner, masters | every submitted answer and every timeout: what was typed, outcome (`scored`, `not_found`, `wrong_region`, `already_used`, `timeout`), resolved city, distance, direction, points, `elapsedMs` |
 
-The schema for each is written out in comments at the top of each section
-of `distanceLearningStore.js`. Things that make the later migration safe:
+The schema for each is written out in comments in
+`distanceLearningStore.js`. On upload, runs and attempts also get the
+player's `uid` (and runs the `nickname`) plus a server timestamp
+(`playedAt` / `uploadedAt`).
 
-- Every record has a client-generated UUID meant to become its Firestore
-  document id, so running the migration twice overwrites rather than
-  duplicates.
-- Every record has `syncedAt: null`; the migration sets it after upload and
-  skips anything already set.
-- The player record has `firebaseUid: null`, to be filled on first sign-in
-  so the local `playerId` can be linked to the Firebase user.
-- Timestamps are ISO strings and durations are integer milliseconds.
+**How uploading works**
 
-The nickname comes from the same `geoStreakGame_nickname` key GeoStreak
-and Time Quiz use.
+- Sign-in is anonymous, so this browser has the same `uid` as in GeoStreak
+  and Time Quiz.
+- On every page load and after every finished quiz, `sync()` uploads each
+  record whose `syncedAt` is still null, then marks it. The first
+  connection therefore uploads the whole local history, and a failed
+  upload (offline, rules not published) is retried next time.
+- A run and its attempts go up together in one batch, so it's about 3
+  writes per quiz (batch, player, leaderboard), not one per answer.
+  Attempts from a quiz abandoned mid-way go up on their own.
+- Every record's id is its client-generated UUID, so nothing is ever
+  duplicated. Runs and attempts are write-once in the rules; if a retry
+  hits one that already exists (the tab closed after uploading but before
+  marking), the client checks it's there and marks it synced.
+- On load, `dlqPlayers/{uid}` is merged back into localStorage (keeping the
+  higher of each number), so clearing site data doesn't lose high scores.
+
+**Leaderboard.** On the start screen and the results screen: tabs for
+Overall and each open round (India, World, Europe), top 10 each, ranked by
+`bestScore` or `roundBest.<round>`. The #1 row is highlighted gold with a
+trophy and your own row in blue. Single-field ordering only, so no
+Firestore index needs creating.
+
+**History and master accounts.**
+[`distanceLearningHistory.html`](./distanceLearningHistory.html) (header
+link "History") lists your uploaded runs with best-per-round tiles. Each
+run expands to its questions table (best question highlighted), and
+"Show every attempt" loads every submission for that run from
+`dlqAttempts`. Master accounts also get an **All Players** tab with the 100
+most recent runs from everyone, nickname first, and can open anyone's
+attempts too.
+
+Masters are the same four UIDs as GeoStreak's and Time Quiz's history
+pages: `MASTER_UIDS` in `distanceLearningHistoryPage.js` decides whether
+the tab is shown, and `isMaster()` in `firestore.rules` is the real
+enforcement. To add one, the person clicks "Copy my player ID" on the
+history page and the UID goes into `MASTER_UIDS` in all three history page
+scripts *and* `isMaster()`; then republish the rules.
+
+**Setup: publish the rules.** Nothing uploads until the new
+DistanceLearningQuiz section of [`firestore.rules`](./firestore.rules) is
+published: Firebase console → Firestore Database → Rules → paste the whole
+file → Publish. No index needs creating: "My Runs" filters on `uid` and
+sorts in the browser, "All Players" orders by `playedAt` alone, and
+attempts are fetched by `uid` + `runId` (two equality filters).
 
 ## Bug log
 
