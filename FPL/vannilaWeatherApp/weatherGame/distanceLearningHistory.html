@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/minty/bootstrap.min.css"
+  />
+  <title>DistanceLearningQuiz History — TENFORBEN Station</title>
+  <link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text x=%228%22 y=%2213%22 font-size=%2214%22 text-anchor=%22middle%22>%F0%9F%93%8F</text></svg>"
+  />
+  <style>
+    /* Same dark station look and orange accent as distanceLearningQuiz.html. */
+    body {
+      background: #060a14;
+      color: #cfe8ff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+    }
+    .dlh-header {
+      background: linear-gradient(180deg, #0a1226 0%, #060a14 100%);
+      border-bottom: 1px solid #1b2a4a;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .dlh-brand {
+      font-family: "Courier New", Courier, monospace;
+      letter-spacing: 1px;
+      color: #fb923c;
+    }
+    .dlh-header-links { display: flex; align-items: center; gap: 16px; }
+    .dlh-link {
+      font-family: "Courier New", Courier, monospace;
+      color: #93a4c3;
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+    .dlh-link:hover { color: #fb923c; text-decoration: underline; }
+    .dlh-nickname {
+      display: none;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: #f0b429;
+    }
+    .dlh-nickname-master { color: #4ade80; }
+
+    main.dlh-main { max-width: 900px; margin: 0 auto; padding: 28px 16px 60px; }
+    h1 {
+      font-family: "Courier New", Courier, monospace;
+      color: #fb923c;
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+    }
+    .dlh-status { color: #9db4de; margin-bottom: 4px; }
+    .dlh-status a { color: #fb923c; }
+    .dlh-copy-uid { font-size: 0.8rem; margin-bottom: 18px; }
+    .dlh-copy-uid a { color: #6b7fa8; font-family: "Courier New", Courier, monospace; }
+    .dlh-section-title {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #6b7fa8;
+      margin: 24px 0 10px;
+    }
+
+    .dlh-tabs { display: flex; gap: 8px; margin-bottom: 8px; }
+    .dlh-tab {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.8rem;
+      color: #93a4c3;
+      background: transparent;
+      border: 1px solid #1b2a4a;
+      border-radius: 4px;
+      padding: 6px 14px;
+      cursor: pointer;
+    }
+    .dlh-tab:hover { color: #fb923c; border-color: #f97316; }
+    .dlh-tab-active { color: #fb923c; border-color: #fb923c; background: #2a1708; }
+
+    .dlh-best-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    .dlh-best-tile {
+      background: #0c1630;
+      border: 1px solid #1b2a4a;
+      border-radius: 8px;
+      padding: 10px 16px;
+      min-width: 120px;
+      text-align: center;
+    }
+    .dlh-best-label {
+      display: block;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.68rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #6b7fa8;
+    }
+    .dlh-best-score {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fb923c;
+    }
+
+    .dlh-card {
+      background: #0c1630;
+      border: 1px solid #1b2a4a;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+    .dlh-card-best { border-color: #f0b429; }
+    .dlh-card-toggle {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: inherit;
+      text-align: left;
+      padding: 12px 16px;
+      cursor: pointer;
+    }
+    .dlh-card-score {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #fb923c;
+      min-width: 4.2em;
+    }
+    .dlh-card-best .dlh-card-score { color: #f0b429; }
+    .dlh-card-meta { flex: 1 1 auto; color: #9db4de; font-size: 0.85rem; }
+    .dlh-card-caret { color: #6b7fa8; }
+    .dlh-card-detail { padding: 0 16px 14px; }
+    .dlh-detail-start { color: #9db4de; font-size: 0.85rem; margin-bottom: 8px; }
+
+    .dlh-table-wrap { overflow-x: auto; }
+    .dlh-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; text-align: left; }
+    .dlh-table th {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #6b7fa8;
+      padding: 6px 8px 6px 0;
+      border-bottom: 1px solid #1b2a4a;
+      white-space: nowrap;
+    }
+    .dlh-table td { padding: 7px 8px 7px 0; border-bottom: 1px solid #101a30; color: #cfe8ff; }
+    .dlh-row-top td { background: rgba(240, 180, 41, 0.2); }
+    .dlh-pts-good { color: #4ade80; font-weight: bold; }
+    .dlh-row-top .dlh-pts-good { color: #f0b429; }
+    .dlh-pts-zero { color: #f87171; }
+    .dlh-muted { color: #6b7fa8; font-style: italic; }
+    .dlh-dir { font-family: "Courier New", Courier, monospace; color: #fb923c; white-space: nowrap; }
+
+    .dlh-attempts-btn {
+      margin-top: 10px;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      color: #93a4c3;
+      background: transparent;
+      border: 1px solid #1b2a4a;
+      border-radius: 4px;
+      padding: 5px 12px;
+      cursor: pointer;
+    }
+    .dlh-attempts-btn:hover { color: #fb923c; border-color: #f97316; }
+    .dlh-attempts { margin-top: 10px; }
+    .dlh-outcome { font-family: "Courier New", Courier, monospace; font-size: 0.72rem; white-space: nowrap; }
+    .dlh-outcome-scored { color: #4ade80; }
+    .dlh-outcome-not_found, .dlh-outcome-wrong_region, .dlh-outcome-timeout { color: #f87171; }
+    .dlh-outcome-already_used { color: #f0b429; }
+    .dlh-note { color: #6b7fa8; font-size: 0.85rem; font-style: italic; }
+  </style>
+</head>
+<body>
+  <header class="dlh-header">
+    <div class="dlh-brand">TENFORBEN // STATION — DistanceLearningQuiz History</div>
+    <div class="dlh-header-links">
+      <span class="dlh-nickname" id="dlhNickname"></span>
+      <a class="dlh-link" href="distanceLearningQuiz.html">&larr; DistanceLearningQuiz</a>
+    </div>
+  </header>
+
+  <main class="dlh-main">
+    <h1>Run History</h1>
+    <p class="dlh-status" id="dlhStatus">Loading&hellip;</p>
+    <p class="dlh-copy-uid"><a href="#" id="dlhCopyUid" style="display: none;">Copy my player ID</a></p>
+
+    <!-- Master accounts only (MASTER_UIDS / isMaster()). -->
+    <div class="dlh-tabs" id="dlhTabs" style="display: none;">
+      <button type="button" id="dlhTabMine" class="dlh-tab dlh-tab-active">My Runs</button>
+      <button type="button" id="dlhTabAll" class="dlh-tab">All Players</button>
+    </div>
+
+    <div id="dlhBestSection" style="display: none;">
+      <h2 class="dlh-section-title">Best per round</h2>
+      <div class="dlh-best-row" id="dlhBest"></div>
+    </div>
+
+    <h2 class="dlh-section-title" id="dlhListTitle">Your Runs</h2>
+    <div id="dlhList"></div>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+  <script src="firebaseConfig.js"></script>
+  <script src="distanceLearningHistoryPage.js"></script>
+</body>
+</html>

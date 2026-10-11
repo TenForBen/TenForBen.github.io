@@ -45,6 +45,48 @@
       text-decoration: none;
     }
     .dl-back-link:hover { color: #fb923c; text-decoration: underline; }
+    .dl-header-links { display: flex; gap: 16px; }
+
+    /* ---- Leaderboard (distanceLearningBoard.js) ---- */
+    .dl-lb-panel { margin-top: 18px; }
+    .dl-lb-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .dl-lb-tab {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      color: #93a4c3;
+      background: transparent;
+      border: 1px solid #1b2a4a;
+      border-radius: 4px;
+      padding: 5px 12px;
+      cursor: pointer;
+    }
+    .dl-lb-tab:hover { color: #fb923c; border-color: #f97316; }
+    .dl-lb-tab-active { color: #fb923c; border-color: #fb923c; background: #2a1708; }
+    .dl-lb-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left; }
+    .dl-lb-table th {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #6b7fa8;
+      padding: 6px 8px;
+      border-bottom: 1px solid #1b2a4a;
+    }
+    .dl-lb-table td { padding: 7px 8px; border-bottom: 1px solid #101a30; color: #cfe8ff; }
+    .dl-lb-rank { color: #6b7fa8; width: 2.4em; }
+    .dl-lb-score { font-family: "Courier New", Courier, monospace; font-weight: bold; color: #fb923c; }
+    .dl-lb-runs { color: #6b7fa8; }
+    .dl-lb-top td { background: rgba(240, 180, 41, 0.18); }
+    .dl-lb-top .dl-lb-score { color: #f0b429; }
+    .dl-lb-me td { box-shadow: inset 0 -2px 0 #7dd3fc; }
+    .dl-lb-me .dl-lb-name { color: #7dd3fc; font-weight: bold; }
+    .dl-lb-note { color: #6b7fa8; font-size: 0.85rem; font-style: italic; margin: 0; }
 
     main.dl-main {
       max-width: 560px;
@@ -452,7 +494,10 @@
 <body>
   <header class="dl-header">
     <div class="dl-brand">TENFORBEN // STATION — DistanceLearningQuiz</div>
-    <a class="dl-back-link" href="geoStreakGame.html">&larr; GeoStreak</a>
+    <div class="dl-header-links">
+      <a class="dl-back-link" href="distanceLearningHistory.html">History</a>
+      <a class="dl-back-link" href="geoStreakGame.html">&larr; GeoStreak</a>
+    </div>
   </header>
 
   <main class="dl-main">
@@ -468,6 +513,16 @@
 
   <script src="../fetch.js"></script>
   <script src="distanceLearningStore.js"></script>
+
+  <!-- Firebase (compat build, same as timeQuiz.html). Optional: without it
+       the quiz runs on localStorage alone. Must load before
+       distanceLearningBoard.js, which signs in as soon as it runs. -->
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+  <script src="firebaseConfig.js"></script>
+  <script src="distanceLearningBoard.js"></script>
+
   <script src="distanceLearningQuiz.js"></script>
 </body>
 </html>

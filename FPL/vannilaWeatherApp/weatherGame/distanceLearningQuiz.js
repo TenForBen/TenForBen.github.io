@@ -263,6 +263,11 @@ function showOnly(el) {
   });
 }
 
+// Overall plus one tab per open round.
+function leaderboardTabs() {
+  return [{ key: "overall", label: "Overall" }, ...ROUNDS.slice(0, UNLOCKED_ROUND_COUNT).map((r) => ({ key: r.key, label: r.label }))];
+}
+
 // ---- Start screen -------------------------------------------------------------
 function renderStart() {
   const player = DistanceLearningStore.getPlayer();
@@ -307,9 +312,11 @@ function renderStart() {
         <li>Running out of time scores 0 and keeps the same centre.</li>
       </ul>
     </div>
+    <div id="dlStartLeaderboard"></div>
   `;
   showOnly(startEl);
   document.getElementById("dlStartBtn").addEventListener("click", startRun);
+  DistanceLearningBoard.renderLeaderboardPanel("dlStartLeaderboard", leaderboardTabs());
 }
 
 function startRun() {
@@ -757,9 +764,14 @@ function finishRun() {
         </table>
       </div>
     </div>
+    <div id="dlFinalLeaderboard"></div>
   `;
   showOnly(finalEl);
   document.getElementById("dlReplayBtn").addEventListener("click", renderStart);
+  // Upload this run first so the leaderboard below already includes it.
+  DistanceLearningBoard.sync().then(() => {
+    DistanceLearningBoard.renderLeaderboardPanel("dlFinalLeaderboard", leaderboardTabs(), round.key);
+  });
 }
 
 renderStart();

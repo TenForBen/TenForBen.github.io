@@ -1,6 +1,8 @@
 // DistanceLearningQuiz's local data layer — three localStorage "tables",
-// each laid out as the Firestore collection it will become, so a later
-// Firebase integration is a straight copy rather than a reshape:
+// each laid out as the Firestore collection it's uploaded to by
+// distanceLearningBoard.js, so the upload is a straight copy rather than a
+// reshape. localStorage stays the first place everything is saved, so the
+// quiz still works offline or without Firebase:
 //
 //   dlq.player    -> dlqPlayers/{uid}          (one document)
 //   dlq.runs      -> dlqRuns/{runId}           (one per finished/quit quiz)
@@ -174,5 +176,62 @@ const DistanceLearningStore = (() => {
     return record;
   }
 
-  return { getPlayer, getRuns, saveRun, getAttempts, saveAttempt, newId, nowIso };
+  // ---- Firebase sync support (used by distanceLearningBoard.js) -----------
+
+  // Everything not yet uploaded — on first connection that's the whole
+  // local history, afterwards just the latest run's records.
+  function getUnsynced() {
+    return {
+      runs: getRuns().filter((r) => !r.syncedAt),
+      attempts: getAttempts().filter((a) => !a.syncedAt),
+    };
+  }
+
+  function markSynced({ runIds = [], attemptIds = [] }) {
+    const at = nowIso();
+    const runSet = new Set(runIds);
+    const attemptSet = new Set(attemptIds);
+    if (runSet.size) {
+      write(KEYS.runs, getRuns().map((r) => (runSet.has(r.runId) ? { ...r, syncedAt: at } : r)));
+    }
+    if (attemptSet.size) {
+      write(KEYS.attempts, getAttempts().map((a) => (attemptSet.has(a.attemptId) ? { ...a, syncedAt: at } : a)));
+    }
+  }
+
+  function setFirebaseUid(uid) {
+    const player = getPlayer();
+    if (player.firebaseUid === uid) return;
+    player.firebaseUid = uid;
+    player.syncedAt = nowIso();
+    player.updatedAt = nowIso();
+    write(KEYS.player, player);
+  }
+
+  // Folds the cloud copy of the player (dlqPlayers/{uid}) into the local
+  // one, keeping the higher of each number — so clearing this browser's
+  // storage doesn't lose high scores, and the next upload never tries to
+  // lower a value Firestore's rules only allow to go up.
+  function mergeRemotePlayer(remote) {
+    if (!remote) return;
+    const player = getPlayer();
+    if (typeof remote.highScore === "number" && (!player.highScore || remote.highScore > player.highScore.score)) {
+      player.highScore = { score: remote.highScore, runId: null, roundKey: remote.highScoreRoundKey || null, achievedAt: null };
+    }
+    Object.entries(remote.roundHighScores || {}).forEach(([roundKey, score]) => {
+      const local = player.roundHighScores[roundKey];
+      if (typeof score === "number" && (!local || score > local.score)) {
+        player.roundHighScores[roundKey] = { score, runId: null, achievedAt: null };
+      }
+    });
+    player.totalRuns = Math.max(player.totalRuns, remote.totalRuns || 0);
+    player.totalAttempts = Math.max(player.totalAttempts, remote.totalAttempts || 0);
+    if (!player.nickname && remote.nickname) player.nickname = remote.nickname;
+    write(KEYS.player, player);
+  }
+
+  return {
+    getPlayer, getRuns, saveRun, getAttempts, saveAttempt, newId, nowIso,
+    getUnsynced, markSynced, setFirebaseUid, mergeRemotePlayer,
+  };
 })();
