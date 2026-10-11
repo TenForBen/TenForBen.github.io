@@ -1322,8 +1322,31 @@ come later.
   great-circle line from the centre to the answer, rounded to the nearest
   45°. It's shown large on the result screen between questions and in a
   "Dir" column of the results table.
-- **Between questions** there's an 8-second pause on the result; "Next
-  question now" skips it.
+- **Between questions** there's a 10-second pause on the result; "Next
+  question now" skips it at any point. During it:
+  - **Last place / current place**: the centre this question measured
+    from and the answer, each with coordinates linking to Google Maps.
+    After a timeout or invalid answer only the current place is shown,
+    since the centre doesn't move.
+  - **How the points were worked out**: the calculation revealed one step
+    at a time over the first 8 seconds (`EXPLAIN_SECONDS`), the newest
+    step highlighted, leaving 2 seconds to read the finished working.
+    For target 800 km and an answer 940 km away:
+
+    | Step | Shown |
+    |---|---|
+    | Distance | Jaipur → Patna = 940 km ↗ NE |
+    | Difference | \|800 − 940\| = **140 km** over |
+    | Fraction of target | 140 ÷ 800 = **0.175** |
+    | Closeness | 1 − 0.175 = 0.825 |
+    | Points | 0.825 × 100 = 82.5 points |
+    | (summary) | 100 × (1 − \|800 − 940\| ÷ 800) = 82.5 |
+
+    The difference and the fraction are highlighted. When the answer is
+    off by more than the target, closeness goes negative and the Points
+    step says it counts as 0. A timeout or invalid answer gets a short
+    version instead: what happened, nothing to measure, 0 points, and the
+    centre staying put.
 - **Results table.** The best-scoring question (or questions, if tied) is
   highlighted in gold.
 
