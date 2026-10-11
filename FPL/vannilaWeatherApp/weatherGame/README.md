@@ -1329,8 +1329,8 @@ come later.
     After a timeout or invalid answer only the current place is shown,
     since the centre doesn't move.
   - **How the points were worked out**: the calculation revealed one step
-    at a time over the first 8 seconds (`EXPLAIN_SECONDS`), the newest
-    step highlighted, leaving 2 seconds to read the finished working.
+    at a time over the first 3 seconds (`EXPLAIN_SECONDS`), the newest
+    step highlighted, leaving 7 seconds to read the finished working.
     For target 800 km and an answer 940 km away:
 
     | Step | Shown |
@@ -1405,11 +1405,36 @@ player's `uid` (and runs the `nickname`) plus a server timestamp
 - On load, `dlqPlayers/{uid}` is merged back into localStorage (keeping the
   higher of each number), so clearing site data doesn't lose high scores.
 
-**Leaderboard.** On the start screen and the results screen: tabs for
-Overall and each open round (India, World, Europe), top 10 each, ranked by
-`bestScore` or `roundBest.<round>`. The #1 row is highlighted gold with a
-trophy and your own row in blue. Single-field ordering only, so no
-Firestore index needs creating.
+**Leaderboard.** On the start screen and the results screen (top 10), and
+on its own page,
+[`distanceLearningLeaderboard.html`](./distanceLearningLeaderboard.html)
+(top 25; `?round=europe` opens that round's tab). Tabs for Overall and each
+open round (India, World, Europe), ranked by `bestScore` or
+`roundBest.<round>`. The #1 row is highlighted gold with a trophy and your
+own row in blue. Single-field ordering only, so no Firestore index needs
+creating.
+
+**Insights.**
+[`distanceLearningInsights.html`](./distanceLearningInsights.html) shows
+the player's own stats, computed in the browser
+(`distanceLearningInsightsPage.js`): overview tiles (quizzes, best and
+average score, total points, questions scored, average points per answer,
+time played, average answer time), accuracy (average miss in km and as a %
+of the target, too far vs too close, and whether you tend to overshoot or
+undershoot), a per-round table, average points by target-distance band,
+the compass directions you head in, what happened to every submission, your
+10 best answers, and your most used cities and countries. The data is this
+browser's localStorage merged with your uploaded Firestore runs and
+attempts (by id), so it works offline and survives cleared storage.
+
+The results screen links to Insights, the Leaderboard (on the round just
+played) and History; the quiz header links to all three.
+
+**Opened from a file.** Firebase sign-in never finishes on a `file://`
+page, so on one the leaderboard and History say they need the page served
+over http(s), and Insights uses localStorage alone. A `file://` page also
+has its own localStorage, separate from the live site's, so quizzes played
+that way stay in that browser's file copy.
 
 **History and master accounts.**
 [`distanceLearningHistory.html`](./distanceLearningHistory.html) (header
