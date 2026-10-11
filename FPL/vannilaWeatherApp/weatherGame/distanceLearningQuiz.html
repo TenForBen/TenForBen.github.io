@@ -45,7 +45,19 @@
       text-decoration: none;
     }
     .dl-back-link:hover { color: #fb923c; text-decoration: underline; }
-    .dl-header-links { display: flex; gap: 16px; }
+    .dl-header-links { display: flex; flex-wrap: wrap; gap: 16px; }
+    .dl-final-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 20px;
+      margin: -4px 0 18px;
+    }
+    .dl-final-links a {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.85rem;
+      color: #fb923c;
+    }
 
     /* ---- Leaderboard (distanceLearningBoard.js) ---- */
     .dl-lb-panel { margin-top: 18px; }
@@ -495,6 +507,8 @@
   <header class="dl-header">
     <div class="dl-brand">TENFORBEN // STATION — DistanceLearningQuiz</div>
     <div class="dl-header-links">
+      <a class="dl-back-link" href="distanceLearningInsights.html">Insights</a>
+      <a class="dl-back-link" href="distanceLearningLeaderboard.html">Leaderboard</a>
       <a class="dl-back-link" href="distanceLearningHistory.html">History</a>
       <a class="dl-back-link" href="geoStreakGame.html">&larr; GeoStreak</a>
     </div>

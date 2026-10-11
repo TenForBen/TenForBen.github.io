@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/minty/bootstrap.min.css"
+  />
+  <title>DistanceLearningQuiz Insights — TENFORBEN Station</title>
+  <link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text x=%228%22 y=%2213%22 font-size=%2214%22 text-anchor=%22middle%22>%F0%9F%93%8A</text></svg>"
+  />
+  <style>
+    /* Same dark station look and orange accent as distanceLearningQuiz.html.
+       Bars are one series in one hue; their values are always written out
+       next to them in text colour. */
+    body {
+      background: #060a14;
+      color: #cfe8ff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+    }
+    .dl-header {
+      background: linear-gradient(180deg, #0a1226 0%, #060a14 100%);
+      border-bottom: 1px solid #1b2a4a;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .dl-brand { font-family: "Courier New", Courier, monospace; letter-spacing: 1px; color: #fb923c; }
+    .dl-header-links { display: flex; flex-wrap: wrap; gap: 16px; }
+    .dl-back-link { font-family: "Courier New", Courier, monospace; color: #93a4c3; font-size: 0.85rem; text-decoration: none; }
+    .dl-back-link:hover { color: #fb923c; text-decoration: underline; }
+
+    main.dli-main { max-width: 900px; margin: 0 auto; padding: 28px 16px 60px; }
+    h1 { font-family: "Courier New", Courier, monospace; color: #fb923c; font-size: 1.6rem; margin-bottom: 6px; }
+    .dli-status { color: #9db4de; font-size: 0.9rem; margin-bottom: 8px; }
+    .dli-note { color: #6b7fa8; font-size: 0.85rem; margin: 0 0 10px; }
+    .dli-note a { color: #fb923c; }
+    .dli-muted { color: #6b7fa8; }
+    .dli-strong { font-weight: bold; color: #e2ecff; }
+
+    .dli-section { margin-top: 28px; }
+    .dli-section-title {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #fb923c;
+      margin: 0 0 6px;
+    }
+    .dli-sub-title {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #6b7fa8;
+      margin: 4px 0 8px;
+    }
+
+    .dli-tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 10px;
+    }
+    .dli-tile {
+      background: #0c1630;
+      border: 1px solid #1b2a4a;
+      border-radius: 8px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .dli-tile-label {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.66rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #6b7fa8;
+    }
+    .dli-tile-value {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #e2ecff;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.2;
+    }
+    .dli-tile-sub { font-size: 0.75rem; color: #6b7fa8; }
+    .dli-callout {
+      margin: 12px 0 0;
+      padding: 10px 14px;
+      background: #0c1630;
+      border-left: 3px solid #f97316;
+      border-radius: 4px;
+      color: #cfe8ff;
+      font-size: 0.9rem;
+    }
+
+    .dli-bars { list-style: none; padding: 0; margin: 0; }
+    .dli-bars li {
+      display: grid;
+      grid-template-columns: minmax(110px, 200px) 1fr minmax(90px, auto);
+      align-items: center;
+      gap: 10px;
+      padding: 4px 0;
+      font-size: 0.85rem;
+    }
+    .dli-bars li:hover .dli-bar { background: #fb923c; }
+    .dli-bar-label { color: #cfe8ff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .dli-bar-track { height: 10px; background: #101c3c; border-radius: 0 4px 4px 0; }
+    .dli-bar {
+      display: block;
+      height: 100%;
+      min-width: 2px;
+      background: #f97316;
+      border-radius: 0 4px 4px 0;
+    }
+    .dli-bar-value { color: #cfe8ff; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .dli-arrow { font-family: "Courier New", Courier, monospace; color: #fb923c; }
+    .dli-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+    .dli-table-wrap { overflow-x: auto; }
+    .dli-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left; }
+    .dli-table th {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #6b7fa8;
+      padding: 6px 10px 6px 0;
+      border-bottom: 1px solid #1b2a4a;
+      white-space: nowrap;
+    }
+    .dli-table td { padding: 7px 10px 7px 0; border-bottom: 1px solid #101a30; color: #cfe8ff; }
+    .dli-row-top td { background: rgba(240, 180, 41, 0.18); }
+
+    @media (max-width: 600px) {
+      .dli-two-col { grid-template-columns: 1fr; }
+      .dli-bars li { grid-template-columns: 100px 1fr auto; }
+    }
+  </style>
+</head>
+<body>
+  <header class="dl-header">
+    <div class="dl-brand">TENFORBEN // STATION — DistanceLearningQuiz</div>
+    <div class="dl-header-links">
+      <a class="dl-back-link" href="distanceLearningLeaderboard.html">Leaderboard</a>
+      <a class="dl-back-link" href="distanceLearningHistory.html">History</a>
+      <a class="dl-back-link" href="distanceLearningQuiz.html">&larr; Play</a>
+    </div>
+  </header>
+
+  <main class="dli-main">
+    <h1>Your Insights</h1>
+    <p class="dli-status" id="dliStatus">Loading&hellip;</p>
+    <div id="dliContent"></div>
+  </main>
+
+  <script src="distanceLearningStore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+  <script src="firebaseConfig.js"></script>
+  <script src="distanceLearningBoard.js"></script>
+  <script src="distanceLearningInsightsPage.js"></script>
+</body>
+</html>

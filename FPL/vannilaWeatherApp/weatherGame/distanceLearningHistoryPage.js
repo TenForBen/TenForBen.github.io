@@ -305,6 +305,11 @@ async function main() {
     statusEl.textContent = "History isn't configured yet — see firebaseConfig.js.";
     return;
   }
+  // Firebase sign-in hangs on a page opened straight from disk.
+  if (location.protocol === "file:") {
+    statusEl.textContent = "History needs the page served over http(s), not opened from a file.";
+    return;
+  }
   firebase.initializeApp(firebaseConfig);
   db = firebase.firestore();
   const auth = firebase.auth();

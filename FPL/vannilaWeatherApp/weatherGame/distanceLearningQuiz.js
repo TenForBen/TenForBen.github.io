@@ -22,9 +22,9 @@ const MAX_POINTS = 100;
 const DEFAULT_RANGE = { min: 100, max: 2000, step: 100 };
 // Pause on each question's result before the next one; "Next" skips it.
 // The points working is revealed step by step over the first
-// EXPLAIN_SECONDS, leaving the rest to read the finished working.
+// EXPLAIN_SECONDS, leaving the remaining 7 to read the finished working.
 const GAP_SECONDS = 10;
-const EXPLAIN_SECONDS = 8;
+const EXPLAIN_SECONDS = 3;
 // One warning per question: the first not-found or out-of-region answer
 // only shows a hint; the second ends the question with 0 points.
 const MAX_INVALID_TRIES = 2;
@@ -757,6 +757,11 @@ function finishRun() {
         <button type="button" id="dlReplayBtn" class="btn dl-btn-orange">Play Again</button>
         <a href="geoStreakGame.html" class="btn btn-secondary">Back to GeoStreak</a>
       </div>
+      <p class="dl-final-links">
+        <a href="distanceLearningInsights.html">&#128202; Your insights</a>
+        <a href="distanceLearningLeaderboard.html?round=${round.key}">&#127942; Leaderboard</a>
+        <a href="distanceLearningHistory.html">&#128220; History</a>
+      </p>
       <div class="dl-table-wrap">
         <table class="dl-breakdown">
           <thead><tr><th>#</th><th>From</th><th>Target km</th><th>Answer</th><th>Actual km</th><th>Dir</th><th>Pts</th><th>Time</th></tr></thead>
@@ -768,10 +773,11 @@ function finishRun() {
   `;
   showOnly(finalEl);
   document.getElementById("dlReplayBtn").addEventListener("click", renderStart);
-  // Upload this run first so the leaderboard below already includes it.
-  DistanceLearningBoard.sync().then(() => {
-    DistanceLearningBoard.renderLeaderboardPanel("dlFinalLeaderboard", leaderboardTabs(), round.key);
-  });
+  // Shown straight away, then redrawn once this run has uploaded so it
+  // includes the new score.
+  const showLeaderboard = () => DistanceLearningBoard.renderLeaderboardPanel("dlFinalLeaderboard", leaderboardTabs(), round.key);
+  showLeaderboard();
+  DistanceLearningBoard.sync().finally(showLeaderboard);
 }
 
 renderStart();

@@ -26,10 +26,20 @@ const DistanceLearningBoard = (() => {
   const ATTEMPTS = "dlqAttempts";
   const LEADERBOARD_SIZE = 10;
   const BATCH_LIMIT = 450; // Firestore allows 500 writes per batch
+  const SIGN_IN_TIMEOUT_MS = 10000;
 
   const configured = typeof firebaseConfig !== "undefined"
     && firebaseConfig.apiKey
     && !firebaseConfig.apiKey.startsWith("REPLACE_ME");
+  // Firebase anonymous sign-in never completes on a page opened straight
+  // from disk (file://) — it just hangs — so online features are skipped
+  // there and the panels say why. Serve the folder over http(s) instead
+  // (GitHub Pages, or e.g. `python3 -m http.server`).
+  const fromFile = location.protocol === "file:";
+  const online = configured && !fromFile;
+  const OFFLINE_NOTE = fromFile
+    ? "Online features need the page served over http(s), not opened from a file."
+    : "Not configured — see firebaseConfig.js.";
 
   let db = null;
   let uid = null;
@@ -51,11 +61,13 @@ const DistanceLearningBoard = (() => {
   }
 
   function init() {
-    if (!configured) return;
+    if (!online) return;
     firebase.initializeApp(firebaseConfig);
     db = firebase.firestore();
     const auth = firebase.auth();
-    ready = auth.signInAnonymously()
+    const timeout = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("Sign-in timed out")), SIGN_IN_TIMEOUT_MS));
+    const signIn = auth.signInAnonymously()
       .then(() => new Promise((resolve) => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
           if (!user) return;
@@ -63,13 +75,17 @@ const DistanceLearningBoard = (() => {
           unsubscribe();
           resolve();
         });
-      }))
+      }));
+    ready = Promise.race([signIn, timeout])
       .then(async () => {
         DistanceLearningStore.setFirebaseUid(uid);
         await restorePlayer();
         await sync();
       })
-      .catch((err) => console.error("DistanceLearningBoard: sign-in failed", err));
+      .catch((err) => {
+        uid = null;
+        console.error("DistanceLearningBoard: sign-in failed", err);
+      });
   }
 
   // Brings back high scores from the cloud if this browser's localStorage
@@ -93,7 +109,7 @@ const DistanceLearningBoard = (() => {
   // leaderboard documents. Safe to call any time; concurrent calls share
   // one run.
   function sync() {
-    if (!configured) return Promise.resolve();
+    if (!online) return Promise.resolve();
     if (!syncing) {
       syncing = doSync().finally(() => { syncing = null; });
     }
@@ -187,7 +203,7 @@ const DistanceLearningBoard = (() => {
   // ranked by that round's best. The top score is highlighted gold and the
   // viewer's own row blue.
 
-  async function renderLeaderboard(listEl, tabKey) {
+  async function renderLeaderboard(listEl, tabKey, size) {
     listEl.innerHTML = '<p class="dl-lb-note">Loading&hellip;</p>';
     await ready;
     if (!uid) {
@@ -196,7 +212,7 @@ const DistanceLearningBoard = (() => {
     }
     const field = tabKey === "overall" ? "bestScore" : `roundBest.${tabKey}`;
     try {
-      const snap = await db.collection(LEADERBOARD).orderBy(field, "desc").limit(LEADERBOARD_SIZE).get();
+      const snap = await db.collection(LEADERBOARD).orderBy(field, "desc").limit(size).get();
       if (snap.empty) {
         listEl.innerHTML = '<p class="dl-lb-note">No scores yet — be the first!</p>';
         return;
@@ -225,11 +241,11 @@ const DistanceLearningBoard = (() => {
   }
 
   // `tabs` is [{ key, label }], overall first. Opens on `initialKey`.
-  function renderLeaderboardPanel(containerId, tabs, initialKey = "overall") {
+  function renderLeaderboardPanel(containerId, tabs, initialKey = "overall", size = LEADERBOARD_SIZE) {
     const container = document.getElementById(containerId);
     if (!container) return;
-    if (!configured) {
-      container.innerHTML = "";
+    if (!online) {
+      container.innerHTML = `<div class="dl-panel dl-lb-panel"><h3>Leaderboard</h3><p class="dl-lb-note">${OFFLINE_NOTE}</p></div>`;
       return;
     }
     container.innerHTML = `
@@ -244,13 +260,28 @@ const DistanceLearningBoard = (() => {
     container.querySelectorAll(".dl-lb-tab").forEach((btn) => {
       btn.addEventListener("click", () => {
         container.querySelectorAll(".dl-lb-tab").forEach((b) => b.classList.toggle("dl-lb-tab-active", b === btn));
-        renderLeaderboard(listEl, btn.dataset.tab);
+        renderLeaderboard(listEl, btn.dataset.tab, size);
       });
     });
-    renderLeaderboard(listEl, initialKey);
+    renderLeaderboard(listEl, initialKey, size);
+  }
+
+  // ---- Own data, for the Insights page ---------------------------------------
+  // This player's uploaded runs and attempts, after uploading anything still
+  // pending. Returns null when Firebase isn't available, so the caller can
+  // fall back to localStorage alone.
+  async function loadMyData() {
+    if (!online) return null;
+    await sync();
+    if (!uid) return null;
+    const [runs, attempts] = await Promise.all([
+      db.collection(RUNS).where("uid", "==", uid).get(),
+      db.collection(ATTEMPTS).where("uid", "==", uid).get(),
+    ]);
+    return { runs: runs.docs.map((d) => d.data()), attempts: attempts.docs.map((d) => d.data()) };
   }
 
   init();
 
-  return { sync, renderLeaderboardPanel };
+  return { sync, renderLeaderboardPanel, loadMyData, offlineNote: online ? null : OFFLINE_NOTE };
 })();
