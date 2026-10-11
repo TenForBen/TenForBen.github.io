@@ -1465,6 +1465,16 @@ Notable bugs, once actually fixed — what broke, what it looked like to a
 player, and the real cause, newest first. Not every commit, just the ones
 worth a future reader knowing *why* the code is shaped the way it is.
 
+- **2026-10-11 — DistanceLearningQuiz's leaderboard never appeared when the
+  page was opened from a file.** On a `file://` page Firebase's anonymous
+  sign-in never resolves (no error, it just hangs), so the start screen's
+  leaderboard sat on "Loading…" forever, and the results screen's never
+  rendered at all because it waited for the upload to finish first. Fixed
+  in `distanceLearningBoard.js`: online features are skipped on `file://`
+  with a note saying the page needs http(s), sign-in now times out after
+  10s, and the results leaderboard renders immediately and redraws after
+  the upload. The History page shows the same note instead of hanging.
+
 - **2026-10-10 — DistanceLearningQuiz accepted Bangladesh/Sri Lanka cities
   in the India round.** The region check trusted the single country code
   from the weather lookup, so a country suffix could steer a foreign city's
