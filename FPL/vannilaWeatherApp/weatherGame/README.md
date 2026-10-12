@@ -1301,8 +1301,14 @@ come later.
 
 ### A question
 
-- 15 questions, 20 seconds each. The target is picked at random from the
-  round's range, fresh for every question.
+- 15 questions, 20 seconds each. All 15 targets are picked from the
+  round's range when the quiz starts (`buildTargets()`), with two rules: no
+  target is used twice in a quiz, and each one differs from the previous
+  question's by at least 400 km (`MIN_TARGET_GAP_KM`), e.g. 700 can be
+  followed by 1100 or 300 but not 900. It's a random search that backs out
+  of dead ends, since India's range only has 17 values to fit 15 into.
+  World's steps are 500 km, so any two of its targets already differ by at
+  least that.
 - Distance is the great-circle (haversine) distance between the centre and
   the coordinates OpenWeatherMap resolves the answer to.
 - **Points** = `100 × (1 − |target − distance| / target)`, floored at 0 and

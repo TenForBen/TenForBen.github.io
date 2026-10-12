@@ -20,6 +20,9 @@ const QUESTION_SECONDS = 20;
 const MAX_POINTS = 100;
 // Target distance range per round, overridable on each ROUNDS entry.
 const DEFAULT_RANGE = { min: 100, max: 2000, step: 100 };
+// Within one quiz, consecutive targets differ by at least this much and no
+// target repeats — see buildTargets().
+const MIN_TARGET_GAP_KM = 400;
 // Pause on each question's result before the next one; "Next" skips it.
 // The points working is revealed step by step over the first
 // EXPLAIN_SECONDS, leaving the remaining 7 to read the finished working.
@@ -151,10 +154,48 @@ function roundRange(r) {
   return r.range || DEFAULT_RANGE;
 }
 
-function randomTargetKm(r) {
+// Every target in the round's range: e.g. 200, 300, ... 1800.
+function rangeValues(r) {
   const { min, max, step } = roundRange(r);
-  const steps = (max - min) / step + 1; // e.g. 200, 300, ... 1800
-  return min + Math.floor(Math.random() * steps) * step;
+  const values = [];
+  for (let km = min; km <= max; km += step) values.push(km);
+  return values;
+}
+
+function shuffle(list) {
+  const copy = [...list];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+// All QUESTION_COUNT targets for one quiz, picked up front: no value used
+// twice, and each at least MIN_TARGET_GAP_KM away from the one before.
+// A random depth-first search, so it backs out of dead ends (with India's
+// 17 values, a purely greedy pick can paint itself into a corner near the
+// end). Throws if the range can't satisfy both rules at all.
+function buildTargets(r) {
+  const values = rangeValues(r);
+  const picked = [];
+  const used = new Set();
+  const extend = () => {
+    if (picked.length === QUESTION_COUNT) return true;
+    const last = picked[picked.length - 1];
+    for (const km of shuffle(values)) {
+      if (used.has(km)) continue;
+      if (last != null && Math.abs(km - last) < MIN_TARGET_GAP_KM) continue;
+      picked.push(km);
+      used.add(km);
+      if (extend()) return true;
+      picked.pop();
+      used.delete(km);
+    }
+    return false;
+  };
+  if (!extend()) throw new Error(`Range for ${r.key} can't give ${QUESTION_COUNT} distinct targets ${MIN_TARGET_GAP_KM} km apart`);
+  return picked;
 }
 
 function formatRange(r) {
@@ -247,6 +288,7 @@ let run = null; // the run record being built, saved by finishRun()
 let qIndex = 0;
 let centre = null; // { name, country, lat, lon } the current question measures from
 let targetKm = 0;
+let targets = []; // this quiz's QUESTION_COUNT targets, from buildTargets()
 let questionStart = 0; // performance.now() when the question appeared
 let questionToken = 0; // bumps every question, so a late lookup can tell it's stale
 let invalidTries = 0;
@@ -342,13 +384,14 @@ function startRun() {
     questions: [],
   };
   qIndex = 0;
+  targets = buildTargets(round);
   usedPlaces = new Set([placeKey(centre)]);
   showQuestion();
 }
 
 // ---- Question screen ------------------------------------------------------------
 function showQuestion() {
-  targetKm = randomTargetKm(round);
+  targetKm = targets[qIndex];
   invalidTries = 0;
   tryNumber = 0;
   submitting = false;
