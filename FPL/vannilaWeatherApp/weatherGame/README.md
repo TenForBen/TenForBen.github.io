@@ -1471,6 +1471,18 @@ Notable bugs, once actually fixed — what broke, what it looked like to a
 player, and the real cause, newest first. Not every commit, just the ones
 worth a future reader knowing *why* the code is shaped the way it is.
 
+- **2026-10-12 — DistanceLearningQuiz never uploaded anything to Firestore.**
+  No `dlq*` collection ever appeared, the leaderboard sat on "Loading…",
+  and nothing was logged. A deadlock in `distanceLearningBoard.js`: the
+  `ready` promise ran `sync()` after sign-in and only resolved once it
+  finished, while `sync()` itself began with `await ready`, so each waited
+  on the other forever (the leaderboard awaited `ready` too). Tests had
+  blocked Firebase, so sign-in failed and that path never ran. Fixed by
+  splitting out a `signedIn` promise that only covers sign-in; restoring
+  and uploading run after it, and nothing it waits on waits for it.
+  Checked with a real quiz against the live project: the run and attempts
+  uploaded and showed on the leaderboard, History and Insights.
+
 - **2026-10-11 — DistanceLearningQuiz's leaderboard never appeared when the
   page was opened from a file.** On a `file://` page Firebase's anonymous
   sign-in never resolves (no error, it just hangs), so the start screen's

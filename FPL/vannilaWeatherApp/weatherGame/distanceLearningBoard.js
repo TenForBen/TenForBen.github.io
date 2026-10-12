@@ -43,7 +43,10 @@ const DistanceLearningBoard = (() => {
 
   let db = null;
   let uid = null;
-  let ready = Promise.resolve();
+  // Resolves once sign-in has finished (uid set, or null on failure) — and
+  // nothing more. Upload and leaderboard code wait on this; it must never
+  // itself wait on them, or the two deadlock (see the README's bug log).
+  let signedIn = Promise.resolve();
   let syncing = null; // the in-flight sync() promise, so two never overlap
 
   function escapeHtml(str) {
@@ -76,16 +79,19 @@ const DistanceLearningBoard = (() => {
           resolve();
         });
       }));
-    ready = Promise.race([signIn, timeout])
-      .then(async () => {
-        DistanceLearningStore.setFirebaseUid(uid);
-        await restorePlayer();
-        await sync();
-      })
+    signedIn = Promise.race([signIn, timeout])
+      .then(() => DistanceLearningStore.setFirebaseUid(uid))
       .catch((err) => {
         uid = null;
         console.error("DistanceLearningBoard: sign-in failed", err);
       });
+    // After sign-in, not part of it: restore cloud high scores, then upload
+    // anything pending (the whole local history on first connection).
+    signedIn.then(async () => {
+      if (!uid) return;
+      await restorePlayer();
+      await sync();
+    });
   }
 
   // Brings back high scores from the cloud if this browser's localStorage
@@ -117,7 +123,7 @@ const DistanceLearningBoard = (() => {
   }
 
   async function doSync() {
-    await ready;
+    await signedIn;
     if (!uid) return;
     const { runs, attempts } = DistanceLearningStore.getUnsynced();
     const player = DistanceLearningStore.getPlayer();
@@ -205,7 +211,7 @@ const DistanceLearningBoard = (() => {
 
   async function renderLeaderboard(listEl, tabKey, size) {
     listEl.innerHTML = '<p class="dl-lb-note">Loading&hellip;</p>';
-    await ready;
+    await signedIn;
     if (!uid) {
       listEl.innerHTML = '<p class="dl-lb-note">Could not connect to the leaderboard.</p>';
       return;
