@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/minty/bootstrap.min.css" />
+  <title>Search Log — Weather.JS</title>
+  <style>
+    /* Same Minty theme as index.html. */
+    body { background: #f8f9fa; }
+    .sl-main { max-width: 1400px; margin: 0 auto; padding: 24px 16px 60px; }
+    .sl-status { color: #6c757d; margin-bottom: 12px; }
+    .sl-summary { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+    .sl-tile {
+      background: #fff;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 8px 14px;
+      min-width: 130px;
+      display: flex;
+      flex-direction: column;
+    }
+    .sl-tile span { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; color: #6c757d; }
+    .sl-tile b { font-size: 1.4rem; color: #343a40; }
+    .sl-tile small { color: #6c757d; }
+    .sl-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .sl-table-wrap { overflow-x: auto; background: #fff; border: 1px solid #dee2e6; border-radius: 6px; }
+    .sl-table { width: 100%; font-size: 0.82rem; margin: 0; }
+    .sl-table th { position: sticky; top: 0; background: #fff; white-space: nowrap; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .sl-table td { vertical-align: top; }
+    .sl-muted { color: #6c757d; font-size: 0.78rem; }
+    .sl-nowrap { white-space: nowrap; }
+    .sl-error { color: #dc3545; }
+    .sl-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 1px 6px;
+      border-radius: 3px;
+      background: #e9ecef;
+      color: #495057;
+    }
+    .sl-badge-nav { background: #fff3cd; color: #856404; }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-dark bg-primary">
+    <div class="container"><a class="navbar-brand" href="index.html">Weather.JS</a></div>
+  </nav>
+
+  <main class="sl-main">
+    <h1 class="h3">Search log</h1>
+    <p class="sl-status" id="slStatus">Loading&hellip;</p>
+
+    <div id="slControls" style="display: none;">
+      <div class="sl-summary" id="slSummary"></div>
+      <div class="sl-controls">
+        <div class="btn-group btn-group-sm" id="slFilter" role="group" aria-label="Filter">
+          <button type="button" class="btn btn-outline-primary active" data-type="all">All</button>
+          <button type="button" class="btn btn-outline-primary" data-type="search">Searches</button>
+          <button type="button" class="btn btn-outline-primary" data-type="history_nav">Distance jumps</button>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-secondary" id="slExport">Export CSV</button>
+      </div>
+      <div class="sl-table-wrap">
+        <table class="table table-sm sl-table">
+          <thead>
+            <tr>
+              <th>When</th><th>Who</th><th>What</th><th>Result</th>
+              <th>IP location</th><th>GPS</th><th>Browser</th>
+            </tr>
+          </thead>
+          <tbody id="slBody"></tbody>
+        </table>
+      </div>
+      <p class="text-center mt-3"><button type="button" class="btn btn-sm btn-outline-primary" id="slMore">Load older</button></p>
+    </div>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+  <script src="weatherGame/firebaseConfig.js"></script>
+  <script src="searchLogPage.js"></script>
+</body>
+</html>

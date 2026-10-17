@@ -1473,7 +1473,8 @@ pages: `MASTER_UIDS` in `distanceLearningHistoryPage.js` decides whether
 the tab is shown, and `isMaster()` in `firestore.rules` is the real
 enforcement. To add one, the person clicks "Copy my player ID" on the
 history page and the UID goes into `MASTER_UIDS` in all three history page
-scripts and `distanceLearningInsightsPage.js`, *and* `isMaster()`; then
+scripts, `distanceLearningInsightsPage.js` and Weather.JS's
+`../searchLog.js` / `../searchLogPage.js`, *and* `isMaster()`; then
 republish the rules.
 
 **Setup: publish the rules.** Nothing uploads until the new

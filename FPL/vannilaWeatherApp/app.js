@@ -14,6 +14,11 @@ if (search && button) {
 }
 
 function initWeatherApp() {
+  // Search log (searchLog.js, loaded by index.html only). Optional: without
+  // it the app behaves exactly as before.
+  const log = typeof SearchLog !== "undefined" ? SearchLog : null;
+  if (log) ui.onHistoryNav = (method, from, to) => log.logHistoryNav(method, from, to);
+
   // Look up whatever the user typed. Because getCurrent() throws on a bad
   // HTTP status, and fetch() itself throws on a network drop, a single
   // try/catch here covers every failure mode: city-not-found (404),
@@ -30,8 +35,10 @@ function initWeatherApp() {
       const data = await ft.getCurrent(currentVal);
       ui.populateUI(data);
       ui.saveToLS(data);
+      if (log) log.logSearch(currentVal, data, null);
     } catch (err) {
       ui.showError(err.message);
+      if (log) log.logSearch(currentVal, null, err.message);
     }
   }
 
