@@ -289,5 +289,24 @@ const DistanceLearningBoard = (() => {
 
   init();
 
-  return { sync, renderLeaderboardPanel, loadMyData, offlineNote: online ? null : OFFLINE_NOTE };
+  // Every player's runs and attempts — master accounts only (isMaster() in
+  // firestore.rules; anyone else's read is refused). For the Insights
+  // page's All Players / By Player views. No ordering, so no index needed.
+  async function loadAllData() {
+    if (!online) return null;
+    await signedIn;
+    if (!uid) return null;
+    const [runs, attempts] = await Promise.all([
+      db.collection(RUNS).limit(5000).get(),
+      db.collection(ATTEMPTS).limit(50000).get(),
+    ]);
+    return { runs: runs.docs.map((d) => d.data()), attempts: attempts.docs.map((d) => d.data()) };
+  }
+
+  async function getUid() {
+    await signedIn;
+    return uid;
+  }
+
+  return { sync, renderLeaderboardPanel, loadMyData, loadAllData, getUid, offlineNote: online ? null : OFFLINE_NOTE };
 })();

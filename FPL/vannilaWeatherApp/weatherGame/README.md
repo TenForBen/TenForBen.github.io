@@ -1290,7 +1290,7 @@ Each round has its own target range, shown next to it on the start screen:
 |---|---|
 | India | 200–1800 km, steps of 100 |
 | World | 500–15000 km, steps of 500 |
-| Europe | 200–4000 km, steps of 200 |
+| Europe | 200–3000 km, steps of 200 |
 | The locked rounds | 100–2000 km, steps of 100 |
 
 Set per round with `range` on its `ROUNDS` entry; rounds without one use
@@ -1434,6 +1434,22 @@ the compass directions you head in, what happened to every submission, your
 browser's localStorage merged with your uploaded Firestore runs and
 attempts (by id), so it works offline and survives cleared storage.
 
+A round filter (**Overall | India | World | Europe**) narrows every
+section to one round. Master accounts also get two more views, with the
+same round filter:
+
+- **All Players**: everyone's uploaded quizzes combined, with a Players
+  tile, the best score credited to its player, and a Player column in the
+  top-10 answers.
+- **By Player**: a picker listing every player who has uploaded a quiz
+  (most quizzes first); shows that player's insights, worded in their
+  name.
+
+Both read every player's `dlqRuns` and `dlqAttempts`
+(`loadAllData()` in `distanceLearningBoard.js`), which the existing rules
+already allow only for `isMaster()`, so no rules change was needed.
+Non-master players never see these views.
+
 The results screen links to Insights, the Leaderboard (on the round just
 played) and History; the quiz header links to all three.
 
@@ -1457,7 +1473,8 @@ pages: `MASTER_UIDS` in `distanceLearningHistoryPage.js` decides whether
 the tab is shown, and `isMaster()` in `firestore.rules` is the real
 enforcement. To add one, the person clicks "Copy my player ID" on the
 history page and the UID goes into `MASTER_UIDS` in all three history page
-scripts *and* `isMaster()`; then republish the rules.
+scripts and `distanceLearningInsightsPage.js`, *and* `isMaster()`; then
+republish the rules.
 
 **Setup: publish the rules.** Nothing uploads until the new
 DistanceLearningQuiz section of [`firestore.rules`](./firestore.rules) is

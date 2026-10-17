@@ -99,7 +99,7 @@ const ROUNDS = [
   {
     key: "europe",
     label: "Europe",
-    range: { min: 200, max: 4000, step: 200 },
+    range: { min: 200, max: 3000, step: 200 },
     countryCodes: [
       "FR", "DE", "IT", "ES", "PT", "NL", "BE", "LU", "CH", "AT",
       "SE", "NO", "DK", "FI", "IS", "IE", "GB", "PL", "CZ", "SK",
