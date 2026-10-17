@@ -1445,6 +1445,12 @@ same round filter:
   (most quizzes first); shows that player's insights, worded in their
   name.
 
+These views can be linked to directly: `?view=all`,
+`?view=player&uid=<uid>`, optionally with `&round=india|world|europe`. The
+History page's All Players tab uses this: an "All players' insights" link,
+one chip per player in the loaded runs, and a "<name>'s insights" link
+inside each expanded run (opening on that run's round).
+
 Both read every player's `dlqRuns` and `dlqAttempts`
 (`loadAllData()` in `distanceLearningBoard.js`), which the existing rules
 already allow only for `isMaster()`, so no rules change was needed.

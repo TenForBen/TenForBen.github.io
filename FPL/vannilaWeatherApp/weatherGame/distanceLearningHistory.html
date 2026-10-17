@@ -180,6 +180,28 @@
     .dlh-outcome-not_found, .dlh-outcome-wrong_region, .dlh-outcome-timeout { color: #f87171; }
     .dlh-outcome-already_used { color: #f0b429; }
     .dlh-note { color: #6b7fa8; font-size: 0.85rem; font-style: italic; }
+    .dlh-insight-link { color: #fb923c; font-family: "Courier New", Courier, monospace; }
+    .dlh-insight-link:hover { color: #fdba74; }
+    .dlh-insights-lead { margin-bottom: 10px; }
+    .dlh-player-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+    .dlh-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border: 1px solid #1b2a4a;
+      border-radius: 16px;
+      background: #0c1630;
+      color: #cfe8ff;
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+    .dlh-chip:hover { border-color: #f97316; color: #fb923c; text-decoration: none; }
+    .dlh-chip span {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.72rem;
+      color: #6b7fa8;
+    }
   </style>
 </head>
 <body>
@@ -201,6 +223,9 @@
       <button type="button" id="dlhTabMine" class="dlh-tab dlh-tab-active">My Runs</button>
       <button type="button" id="dlhTabAll" class="dlh-tab">All Players</button>
     </div>
+
+    <!-- All Players tab only: links into the Insights page's master views. -->
+    <div id="dlhPlayers" style="display: none;"></div>
 
     <div id="dlhBestSection" style="display: none;">
       <h2 class="dlh-section-title">Best per round</h2>
