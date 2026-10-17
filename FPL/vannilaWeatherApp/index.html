@@ -66,10 +66,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
              Weather.js &copy;
              &middot;
              <a href="weatherGame/checklist/morningChecklist.html">Morning Checklist</a>
+             <!-- Master accounts only; searchLog.js reveals it. -->
+             <span id="searchLogLink" style="display: none;">
+               &middot; <a href="searchLog.html">Search log</a>
+             </span>
+             <p class="text-muted mb-0 mt-2" style="font-size: 75%;">
+               Searches are logged with an approximate location (from your IP, or your device's location if you allow it).
+             </p>
         </footer>
   </body>
   <script src="fetch.js"></script>
   <script src="ui.js"></script>
+  <!-- Search log (searchLog.js) — Firebase compat build, same project as GeoStreak. -->
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+  <script src="weatherGame/firebaseConfig.js"></script>
+  <script src="searchLog.js"></script>
   <script src="app.js"></script>
   <script>
 		document.getElementsByTagName("link")[1].href="../../img/icons/fluidicon.png"

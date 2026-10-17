@@ -370,6 +370,23 @@ service cloud.firestore {
       allow update: if false;
       allow delete: if false;
     }
+
+    // ---- Weather.JS search log --------------------------------------------
+    // One document per search, or per jump through the recent-searches bar,
+    // on Weather.JS (../index.html, written by ../searchLog.js), with where
+    // it was made from (IP-based location, plus GPS if the visitor allowed
+    // it). Any signed-in visitor can add their own; only isMaster() can read
+    // (../searchLog.html). Write-once, like the other historical records.
+    match /weatherSearches/{docId} {
+      allow read: if isMaster();
+
+      allow create: if request.auth != null
+        && request.auth.uid == request.resource.data.uid
+        && isValidWeatherSearch(request.resource.data);
+
+      allow update: if false;
+      allow delete: if false;
+    }
   }
 
   // History page's "All Players" tab — a hardcoded allowlist, not a
@@ -657,5 +674,18 @@ service cloud.firestore {
       && data.outcome in ['scored', 'not_found', 'wrong_region', 'already_used', 'timeout']
       && data.points is number && data.points >= 0 && data.points <= 100
       && data.uploadedAt == request.time;
+  }
+
+  // ---- Weather.JS search log validator --------------------------------------
+  function isValidWeatherSearch(data) {
+    return data.keys().hasOnly(['uid', 'nickname', 'type', 'method', 'query', 'fromQuery', 'success', 'error', 'result', 'from', 'distanceKm', 'tempC', 'conditions', 'ipLocation', 'gps', 'gpsStatus', 'browserTimezone', 'language', 'userAgent', 'screen', 'createdAt'])
+      && data.uid is string
+      && data.type in ['search', 'history_nav']
+      && (!('method' in data) || data.method in ['dropdown', 'newer', 'older'])
+      && data.query is string && data.query.size() <= 200
+      && data.success is bool
+      && data.gpsStatus in ['not_asked', 'pending', 'granted', 'denied', 'unavailable']
+      && (data.userAgent == null || (data.userAgent is string && data.userAgent.size() <= 300))
+      && data.createdAt == request.time;
   }
 }

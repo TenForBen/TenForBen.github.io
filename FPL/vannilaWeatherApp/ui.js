@@ -287,11 +287,16 @@ class UI {
   }
 
   // Re-renders the card from a stored entry (no new fetch, no re-push).
-  viewHistory(index) {
+  // `method` ("dropdown", "newer", "older") is passed to the optional
+  // this.onHistoryNav hook, which index.html uses for its search log.
+  viewHistory(index, method) {
     if (index < 0 || index >= this.history.length) return;
     const previousEntry = this.history[this.historyIndex]; // what's on screen right now
     this.historyIndex = index;
     const entry = this.history[index];
+    if (typeof this.onHistoryNav === "function" && previousEntry !== entry) {
+      this.onHistoryNav(method, previousEntry, entry);
+    }
     // Passing previousEntry tells populateUI this is a history-nav jump (vs.
     // a fresh search), which is the only time the distance-from-last-place
     // line should appear.
@@ -308,11 +313,11 @@ class UI {
     this.uiContainer.parentNode.insertBefore(this.navContainer, this.uiContainer);
 
     this.navContainer.addEventListener("click", (e) => {
-      if (e.target.closest("#histPrev")) this.viewHistory(this.historyIndex - 1);
-      else if (e.target.closest("#histNext")) this.viewHistory(this.historyIndex + 1);
+      if (e.target.closest("#histPrev")) this.viewHistory(this.historyIndex - 1, "newer");
+      else if (e.target.closest("#histNext")) this.viewHistory(this.historyIndex + 1, "older");
     });
     this.navContainer.addEventListener("change", (e) => {
-      if (e.target.id === "histSelect") this.viewHistory(Number(e.target.value));
+      if (e.target.id === "histSelect") this.viewHistory(Number(e.target.value), "dropdown");
     });
 
     this.updateNav();
