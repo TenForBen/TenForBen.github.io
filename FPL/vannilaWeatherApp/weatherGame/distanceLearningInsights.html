@@ -40,6 +40,48 @@
     main.dli-main { max-width: 900px; margin: 0 auto; padding: 28px 16px 60px; }
     h1 { font-family: "Courier New", Courier, monospace; color: #fb923c; font-size: 1.6rem; margin-bottom: 6px; }
     .dli-status { color: #9db4de; font-size: 0.9rem; margin-bottom: 8px; }
+
+    .dli-views {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 12px;
+      margin: 10px 0 6px;
+      padding: 10px 12px;
+      background: #0c1630;
+      border: 1px solid #1b2a4a;
+      border-radius: 8px;
+    }
+    .dli-master-note {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.68rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #4ade80;
+    }
+    .dli-tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+    .dli-round-tabs { margin: 10px 0 8px; }
+    .dli-tab {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.8rem;
+      color: #93a4c3;
+      background: transparent;
+      border: 1px solid #1b2a4a;
+      border-radius: 4px;
+      padding: 5px 14px;
+      cursor: pointer;
+    }
+    .dli-tab:hover { color: #fb923c; border-color: #f97316; }
+    .dli-tab-active { color: #fb923c; border-color: #fb923c; background: #2a1708; }
+    .dli-select {
+      background: #0a1226;
+      color: #cfe8ff;
+      border: 1px solid #1b2a4a;
+      border-radius: 4px;
+      padding: 5px 8px;
+      font-size: 0.85rem;
+      max-width: 100%;
+    }
     .dli-note { color: #6b7fa8; font-size: 0.85rem; margin: 0 0 10px; }
     .dli-note a { color: #fb923c; }
     .dli-muted { color: #6b7fa8; }
@@ -157,7 +199,20 @@
   </header>
 
   <main class="dli-main">
-    <h1>Your Insights</h1>
+    <h1 id="dliTitle">Your Insights</h1>
+
+    <!-- Master accounts only (MASTER_UIDS / isMaster()). -->
+    <div class="dli-views" id="dliViews" style="display: none;">
+      <span class="dli-master-note"></span>
+      <div class="dli-tabs" id="dliViewTabs">
+        <button type="button" class="dli-tab dli-tab-active" data-key="me">My Insights</button>
+        <button type="button" class="dli-tab" data-key="all">All Players</button>
+        <button type="button" class="dli-tab" data-key="player">By Player</button>
+      </div>
+      <select id="dliPlayer" class="dli-select" style="display: none;" aria-label="Player"></select>
+    </div>
+
+    <div class="dli-tabs dli-round-tabs" id="dliRounds"></div>
     <p class="dli-status" id="dliStatus">Loading&hellip;</p>
     <div id="dliContent"></div>
   </main>
