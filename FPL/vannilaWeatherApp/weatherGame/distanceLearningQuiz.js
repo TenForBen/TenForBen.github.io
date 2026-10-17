@@ -99,6 +99,7 @@ const ROUNDS = [
   {
     key: "europe",
     label: "Europe",
+    range: { min: 200, max: 4000, step: 200 },
     countryCodes: [
       "FR", "DE", "IT", "ES", "PT", "NL", "BE", "LU", "CH", "AT",
       "SE", "NO", "DK", "FI", "IS", "IE", "GB", "PL", "CZ", "SK",
@@ -710,6 +711,12 @@ function renderQuestionResult(result) {
   resultEl.innerHTML = `
     <div class="dl-panel">
       <p class="dl-progress">Question ${qIndex + 1} / ${QUESTION_COUNT}</p>
+      <!-- At the top so the countdown and skip button are visible without
+           scrolling on a phone, where the working below runs long. -->
+      <div class="dl-gap-row">
+        <p class="dl-timer" id="dlGapTimer">${GAP_SECONDS.toFixed(2)}</p>
+        <button type="button" id="dlNextBtn" class="btn btn-secondary">${isLast ? "See results now" : "Next question now"}</button>
+      </div>
       <span class="dl-result-badge ${status === "scored" ? "dl-result-good" : "dl-result-bad"}">${status === "scored" ? "SCORED" : status === "timeout" ? "TIME'S UP" : "INVALID"}</span>
       <p class="dl-result-points">+${formatPoints(points)}</p>
       <p class="dl-result-detail">${detail}</p>
@@ -721,8 +728,6 @@ function renderQuestionResult(result) {
         </ol>
       </div>
       <p class="dl-result-total">Score so far: ${formatPoints(run.totalScore)}</p>
-      <p class="dl-timer" id="dlGapTimer">${GAP_SECONDS.toFixed(2)}</p>
-      <button type="button" id="dlNextBtn" class="btn btn-secondary">${isLast ? "See results now" : "Next question now"}</button>
     </div>
   `;
   showOnly(resultEl);

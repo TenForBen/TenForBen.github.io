@@ -1290,7 +1290,8 @@ Each round has its own target range, shown next to it on the start screen:
 |---|---|
 | India | 200–1800 km, steps of 100 |
 | World | 500–15000 km, steps of 500 |
-| Europe and the locked rounds | 100–2000 km, steps of 100 |
+| Europe | 200–4000 km, steps of 200 |
+| The locked rounds | 100–2000 km, steps of 100 |
 
 Set per round with `range` on its `ROUNDS` entry; rounds without one use
 `DEFAULT_RANGE`.
