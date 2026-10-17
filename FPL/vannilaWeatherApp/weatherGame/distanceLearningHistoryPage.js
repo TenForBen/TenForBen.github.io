@@ -73,6 +73,35 @@ function direction(dir) {
   return dir ? `<span class="dlh-dir">${ARROWS[dir] || ""} ${dir}</span>` : "&ndash;";
 }
 
+// ---- Links to the Insights page (master views) ------------------------------
+
+function insightsUrl(uid, roundKey) {
+  const params = new URLSearchParams(uid ? { view: "player", uid } : { view: "all" });
+  if (roundKey) params.set("round", roundKey);
+  return `distanceLearningInsights.html?${params}`;
+}
+
+// All Players tab: a link to everyone's combined insights, then one chip
+// per player in the loaded runs (most runs first) opening theirs.
+function renderPlayerInsights(runs) {
+  const byUid = new Map();
+  runs.forEach((r) => {
+    const p = byUid.get(r.uid) || { uid: r.uid, name: r.nickname || "Anonymous", runs: 0 };
+    p.runs += 1;
+    byUid.set(r.uid, p);
+  });
+  const players = [...byUid.values()].sort((a, b) => b.runs - a.runs || a.name.localeCompare(b.name));
+  const el = document.getElementById("dlhPlayers");
+  el.innerHTML = `
+    <h2 class="dlh-section-title">Insights</h2>
+    <p class="dlh-insights-lead"><a class="dlh-insight-link" href="${insightsUrl(null)}">&#128202; All players' insights &rarr;</a></p>
+    <div class="dlh-player-chips">
+      ${players.map((p) => `<a class="dlh-chip" href="${insightsUrl(p.uid)}">${escapeHtml(p.name)} <span>${p.runs}</span></a>`).join("")}
+    </div>
+    <p class="dlh-note">Each name opens that player's insights. Counts are runs among the ones loaded below.</p>`;
+  el.style.display = "";
+}
+
 // ---- Run cards -------------------------------------------------------------
 
 function buildQuestionsTable(questions) {
@@ -135,7 +164,7 @@ function buildRunCard(run, { showNickname = false, best = false } = {}) {
         <span class="dlh-card-caret">&#9656;</span>
       </button>
       <div class="dlh-card-detail" style="display: none;">
-        <p class="dlh-detail-start">Started at ${place(run.startCity)}</p>
+        <p class="dlh-detail-start">Started at ${place(run.startCity)}${showNickname ? ` &middot; <a class="dlh-insight-link" href="${insightsUrl(run.uid, run.roundKey)}">&#128202; ${escapeHtml(run.nickname || "Anonymous")}'s insights</a>` : ""}</p>
         ${buildQuestionsTable(run.questions || [])}
         <button type="button" class="dlh-attempts-btn">Show every attempt</button>
         <div class="dlh-attempts"></div>
@@ -203,6 +232,7 @@ async function loadMyRuns() {
   const bestEl = document.getElementById("dlhBest");
   const listEl = document.getElementById("dlhList");
   document.getElementById("dlhListTitle").textContent = "Your Runs";
+  document.getElementById("dlhPlayers").style.display = "none";
 
   // Sorted here rather than with orderBy, so no composite index is needed.
   const snap = await db.collection("dlqRuns").where("uid", "==", myUid).limit(500).get();
@@ -241,6 +271,7 @@ async function loadAllRuns() {
   }
   const players = new Set(runs.map((r) => r.uid)).size;
   statusEl.textContent = `${runs.length} most recent run${runs.length === 1 ? "" : "s"} from ${players} player${players === 1 ? "" : "s"}.`;
+  renderPlayerInsights(runs);
   listEl.innerHTML = runs.map((r) => buildRunCard(r, { showNickname: true })).join("");
   wireCards(listEl);
 }

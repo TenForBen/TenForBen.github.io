@@ -392,7 +392,7 @@ function fillPlayerSelect() {
   const select = document.getElementById("dliPlayer");
   const players = playerList();
   select.innerHTML = players.map((p) => `<option value="${escapeHtml(p.uid)}">${escapeHtml(p.name)} (${p.runs} quiz${p.runs === 1 ? "" : "zes"})</option>`).join("");
-  if (!state.playerUid && players.length) state.playerUid = players[0].uid;
+  if (!players.some((p) => p.uid === state.playerUid) && players.length) state.playerUid = players[0].uid;
   select.value = state.playerUid || "";
 }
 
@@ -426,6 +426,14 @@ function buildControls() {
   wireTabs("dliRounds", (key) => { state.round = key; show(); });
 }
 
+// Links can open a specific view: ?view=all, ?view=player&uid=<uid>, and
+// optionally &round=india|world|europe (the History page links here). The
+// view part only applies to master accounts.
+const params = new URLSearchParams(location.search);
+const requestedView = ["all", "player"].includes(params.get("view")) ? params.get("view") : null;
+const requestedUid = params.get("uid");
+if (ROUND_TABS.some(([key]) => key === params.get("round"))) state.round = params.get("round");
+
 async function main() {
   const local = { runs: DistanceLearningStore.getRuns(), attempts: DistanceLearningStore.getAttempts() };
   // Show this browser's data straight away, then fold in the cloud copy.
@@ -457,6 +465,14 @@ async function main() {
     const views = document.getElementById("dliViews");
     views.querySelector(".dli-master-note").textContent = "Master view";
     buildControlsMaster();
+    if (requestedView) {
+      document.querySelectorAll("#dliViewTabs button").forEach((b) => b.classList.toggle("dli-tab-active", b.dataset.key === requestedView));
+      state.view = requestedView;
+      if (requestedUid) state.playerUid = requestedUid;
+      show();
+      await loadAll();
+      show();
+    }
   }
 }
 
