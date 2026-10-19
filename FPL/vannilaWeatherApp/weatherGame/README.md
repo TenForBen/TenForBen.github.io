@@ -1496,6 +1496,17 @@ Notable bugs, once actually fixed — what broke, what it looked like to a
 player, and the real cause, newest first. Not every commit, just the ones
 worth a future reader knowing *why* the code is shaped the way it is.
 
+- **2026-10-19 — DistanceLearningQuiz Insights' All Players / By Player
+  views never loaded.** Clicking the tab on a master account showed
+  "Loading every player's quizzes…", cleared the page, and stayed that way.
+  `loadAllData()` asked Firestore for `limit(50000)` attempts, and
+  Firestore rejects any query limit over 10,000 (`invalid-argument`), so
+  the load failed every time; the page then redrew over its own error
+  message with "Loading…". The stand-in test data never hit the limit.
+  Fixed by reading runs and attempts in pages of 5,000 ordered by
+  document id (no index needed), and by keeping the load error on screen
+  (clicking the tab again retries).
+
 - **2026-10-12 — DistanceLearningQuiz never uploaded anything to Firestore.**
   No `dlq*` collection ever appeared, the leaderboard sat on "Loading…",
   and nothing was logged. A deadlock in `distanceLearningBoard.js`: the

@@ -289,18 +289,34 @@ const DistanceLearningBoard = (() => {
 
   init();
 
+  // Every document in a collection, PAGE docs at a time. Firestore refuses
+  // any single query with a limit over 10,000 (the original single
+  // limit(50000) attempts query failed every time), so read in pages
+  // ordered by document id, which needs no index.
+  async function readAll(collection) {
+    const PAGE = 5000;
+    const docs = [];
+    let last = null;
+    for (;;) {
+      let query = db.collection(collection).orderBy(firebase.firestore.FieldPath.documentId()).limit(PAGE);
+      if (last) query = query.startAfter(last);
+      const snap = await query.get();
+      snap.docs.forEach((d) => docs.push(d.data()));
+      if (snap.docs.length < PAGE) return docs;
+      last = snap.docs[snap.docs.length - 1];
+    }
+  }
+
   // Every player's runs and attempts — master accounts only (isMaster() in
   // firestore.rules; anyone else's read is refused). For the Insights
-  // page's All Players / By Player views. No ordering, so no index needed.
+  // page's All Players / By Player views. Throws on failure so the page
+  // can show why.
   async function loadAllData() {
-    if (!online) return null;
+    if (!online) throw new Error(OFFLINE_NOTE);
     await signedIn;
-    if (!uid) return null;
-    const [runs, attempts] = await Promise.all([
-      db.collection(RUNS).limit(5000).get(),
-      db.collection(ATTEMPTS).limit(50000).get(),
-    ]);
-    return { runs: runs.docs.map((d) => d.data()), attempts: attempts.docs.map((d) => d.data()) };
+    if (!uid) throw new Error("Not signed in to Firebase.");
+    const [runs, attempts] = await Promise.all([readAll(RUNS), readAll(ATTEMPTS)]);
+    return { runs, attempts };
   }
 
   async function getUid() {
