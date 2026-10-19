@@ -315,6 +315,7 @@ const state = {
   playerUid: null,
   mine: { runs: [], attempts: [] },
   all: null, // every player's records, loaded on first use by a master
+  allError: null, // why loading them failed, shown instead of "Loading…"
   mineSource: "", // where "My Insights" data came from, for the status line
 };
 
@@ -363,7 +364,9 @@ function show() {
     return;
   }
   if (!state.all) {
-    statusEl.textContent = "Loading every player's quizzes…";
+    statusEl.textContent = state.allError
+      ? `Could not load every player's quizzes: ${state.allError}`
+      : "Loading every player's quizzes…";
     document.getElementById("dliContent").innerHTML = "";
     return;
   }
@@ -398,13 +401,12 @@ function fillPlayerSelect() {
 
 async function loadAll() {
   if (state.all) return;
+  state.allError = null;
   try {
     state.all = await DistanceLearningBoard.loadAllData();
   } catch (err) {
     console.error("DistanceLearningQuiz Insights: loadAllData failed", err);
-  }
-  if (!state.all) {
-    document.getElementById("dliStatus").textContent = "Could not load every player's quizzes.";
+    state.allError = (err && (err.code || err.message)) || "unknown error";
     return;
   }
   fillPlayerSelect();
