@@ -288,6 +288,7 @@ let round = null; // entry from ROUNDS
 let run = null; // the run record being built, saved by finishRun()
 let qIndex = 0;
 let centre = null; // { name, country, lat, lon } the current question measures from
+let lastCentre = null; // the centre before that (null until the first scored answer), shown as "Last place"
 let targetKm = 0;
 let targets = []; // this quiz's QUESTION_COUNT targets, from buildTargets()
 let questionStart = 0; // performance.now() when the question appeared
@@ -366,6 +367,7 @@ function startRun() {
   const picked = document.querySelector('input[name="dlRoundPick"]:checked');
   round = ROUNDS.find((r) => r.key === (picked ? picked.value : "india"));
   centre = round.start();
+  lastCentre = null;
   const player = DistanceLearningStore.getPlayer();
   run = {
     runId: DistanceLearningStore.newId(),
@@ -411,6 +413,11 @@ function showQuestion() {
       <span class="dl-region-badge">${round.label}</span>
       <p class="dl-target">${targetKm.toLocaleString()} km</p>
       <p class="dl-condition-text">from ${flagEmoji(centre.country)} ${placeLabel(centre)}</p>
+    </div>
+    <!-- Coordinates to reason from: the centre, and the centre before it. -->
+    <div class="dl-coords dl-question-coords">
+      ${coordRow("Current place", centre)}
+      ${lastCentre ? coordRow("Last place", lastCentre) : ""}
     </div>
     <div class="dl-input-row">
       <input type="text" id="dlCityInput" class="form-control" placeholder="Type a city name..." autocomplete="off" />
@@ -604,6 +611,7 @@ function endQuestion({ status, answer, distanceKm, points, note, bearing = null,
 
   // Only a scored answer moves the centre.
   if (status === "scored") {
+    lastCentre = centre;
     centre = answer;
     usedPlaces.add(placeKey(answer));
   }
