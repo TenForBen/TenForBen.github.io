@@ -4,7 +4,9 @@ A small vanilla-JS geography/weather guessing game bolted onto the
 Weather.JS site. One player, one running streak, no accounts, no build step.
 
 Play it at [`geoStreakGame.html`](./geoStreakGame.html), linked from the
-main [Weather.JS](../index.html) page ("GeoStreak" button).
+DistanceLearningQuiz page's header ("← GeoStreak"). The main
+[Weather.JS](../index.html) page's button now opens DistanceLearningQuiz
+(orange) instead of GeoStreak.
 
 ## The loop
 
@@ -1312,6 +1314,10 @@ come later.
   least that.
 - Distance is the great-circle (haversine) distance between the centre and
   the coordinates OpenWeatherMap resolves the answer to.
+- The question screen shows the coordinates of the **current place** (the
+  centre) and the **last place** (the centre before it; none on the first
+  question), each linking to Google Maps, to reason about distance and
+  direction from.
 - **Points** = `100 × (1 − |target − distance| / target)`, floored at 0 and
   kept to one decimal. Target 500 km, answer 150 km away: off by 350, so 30
   points. Target 800 km, answer 940 km away: off by 140, so 82.5 points.
