@@ -1365,19 +1365,34 @@ come later.
 
 ### Region check
 
-For a region-restricted round, an answer has to pass three checks:
+For a region-restricted round, the answer is looked up and judged like this:
 
-1. The country code the weather lookup returns is in the round's list.
-2. Reverse geocoding the resolved coordinates (OpenWeather's
-   `/geo/1.0/reverse`) also gives a country in the list.
-3. If the player typed a `,XX` suffix, the name without it must also
-   resolve inside the region. Without this, "Dhaka,IN" steers the lookup to
-   a village called Dhāka in Bihar and passes 1 and 2.
+1. **Prefer the in-region city.** OpenWeather's weather lookup sometimes
+   picks a same-named place abroad for a famous city ("Rome" → Rome, US;
+   "Venice" → Venice, US). If an answer typed without a `,XX` suffix lands
+   outside the region but OpenWeather's geocoder ranks an in-region place
+   first, it's looked up again with that country ("Rome,IT")
+   (`preferInRegion()`).
+2. **Country code.** The resolved city's country must be in the round's
+   list. If not, the hint suggests adding a country code: plain "Cordoba"
+   is Córdoba, AR in both lookups, but "Cordoba,ES" works.
+3. **Where it actually is.** Reverse geocoding the resolved coordinates
+   (`/geo/1.0/reverse`) must also give a country in the list.
+4. **Suffix steering.** With a `,XX` suffix, the answer is rejected only
+   if it looks like a famous foreign city steered to a same-named small
+   town, i.e. all of:
+   - the bare name resolves outside the region in the weather lookup,
+   - and in the geocoder,
+   - and the suffixed place is named in fewer than 10 languages
+     (`NOTABLE_LOCAL_NAMES`; the geocoder's `local_names`).
 
-Check 3 uses the same weather lookup rather than OpenWeather's geocoder,
-because the geocoder's top match ranks badly for this: it puts Surat in
-France and Salem in the US. Checks 2 and 3 run in parallel, and either one
-is skipped if its request fails, rather than blocking the answer.
+   So "Dhaka,IN" (Dhāka, a village in Bihar: 0 names; bare "Dhaka" is
+   Bangladesh in both lookups) is rejected, while "Rome,IT" (the geocoder
+   says Rome, IT), "Cordoba,ES" (23 names) and "Surat,IN" (bare "Surat" is
+   already in India) are accepted.
+
+Checks 3 and 4 skip themselves if their request fails, rather than
+blocking the answer.
 
 ### Data — localStorage first, uploaded to Firestore
 
@@ -1501,6 +1516,18 @@ attempts are fetched by `uid` + `runId` (two equality filters).
 Notable bugs, once actually fixed — what broke, what it looked like to a
 player, and the real cause, newest first. Not every commit, just the ones
 worth a future reader knowing *why* the code is shaped the way it is.
+
+- **2026-10-22 — DistanceLearningQuiz rejected "rome,it" in the Europe
+  round.** The suffix check (added for "Dhaka,IN") rejected any `,XX`
+  answer whose bare name resolved outside the region, and OpenWeather's
+  weather lookup resolves "rome" to Rome, US, so "rome,it" was refused as
+  "Rome, US — not in Europe". Plain "Rome", "Venice" and "Birmingham" were
+  refused too, for the same lookup reason. Fixed in two parts: a suffix is
+  now rejected only if the geocoder also puts the bare name outside the
+  region and the suffixed place is little known (fewer than 10
+  `local_names`), and an unsuffixed answer that lands outside the region
+  is retried with the geocoder's in-region country. See
+  [Region check](#region-check).
 
 - **2026-10-19 — DistanceLearningQuiz Insights' All Players / By Player
   views never loaded.** Clicking the tab on a master account showed
