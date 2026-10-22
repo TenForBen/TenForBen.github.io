@@ -486,24 +486,51 @@ function recordAttempt({ input, outcome, resolvedPlace, distanceKm, points, bear
   });
 }
 
+// The weather lookup sometimes picks a same-named place abroad for a
+// famous city ("Rome" -> Rome, US; "Venice" -> Venice, US). In a
+// region-restricted round, when the answer has no ",XX" suffix and lands
+// outside the region but the geocoder's best match is inside it, look it
+// up again with that country ("Rome,IT"). Returns the better result, or
+// the original when there's nothing better.
+async function preferInRegion(typed, data) {
+  const codes = round.countryCodes;
+  if (!codes || !data || typed.includes(",") || codes.includes(data.sys.country)) return data;
+  const top = await ft.geocodeTop(typed);
+  if (!top || !codes.includes(top.country)) return data;
+  const retry = await ft.getCurrentForGame(`${typed},${top.country}`);
+  return retry && codes.includes(retry.sys.country) ? retry : data;
+}
+
+// Minimum number of languages a suffixed place needs a name in to count
+// as a real, well-known city rather than a same-named small town — see
+// checkRegion(). Córdoba, ES has 23 and Toledo, ES 16; Dhāka, IN has 0.
+const NOTABLE_LOCAL_NAMES = 10;
+
 // Country check for region-restricted rounds. The weather lookup's own
 // country code alone let "Dhaka,IN" through in the India round — the ",IN"
-// steers OpenWeather to a village called Dhāka in Bihar — so two more
-// checks run alongside it:
+// steers OpenWeather to a village called Dhāka in Bihar — so more checks
+// run alongside it:
 //   1. reverse-geocode the resolved coordinates — the country the point
 //      actually sits in;
-//   2. if the player typed a ",XX" suffix, look the bare name up too: if
-//      that resolves outside the region ("Dhaka" -> BD), the suffix was
-//      just steering a famous foreign city to a same-named small town.
-// The bare-name check uses the weather lookup rather than OpenWeather's
-// geocoder, whose top match ranks poorly (it puts Surat in France and
-// Salem in the US). A check that fails to load is skipped rather than
-// blocking the answer. Returns an error message, or null when the answer
-// is in the region.
+//   2. if the player typed a ",XX" suffix, the answer is rejected only if
+//      ALL of these hold, i.e. the suffix steered a famous foreign city to
+//      a same-named small town:
+//        - the bare name resolves outside the region in the weather lookup
+//          ("Dhaka" -> BD),
+//        - and in the geocoder too (which gets "rome" right as Rome, IT,
+//          where the weather lookup says Rome, US),
+//        - and the suffixed place is little known: named in fewer than
+//          NOTABLE_LOCAL_NAMES languages (keeps "Cordoba,ES", where both
+//          lookups prefer Córdoba, AR).
+// A check that fails to load is skipped rather than blocking the answer.
+// Returns an error message, or null when the answer is in the region.
 async function checkRegion(typed, place) {
   const codes = round.countryCodes;
   if (!codes.includes(place.country)) {
-    return `${place.name}, ${place.country} isn't in ${round.label}.`;
+    // A same-named city in the region may still exist (Córdoba, AR vs
+    // Córdoba, ES); a country code picks it.
+    const tip = typed.includes(",") ? "" : ` If you meant another ${typed}, add its two-letter country code after a comma, like "${typed},XX".`;
+    return `${place.name}, ${place.country} isn't in ${round.label}.${tip}`;
   }
   const bareName = typed.split(",")[0].trim();
   const [actualCountry, bare] = await Promise.all([
@@ -514,7 +541,12 @@ async function checkRegion(typed, place) {
     return `${place.name} is actually in ${actualCountry}, not ${round.label}.`;
   }
   if (bare && !codes.includes(bare.sys.country)) {
-    return `"${bareName}" is ${bare.name}, ${bare.sys.country} — not in ${round.label}.`;
+    const [bareTop, suffixedTop] = await Promise.all([ft.geocodeTop(bareName), ft.geocodeTop(typed)]);
+    const geocoderAgrees = !bareTop || !codes.includes(bareTop.country);
+    const littleKnown = !suffixedTop || suffixedTop.localNames < NOTABLE_LOCAL_NAMES;
+    if (geocoderAgrees && littleKnown) {
+      return `"${bareName}" is ${bare.name}, ${bare.sys.country} — not in ${round.label}.`;
+    }
   }
   return null;
 }
@@ -549,6 +581,7 @@ async function submitAnswer() {
   let data = null;
   try {
     data = await ft.getCurrentForGame(typed);
+    data = await preferInRegion(typed, data);
   } catch (err) {
     data = null;
   }

@@ -75,6 +75,21 @@ class Fetch {
     return Array.isArray(results) && results[0] ? results[0].country : null;
   }
 
+  // OpenWeather direct geocoding, best match only: { name, country,
+  // localNames } where localNames is how many languages the place has a
+  // name in, a rough proxy for how well known it is (Rome, IT: 125;
+  // Dhāka, a village in Bihar: 0). Null on any failure or no match.
+  async geocodeTop(name) {
+    const myKey = "39a9a737b07b4b703e3d1cd1e231eedc";
+    const url =
+      `https://api.openweathermap.org/geo/1.0/direct` +
+      `?q=${encodeURIComponent(name)}&limit=1&appid=${myKey}`;
+    const results = await this.fetchJsonWithTimeout(url, 5000);
+    const top = Array.isArray(results) ? results[0] : null;
+    if (!top) return null;
+    return { name: top.name, country: top.country, localNames: Object.keys(top.local_names || {}).length };
+  }
+
   async fetchJsonWithTimeout(url, ms) {
     const timeout = new Promise((_, reject) =>
       setTimeout(() => reject(new Error("Lookup timed out")), ms)
