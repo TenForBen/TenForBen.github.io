@@ -116,7 +116,13 @@ class UI {
         data.coord.lat, data.coord.lon
       );
       const fromName = previousEntry.q || previousEntry.data.name || "the last place";
-      distanceLine = `<p class="card-text text-muted" style="font-size: 85%;">Distance from ${escapeHtml(fromName)} (last viewed) &asymp; ${val(`${Math.round(distanceKm)} km`)}</p>`;
+      // Which way you'd head from the last place to get here — same 8-point
+      // arrow + label the Distance Learning Quiz shows on its results.
+      const point = compassPoint(bearingDeg(
+        previousEntry.data.coord.lat, previousEntry.data.coord.lon,
+        data.coord.lat, data.coord.lon
+      ));
+      distanceLine = `<p class="card-text text-muted" style="font-size: 85%;">Distance from ${escapeHtml(fromName)} (last viewed) &asymp; ${val(`${Math.round(distanceKm)} km`)} ${val(`${point.arrow} ${point.dir}`)}</p>`;
     }
 
     // Google Maps wants raw decimals; the DMS strings above are display-only.
@@ -895,6 +901,28 @@ function haversineKm(lat1, lon1, lat2, lon2) {
     Math.sin(dLat / 2) ** 2 +
     Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+// Initial great-circle bearing from point 1 to point 2, 0-360 clockwise from
+// north — the direction you'd set off in along the shortest line between them.
+function bearingDeg(lat1, lon1, lat2, lon2) {
+  const toRad = (deg) => (deg * Math.PI) / 180;
+  const dLon = toRad(lon2 - lon1);
+  const y = Math.sin(dLon) * Math.cos(toRad(lat2));
+  const x =
+    Math.cos(toRad(lat1)) * Math.sin(toRad(lat2)) -
+    Math.sin(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.cos(dLon);
+  return ((Math.atan2(y, x) * 180) / Math.PI + 360) % 360;
+}
+
+const COMPASS_POINTS = [
+  { dir: "N", arrow: "\u2191" }, { dir: "NE", arrow: "\u2197" }, { dir: "E", arrow: "\u2192" }, { dir: "SE", arrow: "\u2198" },
+  { dir: "S", arrow: "\u2193" }, { dir: "SW", arrow: "\u2199" }, { dir: "W", arrow: "\u2190" }, { dir: "NW", arrow: "\u2196" },
+];
+
+// 8-point compass: each direction covers the 45 degrees centred on it.
+function compassPoint(deg) {
+  return COMPASS_POINTS[Math.round(deg / 45) % 8];
 }
 
 // Picks a single colour band for the temperature. Using else-if (via early

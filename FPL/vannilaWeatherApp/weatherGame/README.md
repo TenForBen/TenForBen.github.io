@@ -1333,8 +1333,11 @@ come later.
 - **Direction.** Every scored answer shows an arrow for one of 8 compass
   points (N, NE, E, SE, S, SW, W, NW): the initial bearing of the
   great-circle line from the centre to the answer, rounded to the nearest
-  45°. It's shown large on the result screen between questions and in a
-  "Dir" column of the results table.
+  45° (so N covers 337.5°–22.5°, NE 22.5°–67.5°, and so on), followed by
+  the exact bearing in whole degrees ("↘ SE 131°"). It's shown large on the
+  result screen between questions, in the "Distance" step of the points
+  working, and in a "Dir" column of the results table. Weather.JS's
+  "distance from the last viewed place" line uses the same arrows.
 - **Between questions** there's a 10-second pause on the result; "Next
   question now" skips it at any point. During it:
   - **Last place / current place**: the centre this question measured

@@ -224,10 +224,13 @@ function compassPoint(deg) {
   return COMPASS[Math.round(deg / 45) % 8];
 }
 
-function directionHtml(direction) {
+// The bearing (whole degrees) follows the label when we have it — runs
+// saved before it was shown still carry it, but tolerate null anyway.
+function directionHtml(direction, bearing = null) {
   if (!direction) return "&ndash;";
   const point = COMPASS.find((c) => c.dir === direction);
-  return `<span class="dl-dir">${point.arrow} ${direction}</span>`;
+  const degrees = bearing != null ? ` <span class="dl-bearing">${bearing}&deg;</span>` : "";
+  return `<span class="dl-dir">${point.arrow} ${direction}${degrees}</span>`;
 }
 
 function haversineKm(a, b) {
@@ -649,7 +652,7 @@ function endQuestion({ status, answer, distanceKm, points, note, bearing = null,
     usedPlaces.add(placeKey(answer));
   }
 
-  renderQuestionResult({ status, answer, distanceKm, points, note, fromCentre, direction });
+  renderQuestionResult({ status, answer, distanceKm, points, note, fromCentre, direction, bearing });
 }
 
 function quitRun() {
@@ -697,7 +700,7 @@ function step(label, valueHtml) {
 
 // The points working, one step per line, revealed in order on the gap
 // screen. The last step is always the result line.
-function explanationSteps({ status, answer, distanceKm, points, note, fromCentre, direction }) {
+function explanationSteps({ status, answer, distanceKm, points, note, fromCentre, direction, bearing }) {
   const centreName = escapeHtml(fromCentre.name);
   if (status === "scored") {
     const target = targetKm.toLocaleString();
@@ -707,7 +710,7 @@ function explanationSteps({ status, answer, distanceKm, points, note, fromCentre
     const closeness = 1 - fraction;
     const overShort = distanceKm === targetKm ? "spot on" : distanceKm > targetKm ? "over" : "short";
     const steps = [
-      step("Distance", `${centreName} &rarr; ${escapeHtml(answer.name)} = <b>${distance} km</b> ${directionHtml(direction)}`),
+      step("Distance", `${centreName} &rarr; ${escapeHtml(answer.name)} = <b>${distance} km</b> ${directionHtml(direction, bearing)}`),
       step("Difference", `|${target} &minus; ${distance}| = <mark class="dl-hl">${diff.toLocaleString()} km</mark> ${overShort}`),
       step("Fraction of target", `${diff.toLocaleString()} &divide; ${target} = <mark class="dl-hl">${formatDecimal(fraction)}</mark>`),
       step("Closeness", `1 &minus; ${formatDecimal(fraction)} = <b>${formatDecimal(closeness)}</b>`),
@@ -736,10 +739,10 @@ function explanationSteps({ status, answer, distanceKm, points, note, fromCentre
 }
 
 function renderQuestionResult(result) {
-  const { status, answer, distanceKm, points, fromCentre, direction } = result;
+  const { status, answer, distanceKm, points, fromCentre, direction, bearing } = result;
   const isLast = qIndex + 1 >= QUESTION_COUNT;
   const detail = status === "scored"
-    ? `<span class="dl-result-dir">${directionHtml(direction)}</span>
+    ? `<span class="dl-result-dir">${directionHtml(direction, bearing)}</span>
        ${flagEmoji(answer.country)} ${placeLabel(answer)} is <b>${distanceKm.toLocaleString()} km ${direction}</b> of ${placeLabel(fromCentre)}`
     : status === "timeout" ? "Time's up." : "Invalid answer.";
   // Last place is the centre this question measured from; current place is
@@ -831,7 +834,7 @@ function finishRun() {
       <td>${q.targetKm.toLocaleString()}</td>
       <td>${q.answer ? placeLabel(q.answer) : `<span class="dl-muted">${q.status === "timeout" ? "time's up" : "invalid"}</span>`}</td>
       <td>${q.distanceKm != null ? q.distanceKm.toLocaleString() : "&ndash;"}</td>
-      <td>${directionHtml(q.direction)}</td>
+      <td>${directionHtml(q.direction, q.bearingDeg)}</td>
       <td class="${q.points > 0 ? "dl-pts-good" : "dl-pts-zero"}">${formatPoints(q.points)}</td>
       <td>${(q.timeTakenMs / 1000).toFixed(1)}s</td>
     </tr>`).join("");
