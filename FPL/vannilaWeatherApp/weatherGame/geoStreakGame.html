@@ -64,6 +64,25 @@
       align-items: center;
       gap: 16px;
     }
+    /* On a phone the brand and five links don't fit on one line, and the
+       header's overflow: hidden (for the radar) silently cut off the last
+       ones — Weather.JS first. Stack the brand above the links and let
+       the links wrap instead. */
+    @media (max-width: 760px) {
+      .gs-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .gs-radar {
+        top: 18px;
+        margin-top: 0;
+      }
+      .gs-header-links {
+        flex-wrap: wrap;
+        gap: 8px 14px;
+      }
+    }
     .gs-back-link {
       font-family: "Courier New", Courier, monospace;
       color: #93a4c3;

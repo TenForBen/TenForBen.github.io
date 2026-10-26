@@ -104,12 +104,13 @@
   <script src="firebaseConfig.js"></script>
   <script src="distanceLearningBoard.js"></script>
   <script>
-    // Same tabs as the quiz page's leaderboard: Overall plus each open round.
+    // Same tabs as the quiz page's leaderboard: Overall, each open round, Today.
     const tabs = [
       { key: "overall", label: "Overall" },
       { key: "india", label: "India" },
       { key: "world", label: "World" },
       { key: "europe", label: "Europe" },
+      { key: "today", label: "Today" },
     ];
     const requested = new URLSearchParams(location.search).get("round");
     const initial = tabs.some((t) => t.key === requested) ? requested : "overall";

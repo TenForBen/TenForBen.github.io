@@ -1337,7 +1337,8 @@ come later.
   the exact bearing in whole degrees ("↘ SE 131°"). It's shown large on the
   result screen between questions, in the "Distance" step of the points
   working, and in a "Dir" column of the results table. Weather.JS's
-  "distance from the last viewed place" line uses the same arrows.
+  "distance from the last viewed place" line uses the same arrows and
+  whole-degree bearing ("↓ S 196°").
 - **Between questions** there's a 10-second pause on the result; "Next
   question now" skips it at any point. During it:
   - **Last place / current place**: the centre this question measured
@@ -1411,6 +1412,7 @@ works on localStorage alone and uploads later.
 | `dlq.player` | `dlqPlayers/{uid}` | owner, masters | player: `playerId`, nickname, overall `highScore`, `roundHighScores` per round, totals |
 | — | `dlqLeaderboard/{uid}` | everyone | player: nickname, `bestScore`, `roundBest` per round, `totalRuns` (built from `dlq.player`) |
 | `dlq.runs` | `dlqRuns/{runId}` | owner, masters | finished or quit quiz: round, start city, `startedAt`/`finishedAt`, `durationMs` (time taken for the round), score, and a per-question summary including `timeTakenMs` |
+| — | `dlqScores/{runId}` | everyone | finished or quit quiz from the last two days: nickname, round, `totalScore`, `quitEarly`, `finishedAtMs` (built from `dlq.runs`; marked with `scoreSyncedAt`) — backs the Today tab |
 | `dlq.attempts` | `dlqAttempts/{attemptId}` | owner, masters | every submitted answer and every timeout: what was typed, outcome (`scored`, `not_found`, `wrong_region`, `already_used`, `timeout`), resolved city, distance, direction, points, `elapsedMs` |
 
 The schema for each is written out in comments in
@@ -1444,6 +1446,16 @@ open round (India, World, Europe), ranked by `bestScore` or
 `roundBest.<round>`. The #1 row is highlighted gold with a trophy and your
 own row in blue. Single-field ordering only, so no Firestore index needs
 creating.
+
+A **Today** tab (`?round=today`) lists every quiz finished since midnight
+in the viewer's own time zone, any round, highest score first (ties: the
+earlier one). It's per quiz, not per player, so someone who played twice
+appears twice, each row with its round, score and local finish time
+(`HH:MM:SS`); quits are marked "(quit)". It reads `dlqScores` filtered on
+`finishedAtMs` and sorts in the browser — again no index. Scores are
+uploaded separately from the private run (own `scoreSyncedAt` flag), for
+runs from the last two days, so runs already synced before this tab
+existed still show up once the player next opens the game.
 
 **Insights.**
 [`distanceLearningInsights.html`](./distanceLearningInsights.html) shows
@@ -1519,6 +1531,16 @@ attempts are fetched by `uid` + `runId` (two equality filters).
 Notable bugs, once actually fixed — what broke, what it looked like to a
 player, and the real cause, newest first. Not every commit, just the ones
 worth a future reader knowing *why* the code is shaped the way it is.
+
+- **2026-10-26 — GeoStreak's "← Weather.JS" link was missing on phones.**
+  The header puts the brand and all its links (History, Morning
+  Checklist, Southern Hemisphere, Stadiums Visited, Weather.JS) on one
+  flex row that can't wrap, and the header has `overflow: hidden` to clip
+  the radar animation. On a narrow screen the row ran past the right edge
+  and the overflow quietly cut off the last links, Weather.JS first, with
+  no scrollbar to hint they existed. Fixed with a `max-width: 760px` media
+  query in `geoStreakGame.html` that puts the brand above the links and
+  lets the links wrap.
 
 - **2026-10-22 — DistanceLearningQuiz rejected "rome,it" in the Europe
   round.** The suffix check (added for "Dhaka,IN") rejected any `,XX`

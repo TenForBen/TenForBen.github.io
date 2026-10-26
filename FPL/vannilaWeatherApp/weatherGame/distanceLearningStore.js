@@ -108,7 +108,8 @@ const DistanceLearningStore = (() => {
   //     distanceKm | null, bearingDeg | null, direction | null,   // direction: "N", "NE", ... "NW"
   //     points, timeTakenMs, attemptCount
   //   }],
-  //   syncedAt
+  //   syncedAt,
+  //   scoreSyncedAt                           // public dlqScores copy uploaded (Today leaderboard)
   // }
   function getRuns() {
     return read(KEYS.runs, []);
@@ -199,6 +200,19 @@ const DistanceLearningStore = (() => {
     }
   }
 
+  // Runs finished since `sinceMs` whose public score (dlqScores, the
+  // Today leaderboard) isn't uploaded yet. Tracked apart from syncedAt so
+  // runs synced before that collection existed still get one, and a
+  // failing score upload never holds up the run itself.
+  function getUnsyncedScores(sinceMs) {
+    return getRuns().filter((r) => !r.scoreSyncedAt && Date.parse(r.finishedAt) >= sinceMs);
+  }
+
+  function markScoreSynced(runId) {
+    const at = nowIso();
+    write(KEYS.runs, getRuns().map((r) => (r.runId === runId ? { ...r, scoreSyncedAt: at } : r)));
+  }
+
   function setFirebaseUid(uid) {
     const player = getPlayer();
     if (player.firebaseUid === uid) return;
@@ -232,6 +246,6 @@ const DistanceLearningStore = (() => {
 
   return {
     getPlayer, getRuns, saveRun, getAttempts, saveAttempt, newId, nowIso,
-    getUnsynced, markSynced, setFirebaseUid, mergeRemotePlayer,
+    getUnsynced, markSynced, getUnsyncedScores, markScoreSynced, setFirebaseUid, mergeRemotePlayer,
   };
 })();

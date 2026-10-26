@@ -117,12 +117,13 @@ class UI {
       );
       const fromName = previousEntry.q || previousEntry.data.name || "the last place";
       // Which way you'd head from the last place to get here — same 8-point
-      // arrow + label the Distance Learning Quiz shows on its results.
-      const point = compassPoint(bearingDeg(
+      // arrow + label + whole-degree bearing the Distance Learning Quiz shows.
+      const bearing = Math.round(bearingDeg(
         previousEntry.data.coord.lat, previousEntry.data.coord.lon,
         data.coord.lat, data.coord.lon
       ));
-      distanceLine = `<p class="card-text text-muted" style="font-size: 85%;">Distance from ${escapeHtml(fromName)} (last viewed) &asymp; ${val(`${Math.round(distanceKm)} km`)} ${val(`${point.arrow} ${point.dir}`)}</p>`;
+      const point = compassPoint(bearing);
+      distanceLine = `<p class="card-text text-muted" style="font-size: 85%;">Distance from ${escapeHtml(fromName)} (last viewed) &asymp; ${val(`${Math.round(distanceKm)} km`)} ${val(`${point.arrow} ${point.dir} ${bearing}&deg;`)}</p>`;
     }
 
     // Google Maps wants raw decimals; the DMS strings above are display-only.

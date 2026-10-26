@@ -15,6 +15,8 @@
 //   dlqLeaderboard/{uid}     public   nickname + best scores, for ranking
 //   dlqRuns/{runId}          private  one per quiz (own uid, or a master)
 //   dlqAttempts/{attemptId}  private  one per answer or timeout (same)
+//   dlqScores/{runId}        public   one per quiz: nickname, round, score,
+//                                     finish time — the Today leaderboard
 //
 // Fails silently throughout, like timeQuizLeaderboard.js: Firebase being
 // unconfigured, blocked or down never affects the quiz itself.
@@ -24,6 +26,10 @@ const DistanceLearningBoard = (() => {
   const LEADERBOARD = "dlqLeaderboard";
   const RUNS = "dlqRuns";
   const ATTEMPTS = "dlqAttempts";
+  const SCORES = "dlqScores";
+  // Scores are uploaded for runs from the last two days only: enough to
+  // cover "today" in any viewer's time zone, without back-filling years.
+  const SCORE_WINDOW_MS = 2 * 24 * 60 * 60 * 1000;
   const LEADERBOARD_SIZE = 10;
   const BATCH_LIMIT = 450; // Firestore allows 500 writes per batch
   const SIGN_IN_TIMEOUT_MS = 10000;
@@ -107,7 +113,7 @@ const DistanceLearningBoard = (() => {
 
   // Local-only bookkeeping that doesn't belong in Firestore.
   function forUpload(record) {
-    const { syncedAt, startedAtMs, ...rest } = record;
+    const { syncedAt, scoreSyncedAt, startedAtMs, ...rest } = record;
     return rest;
   }
 
@@ -129,6 +135,8 @@ const DistanceLearningBoard = (() => {
     const player = DistanceLearningStore.getPlayer();
     const name = nickname(player);
     const playedAt = firebase.firestore.FieldValue.serverTimestamp();
+
+    await uploadScores(name);
 
     // One batch per run: the run plus its attempts, so they land together.
     // Attempts from a quiz abandoned mid-way (tab closed) have no run
@@ -173,6 +181,37 @@ const DistanceLearningBoard = (() => {
     await writePlayerDocs(player, name);
   }
 
+  // Public copies of recent runs' scores, one write each so a run that's
+  // already there (write-once, like dlqRuns) doesn't block the others.
+  async function uploadScores(name) {
+    const runs = DistanceLearningStore.getUnsyncedScores(Date.now() - SCORE_WINDOW_MS);
+    for (const run of runs) {
+      const ref = db.collection(SCORES).doc(run.runId);
+      try {
+        await ref.set({
+          uid,
+          runId: run.runId,
+          nickname: name,
+          roundKey: run.roundKey,
+          totalScore: run.totalScore,
+          quitEarly: run.quitEarly,
+          finishedAtMs: Date.parse(run.finishedAt),
+          playedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+        DistanceLearningStore.markScoreSynced(run.runId);
+      } catch (err) {
+        try {
+          if ((await ref.get()).exists) {
+            DistanceLearningStore.markScoreSynced(run.runId);
+            continue;
+          }
+        } catch (probeErr) { /* fall through to logging the original error */ }
+        console.error("DistanceLearningBoard: score upload failed", run.runId, err);
+        return;
+      }
+    }
+  }
+
   async function writePlayerDocs(player, name) {
     if (!player.highScore) return; // nothing to rank until a quiz is finished
     const roundBest = {};
@@ -206,14 +245,60 @@ const DistanceLearningBoard = (() => {
 
   // ---- Leaderboard ---------------------------------------------------------
   // Tabs: Overall (best score on any round) plus one per open round, each
-  // ranked by that round's best. The top score is highlighted gold and the
+  // ranked by that round's best, and Today — every quiz finished since
+  // the viewer's local midnight. The top score is highlighted gold and the
   // viewer's own row blue.
 
-  async function renderLeaderboard(listEl, tabKey, size) {
+  function formatScore(score) {
+    return Number.isInteger(score) ? score : score.toFixed(1);
+  }
+
+  // Every quiz since local midnight, any round, best first — a player who
+  // played twice appears twice, each with its own finish time. Filtered on
+  // one field and sorted here, so no composite index is needed.
+  async function renderToday(listEl, roundLabels) {
+    const midnight = new Date();
+    midnight.setHours(0, 0, 0, 0);
+    const snap = await db.collection(SCORES).where("finishedAtMs", ">=", midnight.getTime()).get();
+    if (snap.empty) {
+      listEl.innerHTML = '<p class="dl-lb-note">No quizzes played today yet — be the first!</p>';
+      return;
+    }
+    const scores = snap.docs.map((doc) => doc.data())
+      .sort((a, b) => b.totalScore - a.totalScore || a.finishedAtMs - b.finishedAtMs);
+    const rows = scores.map((d, i) => {
+      const classes = [i === 0 ? "dl-lb-top" : "", d.uid === uid ? "dl-lb-me" : ""].join(" ");
+      const time = new Date(d.finishedAtMs).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+      return `
+        <tr class="${classes}">
+          <td class="dl-lb-rank">${i === 0 ? "&#127942;" : i + 1}</td>
+          <td class="dl-lb-name">${escapeHtml(d.nickname || "Anonymous")}</td>
+          <td class="dl-lb-runs">${escapeHtml(roundLabels[d.roundKey] || d.roundKey)}${d.quitEarly ? " (quit)" : ""}</td>
+          <td class="dl-lb-score">${formatScore(d.totalScore)}</td>
+          <td class="dl-lb-runs">${time}</td>
+        </tr>`;
+    }).join("");
+    listEl.innerHTML = `
+      <table class="dl-lb-table">
+        <thead><tr><th>#</th><th>Name</th><th>Round</th><th>Score</th><th>Time</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+  }
+
+  async function renderLeaderboard(listEl, tabKey, size, roundLabels) {
     listEl.innerHTML = '<p class="dl-lb-note">Loading&hellip;</p>';
     await signedIn;
     if (!uid) {
       listEl.innerHTML = '<p class="dl-lb-note">Could not connect to the leaderboard.</p>';
+      return;
+    }
+    if (tabKey === "today") {
+      try {
+        await renderToday(listEl, roundLabels);
+      } catch (err) {
+        listEl.innerHTML = '<p class="dl-lb-note">Could not load today\'s leaderboard.</p>';
+        console.error("DistanceLearningBoard: renderToday failed", err);
+      }
       return;
     }
     const field = tabKey === "overall" ? "bestScore" : `roundBest.${tabKey}`;
@@ -231,7 +316,7 @@ const DistanceLearningBoard = (() => {
           <tr class="${classes}">
             <td class="dl-lb-rank">${i === 0 ? "&#127942;" : i + 1}</td>
             <td class="dl-lb-name">${escapeHtml(d.nickname || "Anonymous")}</td>
-            <td class="dl-lb-score">${Number.isInteger(score) ? score : score.toFixed(1)}</td>
+            <td class="dl-lb-score">${formatScore(score)}</td>
             <td class="dl-lb-runs">${d.totalRuns ?? "&ndash;"}</td>
           </tr>`;
       }).join("");
@@ -263,13 +348,14 @@ const DistanceLearningBoard = (() => {
         <div class="dl-lb-list"></div>
       </div>`;
     const listEl = container.querySelector(".dl-lb-list");
+    const roundLabels = Object.fromEntries(tabs.map((t) => [t.key, t.label]));
     container.querySelectorAll(".dl-lb-tab").forEach((btn) => {
       btn.addEventListener("click", () => {
         container.querySelectorAll(".dl-lb-tab").forEach((b) => b.classList.toggle("dl-lb-tab-active", b === btn));
-        renderLeaderboard(listEl, btn.dataset.tab, size);
+        renderLeaderboard(listEl, btn.dataset.tab, size, roundLabels);
       });
     });
-    renderLeaderboard(listEl, initialKey, size);
+    renderLeaderboard(listEl, initialKey, size, roundLabels);
   }
 
   // ---- Own data, for the Insights page ---------------------------------------
