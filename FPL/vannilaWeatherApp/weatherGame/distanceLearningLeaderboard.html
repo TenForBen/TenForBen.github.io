@@ -78,6 +78,9 @@
     .dl-lb-top .dl-lb-score { color: #f0b429; }
     .dl-lb-me td { box-shadow: inset 0 -2px 0 #7dd3fc; }
     .dl-lb-me .dl-lb-name { color: #7dd3fc; font-weight: bold; }
+    .dl-lb-pager { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 12px; }
+    .dl-lb-pager .dl-lb-tab:disabled { opacity: 0.35; cursor: default; color: #93a4c3; border-color: #1b2a4a; }
+    .dl-lb-page { color: #6b7fa8; font-family: "Courier New", Courier, monospace; font-size: 0.75rem; }
     .dl-lb-note { color: #6b7fa8; font-size: 0.85rem; font-style: italic; margin: 0; }
   </style>
 </head>
@@ -114,7 +117,7 @@
     ];
     const requested = new URLSearchParams(location.search).get("round");
     const initial = tabs.some((t) => t.key === requested) ? requested : "overall";
-    DistanceLearningBoard.renderLeaderboardPanel("dlLeaderboard", tabs, initial, 25);
+    DistanceLearningBoard.renderLeaderboardPanel("dlLeaderboard", tabs, initial);
   </script>
 </body>
 </html>
