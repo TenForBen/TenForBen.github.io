@@ -10,13 +10,27 @@ fact — every stadium also gets its own pin with details. Built on
 Play it at [`stadiumMap.html`](./stadiumMap.html), linked from the site's
 [root page](../../index.html) ("← Home").
 
+## Stadium Surfer
+
+[`stadiumSurfer.html`](./stadiumSurfer.html) is the same 110 stadiums as a
+card grid in the style of [uNoGS](https://unogs.com): a Wikipedia photo
+on the left, then name, club and opening year, a two-sentence description,
+capacity, city and flag. Each card's photo and name link to the full
+Wikipedia article. There's a search box (stadium, club or city), a country
+filter, and four sort orders: visit order, biggest first, oldest first, and
+A–Z. Linked from the map's header and back. The page itself is
+`stadiumSurfer.html` / `.css` / `.js`, reading the same `stadiums.json`.
+
 ## Files
 
 - **`stadiums.json`** — the data. One object per stadium: `name`, `club`,
   `city`, `region` (optional — used for the UK's home nations, since they
   aren't separate polygons in `countries.geo.json`), `country`, `iso2`,
-  `lat`, `lon`, `note`. This is the only file you need to touch to add,
-  remove, or correct a stadium.
+  `lat`, `lon`, `note`, plus the Stadium Surfer fields: `wikiTitle` (the
+  English Wikipedia article), `image` (its thumbnail URL), `blurb` (the
+  article's first two sentences, pronunciation guides removed),
+  `capacity` and `opened` (from Wikidata). This is the only file you need
+  to touch to add, remove, or correct a stadium.
 - **`countries.geo.json`** — world country boundaries (Natural Earth data
   via [johan/world.geo.json](https://github.com/johan/world.geo.json)),
   used only for the shading layer. A handful of microstates aren't present
@@ -31,7 +45,9 @@ Play it at [`stadiumMap.html`](./stadiumMap.html), linked from the site's
 
 ## A note on data accuracy
 
-`stadiums.json` was compiled from a plain list of 108 stadium names — most
+`stadiums.json` was compiled from a plain list of 108 stadium names (110
+since 2026-10-27, with Bournemouth's Vitality Stadium and Catania's Stadio
+Angelo Massimino) — most
 coordinates are placed from general knowledge of each ground's city/area,
 **not** geocoded against an authoritative source. Confidence is high for
 major, well-documented grounds (the Emirates, Camp Nou, Anfield, San Siro,
@@ -63,3 +79,16 @@ shaded "United Kingdom" polygon.
 - No automatic geocoding pipeline — `lat`/`lon` are hand-maintained in
   `stadiums.json`, the same static-data-file pattern `countries.json` uses
   for the Southern Hemisphere page.
+
+## Where the Stadium Surfer data came from
+
+Fetched once on 2026-10-27, not live. Each stadium was matched by hand to
+its English Wikipedia article (`wikiTitle`), so names like "Veltins-Arena"
+point at the right page ("Arena AufSchalke"). The photo is the article's
+lead image. Three articles have none (Clarence Park, The Hawthorns,
+Vallecas), so theirs comes from the Wikidata image (P18) via Commons.
+Capacity is Wikidata P1083; the opening year is P1619, or P571 when that's
+missing. Centenary Stadium has no capacity on Wikidata, so its card leaves
+it out. Entry #1 was renamed from "Jane Paul Stadion" to its real name,
+Paul-Janes-Stadion (Fortuna Düsseldorf), and Stadio Druso got its club
+(FC Südtirol).

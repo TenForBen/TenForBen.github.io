@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stadium Surfer — TENFORBEN</title>
+  <link rel="stylesheet" href="stadiumSurfer.css" />
+</head>
+<body>
+  <header class="ss-header">
+    <div class="ss-brand">TENFORBEN // Stadium Surfer</div>
+    <div class="ss-header-links">
+      <a class="ss-link" href="stadiumMap.html">Stadiums Map</a>
+      <a class="ss-link" href="../vannilaWeatherApp/weatherGame/geoStreakGame.html">GeoStreak</a>
+      <a class="ss-link" href="../vannilaWeatherApp/index.html">&larr; Weather.JS</a>
+    </div>
+  </header>
+
+  <!-- Search, country filter and sort; all three combine. -->
+  <div class="ss-toolbar">
+    <input type="search" id="ssSearch" class="ss-input" placeholder="Search stadium, club, city…" aria-label="Search stadiums" />
+    <select id="ssCountry" class="ss-input" aria-label="Filter by country">
+      <option value="">All countries</option>
+    </select>
+    <select id="ssSort" class="ss-input" aria-label="Sort">
+      <option value="visit">Visit order</option>
+      <option value="capacity">Biggest first</option>
+      <option value="opened">Oldest first</option>
+      <option value="name">A&ndash;Z</option>
+    </select>
+  </div>
+  <p class="ss-stats" id="ssStats">Loading&hellip;</p>
+
+  <main class="ss-grid" id="ssGrid"></main>
+
+  <footer class="ss-footer">
+    Photos and descriptions from <a href="https://en.wikipedia.org" target="_blank" rel="noopener">Wikipedia</a>
+    (images via Wikimedia Commons); capacity and opening year from Wikidata.
+    Click a card's photo or name for the full article.
+  </footer>
+
+  <script src="stadiumSurfer.js"></script>
+</body>
+</html>
