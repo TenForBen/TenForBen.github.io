@@ -25,6 +25,10 @@ body {
   font-size: 1rem;
   color: #7dd3fc;
 }
+.sm-header-links {
+  display: flex;
+  gap: 16px;
+}
 .sm-back-link {
   font-family: "Courier New", Courier, monospace;
   color: #93a4c3;
