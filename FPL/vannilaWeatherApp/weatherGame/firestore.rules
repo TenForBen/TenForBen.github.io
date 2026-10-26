@@ -345,6 +345,20 @@ service cloud.firestore {
       allow delete: if false;
     }
 
+    // Public: one score per quiz, for the Today leaderboard. Write-once,
+    // keyed by the run's id like dlqRuns.
+    match /dlqScores/{runId} {
+      allow read: if true;
+
+      allow create: if request.auth != null
+        && request.auth.uid == request.resource.data.uid
+        && request.resource.data.runId == runId
+        && isValidDlqScore(request.resource.data);
+
+      allow update: if false;
+      allow delete: if false;
+    }
+
     match /dlqRuns/{runId} {
       allow read: if request.auth != null
         && (resource.data.uid == request.auth.uid || isMaster());
@@ -642,6 +656,21 @@ service cloud.firestore {
       && data.roundBest is map && data.roundBest.size() <= 10
       && data.totalRuns is int && data.totalRuns > 0
       && data.updatedAt == request.time;
+  }
+
+  // finishedAtMs is the client's clock; it may not be in the future (5
+  // minutes' slack for clock skew), so nobody can park a score on "today"
+  // ahead of time.
+  function isValidDlqScore(data) {
+    return data.keys().hasOnly(['uid', 'runId', 'nickname', 'roundKey', 'totalScore', 'quitEarly', 'finishedAtMs', 'playedAt'])
+      && data.uid is string
+      && data.runId is string && data.runId.size() <= 64
+      && data.nickname is string && data.nickname.size() > 0 && data.nickname.size() <= 20
+      && isDlqRoundKey(data.roundKey)
+      && data.totalScore is number && data.totalScore >= 0 && data.totalScore <= 1500
+      && data.quitEarly is bool
+      && data.finishedAtMs is int && data.finishedAtMs <= request.time.toMillis() + 300000
+      && data.playedAt == request.time;
   }
 
   // Shallow, like isValidTimeQuizRun(): the run's own shape and bounds,

@@ -310,9 +310,13 @@ function showOnly(el) {
   });
 }
 
-// Overall plus one tab per open round.
+// Overall, one tab per open round, then Today (every quiz since midnight).
 function leaderboardTabs() {
-  return [{ key: "overall", label: "Overall" }, ...ROUNDS.slice(0, UNLOCKED_ROUND_COUNT).map((r) => ({ key: r.key, label: r.label }))];
+  return [
+    { key: "overall", label: "Overall" },
+    ...ROUNDS.slice(0, UNLOCKED_ROUND_COUNT).map((r) => ({ key: r.key, label: r.label })),
+    { key: "today", label: "Today" },
+  ];
 }
 
 // ---- Start screen -------------------------------------------------------------
