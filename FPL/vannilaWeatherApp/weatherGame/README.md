@@ -1438,10 +1438,12 @@ player's `uid` (and runs the `nickname`) plus a server timestamp
 - On load, `dlqPlayers/{uid}` is merged back into localStorage (keeping the
   higher of each number), so clearing site data doesn't lose high scores.
 
-**Leaderboard.** On the start screen and the results screen (top 10), and
-on its own page,
+**Leaderboard.** On the start screen, the results screen, and its own
+page,
 [`distanceLearningLeaderboard.html`](./distanceLearningLeaderboard.html)
-(top 25; `?round=europe` opens that round's tab). Tabs for Overall and each
+(`?round=europe` opens that round's tab). Every tab is paged 10 rows at a
+time with Prev / Next; the whole ranking is read once per tab and paged
+in the browser, so turning pages costs no extra reads. Tabs for Overall and each
 open round (India, World, Europe), ranked by `bestScore` or
 `roundBest.<round>`. The #1 row is highlighted gold with a trophy and your
 own row in blue. Single-field ordering only, so no Firestore index needs

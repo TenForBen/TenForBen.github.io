@@ -30,7 +30,7 @@ const DistanceLearningBoard = (() => {
   // Scores are uploaded for runs from the last two days only: enough to
   // cover "today" in any viewer's time zone, without back-filling years.
   const SCORE_WINDOW_MS = 2 * 24 * 60 * 60 * 1000;
-  const LEADERBOARD_SIZE = 10;
+  const PAGE_SIZE = 10; // leaderboard rows per page
   const BATCH_LIMIT = 450; // Firestore allows 500 writes per batch
   const SIGN_IN_TIMEOUT_MS = 10000;
 
@@ -253,10 +253,37 @@ const DistanceLearningBoard = (() => {
     return Number.isInteger(score) ? score : score.toFixed(1);
   }
 
+  function rankCell(i) {
+    return `<td class="dl-lb-rank">${i === 0 ? "&#127942;" : i + 1}</td>`;
+  }
+
+  // Shows `rows` (<tr> strings, already ranked) `pageSize` at a time, with
+  // Prev / Next under the table when there's more than one page.
+  function renderPaged(listEl, headHtml, rows, pageSize) {
+    const pageCount = Math.ceil(rows.length / pageSize);
+    const show = (page) => {
+      const pager = pageCount > 1 ? `
+        <div class="dl-lb-pager">
+          <button type="button" class="dl-lb-tab" data-page="${page - 1}" ${page === 0 ? "disabled" : ""}>&#9664; Prev</button>
+          <span class="dl-lb-page">Page ${page + 1} of ${pageCount}</span>
+          <button type="button" class="dl-lb-tab" data-page="${page + 1}" ${page === pageCount - 1 ? "disabled" : ""}>Next &#9654;</button>
+        </div>` : "";
+      listEl.innerHTML = `
+        <table class="dl-lb-table">
+          <thead><tr>${headHtml}</tr></thead>
+          <tbody>${rows.slice(page * pageSize, (page + 1) * pageSize).join("")}</tbody>
+        </table>${pager}`;
+      listEl.querySelectorAll("[data-page]").forEach((btn) => {
+        btn.addEventListener("click", () => show(Number(btn.dataset.page)));
+      });
+    };
+    show(0);
+  }
+
   // Every quiz since local midnight, any round, best first — a player who
   // played twice appears twice, each with its own finish time. Filtered on
   // one field and sorted here, so no composite index is needed.
-  async function renderToday(listEl, roundLabels) {
+  async function renderToday(listEl, roundLabels, pageSize) {
     const midnight = new Date();
     midnight.setHours(0, 0, 0, 0);
     const snap = await db.collection(SCORES).where("finishedAtMs", ">=", midnight.getTime()).get();
@@ -271,21 +298,19 @@ const DistanceLearningBoard = (() => {
       const time = new Date(d.finishedAtMs).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
       return `
         <tr class="${classes}">
-          <td class="dl-lb-rank">${i === 0 ? "&#127942;" : i + 1}</td>
+          ${rankCell(i)}
           <td class="dl-lb-name">${escapeHtml(d.nickname || "Anonymous")}</td>
           <td class="dl-lb-runs">${escapeHtml(roundLabels[d.roundKey] || d.roundKey)}${d.quitEarly ? " (quit)" : ""}</td>
           <td class="dl-lb-score">${formatScore(d.totalScore)}</td>
           <td class="dl-lb-runs">${time}</td>
         </tr>`;
-    }).join("");
-    listEl.innerHTML = `
-      <table class="dl-lb-table">
-        <thead><tr><th>#</th><th>Name</th><th>Round</th><th>Score</th><th>Time</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>`;
+    });
+    renderPaged(listEl, "<th>#</th><th>Name</th><th>Round</th><th>Score</th><th>Time</th>", rows, pageSize);
   }
 
-  async function renderLeaderboard(listEl, tabKey, size, roundLabels) {
+  // Reads the whole ranking (one small doc per player) and pages through
+  // it locally, so Prev / Next cost no further reads.
+  async function renderLeaderboard(listEl, tabKey, pageSize, roundLabels) {
     listEl.innerHTML = '<p class="dl-lb-note">Loading&hellip;</p>';
     await signedIn;
     if (!uid) {
@@ -294,7 +319,7 @@ const DistanceLearningBoard = (() => {
     }
     if (tabKey === "today") {
       try {
-        await renderToday(listEl, roundLabels);
+        await renderToday(listEl, roundLabels, pageSize);
       } catch (err) {
         listEl.innerHTML = '<p class="dl-lb-note">Could not load today\'s leaderboard.</p>';
         console.error("DistanceLearningBoard: renderToday failed", err);
@@ -303,7 +328,7 @@ const DistanceLearningBoard = (() => {
     }
     const field = tabKey === "overall" ? "bestScore" : `roundBest.${tabKey}`;
     try {
-      const snap = await db.collection(LEADERBOARD).orderBy(field, "desc").limit(size).get();
+      const snap = await db.collection(LEADERBOARD).orderBy(field, "desc").get();
       if (snap.empty) {
         listEl.innerHTML = '<p class="dl-lb-note">No scores yet — be the first!</p>';
         return;
@@ -314,17 +339,13 @@ const DistanceLearningBoard = (() => {
         const classes = [i === 0 ? "dl-lb-top" : "", doc.id === uid ? "dl-lb-me" : ""].join(" ");
         return `
           <tr class="${classes}">
-            <td class="dl-lb-rank">${i === 0 ? "&#127942;" : i + 1}</td>
+            ${rankCell(i)}
             <td class="dl-lb-name">${escapeHtml(d.nickname || "Anonymous")}</td>
             <td class="dl-lb-score">${formatScore(score)}</td>
             <td class="dl-lb-runs">${d.totalRuns ?? "&ndash;"}</td>
           </tr>`;
-      }).join("");
-      listEl.innerHTML = `
-        <table class="dl-lb-table">
-          <thead><tr><th>#</th><th>Name</th><th>Best</th><th>Runs</th></tr></thead>
-          <tbody>${rows}</tbody>
-        </table>`;
+      });
+      renderPaged(listEl, "<th>#</th><th>Name</th><th>Best</th><th>Runs</th>", rows, pageSize);
     } catch (err) {
       listEl.innerHTML = '<p class="dl-lb-note">Could not load the leaderboard.</p>';
       console.error("DistanceLearningBoard: renderLeaderboard failed", err);
@@ -332,7 +353,7 @@ const DistanceLearningBoard = (() => {
   }
 
   // `tabs` is [{ key, label }], overall first. Opens on `initialKey`.
-  function renderLeaderboardPanel(containerId, tabs, initialKey = "overall", size = LEADERBOARD_SIZE) {
+  function renderLeaderboardPanel(containerId, tabs, initialKey = "overall", pageSize = PAGE_SIZE) {
     const container = document.getElementById(containerId);
     if (!container) return;
     if (!online) {
@@ -352,10 +373,10 @@ const DistanceLearningBoard = (() => {
     container.querySelectorAll(".dl-lb-tab").forEach((btn) => {
       btn.addEventListener("click", () => {
         container.querySelectorAll(".dl-lb-tab").forEach((b) => b.classList.toggle("dl-lb-tab-active", b === btn));
-        renderLeaderboard(listEl, btn.dataset.tab, size, roundLabels);
+        renderLeaderboard(listEl, btn.dataset.tab, pageSize, roundLabels);
       });
     });
-    renderLeaderboard(listEl, initialKey, size, roundLabels);
+    renderLeaderboard(listEl, initialKey, pageSize, roundLabels);
   }
 
   // ---- Own data, for the Insights page ---------------------------------------
