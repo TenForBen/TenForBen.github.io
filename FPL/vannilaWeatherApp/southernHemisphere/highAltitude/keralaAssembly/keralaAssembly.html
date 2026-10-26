@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kerala Assembly — TENFORBEN Station</title>
+  <link rel="stylesheet" href="../../style.css" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="sh-header">
+    <div class="sh-brand">TENFORBEN // STATION — Kerala Assembly</div>
+    <div class="sh-header-links">
+      <a class="sh-back-link" href="../highAltitude.html">&larr; High Altitude</a>
+      <a class="sh-back-link" href="../mangalaExpress/mangalaExpress.html">Mangala Lakshadweep Express</a>
+      <a class="sh-back-link" href="../coromandelExpress/coromandelExpress.html">Coromandel Express</a>
+      <a class="sh-back-link" href="../../../weatherGame/geoStreakGame.html">GeoStreak</a>
+      <a class="sh-back-link" href="../../../index.html">&larr; Weather.JS</a>
+    </div>
+  </header>
+
+  <main class="sh-main ka-main">
+    <p class="sh-sub">
+      All 140 seats of the Kerala Legislative Assembly, Manjeshwaram (1) to
+      Neyyattinkara (140), with the 2026 winner and each seat's current
+      weather.
+    </p>
+    <p class="sh-count" id="kaCount"></p>
+    <p class="sh-updated" id="kaUpdated"></p>
+    <p class="sh-updated">Local time (IST): <span class="sh-local-time" data-tz="19800" id="kaClock"></span></p>
+
+    <div class="sh-toolbar">
+      <button type="button" id="kaRefresh" class="sh-btn">&#8635; Get current weather</button>
+      <button type="button" id="kaCompare" class="sh-btn" disabled>&#8646; Compare to last run</button>
+      <span class="sh-status" id="kaStatus"></span>
+    </div>
+
+    <!-- Filters: alliance chips (with seat counts) and a district picker.
+         Both narrow the table and the cards together. -->
+    <div class="sh-toolbar ka-filters">
+      <div class="ka-chips" id="kaAllianceChips"></div>
+      <select id="kaDistrict" class="ka-select" aria-label="Filter by district">
+        <option value="">All districts</option>
+      </select>
+    </div>
+
+    <p class="ha-mobile-hint">Tap a row to see the rest of its details.</p>
+
+    <div class="sh-table-wrap ha-table-wrap ka-table-wrap">
+      <table class="sh-table">
+        <thead>
+          <tr>
+            <th data-sort-key="no">No.</th>
+            <th data-sort-key="constituency">Constituency</th>
+            <th data-sort-key="district">District</th>
+            <th data-sort-key="winner">MLA</th>
+            <th data-sort-key="alliance">Alliance</th>
+            <th data-sort-key="altitude">Altitude</th>
+            <th data-sort-key="map">Map</th>
+            <th data-sort-key="temp">Current Temp</th>
+            <th data-sort-key="sunrise">Sunrise</th>
+            <th data-sort-key="sunset">Sunset</th>
+            <th data-sort-key="dayLength">Day Length</th>
+          </tr>
+        </thead>
+        <tbody id="kaBody">
+          <tr>
+            <td colspan="11" class="sh-loading">Loading seats&hellip;</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mobile: one accordion card per seat — constituency, district,
+         alliance and temp always visible, the rest revealed on tap. -->
+    <div class="ha-cards" id="kaCards">
+      <p class="sh-loading">Loading seats&hellip;</p>
+    </div>
+
+    <p class="sh-updated ka-source">
+      Seats and results:
+      <a href="https://en.wikipedia.org/wiki/2026_Kerala_Legislative_Assembly_election#Results_by_constituency" target="_blank" rel="noopener">Wikipedia, 2026 Kerala Legislative Assembly election</a>.
+      Locations are the seat's namesake town, approximate. See the <a href="README.md">README</a>.
+    </p>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
