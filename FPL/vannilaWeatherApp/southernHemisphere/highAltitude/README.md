@@ -92,3 +92,11 @@ Also linked from this page's header: [`coromandelExpress/`](./coromandelExpress/
 Lakshadweep Express's Koyilandi temperature watch (not a general feature,
 just specific to that route) — see
 [`coromandelExpress/README.md`](./coromandelExpress/README.md).
+
+## Kerala Assembly
+
+Also linked from this page's header: [`keralaAssembly/`](./keralaAssembly/)
+— all 140 Kerala Legislative Assembly seats with the 2026 winner and
+each seat's current weather, filterable by alliance and district. Same
+table/card mechanism again — see
+[`keralaAssembly/README.md`](./keralaAssembly/README.md).
