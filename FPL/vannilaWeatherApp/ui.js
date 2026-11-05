@@ -46,6 +46,13 @@ class UI {
     this.uiContainer.innerHTML = this.buildWeatherCardHtml(data, query, previousEntry, { showElevation });
     this.applyCardStyling(Math.round(data.main.temp));
 
+    // Distance line's arrow: flip between "A to B" and "B to A".
+    this.uiContainer.querySelectorAll(".wx-leg-toggle").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        this.uiContainer.querySelectorAll(".wx-leg").forEach((legEl) => { legEl.hidden = !legEl.hidden; });
+      });
+    });
+
     // begin ticking the true current local time for this city
     this.startClock(data.timezone || 0);
 
@@ -115,15 +122,21 @@ class UI {
         previousEntry.data.coord.lat, previousEntry.data.coord.lon,
         data.coord.lat, data.coord.lon
       );
-      const fromName = previousEntry.q || previousEntry.data.name || "the last place";
-      // Which way you'd head from the last place to get here — same 8-point
-      // arrow + label + whole-degree bearing the Distance Learning Quiz shows.
-      const bearing = Math.round(bearingDeg(
-        previousEntry.data.coord.lat, previousEntry.data.coord.lon,
-        data.coord.lat, data.coord.lon
-      ));
-      const point = compassPoint(bearing);
-      distanceLine = `<p class="card-text text-muted" style="font-size: 85%;">Distance from ${escapeHtml(fromName)} (last viewed) &asymp; ${val(`${Math.round(distanceKm)} km`)} ${val(`${point.arrow} ${point.dir} ${bearing}&deg;`)}</p>`;
+      // Both legs are rendered, last place -> this one shown first; clicking
+      // the arrow swaps which is visible (wired in populateUI). The return
+      // bearing isn't just +180°: great-circle bearings differ each way.
+      // "Distance" links to Google Maps driving/transit options for the leg.
+      const from = { name: previousEntry.data.name || previousEntry.q || "the last place", coord: previousEntry.data.coord };
+      const to = { name: data.name || query || "here", coord: data.coord };
+      const kmColor = nextColor();
+      const dirColor = nextColor();
+      const leg = (a, b, hidden) => {
+        const bearing = Math.round(bearingDeg(a.coord.lat, a.coord.lon, b.coord.lat, b.coord.lon));
+        const point = compassPoint(bearing);
+        const dirUrl = `https://www.google.com/maps/dir/?api=1&origin=${a.coord.lat},${a.coord.lon}&destination=${b.coord.lat},${b.coord.lon}`;
+        return `<span class="wx-leg"${hidden ? " hidden" : ""}><a href="${dirUrl}" target="_blank" rel="noopener" title="Travel options on Google Maps">Distance</a> ${escapeHtml(a.name)} to ${escapeHtml(b.name)} &asymp; <b style="color: ${kmColor};">${Math.round(distanceKm)} km</b> <button type="button" class="wx-leg-toggle" title="Swap direction" style="border: 0; background: none; padding: 0; cursor: pointer; font: inherit; color: ${dirColor}; font-weight: bold;">${point.arrow} ${point.dir} ${bearing}&deg;</button></span>`;
+      };
+      distanceLine = `<p class="card-text text-muted" style="font-size: 85%;">${leg(from, to, false)}${leg(to, from, true)}</p>`;
     }
 
     // Google Maps wants raw decimals; the DMS strings above are display-only.

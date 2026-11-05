@@ -1337,8 +1337,12 @@ come later.
   the exact bearing in whole degrees ("↘ SE 131°"). It's shown large on the
   result screen between questions, in the "Distance" step of the points
   working, and in a "Dir" column of the results table. Weather.JS's
-  "distance from the last viewed place" line uses the same arrows and
-  whole-degree bearing ("↓ S 196°").
+  distance line (shown when stepping through recent searches) uses the
+  same arrows and whole-degree bearing: "Distance Devikulam to Siliguri ≈
+  2199 km ↗ NE 31°". Clicking the arrow flips it to the return leg
+  ("Siliguri to Devikulam … ↙ SW 215°"; a great-circle bearing back isn't
+  exactly 180° off), and "Distance" opens Google Maps directions for
+  whichever leg is showing.
 - **Between questions** there's a 10-second pause on the result; "Next
   question now" skips it at any point. During it:
   - **Last place / current place**: the centre this question measured
