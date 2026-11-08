@@ -427,7 +427,9 @@ function showQuestion() {
       ${lastCentre ? coordRow("Last place", lastCentre) : ""}
     </div>
     <div class="dl-input-row">
-      <input type="text" id="dlCityInput" class="form-control" placeholder="Type a city name..." autocomplete="off" />
+      <span class="dl-mini-timer" id="dlMiniTimer" aria-hidden="true">${QUESTION_SECONDS.toFixed(1)}</span>
+      <input type="text" id="dlCityInput" class="form-control" placeholder="Type a city name..."
+        autocomplete="off" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="go" />
       <button type="button" id="dlSubmitBtn" class="btn dl-btn-orange">Submit</button>
     </div>
     <p class="dl-hint" id="dlHint"></p>
@@ -440,20 +442,52 @@ function showQuestion() {
   document.getElementById("dlSubmitBtn").addEventListener("click", submitAnswer);
   document.getElementById("dlQuitBtn").addEventListener("click", quitRun);
 
+  watchTimerVisibility(input);
   questionStart = performance.now();
   startTimer();
+}
+
+// On a phone the keyboard scrolls the big timer off the top of the screen,
+// and iOS doesn't keep top-fixed elements in view while typing either. So
+// a small copy sits beside the input (which the browser always keeps
+// visible): shown when the big timer is out of view, or while typing on a
+// touch screen, where the keyboard may cover it without scrolling.
+let timerObserver = null;
+function watchTimerVisibility(input) {
+  const mini = document.getElementById("dlMiniTimer");
+  const touch = window.matchMedia("(pointer: coarse)").matches;
+  let bigVisible = true;
+  const update = () => {
+    const typing = touch && document.activeElement === input;
+    mini.classList.toggle("dl-mini-show", !bigVisible || typing);
+  };
+  if (timerObserver) timerObserver.disconnect();
+  if ("IntersectionObserver" in window) {
+    timerObserver = new IntersectionObserver(([entry]) => {
+      bigVisible = entry.isIntersecting;
+      update();
+    });
+    timerObserver.observe(document.getElementById("dlTimer"));
+  }
+  input.addEventListener("focus", update);
+  input.addEventListener("blur", update);
+  update();
 }
 
 function startTimer() {
   const timerEl = document.getElementById("dlTimer");
   const barEl = document.getElementById("dlTimerBar");
+  const miniEl = document.getElementById("dlMiniTimer");
   clearInterval(timerInterval);
   timerInterval = setInterval(() => {
     const left = QUESTION_SECONDS - (performance.now() - questionStart) / 1000;
     timerEl.textContent = Math.max(0, left).toFixed(2);
+    miniEl.textContent = Math.max(0, left).toFixed(1);
     barEl.style.width = `${Math.max(0, (left / QUESTION_SECONDS) * 100)}%`;
-    timerEl.classList.toggle("dl-timer-warn", left <= 10 && left > 5);
-    timerEl.classList.toggle("dl-timer-danger", left <= 5);
+    [timerEl, miniEl].forEach((el) => {
+      el.classList.toggle("dl-timer-warn", left <= 10 && left > 5);
+      el.classList.toggle("dl-timer-danger", left <= 5);
+    });
     if (left <= 0) {
       clearInterval(timerInterval);
       if (!resolved) {
