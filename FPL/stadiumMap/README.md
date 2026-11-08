@@ -12,7 +12,7 @@ Play it at [`stadiumMap.html`](./stadiumMap.html), linked from the site's
 
 ## Stadium Surfer
 
-[`stadiumSurfer.html`](./stadiumSurfer.html) is the same 110 stadiums as a
+[`stadiumSurfer.html`](./stadiumSurfer.html) is the same 115 stadiums as a
 card grid in the style of [uNoGS](https://unogs.com): a Wikipedia photo
 on the left, then name, club and opening year, a two-sentence description,
 capacity, city and flag. Each card's photo and name link to the full
@@ -47,7 +47,9 @@ A–Z. Linked from the map's header and back. The page itself is
 
 `stadiums.json` was compiled from a plain list of 108 stadium names (110
 since 2026-10-27, with Bournemouth's Vitality Stadium and Catania's Stadio
-Angelo Massimino) — most
+Angelo Massimino; 115 since 2026-11-08, with KAA Gent, Alemannia Aachen,
+Club Brugge, USL Dunkerque and Lille, whose coordinates come from their
+Wikipedia articles) — most
 coordinates are placed from general knowledge of each ground's city/area,
 **not** geocoded against an authoritative source. Confidence is high for
 major, well-documented grounds (the Emirates, Camp Nou, Anfield, San Siro,
