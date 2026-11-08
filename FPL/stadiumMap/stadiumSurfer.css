@@ -150,6 +150,19 @@ body {
   font-size: 1.15rem;
   line-height: 1;
 }
+/* Current weather, bottom-right corner of the card. */
+.ss-weather {
+  position: absolute;
+  right: 8px;
+  bottom: 6px;
+  font-size: 0.75rem;
+  color: #333;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 10px;
+  padding: 1px 7px;
+  white-space: nowrap;
+}
+.ss-weather b { color: #111; }
 .ss-note {
   font-size: 0.72rem;
   font-style: italic;
