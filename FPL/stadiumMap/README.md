@@ -18,7 +18,9 @@ on the left, then name, club and opening year, a two-sentence description,
 capacity, city and flag. Each card's photo and name link to the full
 Wikipedia article. There's a search box (stadium, club or city), a country
 filter, and five sort orders: visit order, biggest first, oldest first,
-A–Z, and coldest to hottest right now. The bottom-right corner of each card
+A–Z, and coldest to hottest right now. A ⇅ Reverse button flips whichever
+sort is chosen (so reversed visit order puts the latest stadium first);
+stadiums missing that value stay at the end either way. The bottom-right corner of each card
 shows that stadium's current weather (icon, °C, conditions, with a moon
 icon at night). It's live: one [Open-Meteo](https://open-meteo.com) request
 for all stadiums when the page opens (free, no API key, comma-separated
