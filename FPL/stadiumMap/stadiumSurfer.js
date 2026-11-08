@@ -80,15 +80,26 @@ const sortEl = document.getElementById("ssSort");
 const gridEl = document.getElementById("ssGrid");
 const statsEl = document.getElementById("ssStats");
 
-// Missing capacity / opening year sort last whichever way.
+// Each sort is a key plus its natural direction; the reverse button flips
+// it. A missing key (no capacity on Wikidata, weather not loaded yet) sorts
+// last whichever way round.
 const SORTS = {
-  visit: (a, b) => a.id - b.id,
-  capacity: (a, b) => (b.capacity ?? -1) - (a.capacity ?? -1) || a.id - b.id,
-  opened: (a, b) => (a.opened ?? 9999) - (b.opened ?? 9999) || a.id - b.id,
-  name: (a, b) => a.name.localeCompare(b.name),
-  // Stadiums without a reading (still loading, or the request failed) go last.
-  coldest: (a, b) => (tempOf(a) ?? Infinity) - (tempOf(b) ?? Infinity) || a.id - b.id,
+  visit: { key: (s) => s.id, dir: 1 },
+  capacity: { key: (s) => s.capacity ?? null, dir: -1 }, // biggest first
+  opened: { key: (s) => s.opened ?? null, dir: 1 }, // oldest first
+  name: { key: (s) => s.name, dir: 1 },
+  coldest: { key: tempOf, dir: 1 },
 };
+let reversed = false;
+
+function compareStadiums(a, b) {
+  const { key, dir } = SORTS[sortEl.value];
+  const ka = key(a);
+  const kb = key(b);
+  if (ka == null || kb == null) return (ka == null) - (kb == null) || a.id - b.id;
+  const order = typeof ka === "string" ? ka.localeCompare(kb) : ka - kb;
+  return (order * dir || a.id - b.id) * (reversed ? -1 : 1);
+}
 
 function renderCard(s) {
   const url = wikiUrl(s.wikiTitle || s.name);
@@ -128,7 +139,7 @@ function render() {
   const shown = stadiums
     .filter((s) => !country || s.country === country)
     .filter((s) => !q || [s.name, s.club, s.city, s.country, s.wikiTitle, s.note].join(" ").toLowerCase().includes(q))
-    .sort(SORTS[sortEl.value]);
+    .sort(compareStadiums);
 
   gridEl.innerHTML = shown.length
     ? shown.map(renderCard).join("")
@@ -151,6 +162,14 @@ function populateCountries() {
 }
 
 [searchEl, countryEl, sortEl].forEach((el) => el.addEventListener("input", render));
+
+const reverseEl = document.getElementById("ssReverse");
+reverseEl.addEventListener("click", () => {
+  reversed = !reversed;
+  reverseEl.classList.toggle("ss-reverse-on", reversed);
+  reverseEl.setAttribute("aria-pressed", String(reversed));
+  render();
+});
 
 fetch("stadiums.json")
   .then((res) => {

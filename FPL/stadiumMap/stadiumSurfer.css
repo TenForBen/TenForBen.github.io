@@ -56,6 +56,8 @@ body {
   padding: 7px 10px;
 }
 #ssSearch { width: min(320px, 100%); }
+.ss-reverse { cursor: pointer; }
+.ss-reverse-on { background: #7dd3fc; border-color: #7dd3fc; color: #0c1220; font-weight: 700; }
 
 .ss-stats {
   text-align: center;
