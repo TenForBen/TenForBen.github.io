@@ -291,6 +291,22 @@
     }
     .dl-condition-text { font-size: 1.15rem; color: #cfe8ff; margin: 0; }
     .dl-input-row { display: flex; gap: 8px; }
+    /* Small countdown beside the input, for when the keyboard hides the big
+       one (see watchTimerVisibility() in the JS). */
+    .dl-mini-timer {
+      display: none;
+      align-self: center;
+      min-width: 3.4em;
+      text-align: center;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #fb923c;
+      font-variant-numeric: tabular-nums;
+    }
+    .dl-mini-timer.dl-mini-show { display: inline-block; }
+    .dl-mini-timer.dl-timer-warn { color: #f0b429; }
+    .dl-mini-timer.dl-timer-danger { color: #f87171; }
     .dl-hint {
       min-height: 1.4em;
       text-align: center;

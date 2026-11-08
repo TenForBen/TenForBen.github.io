@@ -1538,6 +1538,20 @@ Notable bugs, once actually fixed — what broke, what it looked like to a
 player, and the real cause, newest first. Not every commit, just the ones
 worth a future reader knowing *why* the code is shaped the way it is.
 
+- **2026-11-08 — DistanceLearningQuiz's timer vanished while typing on a
+  phone.** Tapping the answer box opens the keyboard, and the browser
+  scrolls the page to keep the box visible, which pushes the big
+  countdown off the top of the screen. A player typing a city had no idea
+  how much time was left. Pinning the timer to the top of the screen
+  doesn't help on iPhone: Safari doesn't keep top-pinned elements in view
+  while the keyboard is open. Fixed with a small copy of the countdown
+  beside the input, which the browser always keeps visible. It appears when
+  the big timer is scrolled out of view (an `IntersectionObserver`) or
+  while typing on a touch screen, and turns amber and red with the big
+  one. The input also stops iOS autocorrect and auto-capitalises words
+  now, so "Bergen" isn't "corrected" and the predictive bar doesn't offer
+  "I" or "The".
+
 - **2026-10-26 — GeoStreak's "← Weather.JS" link was missing on phones.**
   The header puts the brand and all its links (History, Morning
   Checklist, Southern Hemisphere, Stadiums Visited, Weather.JS) on one
