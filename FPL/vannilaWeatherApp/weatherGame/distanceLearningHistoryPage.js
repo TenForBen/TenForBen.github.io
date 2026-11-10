@@ -12,7 +12,7 @@ const RUNS_LIMIT = 100;
 // enforcement is isMaster() in firestore.rules, which must list the same
 // UIDs. A UID goes in all of them after its owner clicks "Copy my player
 // ID" below and hands it over.
-const MASTER_UIDS = ["B0N7TfmkrXTaYjB2TBCVOBVtIhM2", "MsRKlqcPecOBng8SHekRF5YCVFJ3", "WmoVyIkr2eVCtQHMPwoiTnKWZQp1", "M9odxs0JSTPAnFuewYOCB2BEPR03"];
+const MASTER_UIDS = ["B0N7TfmkrXTaYjB2TBCVOBVtIhM2", "MsRKlqcPecOBng8SHekRF5YCVFJ3", "WmoVyIkr2eVCtQHMPwoiTnKWZQp1", "M9odxs0JSTPAnFuewYOCB2BEPR03", "n4kv57HGhPZtxOF7UWVlQLVmOOj1"];
 
 const ROUND_LABELS = {
   india: "India", world: "World", europe: "Europe", na: "North America",

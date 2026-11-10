@@ -401,6 +401,59 @@ service cloud.firestore {
       allow update: if false;
       allow delete: if false;
     }
+
+    // ---- Household tracker (../householdTracker.html) -----------------------
+    // Masters only, read and write. The items themselves (stove, water, lock,
+    // ...) are defined in ../householdTrackerPage.js, NOT here: these rules
+    // only check the generic shape, so adding an item never needs a rules
+    // change.
+    //
+    // householdItems/{itemId}: one doc per item, holding its current value
+    // ("on", "off", "inside", ...), when it took that value and who set it.
+    match /householdItems/{itemId} {
+      allow read: if isMaster();
+      allow create, update: if isMaster()
+        && isHouseholdKey(itemId)
+        && isValidHouseholdItem(request.resource.data);
+      allow delete: if false;
+    }
+
+    // householdLog/{autoId}: one write-once record per finished state, written
+    // in the same transaction that changes the item. The getAfter() check ties
+    // each record to a real change of that item in the same write.
+    match /householdLog/{docId} {
+      allow read: if isMaster();
+      allow create: if isMaster()
+        && isValidHouseholdLog(request.resource.data)
+        && getAfter(/databases/$(database)/documents/householdItems/$(request.resource.data.item)).data.since == request.time;
+      allow update: if false;
+      allow delete: if false;
+    }
+  }
+
+  // Item ids and values: short lowercase words, e.g. "water", "outside_double".
+  function isHouseholdKey(s) {
+    return s is string && s.matches('^[a-z0-9_]{1,32}$');
+  }
+
+  function isValidHouseholdItem(data) {
+    return data.keys().hasOnly(['value', 'since', 'by'])
+      && isHouseholdKey(data.value)
+      && data.since == request.time
+      && data.by == request.auth.uid;
+  }
+
+  function isValidHouseholdLog(data) {
+    return data.keys().hasOnly(['item', 'value', 'startAt', 'endAt', 'durationSec', 'startBy', 'endBy'])
+      && isHouseholdKey(data.item)
+      && isHouseholdKey(data.value)
+      && data.startAt is timestamp
+      && data.endAt == request.time
+      && data.startAt <= data.endAt
+      && data.durationSec is int
+      && data.durationSec >= 0 && data.durationSec <= 315360000
+      && data.startBy is string && data.startBy.size() <= 128
+      && data.endBy == request.auth.uid;
   }
 
   // History page's "All Players" tab — a hardcoded allowlist, not a
@@ -413,7 +466,7 @@ service cloud.firestore {
   // grants access with no visible way to use it (rules updated, JS not
   // yet redeployed) — republish/redeploy both together.
   function isMaster() {
-    return request.auth != null && request.auth.uid in ['B0N7TfmkrXTaYjB2TBCVOBVtIhM2', 'MsRKlqcPecOBng8SHekRF5YCVFJ3', 'WmoVyIkr2eVCtQHMPwoiTnKWZQp1', 'M9odxs0JSTPAnFuewYOCB2BEPR03'];
+    return request.auth != null && request.auth.uid in ['B0N7TfmkrXTaYjB2TBCVOBVtIhM2', 'MsRKlqcPecOBng8SHekRF5YCVFJ3', 'WmoVyIkr2eVCtQHMPwoiTnKWZQp1', 'M9odxs0JSTPAnFuewYOCB2BEPR03', 'n4kv57HGhPZtxOF7UWVlQLVmOOj1'];
   }
 
   function isValidEntry(data) {

@@ -17,7 +17,7 @@ const SearchLog = (() => {
   const COLLECTION = "weatherSearches";
   // Same allowlist as the history/insights pages; must match isMaster() in
   // firestore.rules. This copy only decides whether the footer link shows.
-  const MASTER_UIDS = ["B0N7TfmkrXTaYjB2TBCVOBVtIhM2", "MsRKlqcPecOBng8SHekRF5YCVFJ3", "WmoVyIkr2eVCtQHMPwoiTnKWZQp1", "M9odxs0JSTPAnFuewYOCB2BEPR03"];
+  const MASTER_UIDS = ["B0N7TfmkrXTaYjB2TBCVOBVtIhM2", "MsRKlqcPecOBng8SHekRF5YCVFJ3", "WmoVyIkr2eVCtQHMPwoiTnKWZQp1", "M9odxs0JSTPAnFuewYOCB2BEPR03", "n4kv57HGhPZtxOF7UWVlQLVmOOj1"];
   const GPS_WAIT_MS = 10000; // how long a search waits for the prompt to be answered
   const IP_CACHE_KEY = "weatherSearchLog_ipLocation"; // sessionStorage: once per visit
 
