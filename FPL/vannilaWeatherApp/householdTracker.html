@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/minty/bootstrap.min.css" />
+  <title>Household Tracker — Weather.JS</title>
+  <style>
+    /* Same Minty theme as searchLog.html. */
+    body { background: #f8f9fa; }
+    .ht-main { max-width: 900px; margin: 0 auto; padding: 24px 16px 60px; }
+    .ht-status { color: #6c757d; margin-bottom: 12px; }
+    .ht-date { font-size: 1.05rem; color: #343a40; margin-bottom: 16px; }
+    .ht-date b { font-variant-numeric: tabular-nums; }
+    .ht-items { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 24px; }
+    .ht-card {
+      background: #fff;
+      border: 1px solid #dee2e6;
+      border-left: 5px solid #ced4da;
+      border-radius: 6px;
+      padding: 12px 16px;
+    }
+    .ht-card.is-on { border-left-color: #78c2ad; }
+    .ht-card.is-choice { border-left-color: #f3969a; }
+    .ht-card h2 { font-size: 1.1rem; margin: 0 0 8px; }
+    .ht-radios { display: flex; gap: 18px; margin-bottom: 6px; }
+    .ht-radios label { margin: 0; cursor: pointer; font-weight: 600; }
+    .ht-radios input { margin-right: 4px; }
+    .ht-radios-stack { flex-direction: column; gap: 4px; }
+    .ht-meta { color: #6c757d; font-size: 0.8rem; min-height: 1.2em; }
+    .ht-watch {
+      font-size: 2rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: #343a40;
+      line-height: 1.2;
+    }
+    .ht-card.is-on .ht-watch { color: #17a2b8; }
+    .ht-summary { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+    .ht-tile {
+      background: #fff;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 8px 14px;
+      min-width: 130px;
+      display: flex;
+      flex-direction: column;
+    }
+    .ht-tile span { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; color: #6c757d; }
+    .ht-tile b { font-size: 1.4rem; color: #343a40; }
+    .ht-controls { margin-bottom: 12px; }
+    .ht-table-wrap { overflow-x: auto; background: #fff; border: 1px solid #dee2e6; border-radius: 6px; }
+    .ht-table { width: 100%; font-size: 0.85rem; margin: 0; }
+    .ht-table th { white-space: nowrap; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .ht-table td { white-space: nowrap; }
+    .ht-error { color: #dc3545; }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Weather.JS</a>
+      <a class="btn btn-sm btn-light" href="searchLog.html">&larr; Back to Search log</a>
+    </div>
+  </nav>
+
+  <main class="ht-main">
+    <h1 class="h3">Household tracker</h1>
+    <p class="ht-status" id="htStatus">Loading&hellip;</p>
+
+    <div id="htContent" style="display: none;">
+      <p class="ht-date" id="htDate"></p>
+
+      <!-- Cards are built from HOUSEHOLD_ITEMS in householdTrackerPage.js. -->
+      <div class="ht-items" id="htItems"></div>
+
+      <h2 class="h5">History</h2>
+      <div class="ht-controls">
+        <div class="btn-group btn-group-sm flex-wrap" id="htFilter" role="group" aria-label="Filter by item"></div>
+      </div>
+      <div class="ht-summary" id="htSummary"></div>
+      <div class="ht-table-wrap">
+        <table class="table table-sm ht-table">
+          <thead>
+            <tr><th>Item</th><th>State</th><th>From</th><th>To</th><th>Time taken</th><th>By</th></tr>
+          </thead>
+          <tbody id="htBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+  <script src="weatherGame/firebaseConfig.js"></script>
+  <script src="householdTrackerPage.js"></script>
+</body>
+</html>

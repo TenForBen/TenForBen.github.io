@@ -12,7 +12,7 @@
 
 // Same allowlist as the history pages; must match isMaster() in
 // firestore.rules. This copy only decides whether the master views show.
-const MASTER_UIDS = ["B0N7TfmkrXTaYjB2TBCVOBVtIhM2", "MsRKlqcPecOBng8SHekRF5YCVFJ3", "WmoVyIkr2eVCtQHMPwoiTnKWZQp1", "M9odxs0JSTPAnFuewYOCB2BEPR03"];
+const MASTER_UIDS = ["B0N7TfmkrXTaYjB2TBCVOBVtIhM2", "MsRKlqcPecOBng8SHekRF5YCVFJ3", "WmoVyIkr2eVCtQHMPwoiTnKWZQp1", "M9odxs0JSTPAnFuewYOCB2BEPR03", "n4kv57HGhPZtxOF7UWVlQLVmOOj1"];
 
 // Round filter tabs: Overall plus the open rounds.
 const ROUND_TABS = [["overall", "Overall"], ["india", "India"], ["world", "World"], ["europe", "Europe"]];

@@ -27,7 +27,7 @@ const INSIGHT_PAGE_SIZE = 10;
 // kept in sync by hand (there's no shared source between four separate
 // self-contained page scripts). Gates which half of the tally section a
 // viewer sees: Top Countries for everyone, Top Cities for masters only.
-const MASTER_UIDS = ["B0N7TfmkrXTaYjB2TBCVOBVtIhM2", "MsRKlqcPecOBng8SHekRF5YCVFJ3", "WmoVyIkr2eVCtQHMPwoiTnKWZQp1", "M9odxs0JSTPAnFuewYOCB2BEPR03"];
+const MASTER_UIDS = ["B0N7TfmkrXTaYjB2TBCVOBVtIhM2", "MsRKlqcPecOBng8SHekRF5YCVFJ3", "WmoVyIkr2eVCtQHMPwoiTnKWZQp1", "M9odxs0JSTPAnFuewYOCB2BEPR03", "n4kv57HGhPZtxOF7UWVlQLVmOOj1"];
 
 const configured = typeof firebaseConfig !== "undefined"
   && firebaseConfig.apiKey

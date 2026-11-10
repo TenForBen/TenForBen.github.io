@@ -20,7 +20,7 @@ const RUNS_LIMIT = 100; // same as GeoStreak's own history page
 // timeQuizRuns (added alongside geostreakRuns). A UID goes in this list
 // (and that one, and the rules file) after someone clicks "Copy my
 // player ID" below and hands it to whoever maintains this file.
-const MASTER_UIDS = ["B0N7TfmkrXTaYjB2TBCVOBVtIhM2", "MsRKlqcPecOBng8SHekRF5YCVFJ3", "WmoVyIkr2eVCtQHMPwoiTnKWZQp1", "M9odxs0JSTPAnFuewYOCB2BEPR03"];
+const MASTER_UIDS = ["B0N7TfmkrXTaYjB2TBCVOBVtIhM2", "MsRKlqcPecOBng8SHekRF5YCVFJ3", "WmoVyIkr2eVCtQHMPwoiTnKWZQp1", "M9odxs0JSTPAnFuewYOCB2BEPR03", "n4kv57HGhPZtxOF7UWVlQLVmOOj1"];
 
 const CITY_TALLY_COLLECTION = "timeQuizCityTally";
 const COUNTRY_TALLY_COLLECTION = "timeQuizCountryTally";

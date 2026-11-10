@@ -6,7 +6,7 @@
 const PAGE_SIZE = 200;
 // Same allowlist as searchLog.js and the history/insights pages; must
 // match isMaster() in weatherGame/firestore.rules.
-const MASTER_UIDS = ["B0N7TfmkrXTaYjB2TBCVOBVtIhM2", "MsRKlqcPecOBng8SHekRF5YCVFJ3", "WmoVyIkr2eVCtQHMPwoiTnKWZQp1", "M9odxs0JSTPAnFuewYOCB2BEPR03"];
+const MASTER_UIDS = ["B0N7TfmkrXTaYjB2TBCVOBVtIhM2", "MsRKlqcPecOBng8SHekRF5YCVFJ3", "WmoVyIkr2eVCtQHMPwoiTnKWZQp1", "M9odxs0JSTPAnFuewYOCB2BEPR03", "n4kv57HGhPZtxOF7UWVlQLVmOOj1"];
 
 const configured = typeof firebaseConfig !== "undefined"
   && firebaseConfig.apiKey
