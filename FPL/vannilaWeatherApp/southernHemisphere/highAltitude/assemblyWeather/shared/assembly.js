@@ -1,8 +1,14 @@
-// Kerala Legislative Assembly — all 140 seats with the 2026 winner and each
-// seat's current weather. Same idea and same table/card machinery as
+// Shared by every state assembly page under assemblyWeather/ (Kerala, Tamil
+// Nadu, Chhattisgarh, ...): every seat with its election winner and its
+// current weather. Same idea and same table/card machinery as
 // ../../mangalaExpress/app.js, with Station/State swapped for
 // Constituency/District plus MLA and Alliance columns. Local Time isn't a
 // column here: every seat is IST, so it's one clock above the table.
+//
+// Each page sets window.ASSEMBLY before loading this file:
+//   storageKey  prefix for this state's cached live runs in localStorage
+//   alliances   [{ key, color }] — filter chips and badge colours, in order
+// and keeps its own seats.json + weatherData.json next to its HTML.
 //
 // Seat/District/MLA/Alliance/Map/Altitude come from seats.json (static).
 // The weather columns come from a snapshot that's either the committed
@@ -62,7 +68,7 @@ function formatAgo(unixSeconds) {
   return `${Math.floor(diff / 86400)} d ago`;
 }
 
-// "15 Nov, 23:10" at the seat's own UTC offset (IST for every Kerala seat).
+// "15 Nov, 23:10" at the seat's own UTC offset (IST for every seat here).
 function formatReadingTime(unixSeconds, tzOffsetSeconds) {
   const d = new Date((unixSeconds + tzOffsetSeconds) * 1000);
   const p = (n) => String(n).padStart(2, "0");
@@ -81,14 +87,26 @@ function formatAltitude(m) {
   return `${m.toLocaleString("en-US")} m`;
 }
 
-function allianceBadge(row) {
-  const cls = `ka-${row.alliance.toLowerCase()}`;
-  return `<span class="ka-badge ${cls}">${escapeHtml(row.alliance)}</span><span class="ka-party">${escapeHtml(row.party)}</span>`;
+function allianceTag(alliance) {
+  const a = CONFIG.alliances.find((x) => x.key === alliance);
+  const color = a ? a.color : "#93a4c3";
+  // 8-digit hex: the same colour at ~10% opacity for the badge background.
+  return `<span class="ka-badge" style="color:${color};background:${color}1a">${escapeHtml(alliance)}</span>`;
 }
+
+// Party next to the badge only when it adds something (in Chhattisgarh the
+// "alliance" is the party itself).
+function allianceBadge(row) {
+  const party = row.party && row.party !== row.alliance ? `<span class="ka-party">${escapeHtml(row.party)}</span>` : "";
+  return `${allianceTag(row.alliance)}${party}`;
+}
+
+// ---- Per-state settings (set by the page) --------------------------------
+const CONFIG = window.ASSEMBLY || { storageKey: "assemblyWeather", alliances: [] };
 
 // ---- Live re-fetch (the "Get current weather" button) --------------------
 const API_KEY = "39a9a737b07b4b703e3d1cd1e231eedc";
-const REFRESH_DELAY_MS = 1100; // 140 seats, so about 2.5 minutes a run
+const REFRESH_DELAY_MS = 1100; // ~65 seats a minute (Kerala's 140: about 2.5 minutes)
 
 async function fetchWeatherLive(seat) {
   const url =
@@ -114,9 +132,9 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // ---- State ---------------------------------------------------------------
 
-const LAST_RUN_KEY = "keralaAssemblyWeather_lastRun";
-const PREVIOUS_RUN_KEY = "keralaAssemblyWeather_previousRun";
-const ALLIANCES = ["UDF", "LDF", "NDA"];
+const LAST_RUN_KEY = `${CONFIG.storageKey}_lastRun`;
+const PREVIOUS_RUN_KEY = `${CONFIG.storageKey}_previousRun`;
+const ALLIANCES = CONFIG.alliances.map((a) => a.key);
 
 let seats = []; // static, from seats.json
 let current = { generatedAt: null, byNo: {} }; // what's on screen right now
@@ -229,12 +247,19 @@ function mapLink(row) {
   return `<a href="${mapsUrl}" target="_blank" rel="noopener" title="Open in Google Maps">${formatCoord(row.lat, true)}, ${formatCoord(row.lon, false)}</a>`;
 }
 
+// Per-seat "↻" — fetches just this seat's weather (see refreshSeat()).
+function seatRefreshButton(row, withLabel) {
+  const busy = refreshingSeats.has(row.no);
+  return `<button type="button" class="ka-row-refresh${busy ? " is-busy" : ""}" data-no="${row.no}"${busy ? " disabled" : ""}
+    title="Get current weather for ${escapeHtml(row.constituency)}" aria-label="Get current weather for ${escapeHtml(row.constituency)}"><span class="ka-row-refresh-icon">&#8635;</span>${withLabel ? " Get current weather" : ""}</button>`;
+}
+
 function renderTableRow(row) {
   const { tempCell, dayLengthCell, sunriseCell, sunsetCell, readingCell } = weatherCells(row);
   return `
     <tr>
       <td>${row.no}</td>
-      <td>${escapeHtml(row.constituency)}</td>
+      <td>${escapeHtml(row.constituency)} ${seatRefreshButton(row, false)}</td>
       <td>${tempCell}</td>
       <td>${formatAltitude(row.altitudeMeters)}</td>
       <td>${readingCell}</td>
@@ -261,7 +286,7 @@ function renderCard(row) {
           <div class="ha-card-country">${escapeHtml(row.district)}</div>
         </div>
         <div class="ha-card-stats">
-          <span class="ka-badge ka-${row.alliance.toLowerCase()}">${escapeHtml(row.alliance)}</span>
+          ${allianceTag(row.alliance)}
           <span>${tempCell}</span>
         </div>
         <span class="ha-card-caret">&#9662;</span>
@@ -275,6 +300,7 @@ function renderCard(row) {
         <div class="ha-card-detail-row"><span class="ha-card-detail-label">Sunrise</span><span class="ha-card-detail-value">${sunriseCell}</span></div>
         <div class="ha-card-detail-row"><span class="ha-card-detail-label">Sunset</span><span class="ha-card-detail-value">${sunsetCell}</span></div>
         <div class="ha-card-detail-row"><span class="ha-card-detail-label">Day Length</span><span class="ha-card-detail-value">${dayLengthCell}</span></div>
+        <div class="ha-card-detail-row">${seatRefreshButton(row, true)}</div>
       </div>
     </div>
   `;
@@ -292,6 +318,9 @@ function renderTable() {
   cardsWrap.innerHTML = rows.length
     ? rows.map(renderCard).join("")
     : '<p class="sh-loading">No seats match these filters.</p>';
+  [tbody, cardsWrap].forEach((wrap) => wrap.querySelectorAll(".ka-row-refresh").forEach((btn) => {
+    btn.addEventListener("click", () => refreshSeat(Number(btn.dataset.no)));
+  }));
   cardsWrap.querySelectorAll(".ha-card-summary").forEach((el) => {
     el.addEventListener("click", () => toggleCard(el.closest(".ha-card")));
     el.addEventListener("keydown", (e) => {
@@ -376,12 +405,38 @@ document.querySelectorAll("th[data-sort-key]").forEach((th) => {
 });
 
 // ---- Get current weather (client-side re-scrape) ---------------------------
-// Always fetches all 140 seats, whatever the filters show, so the cached
+// Always fetches every seat, whatever the filters show, so the cached
 // run stays complete.
 
 const refreshBtn = document.getElementById("kaRefresh");
 const compareBtn = document.getElementById("kaCompare");
 const statusEl = document.getElementById("kaStatus");
+
+// ---- Get current weather for one seat (the ↻ in each row) -----------------
+// Replaces just that seat's reading in the current run and caches the run,
+// so it survives a reload. The run's generatedAt is left alone: the other
+// seats are still from that earlier fetch, and Reading Taken At shows this
+// seat's own new time.
+
+const refreshingSeats = new Set();
+
+async function refreshSeat(no) {
+  const seat = seats.find((s) => s.no === no);
+  if (!seat || refreshingSeats.has(no)) return;
+  refreshingSeats.add(no);
+  renderTable();
+  try {
+    const fresh = await fetchWeatherLive(seat);
+    current = { ...current, byNo: { ...current.byNo, [no]: fresh } };
+    saveRun(LAST_RUN_KEY, current);
+    statusEl.textContent = `${seat.constituency}: ${Math.round(fresh.temp)}°C, ${fresh.description}`;
+  } catch (err) {
+    statusEl.textContent = `${seat.constituency}: could not get the weather (${err.message})`;
+  } finally {
+    refreshingSeats.delete(no);
+    renderTable();
+  }
+}
 
 function setCompareEnabled(enabled) {
   compareBtn.disabled = !enabled;

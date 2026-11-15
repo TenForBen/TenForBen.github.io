@@ -96,14 +96,23 @@ just specific to that route) — see
 ## Assembly Weather
 
 Also linked from this page's header: [`assemblyWeather/`](./assemblyWeather/)
-— a home page for state legislative assembly weather pages. It holds
-[`assemblyWeather/keralaAssembly/`](./assemblyWeather/keralaAssembly/):
-all 140 Kerala Legislative Assembly seats with the 2026 winner and each
-seat's current weather, filterable by alliance and district. Same
-table/card mechanism again — see
-[`assemblyWeather/keralaAssembly/README.md`](./assemblyWeather/keralaAssembly/README.md).
+— a home page for state legislative assembly weather pages, one card per
+assembly. Each assembly lists every seat with its election winner and the
+seat's current weather, filterable by alliance and district, using the
+same table/card mechanism as this page:
 
-To add another assembly: put it in its own folder under `assemblyWeather/`
-(copy `keralaAssembly/` as a starting point; it sits at the same depth, so
-its `style.css` and header links work unchanged) and add an entry to the
-`ASSEMBLIES` list in `assemblyWeather/assemblyWeather.html`.
+- [Kerala](./assemblyWeather/keralaAssembly/README.md): 140 seats, 2026 result.
+- [Tamil Nadu](./assemblyWeather/tamilNaduAssembly/README.md): 234 seats, 2026 result.
+- [Chhattisgarh](./assemblyWeather/chhattisgarhAssembly/README.md): 90 seats, 2023 result.
+- [Jammu & Kashmir](./assemblyWeather/jammuKashmirAssembly/README.md): 90 seats, 2024 result.
+
+The page script, styles and weather scraper are shared, in
+`assemblyWeather/shared/`. Each state folder holds only its `seats.json`,
+`weatherData.json` and a thin HTML page that sets `window.ASSEMBLY`
+(storage key and alliance colours).
+
+To add another assembly: copy one state folder, replace its `seats.json`
+(same fields), edit the HTML's title, intro, source link and
+`window.ASSEMBLY`, run `node shared/scrapeWeather.js <folder>` from
+`assemblyWeather/`, and add an entry to the `ASSEMBLIES` list in
+`assemblyWeather/assemblyWeather.html`.

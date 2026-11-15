@@ -97,7 +97,8 @@
 
   <script>
     // ADDING AN ASSEMBLY: give it its own folder next to keralaAssembly/
-    // with the same seats.json / weatherData.json shape, then add an entry.
+    // (its HTML sets window.ASSEMBLY and loads ../shared/assembly.js) with
+    // the same seats.json / weatherData.json shape, then add an entry here.
     const ASSEMBLIES = [
       {
         state: "Kerala",
@@ -107,6 +108,33 @@
         seats: "keralaAssembly/seats.json",
         weather: "keralaAssembly/weatherData.json",
         alliances: { UDF: "#60a5fa", LDF: "#f87171", NDA: "#fb923c" },
+      },
+      {
+        state: "Tamil Nadu",
+        name: "Tamil Nadu Legislative Assembly",
+        result: "2026 result",
+        href: "tamilNaduAssembly/tamilNaduAssembly.html",
+        seats: "tamilNaduAssembly/seats.json",
+        weather: "tamilNaduAssembly/weatherData.json",
+        alliances: { TVK: "#facc15", SPA: "#f87171", "AIADMK+": "#4ade80" },
+      },
+      {
+        state: "Chhattisgarh",
+        name: "Chhattisgarh Legislative Assembly",
+        result: "2023 result",
+        href: "chhattisgarhAssembly/chhattisgarhAssembly.html",
+        seats: "chhattisgarhAssembly/seats.json",
+        weather: "chhattisgarhAssembly/weatherData.json",
+        alliances: { BJP: "#fb923c", INC: "#60a5fa", GGP: "#a78bfa" },
+      },
+      {
+        state: "Jammu & Kashmir",
+        name: "Jammu and Kashmir Legislative Assembly",
+        result: "2024 result",
+        href: "jammuKashmirAssembly/jammuKashmirAssembly.html",
+        seats: "jammuKashmirAssembly/seats.json",
+        weather: "jammuKashmirAssembly/weatherData.json",
+        alliances: { INDIA: "#60a5fa", BJP: "#fb923c", PDP: "#2dd4bf", Others: "#93a4c3" },
       },
     ];
 
