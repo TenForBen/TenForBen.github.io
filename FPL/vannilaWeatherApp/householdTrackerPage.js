@@ -19,9 +19,12 @@ const MASTER_UIDS = ["B0N7TfmkrXTaYjB2TBCVOBVtIhM2", "MsRKlqcPecOBng8SHekRF5YCVF
 const ON_OFF = [["on", "ON"], ["off", "OFF"]];
 
 // stopwatch: show a running clock while the item is "on".
+// autoOffAfterSec: an item left "on" longer than this is assumed switched off
+// at that mark. There's no server to do it on time, so whichever master page
+// is open (or next opened) writes it, backdated to the mark, flagged auto.
 const HOUSEHOLD_ITEMS = [
   { id: "stove", label: "Stove", options: ON_OFF },
-  { id: "water", label: "Water", options: ON_OFF, stopwatch: true },
+  { id: "water", label: "Water", options: ON_OFF, stopwatch: true, autoOffAfterSec: 8 * 3600 },
   { id: "power", label: "Power switch (table)", options: ON_OFF },
   { id: "lock", label: "Lock", options: [["inside", "Inside"], ["outside_single", "Outside single"], ["outside_double", "Outside double"]] },
 ];
@@ -124,8 +127,49 @@ function renderCard(id) {
   card.classList.toggle("is-choice", !!value && it.options !== ON_OFF);
   card.querySelectorAll("input").forEach((r) => { r.checked = r.value === value; });
   card.querySelector(".ht-meta").textContent = s && s.since
-    ? `${valueLabel(id, value)} since ${toDate(s.since).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "medium" })} · by ${who(s.by)}`
+    ? `${valueLabel(id, value)} since ${toDate(s.since).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "medium" })} · ${s.auto ? autoLabel(it) : `by ${who(s.by)}`}`
     : "Not set yet";
+}
+
+function autoLabel(it) {
+  return it && it.autoOffAfterSec ? `auto-off after ${Math.round(it.autoOffAfterSec / 3600)}h` : "auto-off";
+}
+
+// ---- Auto-off -----------------------------------------------------------------
+
+const autoOffTried = {}; // itemId -> ms of last attempt, so a failing write isn't retried every second
+
+function isExpired(it, s) {
+  return !!(it.autoOffAfterSec && s && s.value === "on" && s.since && s.since.toMillis
+    && Date.now() >= s.since.toMillis() + it.autoOffAfterSec * 1000);
+}
+
+async function autoOff(it) {
+  if (autoOffTried[it.id] && Date.now() - autoOffTried[it.id] < 60000) return;
+  autoOffTried[it.id] = Date.now();
+  const itemRef = db.collection("householdItems").doc(it.id);
+  const logRef = db.collection("householdLog").doc();
+  try {
+    await db.runTransaction(async (tx) => {
+      const snap = await tx.get(itemRef);
+      const prev = snap.exists ? snap.data() : null;
+      if (!isExpired(it, prev)) return; // switched off, or another page already did it
+      const offAt = firebase.firestore.Timestamp.fromMillis(prev.since.toMillis() + it.autoOffAfterSec * 1000);
+      tx.set(itemRef, { value: "off", since: offAt, by: myUid, auto: true });
+      tx.set(logRef, {
+        item: it.id,
+        value: "on",
+        startAt: prev.since,
+        endAt: offAt,
+        durationSec: it.autoOffAfterSec,
+        startBy: prev.by || "",
+        endBy: myUid,
+        auto: true,
+      });
+    });
+  } catch (err) {
+    console.error(`Household tracker: auto-off of ${it.id} failed`, err);
+  }
 }
 
 // ---- Date line + stopwatches ---------------------------------------------------
@@ -136,11 +180,14 @@ function tick() {
     `${now.toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
      &middot; <b>${now.toLocaleTimeString()}</b>`;
 
-  HOUSEHOLD_ITEMS.filter((it) => it.stopwatch).forEach((it) => {
+  HOUSEHOLD_ITEMS.forEach((it) => {
     const s = itemState[it.id];
+    const expired = isExpired(it, s);
+    if (expired) autoOff(it);
+    if (!it.stopwatch) return;
     const since = s && toDate(s.since);
     document.querySelector(`.ht-card[data-item="${it.id}"] .ht-watch`).textContent =
-      s && s.value === "on" && since ? formatDuration((Date.now() - since.getTime()) / 1000) : "00:00:00";
+      s && s.value === "on" && since && !expired ? formatDuration((Date.now() - since.getTime()) / 1000) : "00:00:00";
   });
 }
 
@@ -198,7 +245,7 @@ function renderLog() {
       <td>${dateTime(r.startAt)}</td>
       <td>${dateTime(r.endAt)}</td>
       <td><b>${formatDuration(Number(r.durationSec) || 0)}</b></td>
-      <td>${who(r.startBy)}${r.endBy && r.endBy !== r.startBy ? ` → ${who(r.endBy)}` : ""}</td>
+      <td>${who(r.startBy)}${r.auto ? ` → ${autoLabel(itemById[r.item])}` : r.endBy && r.endBy !== r.startBy ? ` → ${who(r.endBy)}` : ""}</td>
     </tr>`).join("")
     || `<tr><td colspan="6" class="text-muted">No history yet. A row appears each time an item changes state.</td></tr>`;
 
