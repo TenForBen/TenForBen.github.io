@@ -7,21 +7,26 @@
 }
 
 /* ---- Column order override ---------------------------------------------
+   Order: No. | Constituency | Current Temp | Altitude | Reading Taken At |
+   District | MLA | Alliance | Map | Sunrise | Sunset | Day Length.
    ../style.css makes td 4..10 the monospace/blue "data" columns for High
-   Altitude's order. Here 4 (MLA) and 5 (Alliance) are text, and the data
-   columns are 1 (No.) and 6..11. */
-.ka-table-wrap .sh-table td:nth-child(4),
-.ka-table-wrap .sh-table td:nth-child(5) {
+   Altitude's order. Here 6 (District), 7 (MLA) and 8 (Alliance) are text,
+   and the data columns are 1, 3..5 and 9..12. */
+.ka-table-wrap .sh-table td:nth-child(6),
+.ka-table-wrap .sh-table td:nth-child(7),
+.ka-table-wrap .sh-table td:nth-child(8) {
   font-family: inherit;
   font-size: inherit;
   color: inherit;
   white-space: normal;
 }
-.ka-table-wrap .sh-table td:nth-child(5) {
+.ka-table-wrap .sh-table td:nth-child(8) {
   white-space: nowrap; /* badge and party on one line */
 }
 .ka-table-wrap .sh-table td:nth-child(1),
-.ka-table-wrap .sh-table td:nth-child(11) {
+.ka-table-wrap .sh-table td:nth-child(3),
+.ka-table-wrap .sh-table td:nth-child(11),
+.ka-table-wrap .sh-table td:nth-child(12) {
   font-family: "Courier New", Courier, monospace;
   font-size: 0.85rem;
   white-space: nowrap;

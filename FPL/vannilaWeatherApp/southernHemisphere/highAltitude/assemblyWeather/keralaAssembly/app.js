@@ -1,6 +1,6 @@
 // Kerala Legislative Assembly — all 140 seats with the 2026 winner and each
 // seat's current weather. Same idea and same table/card machinery as
-// ../mangalaExpress/app.js, with Station/State swapped for
+// ../../mangalaExpress/app.js, with Station/State swapped for
 // Constituency/District plus MLA and Alliance columns. Local Time isn't a
 // column here: every seat is IST, so it's one clock above the table.
 //
@@ -12,7 +12,7 @@
 //
 // Rows are keyed by `no`, the official constituency number.
 
-// ---- Small formatting helpers (duplicated from ../mangalaExpress/app.js —
+// ---- Small formatting helpers (duplicated from ../../mangalaExpress/app.js —
 // no build step to import from another file, same reasoning as there) ----
 
 function escapeHtml(str) {
@@ -62,6 +62,21 @@ function formatAgo(unixSeconds) {
   return `${Math.floor(diff / 86400)} d ago`;
 }
 
+// "15 Nov, 23:10" at the seat's own UTC offset (IST for every Kerala seat).
+function formatReadingTime(unixSeconds, tzOffsetSeconds) {
+  const d = new Date((unixSeconds + tzOffsetSeconds) * 1000);
+  const p = (n) => String(n).padStart(2, "0");
+  const month = d.toLocaleString("en-GB", { month: "short", timeZone: "UTC" });
+  return `${d.getUTCDate()} ${month}, ${p(d.getUTCHours())}:${p(d.getUTCMinutes())}`;
+}
+
+// The reading's own time from OpenWeather (`readingAt`). Snapshots saved
+// before that field existed fall back to when the snapshot was taken.
+function readingTimeOf(row) {
+  if (!row.weather) return null;
+  return row.weather.readingAt || current.generatedAt || null;
+}
+
 function formatAltitude(m) {
   return `${m.toLocaleString("en-US")} m`;
 }
@@ -91,6 +106,7 @@ async function fetchWeatherLive(seat) {
     sunrise: data.sys.sunrise,
     sunset: data.sys.sunset,
     dayLengthSeconds: data.sys.sunset - data.sys.sunrise,
+    readingAt: data.dt, // when OpenWeather took this reading
   };
 }
 
@@ -147,6 +163,7 @@ const COLUMN_SORT_VALUE = {
   sunrise: (r) => (r.weather ? formatLocalTime(r.weather.sunrise, r.weather.timezone) : null),
   sunset: (r) => (r.weather ? formatLocalTime(r.weather.sunset, r.weather.timezone) : null),
   dayLength: (r) => (r.weather ? r.weather.dayLengthSeconds : null),
+  readingAt: (r) => readingTimeOf(r),
 };
 
 function sortRows(rows) {
@@ -197,7 +214,14 @@ function weatherCells(row) {
     }
   }
 
-  return { tempCell, dayLengthCell, sunriseCell, sunsetCell };
+  let readingCell = dash;
+  const readingAt = readingTimeOf(row);
+  if (readingAt) {
+    const exact = row.weather.readingAt ? "" : " (snapshot time; this reading has no own timestamp)";
+    readingCell = `<span title="${formatAgo(readingAt)}${exact}">${formatReadingTime(readingAt, row.weather.timezone || 19800)}</span>`;
+  }
+
+  return { tempCell, dayLengthCell, sunriseCell, sunsetCell, readingCell };
 }
 
 function mapLink(row) {
@@ -206,17 +230,18 @@ function mapLink(row) {
 }
 
 function renderTableRow(row) {
-  const { tempCell, dayLengthCell, sunriseCell, sunsetCell } = weatherCells(row);
+  const { tempCell, dayLengthCell, sunriseCell, sunsetCell, readingCell } = weatherCells(row);
   return `
     <tr>
       <td>${row.no}</td>
       <td>${escapeHtml(row.constituency)}</td>
+      <td>${tempCell}</td>
+      <td>${formatAltitude(row.altitudeMeters)}</td>
+      <td>${readingCell}</td>
       <td>${escapeHtml(row.district)}</td>
       <td>${escapeHtml(row.winner)}</td>
       <td>${allianceBadge(row)}</td>
-      <td>${formatAltitude(row.altitudeMeters)}</td>
       <td class="sh-map">${mapLink(row)}</td>
-      <td>${tempCell}</td>
       <td>${sunriseCell}</td>
       <td>${sunsetCell}</td>
       <td>${dayLengthCell}</td>
@@ -225,7 +250,7 @@ function renderTableRow(row) {
 }
 
 function renderCard(row) {
-  const { tempCell, dayLengthCell, sunriseCell, sunsetCell } = weatherCells(row);
+  const { tempCell, dayLengthCell, sunriseCell, sunsetCell, readingCell } = weatherCells(row);
   const isOpen = openCards.has(row.no);
 
   return `
@@ -242,6 +267,7 @@ function renderCard(row) {
         <span class="ha-card-caret">&#9662;</span>
       </div>
       <div class="ha-card-details">
+        <div class="ha-card-detail-row"><span class="ha-card-detail-label">Reading taken at</span><span class="ha-card-detail-value">${readingCell}</span></div>
         <div class="ha-card-detail-row"><span class="ha-card-detail-label">MLA</span><span class="ha-card-detail-value">${escapeHtml(row.winner)}</span></div>
         <div class="ha-card-detail-row"><span class="ha-card-detail-label">Party</span><span class="ha-card-detail-value">${escapeHtml(row.party)} (${escapeHtml(row.alliance)})</span></div>
         <div class="ha-card-detail-row"><span class="ha-card-detail-label">Altitude</span><span class="ha-card-detail-value">${formatAltitude(row.altitudeMeters)}</span></div>
@@ -260,7 +286,7 @@ function renderTable() {
   const tbody = document.getElementById("kaBody");
   tbody.innerHTML = rows.length
     ? rows.map(renderTableRow).join("")
-    : '<tr><td colspan="11" class="sh-loading">No seats match these filters.</td></tr>';
+    : '<tr><td colspan="12" class="sh-loading">No seats match these filters.</td></tr>';
 
   const cardsWrap = document.getElementById("kaCards");
   cardsWrap.innerHTML = rows.length
@@ -413,7 +439,7 @@ function startClock() {
 
 function renderError() {
   document.getElementById("kaBody").innerHTML =
-    '<tr><td colspan="11" class="sh-error">Could not load seat/weather data.</td></tr>';
+    '<tr><td colspan="12" class="sh-error">Could not load seat/weather data.</td></tr>';
   document.getElementById("kaCards").innerHTML =
     '<p class="sh-error">Could not load seat/weather data.</p>';
 }

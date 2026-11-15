@@ -4,19 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kerala Assembly — TENFORBEN Station</title>
+  <link rel="stylesheet" href="../../../style.css" />
   <link rel="stylesheet" href="../../style.css" />
-  <link rel="stylesheet" href="../style.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="sh-header">
     <div class="sh-brand">TENFORBEN // STATION — Kerala Assembly</div>
     <div class="sh-header-links">
-      <a class="sh-back-link" href="../highAltitude.html">&larr; High Altitude</a>
-      <a class="sh-back-link" href="../mangalaExpress/mangalaExpress.html">Mangala Lakshadweep Express</a>
-      <a class="sh-back-link" href="../coromandelExpress/coromandelExpress.html">Coromandel Express</a>
-      <a class="sh-back-link" href="../../../weatherGame/geoStreakGame.html">GeoStreak</a>
-      <a class="sh-back-link" href="../../../index.html">&larr; Weather.JS</a>
+      <a class="sh-back-link" href="../assemblyWeather.html">&larr; Assembly Weather</a>
+      <a class="sh-back-link" href="../../highAltitude.html">High Altitude</a>
+      <a class="sh-back-link" href="../../mangalaExpress/mangalaExpress.html">Mangala Lakshadweep Express</a>
+      <a class="sh-back-link" href="../../coromandelExpress/coromandelExpress.html">Coromandel Express</a>
+      <a class="sh-back-link" href="../../../../weatherGame/geoStreakGame.html">GeoStreak</a>
+      <a class="sh-back-link" href="../../../../index.html">&larr; Weather.JS</a>
     </div>
   </header>
 
@@ -53,12 +54,13 @@
           <tr>
             <th data-sort-key="no">No.</th>
             <th data-sort-key="constituency">Constituency</th>
+            <th data-sort-key="temp">Current Temp</th>
+            <th data-sort-key="altitude">Altitude</th>
+            <th data-sort-key="readingAt">Reading Taken At</th>
             <th data-sort-key="district">District</th>
             <th data-sort-key="winner">MLA</th>
             <th data-sort-key="alliance">Alliance</th>
-            <th data-sort-key="altitude">Altitude</th>
             <th data-sort-key="map">Map</th>
-            <th data-sort-key="temp">Current Temp</th>
             <th data-sort-key="sunrise">Sunrise</th>
             <th data-sort-key="sunset">Sunset</th>
             <th data-sort-key="dayLength">Day Length</th>
@@ -66,7 +68,7 @@
         </thead>
         <tbody id="kaBody">
           <tr>
-            <td colspan="11" class="sh-loading">Loading seats&hellip;</td>
+            <td colspan="12" class="sh-loading">Loading seats&hellip;</td>
           </tr>
         </tbody>
       </table>

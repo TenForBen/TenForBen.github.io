@@ -93,10 +93,17 @@ Lakshadweep Express's Koyilandi temperature watch (not a general feature,
 just specific to that route) — see
 [`coromandelExpress/README.md`](./coromandelExpress/README.md).
 
-## Kerala Assembly
+## Assembly Weather
 
-Also linked from this page's header: [`keralaAssembly/`](./keralaAssembly/)
-— all 140 Kerala Legislative Assembly seats with the 2026 winner and
-each seat's current weather, filterable by alliance and district. Same
+Also linked from this page's header: [`assemblyWeather/`](./assemblyWeather/)
+— a home page for state legislative assembly weather pages. It holds
+[`assemblyWeather/keralaAssembly/`](./assemblyWeather/keralaAssembly/):
+all 140 Kerala Legislative Assembly seats with the 2026 winner and each
+seat's current weather, filterable by alliance and district. Same
 table/card mechanism again — see
-[`keralaAssembly/README.md`](./keralaAssembly/README.md).
+[`assemblyWeather/keralaAssembly/README.md`](./assemblyWeather/keralaAssembly/README.md).
+
+To add another assembly: put it in its own folder under `assemblyWeather/`
+(copy `keralaAssembly/` as a starting point; it sits at the same depth, so
+its `style.css` and header links work unchanged) and add an entry to the
+`ASSEMBLIES` list in `assemblyWeather/assemblyWeather.html`.
