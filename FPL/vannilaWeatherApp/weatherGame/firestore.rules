@@ -425,7 +425,7 @@ service cloud.firestore {
       allow read: if isMaster();
       allow create: if isMaster()
         && isValidHouseholdLog(request.resource.data)
-        && getAfter(/databases/$(database)/documents/householdItems/$(request.resource.data.item)).data.since == request.time;
+        && getAfter(/databases/$(database)/documents/householdItems/$(request.resource.data.item)).data.since == request.resource.data.endAt;
       allow update: if false;
       allow delete: if false;
     }
@@ -436,19 +436,33 @@ service cloud.firestore {
     return s is string && s.matches('^[a-z0-9_]{1,32}$');
   }
 
+  // `auto: true` marks an automatic switch-off (e.g. water left on > 8h):
+  // only then may the time be backdated to when the limit ran out instead
+  // of being the write's own server time.
+  function isHouseholdAuto(data) {
+    return data.get('auto', false) == true;
+  }
+
+  function isHouseholdTime(t, data) {
+    return t == request.time
+      || (isHouseholdAuto(data) && t is timestamp && t < request.time);
+  }
+
   function isValidHouseholdItem(data) {
-    return data.keys().hasOnly(['value', 'since', 'by'])
+    return data.keys().hasOnly(['value', 'since', 'by', 'auto'])
       && isHouseholdKey(data.value)
-      && data.since == request.time
+      && isHouseholdTime(data.since, data)
+      && (!('auto' in data) || data.auto is bool)
       && data.by == request.auth.uid;
   }
 
   function isValidHouseholdLog(data) {
-    return data.keys().hasOnly(['item', 'value', 'startAt', 'endAt', 'durationSec', 'startBy', 'endBy'])
+    return data.keys().hasOnly(['item', 'value', 'startAt', 'endAt', 'durationSec', 'startBy', 'endBy', 'auto'])
       && isHouseholdKey(data.item)
       && isHouseholdKey(data.value)
       && data.startAt is timestamp
-      && data.endAt == request.time
+      && isHouseholdTime(data.endAt, data)
+      && (!('auto' in data) || data.auto is bool)
       && data.startAt <= data.endAt
       && data.durationSec is int
       && data.durationSec >= 0 && data.durationSec <= 315360000
