@@ -4,7 +4,7 @@ All 140 seats of the **Kerala Legislative Assembly**, in official
 constituency-number order (1 Manjeshwaram, in the far north, to 140
 Neyyattinkara, in the far south), each with its 2026 winner and its
 current weather. Same idea and same table/card machinery as [Mangala
-Lakshadweep Express](../mangalaExpress/README.md), one folder over.
+Lakshadweep Express](../../mangalaExpress/README.md), two folders up.
 
 Open it at [`keralaAssembly.html`](./keralaAssembly.html).
 
@@ -43,8 +43,8 @@ Open it at [`keralaAssembly.html`](./keralaAssembly.html).
 - **`weatherData.json`**: generated output, `{ generatedAt, byNo }`.
 - **`app.js`**: joins the two on `no` and renders the desktop table and
   the mobile card list.
-- **`keralaAssembly.html`**: thin shell. Loads `../../style.css`, then
-  `../style.css` (High Altitude's table/cards, unchanged), then this
+- **`keralaAssembly.html`**: thin shell. Loads `../../../style.css`, then
+  `../../style.css` (High Altitude's table/cards, unchanged), then this
   folder's `style.css` (wider page, column overrides, alliance badges,
   filters).
 
@@ -53,8 +53,11 @@ Coromandel. The snapshot only changes when someone runs `scrapeWeather.js`.
 
 ## Using the page
 
-- **Columns:** No., Constituency, District, MLA, Alliance (with
-  party), Altitude, Map, Current Temp, Sunrise, Sunset, Day Length.
+- **Columns:** No., Constituency, Current Temp, Altitude, Reading
+  Taken At, District, MLA, Alliance (with party), Map, Sunrise, Sunset,
+  Day Length. Reading Taken At is OpenWeather's own time for that seat's
+  reading (`readingAt` in weatherData.json, IST); a snapshot saved before
+  that field existed shows the snapshot's time instead (hover says so).
   Hover the temperature for the conditions ("light rain"). Every column
   sorts. There's no Local Time column, because every seat is IST: the
   clock sits once above the table instead.
