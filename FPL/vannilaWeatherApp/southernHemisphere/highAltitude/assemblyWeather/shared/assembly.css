@@ -1,6 +1,8 @@
-/* Loaded after ../../style.css and ../style.css — reuses High Altitude's
-   table/card layout as-is and only adds what's new here: a wider page,
-   this table's own column order, alliance badges, and the filters. */
+/* Shared by every assembly page. Loaded after ../../../style.css and
+   ../../style.css — reuses High Altitude's table/card layout as-is and only
+   adds what's new here: a wider page, this table's own column order,
+   alliance badges, and the filters. Badge colours come from each page's
+   window.ASSEMBLY.alliances (set inline by assembly.js). */
 
 .ka-main {
   max-width: 1320px;
@@ -59,9 +61,28 @@
   margin-left: 6px;
   white-space: nowrap;
 }
-.ka-udf { color: #60a5fa; background: rgba(96, 165, 250, 0.1); }
-.ka-ldf { color: #f87171; background: rgba(248, 113, 113, 0.1); }
-.ka-nda { color: #fb923c; background: rgba(251, 146, 60, 0.1); }
+
+/* ---- Per-seat "get current weather" button --------------------------------- */
+.ka-row-refresh {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.75rem;
+  line-height: 1;
+  color: #7dd3fc;
+  background: #0c1630;
+  border: 1px solid #1b2a4a;
+  border-radius: 4px;
+  padding: 3px 6px;
+  margin-left: 4px;
+  cursor: pointer;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.ka-row-refresh:hover:not(:disabled) { border-color: #1f6feb; color: #a9e2ff; }
+.ka-row-refresh:disabled { cursor: wait; opacity: 0.7; }
+.ka-row-refresh-icon { display: inline-block; }
+.ka-row-refresh.is-busy .ka-row-refresh-icon { animation: ka-spin 0.9s linear infinite; }
+@keyframes ka-spin { to { transform: rotate(360deg); } }
+.ha-card-details .ka-row-refresh { margin: 4px 0 0; padding: 6px 10px; }
 
 /* ---- Filters ------------------------------------------------------------ */
 .ka-chips {

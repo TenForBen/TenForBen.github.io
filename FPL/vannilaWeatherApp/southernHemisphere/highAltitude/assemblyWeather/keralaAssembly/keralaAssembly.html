@@ -6,7 +6,7 @@
   <title>Kerala Assembly — TENFORBEN Station</title>
   <link rel="stylesheet" href="../../../style.css" />
   <link rel="stylesheet" href="../../style.css" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../shared/assembly.css" />
 </head>
 <body>
   <header class="sh-header">
@@ -87,6 +87,16 @@
     </p>
   </main>
 
-  <script src="app.js"></script>
+  <script>
+    window.ASSEMBLY = {
+      storageKey: "keralaAssemblyWeather",
+      alliances: [
+        { key: "UDF", color: "#60a5fa" },
+        { key: "LDF", color: "#f87171" },
+        { key: "NDA", color: "#fb923c" },
+      ],
+    };
+  </script>
+  <script src="../shared/assembly.js"></script>
 </body>
 </html>

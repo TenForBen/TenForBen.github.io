@@ -28,28 +28,28 @@ Open it at [`keralaAssembly.html`](./keralaAssembly.html).
 
 ## Files
 
+This folder holds only Kerala's data and page. The script, styles and
+scraper are shared with the other states in [`../shared/`](../shared/)
+(see the Assembly Weather section of [`../../README.md`](../../README.md)).
+
 - **`seats.json`**: the static list. Each seat has `no`, `constituency`,
   `district`, `winner`, `party`, `alliance`, `lat`, `lon` and
   `altitudeMeters`.
-- **`scrapeWeather.js`**: hand-run Node script. It fetches current
-  weather for all 140 seats from the same OpenWeatherMap endpoint and key
-  every other `scrapeWeather.js` in this app uses, and writes
-  `weatherData.json`. Takes about 2.5 minutes (throttled to the
-  free-tier 60 calls a minute).
+- **`weatherData.json`**: generated snapshot, `{ generatedAt, byNo }`.
+  Refresh it from the `assemblyWeather` folder (about 2.5 minutes,
+  throttled to the free-tier 60 calls a minute):
   ```
-  cd FPL/vannilaWeatherApp/southernHemisphere/highAltitude/keralaAssembly
-  node scrapeWeather.js
+  cd FPL/vannilaWeatherApp/southernHemisphere/highAltitude/assemblyWeather
+  node shared/scrapeWeather.js keralaAssembly
   ```
-- **`weatherData.json`**: generated output, `{ generatedAt, byNo }`.
-- **`app.js`**: joins the two on `no` and renders the desktop table and
-  the mobile card list.
-- **`keralaAssembly.html`**: thin shell. Loads `../../../style.css`, then
-  `../../style.css` (High Altitude's table/cards, unchanged), then this
-  folder's `style.css` (wider page, column overrides, alliance badges,
-  filters).
+- **`keralaAssembly.html`**: thin shell. Sets `window.ASSEMBLY` (storage
+  key and the UDF / LDF / NDA colours), loads `../../../style.css`,
+  `../../style.css` (High Altitude's table/cards) and
+  `../shared/assembly.css`, then `../shared/assembly.js`, which joins the
+  two JSON files on `no` and renders the table and mobile cards.
 
 There's no scheduled workflow for this page, unlike Mangala and
-Coromandel. The snapshot only changes when someone runs `scrapeWeather.js`.
+Coromandel. The snapshot only changes when someone runs the scraper.
 
 ## Using the page
 
