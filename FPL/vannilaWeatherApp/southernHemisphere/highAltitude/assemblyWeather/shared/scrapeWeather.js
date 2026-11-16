@@ -12,6 +12,11 @@
 //   node shared/scrapeWeather.js telanganaAssembly  (119 seats, ~2.2 min)
 //   node shared/scrapeWeather.js andhraPradeshAssembly  (175 seats, ~3.2 min)
 //   node shared/scrapeWeather.js karnatakaAssembly  (224 seats, ~4.2 min)
+//   node shared/scrapeWeather.js maharashtraAssembly  (288 seats, ~5.3 min)
+//   node shared/scrapeWeather.js gujaratAssembly  (182 seats, ~3.4 min)
+//   node shared/scrapeWeather.js himachalPradeshAssembly  (68 seats, ~1.3 min)
+//   node shared/scrapeWeather.js punjabAssembly  (117 seats, ~2.2 min)
+//   node shared/scrapeWeather.js uttarakhandAssembly  (70 seats, ~1.3 min)
 //
 // Keyed by `no` — the seat's official constituency number, unique and stable.
 

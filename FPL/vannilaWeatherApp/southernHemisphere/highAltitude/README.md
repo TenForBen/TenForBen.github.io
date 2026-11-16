@@ -108,6 +108,11 @@ same table/card mechanism as this page:
 - [Karnataka](./assemblyWeather/karnatakaAssembly/README.md): 224 seats, 2023 result.
 - [Andhra Pradesh](./assemblyWeather/andhraPradeshAssembly/README.md): 175 seats, 2024 result.
 - [Telangana](./assemblyWeather/telanganaAssembly/README.md): 119 seats, 2023 result.
+- [Maharashtra](./assemblyWeather/maharashtraAssembly/README.md): 288 seats, 2024 result.
+- [Gujarat](./assemblyWeather/gujaratAssembly/README.md): 182 seats, 2022 result.
+- [Himachal Pradesh](./assemblyWeather/himachalPradeshAssembly/README.md): 68 seats, 2022 result.
+- [Punjab](./assemblyWeather/punjabAssembly/README.md): 117 seats, 2022 result.
+- [Uttarakhand](./assemblyWeather/uttarakhandAssembly/README.md): 70 seats, 2022 result.
 
 The page script, styles and weather scraper are shared, in
 `assemblyWeather/shared/`. Each state folder holds only its `seats.json`,
