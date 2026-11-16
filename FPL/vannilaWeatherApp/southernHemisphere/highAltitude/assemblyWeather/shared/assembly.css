@@ -120,6 +120,21 @@
   align-items: center;
 }
 .ka-sort-dir { white-space: nowrap; }
+
+/* The value the cards are sorted by, under the district (assembly.js). */
+.ka-card-sorted {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.78rem;
+  color: #7dd3fc;
+  margin-top: 3px;
+}
+.ka-card-sorted-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6b7fa8;
+}
+.ka-card-sorted .sh-delta { margin-left: 0; }
 @media (max-width: 720px) {
   .ka-sort { display: flex; }
 }
