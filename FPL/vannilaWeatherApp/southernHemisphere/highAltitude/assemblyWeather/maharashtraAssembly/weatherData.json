@@ -1,0 +1,2597 @@
+{
+  "generatedAt": 1794868240,
+  "byNo": {
+    "1": {
+      "temp": 21.84,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878175,
+      "sunset": 1794918098,
+      "dayLengthSeconds": 39923,
+      "readingAt": 1794867908
+    },
+    "2": {
+      "temp": 22.8,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878064,
+      "sunset": 1794917988,
+      "dayLengthSeconds": 39924,
+      "readingAt": 1794867909
+    },
+    "3": {
+      "temp": 22.53,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878112,
+      "sunset": 1794918071,
+      "dayLengthSeconds": 39959,
+      "readingAt": 1794867910
+    },
+    "4": {
+      "temp": 21.33,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878190,
+      "sunset": 1794918188,
+      "dayLengthSeconds": 39998,
+      "readingAt": 1794867911
+    },
+    "5": {
+      "temp": 21.07,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878050,
+      "sunset": 1794918079,
+      "dayLengthSeconds": 40029,
+      "readingAt": 1794867912
+    },
+    "6": {
+      "temp": 23.1,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878012,
+      "sunset": 1794918025,
+      "dayLengthSeconds": 40013,
+      "readingAt": 1794867914
+    },
+    "7": {
+      "temp": 22.91,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877953,
+      "sunset": 1794918002,
+      "dayLengthSeconds": 40049,
+      "readingAt": 1794867915
+    },
+    "8": {
+      "temp": 23.47,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877975,
+      "sunset": 1794917952,
+      "dayLengthSeconds": 39977,
+      "readingAt": 1794867916
+    },
+    "9": {
+      "temp": 23.1,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877946,
+      "sunset": 1794917909,
+      "dayLengthSeconds": 39963,
+      "readingAt": 1794867917
+    },
+    "10": {
+      "temp": 21.69,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877842,
+      "sunset": 1794917824,
+      "dayLengthSeconds": 39982,
+      "readingAt": 1794867918
+    },
+    "11": {
+      "temp": 21,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877662,
+      "sunset": 1794917645,
+      "dayLengthSeconds": 39983,
+      "readingAt": 1794867919
+    },
+    "12": {
+      "temp": 21.56,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877702,
+      "sunset": 1794917721,
+      "dayLengthSeconds": 40019,
+      "readingAt": 1794867921
+    },
+    "13": {
+      "temp": 21.75,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877753,
+      "sunset": 1794917781,
+      "dayLengthSeconds": 40028,
+      "readingAt": 1794867922
+    },
+    "14": {
+      "temp": 21.75,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877750,
+      "sunset": 1794917778,
+      "dayLengthSeconds": 40028,
+      "readingAt": 1794867923
+    },
+    "15": {
+      "temp": 22.63,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877877,
+      "sunset": 1794917896,
+      "dayLengthSeconds": 40019,
+      "readingAt": 1794867924
+    },
+    "16": {
+      "temp": 22.12,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877801,
+      "sunset": 1794917842,
+      "dayLengthSeconds": 40041,
+      "readingAt": 1794867925
+    },
+    "17": {
+      "temp": 21.22,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877837,
+      "sunset": 1794917965,
+      "dayLengthSeconds": 40128,
+      "readingAt": 1794867926
+    },
+    "18": {
+      "temp": 22.29,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877771,
+      "sunset": 1794917863,
+      "dayLengthSeconds": 40092,
+      "readingAt": 1794867927
+    },
+    "19": {
+      "temp": 21.9,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877682,
+      "sunset": 1794917746,
+      "dayLengthSeconds": 40064,
+      "readingAt": 1794867929
+    },
+    "20": {
+      "temp": 21.26,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877641,
+      "sunset": 1794917660,
+      "dayLengthSeconds": 40019,
+      "readingAt": 1794867930
+    },
+    "21": {
+      "temp": 21.38,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877588,
+      "sunset": 1794917638,
+      "dayLengthSeconds": 40050,
+      "readingAt": 1794867931
+    },
+    "22": {
+      "temp": 20.06,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877560,
+      "sunset": 1794917676,
+      "dayLengthSeconds": 40116,
+      "readingAt": 1794867932
+    },
+    "23": {
+      "temp": 19.82,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877524,
+      "sunset": 1794917673,
+      "dayLengthSeconds": 40149,
+      "readingAt": 1794867933
+    },
+    "24": {
+      "temp": 17.96,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877522,
+      "sunset": 1794917743,
+      "dayLengthSeconds": 40221,
+      "readingAt": 1794867934
+    },
+    "25": {
+      "temp": 19.2,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877429,
+      "sunset": 1794917615,
+      "dayLengthSeconds": 40186,
+      "readingAt": 1794867936
+    },
+    "26": {
+      "temp": 20.58,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877487,
+      "sunset": 1794917567,
+      "dayLengthSeconds": 40080,
+      "readingAt": 1794867937
+    },
+    "27": {
+      "temp": 21.13,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877529,
+      "sunset": 1794917548,
+      "dayLengthSeconds": 40019,
+      "readingAt": 1794867938
+    },
+    "28": {
+      "temp": 20.99,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877398,
+      "sunset": 1794917417,
+      "dayLengthSeconds": 40019,
+      "readingAt": 1794867939
+    },
+    "29": {
+      "temp": 20.65,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877431,
+      "sunset": 1794917521,
+      "dayLengthSeconds": 40090,
+      "readingAt": 1794867940
+    },
+    "30": {
+      "temp": 20.82,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877378,
+      "sunset": 1794917415,
+      "dayLengthSeconds": 40037,
+      "readingAt": 1794867941
+    },
+    "31": {
+      "temp": 20.77,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877381,
+      "sunset": 1794917463,
+      "dayLengthSeconds": 40082,
+      "readingAt": 1794867942
+    },
+    "32": {
+      "temp": 20.4,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877295,
+      "sunset": 1794917374,
+      "dayLengthSeconds": 40079,
+      "readingAt": 1794867944
+    },
+    "33": {
+      "temp": 19.3,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877365,
+      "sunset": 1794917583,
+      "dayLengthSeconds": 40218,
+      "readingAt": 1794867945
+    },
+    "34": {
+      "temp": 19.44,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877293,
+      "sunset": 1794917487,
+      "dayLengthSeconds": 40194,
+      "readingAt": 1794867946
+    },
+    "35": {
+      "temp": 19.76,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877243,
+      "sunset": 1794917368,
+      "dayLengthSeconds": 40125,
+      "readingAt": 1794867947
+    },
+    "36": {
+      "temp": 19.4,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877114,
+      "sunset": 1794917182,
+      "dayLengthSeconds": 40068,
+      "readingAt": 1794867948
+    },
+    "37": {
+      "temp": 19.94,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877219,
+      "sunset": 1794917274,
+      "dayLengthSeconds": 40055,
+      "readingAt": 1794867949
+    },
+    "38": {
+      "temp": 19.6,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877217,
+      "sunset": 1794917258,
+      "dayLengthSeconds": 40041,
+      "readingAt": 1794867951
+    },
+    "39": {
+      "temp": 18.98,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877158,
+      "sunset": 1794917170,
+      "dayLengthSeconds": 40012,
+      "readingAt": 1794867952
+    },
+    "40": {
+      "temp": 20.21,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877320,
+      "sunset": 1794917363,
+      "dayLengthSeconds": 40043,
+      "readingAt": 1794867953
+    },
+    "41": {
+      "temp": 20.04,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877322,
+      "sunset": 1794917285,
+      "dayLengthSeconds": 39963,
+      "readingAt": 1794867954
+    },
+    "42": {
+      "temp": 20.35,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877309,
+      "sunset": 1794917288,
+      "dayLengthSeconds": 39979,
+      "readingAt": 1794867955
+    },
+    "43": {
+      "temp": 19.24,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877196,
+      "sunset": 1794917162,
+      "dayLengthSeconds": 39966,
+      "readingAt": 1794867956
+    },
+    "44": {
+      "temp": 19.13,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794877091,
+      "sunset": 1794917132,
+      "dayLengthSeconds": 40041,
+      "readingAt": 1794867957
+    },
+    "45": {
+      "temp": 18.96,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877020,
+      "sunset": 1794917112,
+      "dayLengthSeconds": 40092,
+      "readingAt": 1794867959
+    },
+    "46": {
+      "temp": 19,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794876923,
+      "sunset": 1794917035,
+      "dayLengthSeconds": 40112,
+      "readingAt": 1794867960
+    },
+    "47": {
+      "temp": 18.39,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794876997,
+      "sunset": 1794917072,
+      "dayLengthSeconds": 40075,
+      "readingAt": 1794867961
+    },
+    "48": {
+      "temp": 17.9,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877050,
+      "sunset": 1794917028,
+      "dayLengthSeconds": 39978,
+      "readingAt": 1794867962
+    },
+    "49": {
+      "temp": 17.93,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794876988,
+      "sunset": 1794916942,
+      "dayLengthSeconds": 39954,
+      "readingAt": 1794867963
+    },
+    "50": {
+      "temp": 20.06,
+      "description": "mist",
+      "timezone": 19800,
+      "sunrise": 1794876943,
+      "sunset": 1794916958,
+      "dayLengthSeconds": 40015,
+      "readingAt": 1794867964
+    },
+    "51": {
+      "temp": 18.26,
+      "description": "broken clouds",
+      "timezone": 19800,
+      "sunrise": 1794876836,
+      "sunset": 1794916892,
+      "dayLengthSeconds": 40056,
+      "readingAt": 1794867966
+    },
+    "52": {
+      "temp": 20.01,
+      "description": "mist",
+      "timezone": 19800,
+      "sunrise": 1794876923,
+      "sunset": 1794916935,
+      "dayLengthSeconds": 40012,
+      "readingAt": 1794867967
+    },
+    "53": {
+      "temp": 20.14,
+      "description": "mist",
+      "timezone": 19800,
+      "sunrise": 1794876913,
+      "sunset": 1794916926,
+      "dayLengthSeconds": 40013,
+      "readingAt": 1794867968
+    },
+    "54": {
+      "temp": 20.19,
+      "description": "mist",
+      "timezone": 19800,
+      "sunrise": 1794876902,
+      "sunset": 1794916901,
+      "dayLengthSeconds": 39999,
+      "readingAt": 1794867969
+    },
+    "55": {
+      "temp": 19.97,
+      "description": "mist",
+      "timezone": 19800,
+      "sunrise": 1794876922,
+      "sunset": 1794916921,
+      "dayLengthSeconds": 39999,
+      "readingAt": 1794867970
+    },
+    "56": {
+      "temp": 19.69,
+      "description": "mist",
+      "timezone": 19800,
+      "sunrise": 1794876943,
+      "sunset": 1794916943,
+      "dayLengthSeconds": 40000,
+      "readingAt": 1794867971
+    },
+    "57": {
+      "temp": 19.99,
+      "description": "mist",
+      "timezone": 19800,
+      "sunrise": 1794876926,
+      "sunset": 1794916913,
+      "dayLengthSeconds": 39987,
+      "readingAt": 1794867972
+    },
+    "58": {
+      "temp": 20.21,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794876899,
+      "sunset": 1794916887,
+      "dayLengthSeconds": 39988,
+      "readingAt": 1794867974
+    },
+    "59": {
+      "temp": 17.95,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794876884,
+      "sunset": 1794916839,
+      "dayLengthSeconds": 39955,
+      "readingAt": 1794867975
+    },
+    "60": {
+      "temp": 18.05,
+      "description": "broken clouds",
+      "timezone": 19800,
+      "sunrise": 1794876785,
+      "sunset": 1794916742,
+      "dayLengthSeconds": 39957,
+      "readingAt": 1794867976
+    },
+    "61": {
+      "temp": 18.24,
+      "description": "broken clouds",
+      "timezone": 19800,
+      "sunrise": 1794876787,
+      "sunset": 1794916783,
+      "dayLengthSeconds": 39996,
+      "readingAt": 1794867977
+    },
+    "62": {
+      "temp": 18,
+      "description": "broken clouds",
+      "timezone": 19800,
+      "sunrise": 1794876695,
+      "sunset": 1794916707,
+      "dayLengthSeconds": 40012,
+      "readingAt": 1794867978
+    },
+    "63": {
+      "temp": 18.14,
+      "description": "broken clouds",
+      "timezone": 19800,
+      "sunrise": 1794876663,
+      "sunset": 1794916725,
+      "dayLengthSeconds": 40062,
+      "readingAt": 1794867979
+    },
+    "64": {
+      "temp": 17.81,
+      "description": "overcast clouds",
+      "timezone": 19800,
+      "sunrise": 1794876742,
+      "sunset": 1794916694,
+      "dayLengthSeconds": 39952,
+      "readingAt": 1794867981
+    },
+    "65": {
+      "temp": 17.78,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794876682,
+      "sunset": 1794916624,
+      "dayLengthSeconds": 39942,
+      "readingAt": 1794867982
+    },
+    "66": {
+      "temp": 18.04,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794876630,
+      "sunset": 1794916589,
+      "dayLengthSeconds": 39959,
+      "readingAt": 1794867983
+    },
+    "67": {
+      "temp": 18.36,
+      "description": "broken clouds",
+      "timezone": 19800,
+      "sunrise": 1794876640,
+      "sunset": 1794916768,
+      "dayLengthSeconds": 40128,
+      "readingAt": 1794867984
+    },
+    "68": {
+      "temp": 18.43,
+      "description": "overcast clouds",
+      "timezone": 19800,
+      "sunrise": 1794876611,
+      "sunset": 1794916790,
+      "dayLengthSeconds": 40179,
+      "readingAt": 1794867985
+    },
+    "69": {
+      "temp": 17.52,
+      "description": "overcast clouds",
+      "timezone": 19800,
+      "sunrise": 1794876537,
+      "sunset": 1794916860,
+      "dayLengthSeconds": 40323,
+      "readingAt": 1794867986
+    },
+    "70": {
+      "temp": 18.77,
+      "description": "overcast clouds",
+      "timezone": 19800,
+      "sunrise": 1794876725,
+      "sunset": 1794916979,
+      "dayLengthSeconds": 40254,
+      "readingAt": 1794867987
+    },
+    "71": {
+      "temp": 18.7,
+      "description": "broken clouds",
+      "timezone": 19800,
+      "sunrise": 1794876762,
+      "sunset": 1794916981,
+      "dayLengthSeconds": 40219,
+      "readingAt": 1794867989
+    },
+    "72": {
+      "temp": 18.64,
+      "description": "overcast clouds",
+      "timezone": 19800,
+      "sunrise": 1794876734,
+      "sunset": 1794916975,
+      "dayLengthSeconds": 40241,
+      "readingAt": 1794867990
+    },
+    "73": {
+      "temp": 18.48,
+      "description": "broken clouds",
+      "timezone": 19800,
+      "sunrise": 1794876684,
+      "sunset": 1794916785,
+      "dayLengthSeconds": 40101,
+      "readingAt": 1794867991
+    },
+    "74": {
+      "temp": 18.63,
+      "description": "broken clouds",
+      "timezone": 19800,
+      "sunrise": 1794876791,
+      "sunset": 1794916913,
+      "dayLengthSeconds": 40122,
+      "readingAt": 1794867992
+    },
+    "75": {
+      "temp": 18.94,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794876851,
+      "sunset": 1794917021,
+      "dayLengthSeconds": 40170,
+      "readingAt": 1794867993
+    },
+    "76": {
+      "temp": 18.97,
+      "description": "broken clouds",
+      "timezone": 19800,
+      "sunrise": 1794876848,
+      "sunset": 1794917053,
+      "dayLengthSeconds": 40205,
+      "readingAt": 1794867994
+    },
+    "77": {
+      "temp": 19.18,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794876988,
+      "sunset": 1794917124,
+      "dayLengthSeconds": 40136,
+      "readingAt": 1794867996
+    },
+    "78": {
+      "temp": 18.5,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877080,
+      "sunset": 1794917224,
+      "dayLengthSeconds": 40144,
+      "readingAt": 1794867997
+    },
+    "79": {
+      "temp": 19.24,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794877151,
+      "sunset": 1794917346,
+      "dayLengthSeconds": 40195,
+      "readingAt": 1794867998
+    },
+    "80": {
+      "temp": 19.34,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877097,
+      "sunset": 1794917297,
+      "dayLengthSeconds": 40200,
+      "readingAt": 1794867999
+    },
+    "81": {
+      "temp": 19.43,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877171,
+      "sunset": 1794917402,
+      "dayLengthSeconds": 40231,
+      "readingAt": 1794868000
+    },
+    "82": {
+      "temp": 18.62,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877112,
+      "sunset": 1794917399,
+      "dayLengthSeconds": 40287,
+      "readingAt": 1794868001
+    },
+    "83": {
+      "temp": 19.49,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794876991,
+      "sunset": 1794917275,
+      "dayLengthSeconds": 40284,
+      "readingAt": 1794868002
+    },
+    "84": {
+      "temp": 18.69,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877109,
+      "sunset": 1794917416,
+      "dayLengthSeconds": 40307,
+      "readingAt": 1794868004
+    },
+    "85": {
+      "temp": 18.64,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794877082,
+      "sunset": 1794917439,
+      "dayLengthSeconds": 40357,
+      "readingAt": 1794868005
+    },
+    "86": {
+      "temp": 18.58,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794877162,
+      "sunset": 1794917527,
+      "dayLengthSeconds": 40365,
+      "readingAt": 1794868006
+    },
+    "87": {
+      "temp": 18.68,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794877156,
+      "sunset": 1794917532,
+      "dayLengthSeconds": 40376,
+      "readingAt": 1794868007
+    },
+    "88": {
+      "temp": 18.97,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794877191,
+      "sunset": 1794917598,
+      "dayLengthSeconds": 40407,
+      "readingAt": 1794868008
+    },
+    "89": {
+      "temp": 18.6,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794877081,
+      "sunset": 1794917506,
+      "dayLengthSeconds": 40425,
+      "readingAt": 1794868009
+    },
+    "90": {
+      "temp": 18.68,
+      "description": "broken clouds",
+      "timezone": 19800,
+      "sunrise": 1794877042,
+      "sunset": 1794917521,
+      "dayLengthSeconds": 40479,
+      "readingAt": 1794868011
+    },
+    "91": {
+      "temp": 18.78,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794877107,
+      "sunset": 1794917557,
+      "dayLengthSeconds": 40450,
+      "readingAt": 1794868012
+    },
+    "92": {
+      "temp": 18.46,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794877215,
+      "sunset": 1794917551,
+      "dayLengthSeconds": 40336,
+      "readingAt": 1794868013
+    },
+    "93": {
+      "temp": 18.9,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877210,
+      "sunset": 1794917483,
+      "dayLengthSeconds": 40273,
+      "readingAt": 1794868014
+    },
+    "94": {
+      "temp": 19.24,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877252,
+      "sunset": 1794917518,
+      "dayLengthSeconds": 40266,
+      "readingAt": 1794868015
+    },
+    "95": {
+      "temp": 18.93,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877353,
+      "sunset": 1794917638,
+      "dayLengthSeconds": 40285,
+      "readingAt": 1794868016
+    },
+    "96": {
+      "temp": 18.74,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877299,
+      "sunset": 1794917649,
+      "dayLengthSeconds": 40350,
+      "readingAt": 1794868017
+    },
+    "97": {
+      "temp": 19.13,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794877280,
+      "sunset": 1794917682,
+      "dayLengthSeconds": 40402,
+      "readingAt": 1794868019
+    },
+    "98": {
+      "temp": 18.49,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877385,
+      "sunset": 1794917735,
+      "dayLengthSeconds": 40350,
+      "readingAt": 1794868020
+    },
+    "99": {
+      "temp": 18.31,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877466,
+      "sunset": 1794917755,
+      "dayLengthSeconds": 40289,
+      "readingAt": 1794868021
+    },
+    "100": {
+      "temp": 18.75,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877513,
+      "sunset": 1794917814,
+      "dayLengthSeconds": 40301,
+      "readingAt": 1794868022
+    },
+    "101": {
+      "temp": 17.93,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794877567,
+      "sunset": 1794917808,
+      "dayLengthSeconds": 40241,
+      "readingAt": 1794868023
+    },
+    "102": {
+      "temp": 18.01,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877610,
+      "sunset": 1794917847,
+      "dayLengthSeconds": 40237,
+      "readingAt": 1794868024
+    },
+    "103": {
+      "temp": 19.55,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877633,
+      "sunset": 1794917800,
+      "dayLengthSeconds": 40167,
+      "readingAt": 1794868025
+    },
+    "104": {
+      "temp": 19.64,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877667,
+      "sunset": 1794917823,
+      "dayLengthSeconds": 40156,
+      "readingAt": 1794868027
+    },
+    "105": {
+      "temp": 18.76,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877788,
+      "sunset": 1794917952,
+      "dayLengthSeconds": 40164,
+      "readingAt": 1794868028
+    },
+    "106": {
+      "temp": 18.08,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877701,
+      "sunset": 1794917900,
+      "dayLengthSeconds": 40199,
+      "readingAt": 1794868029
+    },
+    "107": {
+      "temp": 19.13,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877708,
+      "sunset": 1794917946,
+      "dayLengthSeconds": 40238,
+      "readingAt": 1794868030
+    },
+    "108": {
+      "temp": 19.49,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877724,
+      "sunset": 1794917967,
+      "dayLengthSeconds": 40243,
+      "readingAt": 1794868031
+    },
+    "109": {
+      "temp": 18.93,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877703,
+      "sunset": 1794917941,
+      "dayLengthSeconds": 40238,
+      "readingAt": 1794868032
+    },
+    "110": {
+      "temp": 19.56,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877655,
+      "sunset": 1794917964,
+      "dayLengthSeconds": 40309,
+      "readingAt": 1794868034
+    },
+    "111": {
+      "temp": 19.37,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877764,
+      "sunset": 1794918033,
+      "dayLengthSeconds": 40269,
+      "readingAt": 1794868035
+    },
+    "112": {
+      "temp": 19.88,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877852,
+      "sunset": 1794918080,
+      "dayLengthSeconds": 40228,
+      "readingAt": 1794868036
+    },
+    "113": {
+      "temp": 20.55,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877905,
+      "sunset": 1794918061,
+      "dayLengthSeconds": 40156,
+      "readingAt": 1794868037
+    },
+    "114": {
+      "temp": 21.68,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877960,
+      "sunset": 1794918070,
+      "dayLengthSeconds": 40110,
+      "readingAt": 1794868038
+    },
+    "115": {
+      "temp": 21.62,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877963,
+      "sunset": 1794918079,
+      "dayLengthSeconds": 40116,
+      "readingAt": 1794868039
+    },
+    "116": {
+      "temp": 19.37,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878057,
+      "sunset": 1794918144,
+      "dayLengthSeconds": 40087,
+      "readingAt": 1794868040
+    },
+    "117": {
+      "temp": 19.49,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878073,
+      "sunset": 1794918195,
+      "dayLengthSeconds": 40122,
+      "readingAt": 1794868042
+    },
+    "118": {
+      "temp": 17.59,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878007,
+      "sunset": 1794918160,
+      "dayLengthSeconds": 40153,
+      "readingAt": 1794868043
+    },
+    "119": {
+      "temp": 19.8,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877921,
+      "sunset": 1794918126,
+      "dayLengthSeconds": 40205,
+      "readingAt": 1794868044
+    },
+    "120": {
+      "temp": 17.69,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878023,
+      "sunset": 1794918264,
+      "dayLengthSeconds": 40241,
+      "readingAt": 1794868045
+    },
+    "121": {
+      "temp": 19.07,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878016,
+      "sunset": 1794918215,
+      "dayLengthSeconds": 40199,
+      "readingAt": 1794868046
+    },
+    "122": {
+      "temp": 19.13,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878094,
+      "sunset": 1794918270,
+      "dayLengthSeconds": 40176,
+      "readingAt": 1794868047
+    },
+    "123": {
+      "temp": 19.09,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794878074,
+      "sunset": 1794918288,
+      "dayLengthSeconds": 40214,
+      "readingAt": 1794868049
+    },
+    "124": {
+      "temp": 18.92,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794878101,
+      "sunset": 1794918316,
+      "dayLengthSeconds": 40215,
+      "readingAt": 1794868050
+    },
+    "125": {
+      "temp": 18.92,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794878098,
+      "sunset": 1794918313,
+      "dayLengthSeconds": 40215,
+      "readingAt": 1794868051
+    },
+    "126": {
+      "temp": 18.92,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878066,
+      "sunset": 1794918298,
+      "dayLengthSeconds": 40232,
+      "readingAt": 1794868052
+    },
+    "127": {
+      "temp": 19.32,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794878112,
+      "sunset": 1794918381,
+      "dayLengthSeconds": 40269,
+      "readingAt": 1794868053
+    },
+    "128": {
+      "temp": 23.2,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878336,
+      "sunset": 1794918551,
+      "dayLengthSeconds": 40215,
+      "readingAt": 1794868055
+    },
+    "129": {
+      "temp": 22.26,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878232,
+      "sunset": 1794918482,
+      "dayLengthSeconds": 40250,
+      "readingAt": 1794868056
+    },
+    "130": {
+      "temp": 23.56,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878302,
+      "sunset": 1794918571,
+      "dayLengthSeconds": 40269,
+      "readingAt": 1794868057
+    },
+    "131": {
+      "temp": 23.59,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878316,
+      "sunset": 1794918566,
+      "dayLengthSeconds": 40250,
+      "readingAt": 1794868058
+    },
+    "132": {
+      "temp": 24.6,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878265,
+      "sunset": 1794918584,
+      "dayLengthSeconds": 40319,
+      "readingAt": 1794868059
+    },
+    "133": {
+      "temp": 24.64,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878259,
+      "sunset": 1794918585,
+      "dayLengthSeconds": 40326,
+      "readingAt": 1794868060
+    },
+    "134": {
+      "temp": 23.71,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878183,
+      "sunset": 1794918517,
+      "dayLengthSeconds": 40334,
+      "readingAt": 1794868062
+    },
+    "135": {
+      "temp": 22.52,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878151,
+      "sunset": 1794918465,
+      "dayLengthSeconds": 40314,
+      "readingAt": 1794868063
+    },
+    "136": {
+      "temp": 26.03,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878201,
+      "sunset": 1794918551,
+      "dayLengthSeconds": 40350,
+      "readingAt": 1794868064
+    },
+    "137": {
+      "temp": 24.19,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878191,
+      "sunset": 1794918534,
+      "dayLengthSeconds": 40343,
+      "readingAt": 1794868065
+    },
+    "138": {
+      "temp": 24.06,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878175,
+      "sunset": 1794918527,
+      "dayLengthSeconds": 40352,
+      "readingAt": 1794868066
+    },
+    "139": {
+      "temp": 22.67,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878113,
+      "sunset": 1794918462,
+      "dayLengthSeconds": 40349,
+      "readingAt": 1794868067
+    },
+    "140": {
+      "temp": 23.53,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878153,
+      "sunset": 1794918513,
+      "dayLengthSeconds": 40360,
+      "readingAt": 1794868068
+    },
+    "141": {
+      "temp": 23.91,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878173,
+      "sunset": 1794918529,
+      "dayLengthSeconds": 40356,
+      "readingAt": 1794868070
+    },
+    "142": {
+      "temp": 23.91,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878173,
+      "sunset": 1794918529,
+      "dayLengthSeconds": 40356,
+      "readingAt": 1794868071
+    },
+    "143": {
+      "temp": 25.96,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878180,
+      "sunset": 1794918539,
+      "dayLengthSeconds": 40359,
+      "readingAt": 1794868072
+    },
+    "144": {
+      "temp": 25.95,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878175,
+      "sunset": 1794918539,
+      "dayLengthSeconds": 40364,
+      "readingAt": 1794868073
+    },
+    "145": {
+      "temp": 26.06,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878245,
+      "sunset": 1794918588,
+      "dayLengthSeconds": 40343,
+      "readingAt": 1794868074
+    },
+    "146": {
+      "temp": 26,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878218,
+      "sunset": 1794918565,
+      "dayLengthSeconds": 40347,
+      "readingAt": 1794868075
+    },
+    "147": {
+      "temp": 25.97,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878209,
+      "sunset": 1794918573,
+      "dayLengthSeconds": 40364,
+      "readingAt": 1794868077
+    },
+    "148": {
+      "temp": 25.96,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878208,
+      "sunset": 1794918568,
+      "dayLengthSeconds": 40360,
+      "readingAt": 1794868078
+    },
+    "149": {
+      "temp": 26.03,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878204,
+      "sunset": 1794918567,
+      "dayLengthSeconds": 40363,
+      "readingAt": 1794868079
+    },
+    "150": {
+      "temp": 26.04,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878205,
+      "sunset": 1794918572,
+      "dayLengthSeconds": 40367,
+      "readingAt": 1794868080
+    },
+    "151": {
+      "temp": 26.01,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878177,
+      "sunset": 1794918572,
+      "dayLengthSeconds": 40395,
+      "readingAt": 1794868081
+    },
+    "152": {
+      "temp": 25.94,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878238,
+      "sunset": 1794918592,
+      "dayLengthSeconds": 40354,
+      "readingAt": 1794868082
+    },
+    "153": {
+      "temp": 25.97,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878240,
+      "sunset": 1794918590,
+      "dayLengthSeconds": 40350,
+      "readingAt": 1794868083
+    },
+    "154": {
+      "temp": 25.88,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878235,
+      "sunset": 1794918591,
+      "dayLengthSeconds": 40356,
+      "readingAt": 1794868085
+    },
+    "155": {
+      "temp": 25.94,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878211,
+      "sunset": 1794918576,
+      "dayLengthSeconds": 40365,
+      "readingAt": 1794868086
+    },
+    "156": {
+      "temp": 25.98,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878210,
+      "sunset": 1794918586,
+      "dayLengthSeconds": 40376,
+      "readingAt": 1794868087
+    },
+    "157": {
+      "temp": 25.81,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878213,
+      "sunset": 1794918583,
+      "dayLengthSeconds": 40370,
+      "readingAt": 1794868088
+    },
+    "158": {
+      "temp": 25.84,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878230,
+      "sunset": 1794918602,
+      "dayLengthSeconds": 40372,
+      "readingAt": 1794868089
+    },
+    "159": {
+      "temp": 25.82,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878232,
+      "sunset": 1794918596,
+      "dayLengthSeconds": 40364,
+      "readingAt": 1794868090
+    },
+    "160": {
+      "temp": 25.88,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878231,
+      "sunset": 1794918591,
+      "dayLengthSeconds": 40360,
+      "readingAt": 1794868091
+    },
+    "161": {
+      "temp": 26.04,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878246,
+      "sunset": 1794918604,
+      "dayLengthSeconds": 40358,
+      "readingAt": 1794868093
+    },
+    "162": {
+      "temp": 26.03,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878242,
+      "sunset": 1794918604,
+      "dayLengthSeconds": 40362,
+      "readingAt": 1794868094
+    },
+    "163": {
+      "temp": 25.61,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878226,
+      "sunset": 1794918595,
+      "dayLengthSeconds": 40369,
+      "readingAt": 1794868095
+    },
+    "164": {
+      "temp": 25.97,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878240,
+      "sunset": 1794918612,
+      "dayLengthSeconds": 40372,
+      "readingAt": 1794868096
+    },
+    "165": {
+      "temp": 25.97,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878233,
+      "sunset": 1794918606,
+      "dayLengthSeconds": 40373,
+      "readingAt": 1794868097
+    },
+    "166": {
+      "temp": 25.85,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878225,
+      "sunset": 1794918600,
+      "dayLengthSeconds": 40375,
+      "readingAt": 1794868098
+    },
+    "167": {
+      "temp": 25.97,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878226,
+      "sunset": 1794918604,
+      "dayLengthSeconds": 40378,
+      "readingAt": 1794867959
+    },
+    "168": {
+      "temp": 25.84,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878217,
+      "sunset": 1794918593,
+      "dayLengthSeconds": 40376,
+      "readingAt": 1794868101
+    },
+    "169": {
+      "temp": 25.82,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878214,
+      "sunset": 1794918594,
+      "dayLengthSeconds": 40380,
+      "readingAt": 1794868102
+    },
+    "170": {
+      "temp": 25.99,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878212,
+      "sunset": 1794918594,
+      "dayLengthSeconds": 40382,
+      "readingAt": 1794868103
+    },
+    "171": {
+      "temp": 26.02,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878207,
+      "sunset": 1794918592,
+      "dayLengthSeconds": 40385,
+      "readingAt": 1794868104
+    },
+    "172": {
+      "temp": 25.97,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878203,
+      "sunset": 1794918593,
+      "dayLengthSeconds": 40390,
+      "readingAt": 1794868105
+    },
+    "173": {
+      "temp": 25.95,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878211,
+      "sunset": 1794918599,
+      "dayLengthSeconds": 40388,
+      "readingAt": 1794868106
+    },
+    "174": {
+      "temp": 26.01,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878217,
+      "sunset": 1794918600,
+      "dayLengthSeconds": 40383,
+      "readingAt": 1794867780
+    },
+    "175": {
+      "temp": 25.99,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878222,
+      "sunset": 1794918606,
+      "dayLengthSeconds": 40384,
+      "readingAt": 1794868109
+    },
+    "176": {
+      "temp": 26,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878224,
+      "sunset": 1794918610,
+      "dayLengthSeconds": 40386,
+      "readingAt": 1794868110
+    },
+    "177": {
+      "temp": 25.98,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878229,
+      "sunset": 1794918615,
+      "dayLengthSeconds": 40386,
+      "readingAt": 1794868111
+    },
+    "178": {
+      "temp": 26.01,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878220,
+      "sunset": 1794918609,
+      "dayLengthSeconds": 40389,
+      "readingAt": 1794868112
+    },
+    "179": {
+      "temp": 26.01,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878220,
+      "sunset": 1794918609,
+      "dayLengthSeconds": 40389,
+      "readingAt": 1794868112
+    },
+    "180": {
+      "temp": 26.03,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878218,
+      "sunset": 1794918612,
+      "dayLengthSeconds": 40394,
+      "readingAt": 1794868114
+    },
+    "181": {
+      "temp": 26.05,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878227,
+      "sunset": 1794918616,
+      "dayLengthSeconds": 40389,
+      "readingAt": 1794868116
+    },
+    "182": {
+      "temp": 25.98,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878227,
+      "sunset": 1794918624,
+      "dayLengthSeconds": 40397,
+      "readingAt": 1794868117
+    },
+    "183": {
+      "temp": 26,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878218,
+      "sunset": 1794918614,
+      "dayLengthSeconds": 40396,
+      "readingAt": 1794868118
+    },
+    "184": {
+      "temp": 26.01,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878222,
+      "sunset": 1794918622,
+      "dayLengthSeconds": 40400,
+      "readingAt": 1794868119
+    },
+    "185": {
+      "temp": 26.05,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878231,
+      "sunset": 1794918636,
+      "dayLengthSeconds": 40405,
+      "readingAt": 1794868120
+    },
+    "186": {
+      "temp": 25.98,
+      "description": "haze",
+      "timezone": 19800,
+      "sunrise": 1794878221,
+      "sunset": 1794918626,
+      "dayLengthSeconds": 40405,
+      "readingAt": 1794868121
+    },
+    "187": {
+      "temp": 25.99,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878220,
+      "sunset": 1794918633,
+      "dayLengthSeconds": 40413,
+      "readingAt": 1794868123
+    },
+    "188": {
+      "temp": 25.99,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878155,
+      "sunset": 1794918553,
+      "dayLengthSeconds": 40398,
+      "readingAt": 1794868124
+    },
+    "189": {
+      "temp": 23.17,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878098,
+      "sunset": 1794918511,
+      "dayLengthSeconds": 40413,
+      "readingAt": 1794868125
+    },
+    "190": {
+      "temp": 26.05,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878171,
+      "sunset": 1794918587,
+      "dayLengthSeconds": 40416,
+      "readingAt": 1794868126
+    },
+    "191": {
+      "temp": 23.73,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794878141,
+      "sunset": 1794918586,
+      "dayLengthSeconds": 40445,
+      "readingAt": 1794868127
+    },
+    "192": {
+      "temp": 24.62,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878181,
+      "sunset": 1794918640,
+      "dayLengthSeconds": 40459,
+      "readingAt": 1794868128
+    },
+    "193": {
+      "temp": 23.12,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794878098,
+      "sunset": 1794918666,
+      "dayLengthSeconds": 40568,
+      "readingAt": 1794868129
+    },
+    "194": {
+      "temp": 22.58,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877998,
+      "sunset": 1794918561,
+      "dayLengthSeconds": 40563,
+      "readingAt": 1794868131
+    },
+    "195": {
+      "temp": 19.19,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877993,
+      "sunset": 1794918351,
+      "dayLengthSeconds": 40358,
+      "readingAt": 1794868132
+    },
+    "196": {
+      "temp": 19.33,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877958,
+      "sunset": 1794918349,
+      "dayLengthSeconds": 40391,
+      "readingAt": 1794868133
+    },
+    "197": {
+      "temp": 19.14,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877956,
+      "sunset": 1794918379,
+      "dayLengthSeconds": 40423,
+      "readingAt": 1794868134
+    },
+    "198": {
+      "temp": 19.89,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877839,
+      "sunset": 1794918266,
+      "dayLengthSeconds": 40427,
+      "readingAt": 1794868135
+    },
+    "199": {
+      "temp": 19.52,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877755,
+      "sunset": 1794918249,
+      "dayLengthSeconds": 40494,
+      "readingAt": 1794868136
+    },
+    "200": {
+      "temp": 19.61,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877615,
+      "sunset": 1794918173,
+      "dayLengthSeconds": 40558,
+      "readingAt": 1794868137
+    },
+    "201": {
+      "temp": 19.57,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877727,
+      "sunset": 1794918277,
+      "dayLengthSeconds": 40550,
+      "readingAt": 1794868139
+    },
+    "202": {
+      "temp": 15.94,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877885,
+      "sunset": 1794918412,
+      "dayLengthSeconds": 40527,
+      "readingAt": 1794868140
+    },
+    "203": {
+      "temp": 19.21,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877903,
+      "sunset": 1794918456,
+      "dayLengthSeconds": 40553,
+      "readingAt": 1794868141
+    },
+    "204": {
+      "temp": 23.12,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794878085,
+      "sunset": 1794918500,
+      "dayLengthSeconds": 40415,
+      "readingAt": 1794868142
+    },
+    "205": {
+      "temp": 18.32,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877962,
+      "sunset": 1794918426,
+      "dayLengthSeconds": 40464,
+      "readingAt": 1794868143
+    },
+    "206": {
+      "temp": 18.23,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877955,
+      "sunset": 1794918419,
+      "dayLengthSeconds": 40464,
+      "readingAt": 1794868144
+    },
+    "207": {
+      "temp": 18.15,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877945,
+      "sunset": 1794918409,
+      "dayLengthSeconds": 40464,
+      "readingAt": 1794868146
+    },
+    "208": {
+      "temp": 18.36,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877921,
+      "sunset": 1794918400,
+      "dayLengthSeconds": 40479,
+      "readingAt": 1794868147
+    },
+    "209": {
+      "temp": 17.88,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877943,
+      "sunset": 1794918425,
+      "dayLengthSeconds": 40482,
+      "readingAt": 1794868148
+    },
+    "210": {
+      "temp": 18.21,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877944,
+      "sunset": 1794918430,
+      "dayLengthSeconds": 40486,
+      "readingAt": 1794868149
+    },
+    "211": {
+      "temp": 20.05,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877946,
+      "sunset": 1794918442,
+      "dayLengthSeconds": 40496,
+      "readingAt": 1794868150
+    },
+    "212": {
+      "temp": 18.16,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877932,
+      "sunset": 1794918422,
+      "dayLengthSeconds": 40490,
+      "readingAt": 1794868151
+    },
+    "213": {
+      "temp": 20.15,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877915,
+      "sunset": 1794918401,
+      "dayLengthSeconds": 40486,
+      "readingAt": 1794868152
+    },
+    "214": {
+      "temp": 18.21,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877927,
+      "sunset": 1794918414,
+      "dayLengthSeconds": 40487,
+      "readingAt": 1794868154
+    },
+    "215": {
+      "temp": 18.42,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877934,
+      "sunset": 1794918417,
+      "dayLengthSeconds": 40483,
+      "readingAt": 1794868155
+    },
+    "216": {
+      "temp": 19.33,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877991,
+      "sunset": 1794918289,
+      "dayLengthSeconds": 40298,
+      "readingAt": 1794868156
+    },
+    "217": {
+      "temp": 19.27,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877945,
+      "sunset": 1794918236,
+      "dayLengthSeconds": 40291,
+      "readingAt": 1794868157
+    },
+    "218": {
+      "temp": 19.16,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877897,
+      "sunset": 1794918155,
+      "dayLengthSeconds": 40258,
+      "readingAt": 1794868158
+    },
+    "219": {
+      "temp": 19.69,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877909,
+      "sunset": 1794918143,
+      "dayLengthSeconds": 40234,
+      "readingAt": 1794868159
+    },
+    "220": {
+      "temp": 18.46,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877841,
+      "sunset": 1794918124,
+      "dayLengthSeconds": 40283,
+      "readingAt": 1794868161
+    },
+    "221": {
+      "temp": 19.22,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877770,
+      "sunset": 1794918066,
+      "dayLengthSeconds": 40296,
+      "readingAt": 1794868162
+    },
+    "222": {
+      "temp": 19.7,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877682,
+      "sunset": 1794918015,
+      "dayLengthSeconds": 40333,
+      "readingAt": 1794868163
+    },
+    "223": {
+      "temp": 18.97,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877822,
+      "sunset": 1794918148,
+      "dayLengthSeconds": 40326,
+      "readingAt": 1794868164
+    },
+    "224": {
+      "temp": 18.63,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877837,
+      "sunset": 1794918234,
+      "dayLengthSeconds": 40397,
+      "readingAt": 1794868165
+    },
+    "225": {
+      "temp": 18.94,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877772,
+      "sunset": 1794918150,
+      "dayLengthSeconds": 40378,
+      "readingAt": 1794868166
+    },
+    "226": {
+      "temp": 19.37,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877740,
+      "sunset": 1794918206,
+      "dayLengthSeconds": 40466,
+      "readingAt": 1794868167
+    },
+    "227": {
+      "temp": 19.49,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877659,
+      "sunset": 1794918138,
+      "dayLengthSeconds": 40479,
+      "readingAt": 1794868169
+    },
+    "228": {
+      "temp": 19.31,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794877546,
+      "sunset": 1794917896,
+      "dayLengthSeconds": 40350,
+      "readingAt": 1794868170
+    },
+    "229": {
+      "temp": 19.12,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877428,
+      "sunset": 1794917795,
+      "dayLengthSeconds": 40367,
+      "readingAt": 1794868171
+    },
+    "230": {
+      "temp": 19.01,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877517,
+      "sunset": 1794917917,
+      "dayLengthSeconds": 40400,
+      "readingAt": 1794868172
+    },
+    "231": {
+      "temp": 19.49,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877643,
+      "sunset": 1794918075,
+      "dayLengthSeconds": 40432,
+      "readingAt": 1794868173
+    },
+    "232": {
+      "temp": 18.05,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877422,
+      "sunset": 1794917871,
+      "dayLengthSeconds": 40449,
+      "readingAt": 1794868174
+    },
+    "233": {
+      "temp": 19.19,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877329,
+      "sunset": 1794917752,
+      "dayLengthSeconds": 40423,
+      "readingAt": 1794868175
+    },
+    "234": {
+      "temp": 17.66,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877274,
+      "sunset": 1794917789,
+      "dayLengthSeconds": 40515,
+      "readingAt": 1794868177
+    },
+    "235": {
+      "temp": 17.52,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877271,
+      "sunset": 1794917777,
+      "dayLengthSeconds": 40506,
+      "readingAt": 1794868178
+    },
+    "236": {
+      "temp": 18.7,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794877212,
+      "sunset": 1794917663,
+      "dayLengthSeconds": 40451,
+      "readingAt": 1794868179
+    },
+    "237": {
+      "temp": 17.52,
+      "description": "broken clouds",
+      "timezone": 19800,
+      "sunrise": 1794877141,
+      "sunset": 1794917648,
+      "dayLengthSeconds": 40507,
+      "readingAt": 1794868180
+    },
+    "238": {
+      "temp": 17.71,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794877204,
+      "sunset": 1794917758,
+      "dayLengthSeconds": 40554,
+      "readingAt": 1794868181
+    },
+    "239": {
+      "temp": 17.82,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877275,
+      "sunset": 1794917807,
+      "dayLengthSeconds": 40532,
+      "readingAt": 1794868182
+    },
+    "240": {
+      "temp": 18.61,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877209,
+      "sunset": 1794917816,
+      "dayLengthSeconds": 40607,
+      "readingAt": 1794868184
+    },
+    "241": {
+      "temp": 19.07,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877356,
+      "sunset": 1794917932,
+      "dayLengthSeconds": 40576,
+      "readingAt": 1794868185
+    },
+    "242": {
+      "temp": 18.89,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877380,
+      "sunset": 1794917923,
+      "dayLengthSeconds": 40543,
+      "readingAt": 1794868186
+    },
+    "243": {
+      "temp": 20.41,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877531,
+      "sunset": 1794918060,
+      "dayLengthSeconds": 40529,
+      "readingAt": 1794868187
+    },
+    "244": {
+      "temp": 20.25,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877602,
+      "sunset": 1794918107,
+      "dayLengthSeconds": 40505,
+      "readingAt": 1794868188
+    },
+    "245": {
+      "temp": 20.02,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877490,
+      "sunset": 1794918063,
+      "dayLengthSeconds": 40573,
+      "readingAt": 1794868189
+    },
+    "246": {
+      "temp": 19.81,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877468,
+      "sunset": 1794918003,
+      "dayLengthSeconds": 40535,
+      "readingAt": 1794868190
+    },
+    "247": {
+      "temp": 20.04,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877441,
+      "sunset": 1794918054,
+      "dayLengthSeconds": 40613,
+      "readingAt": 1794868192
+    },
+    "248": {
+      "temp": 20.37,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877363,
+      "sunset": 1794917997,
+      "dayLengthSeconds": 40634,
+      "readingAt": 1794868193
+    },
+    "249": {
+      "temp": 20.35,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877362,
+      "sunset": 1794918000,
+      "dayLengthSeconds": 40638,
+      "readingAt": 1794868194
+    },
+    "250": {
+      "temp": 19.93,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877280,
+      "sunset": 1794917943,
+      "dayLengthSeconds": 40663,
+      "readingAt": 1794868195
+    },
+    "251": {
+      "temp": 20.17,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877360,
+      "sunset": 1794918005,
+      "dayLengthSeconds": 40645,
+      "readingAt": 1794868196
+    },
+    "252": {
+      "temp": 19.67,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877515,
+      "sunset": 1794918143,
+      "dayLengthSeconds": 40628,
+      "readingAt": 1794868197
+    },
+    "253": {
+      "temp": 20.37,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877516,
+      "sunset": 1794918195,
+      "dayLengthSeconds": 40679,
+      "readingAt": 1794868199
+    },
+    "254": {
+      "temp": 19.24,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877622,
+      "sunset": 1794918225,
+      "dayLengthSeconds": 40603,
+      "readingAt": 1794868200
+    },
+    "255": {
+      "temp": 19.29,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877748,
+      "sunset": 1794918328,
+      "dayLengthSeconds": 40580,
+      "readingAt": 1794868201
+    },
+    "256": {
+      "temp": 18.16,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877874,
+      "sunset": 1794918461,
+      "dayLengthSeconds": 40587,
+      "readingAt": 1794868202
+    },
+    "257": {
+      "temp": 18.15,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877788,
+      "sunset": 1794918421,
+      "dayLengthSeconds": 40633,
+      "readingAt": 1794868203
+    },
+    "258": {
+      "temp": 18.86,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877696,
+      "sunset": 1794918327,
+      "dayLengthSeconds": 40631,
+      "readingAt": 1794868204
+    },
+    "259": {
+      "temp": 18.22,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877742,
+      "sunset": 1794918444,
+      "dayLengthSeconds": 40702,
+      "readingAt": 1794868205
+    },
+    "260": {
+      "temp": 18.22,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877740,
+      "sunset": 1794918451,
+      "dayLengthSeconds": 40711,
+      "readingAt": 1794868207
+    },
+    "261": {
+      "temp": 17.66,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794877820,
+      "sunset": 1794918511,
+      "dayLengthSeconds": 40691,
+      "readingAt": 1794868208
+    },
+    "262": {
+      "temp": 18.17,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794877819,
+      "sunset": 1794918454,
+      "dayLengthSeconds": 40635,
+      "readingAt": 1794868209
+    },
+    "263": {
+      "temp": 21.57,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794878031,
+      "sunset": 1794918651,
+      "dayLengthSeconds": 40620,
+      "readingAt": 1794868210
+    },
+    "264": {
+      "temp": 22.22,
+      "description": "broken clouds",
+      "timezone": 19800,
+      "sunrise": 1794878004,
+      "sunset": 1794918675,
+      "dayLengthSeconds": 40671,
+      "readingAt": 1794868211
+    },
+    "265": {
+      "temp": 20.86,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877925,
+      "sunset": 1794918587,
+      "dayLengthSeconds": 40662,
+      "readingAt": 1794868212
+    },
+    "266": {
+      "temp": 21.09,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794877925,
+      "sunset": 1794918684,
+      "dayLengthSeconds": 40759,
+      "readingAt": 1794868213
+    },
+    "267": {
+      "temp": 18.87,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794877848,
+      "sunset": 1794918665,
+      "dayLengthSeconds": 40817,
+      "readingAt": 1794868215
+    },
+    "268": {
+      "temp": 19.98,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877768,
+      "sunset": 1794918654,
+      "dayLengthSeconds": 40886,
+      "readingAt": 1794868216
+    },
+    "269": {
+      "temp": 21.05,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877756,
+      "sunset": 1794918690,
+      "dayLengthSeconds": 40934,
+      "readingAt": 1794868217
+    },
+    "270": {
+      "temp": 20.29,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877709,
+      "sunset": 1794918659,
+      "dayLengthSeconds": 40950,
+      "readingAt": 1794868218
+    },
+    "271": {
+      "temp": 17.05,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877626,
+      "sunset": 1794918569,
+      "dayLengthSeconds": 40943,
+      "readingAt": 1794868219
+    },
+    "272": {
+      "temp": 16.95,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877710,
+      "sunset": 1794918572,
+      "dayLengthSeconds": 40862,
+      "readingAt": 1794868220
+    },
+    "273": {
+      "temp": 17.46,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877652,
+      "sunset": 1794918482,
+      "dayLengthSeconds": 40830,
+      "readingAt": 1794868222
+    },
+    "274": {
+      "temp": 17.6,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877677,
+      "sunset": 1794918495,
+      "dayLengthSeconds": 40818,
+      "readingAt": 1794868223
+    },
+    "275": {
+      "temp": 17.71,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877683,
+      "sunset": 1794918493,
+      "dayLengthSeconds": 40810,
+      "readingAt": 1794868224
+    },
+    "276": {
+      "temp": 17.69,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877680,
+      "sunset": 1794918483,
+      "dayLengthSeconds": 40803,
+      "readingAt": 1794868225
+    },
+    "277": {
+      "temp": 18.17,
+      "description": "scattered clouds",
+      "timezone": 19800,
+      "sunrise": 1794877767,
+      "sunset": 1794918540,
+      "dayLengthSeconds": 40773,
+      "readingAt": 1794868226
+    },
+    "278": {
+      "temp": 17.28,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877637,
+      "sunset": 1794918439,
+      "dayLengthSeconds": 40802,
+      "readingAt": 1794868227
+    },
+    "279": {
+      "temp": 17.63,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877626,
+      "sunset": 1794918436,
+      "dayLengthSeconds": 40810,
+      "readingAt": 1794868228
+    },
+    "280": {
+      "temp": 18.2,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877596,
+      "sunset": 1794918399,
+      "dayLengthSeconds": 40803,
+      "readingAt": 1794868230
+    },
+    "281": {
+      "temp": 18.57,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877594,
+      "sunset": 1794918381,
+      "dayLengthSeconds": 40787,
+      "readingAt": 1794868231
+    },
+    "282": {
+      "temp": 18.59,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877604,
+      "sunset": 1794918386,
+      "dayLengthSeconds": 40782,
+      "readingAt": 1794868232
+    },
+    "283": {
+      "temp": 17.64,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877705,
+      "sunset": 1794918453,
+      "dayLengthSeconds": 40748,
+      "readingAt": 1794868233
+    },
+    "284": {
+      "temp": 17.35,
+      "description": "few clouds",
+      "timezone": 19800,
+      "sunrise": 1794877730,
+      "sunset": 1794918490,
+      "dayLengthSeconds": 40760,
+      "readingAt": 1794868234
+    },
+    "285": {
+      "temp": 18.13,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877685,
+      "sunset": 1794918405,
+      "dayLengthSeconds": 40720,
+      "readingAt": 1794868235
+    },
+    "286": {
+      "temp": 18.51,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877613,
+      "sunset": 1794918324,
+      "dayLengthSeconds": 40711,
+      "readingAt": 1794868236
+    },
+    "287": {
+      "temp": 19.28,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877625,
+      "sunset": 1794918376,
+      "dayLengthSeconds": 40751,
+      "readingAt": 1794868238
+    },
+    "288": {
+      "temp": 19.63,
+      "description": "clear sky",
+      "timezone": 19800,
+      "sunrise": 1794877475,
+      "sunset": 1794918217,
+      "dayLengthSeconds": 40742,
+      "readingAt": 1794868239
+    }
+  }
+}
