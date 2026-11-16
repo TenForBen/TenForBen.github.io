@@ -9,6 +9,9 @@
 //   node shared/scrapeWeather.js tamilNaduAssembly     (234 seats, ~4.5 min)
 //   node shared/scrapeWeather.js chhattisgarhAssembly  (90 seats, ~1.7 min)
 //   node shared/scrapeWeather.js jammuKashmirAssembly  (90 seats, ~1.7 min)
+//   node shared/scrapeWeather.js telanganaAssembly  (119 seats, ~2.2 min)
+//   node shared/scrapeWeather.js andhraPradeshAssembly  (175 seats, ~3.2 min)
+//   node shared/scrapeWeather.js karnatakaAssembly  (224 seats, ~4.2 min)
 //
 // Keyed by `no` — the seat's official constituency number, unique and stable.
 
