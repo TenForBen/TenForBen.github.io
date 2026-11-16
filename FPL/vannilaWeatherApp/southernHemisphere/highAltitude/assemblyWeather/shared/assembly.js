@@ -305,8 +305,29 @@ function renderTableRow(row) {
   `;
 }
 
+// When the cards are sorted by something the collapsed card doesn't show
+// (sunset, altitude, MLA...), surface that value on the card itself so the
+// order makes sense without opening each one. No., constituency, district,
+// alliance and temperature (with its ▲/▼) are already on every card.
+function sortedValueLine(row, cells) {
+  const dash = '<span class="sh-dash">&mdash;</span>';
+  const shown = {
+    altitude: ["Altitude", formatAltitude(row.altitudeMeters)],
+    readingAt: ["Reading taken at", cells.readingCell],
+    winner: ["MLA", escapeHtml(row.winner)],
+    sunrise: ["Sunrise", cells.sunriseCell],
+    sunset: ["Sunset", cells.sunsetCell],
+    dayLength: ["Day length", cells.dayLengthCell],
+    map: ["Latitude", formatCoord(row.lat, true)],
+    change: ["Temp change", sinceLastChip(row) || "no earlier reading"],
+  }[sortKey];
+  if (!shown) return "";
+  return `<div class="ka-card-sorted"><span class="ka-card-sorted-label">${shown[0]}</span> ${shown[1] || dash}</div>`;
+}
+
 function renderCard(row) {
-  const { tempCell, dayLengthCell, sunriseCell, sunsetCell, readingCell } = weatherCells(row);
+  const cells = weatherCells(row);
+  const { tempCell, dayLengthCell, sunriseCell, sunsetCell, readingCell } = cells;
   const isOpen = openCards.has(row.no);
 
   return `
@@ -315,6 +336,7 @@ function renderCard(row) {
         <div class="ha-card-main">
           <div class="ha-card-city">${row.no}. ${escapeHtml(row.constituency)}</div>
           <div class="ha-card-country">${escapeHtml(row.district)}</div>
+          ${sortedValueLine(row, cells)}
         </div>
         <div class="ha-card-stats">
           ${allianceTag(row.alliance)}
