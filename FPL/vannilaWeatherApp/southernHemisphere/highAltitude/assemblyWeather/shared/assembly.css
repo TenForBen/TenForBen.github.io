@@ -112,6 +112,18 @@
   padding: 5px 8px;
 }
 
+/* ---- Phone sort (built by assembly.js) ----------------------------------
+   Same 720px breakpoint where ../../style.css swaps the table for cards. */
+.ka-sort {
+  display: none;
+  gap: 8px;
+  align-items: center;
+}
+.ka-sort-dir { white-space: nowrap; }
+@media (max-width: 720px) {
+  .ka-sort { display: flex; }
+}
+
 .ka-source {
   margin-top: 18px;
 }
