@@ -182,6 +182,7 @@ const COLUMN_SORT_VALUE = {
   sunset: (r) => (r.weather ? formatLocalTime(r.weather.sunset, r.weather.timezone) : null),
   dayLength: (r) => (r.weather ? r.weather.dayLengthSeconds : null),
   readingAt: (r) => readingTimeOf(r),
+  change: (r) => tempChange(r), // phone sort only (no table column): ▲/▼ since last reading
 };
 
 function sortRows(rows) {
@@ -371,6 +372,7 @@ function renderTable() {
     th.dataset.label = label;
     th.textContent = key === sortKey ? `${label} ${sortDir === 1 ? "▲" : "▼"}` : label;
   });
+  syncMobileSort();
 }
 
 function toggleCard(cardEl) {
@@ -433,6 +435,57 @@ document.querySelectorAll("th[data-sort-key]").forEach((th) => {
     renderTable();
   });
 });
+
+// Phones see cards, not the table, so there are no headers to tap. This adds
+// a "Sort by" picker and a ▲/▼ direction button to the filter bar, shown
+// only below the card breakpoint (assembly.css). Same sortKey/sortDir as the
+// headers, so switching between the two layouts keeps the order.
+const MOBILE_SORT_OPTIONS = [
+  ["no", "No."],
+  ["constituency", "Constituency"],
+  ["temp", "Current temp"],
+  ["change", "Temp change"],
+  ["altitude", "Altitude"],
+  ["readingAt", "Reading taken at"],
+  ["district", "District"],
+  ["winner", "MLA"],
+  ["alliance", "Alliance"],
+  ["sunrise", "Sunrise"],
+  ["sunset", "Sunset"],
+  ["dayLength", "Day length"],
+];
+
+function buildMobileSort() {
+  const bar = document.querySelector(".ka-filters");
+  if (!bar) return;
+  const wrap = document.createElement("div");
+  wrap.className = "ka-sort";
+  wrap.innerHTML = `
+    <select id="kaSort" class="ka-select" aria-label="Sort by">
+      ${MOBILE_SORT_OPTIONS.map(([key, label]) => `<option value="${key}">Sort: ${label}</option>`).join("")}
+    </select>
+    <button type="button" id="kaSortDir" class="ka-chip ka-sort-dir" aria-label="Reverse sort order"></button>`;
+  bar.appendChild(wrap);
+  wrap.querySelector("#kaSort").addEventListener("change", (e) => {
+    sortKey = e.target.value;
+    sortDir = 1;
+    renderTable();
+  });
+  wrap.querySelector("#kaSortDir").addEventListener("click", () => {
+    sortDir *= -1;
+    renderTable();
+  });
+}
+
+function syncMobileSort() {
+  const select = document.getElementById("kaSort");
+  const dirBtn = document.getElementById("kaSortDir");
+  if (!select || !dirBtn) return;
+  select.value = sortKey;
+  dirBtn.innerHTML = sortDir === 1 ? "&#9650; Asc" : "&#9660; Desc";
+}
+
+buildMobileSort();
 
 // ---- Get current weather (client-side re-scrape) ---------------------------
 // Always fetches every seat, whatever the filters show, so the cached
