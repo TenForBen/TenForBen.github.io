@@ -207,6 +207,34 @@ function deltaChip(currentValue, previousValue, formatDelta) {
   return `<span class="sh-delta ${cls}">${arrow} ${formatDelta(diff)}</span>`;
 }
 
+// ---- Change since this seat's last reading --------------------------------
+// Every fetch (the per-row ↻ or Get current weather) keeps the reading it
+// replaced in current.prevByNo, so the temperature can show ▲/▼ and by how
+// much it moved since then. Stays until that seat is fetched again.
+
+function lastReading(no) {
+  const last = current.prevByNo ? current.prevByNo[no] : null;
+  return last && typeof last.temp === "number" ? last : null;
+}
+
+function tempChange(row) {
+  const last = lastReading(row.no);
+  if (!last || !row.weather) return null;
+  return Math.round((row.weather.temp - last.temp) * 10) / 10; // to 0.1°C
+}
+
+function sinceLastChip(row) {
+  const last = lastReading(row.no);
+  const diff = tempChange(row);
+  if (diff == null) return "";
+  const when = last.readingAt ? ` at ${formatReadingTime(last.readingAt, last.timezone || 19800)}` : "";
+  const title = `Was ${last.temp.toFixed(1)}°C${when}`;
+  if (diff === 0) return `<span class="sh-delta sh-delta-flat" title="${title}">&bull; no change</span>`;
+  const cls = diff > 0 ? "sh-delta-up" : "sh-delta-down";
+  const arrow = diff > 0 ? "&#9650;" : "&#9660;";
+  return `<span class="sh-delta ${cls}" title="${title}">${arrow} ${Math.abs(diff).toFixed(1)}&deg;C</span>`;
+}
+
 // One row's weather, formatted into the 4 cells both the table and the
 // card's detail panel need — built once per row, then laid out two ways.
 function weatherCells(row) {
@@ -229,6 +257,8 @@ function weatherCells(row) {
       dayLengthCell += deltaChip(row.weather.dayLengthSeconds, prevWeather.dayLengthSeconds, (d) => formatDuration(d));
     } else if (compareOn && !prevWeather) {
       tempCell += `<span class="sh-delta sh-delta-flat">no prior data</span>`;
+    } else if (!compareOn) {
+      tempCell += sinceLastChip(row);
     }
   }
 
@@ -427,9 +457,14 @@ async function refreshSeat(no) {
   renderTable();
   try {
     const fresh = await fetchWeatherLive(seat);
-    current = { ...current, byNo: { ...current.byNo, [no]: fresh } };
+    const replaced = current.byNo[no];
+    const prevByNo = { ...(current.prevByNo || {}) };
+    if (replaced) prevByNo[no] = replaced; else delete prevByNo[no];
+    current = { ...current, byNo: { ...current.byNo, [no]: fresh }, prevByNo };
     saveRun(LAST_RUN_KEY, current);
-    statusEl.textContent = `${seat.constituency}: ${Math.round(fresh.temp)}°C, ${fresh.description}`;
+    const diff = tempChange({ no, weather: fresh });
+    const change = diff == null ? "" : diff === 0 ? " (no change)" : ` (${diff > 0 ? "▲" : "▼"} ${Math.abs(diff).toFixed(1)}°C since last reading)`;
+    statusEl.textContent = `${seat.constituency}: ${fresh.temp.toFixed(1)}°C${change}, ${fresh.description}`;
   } catch (err) {
     statusEl.textContent = `${seat.constituency}: could not get the weather (${err.message})`;
   } finally {
@@ -446,6 +481,7 @@ refreshBtn.addEventListener("click", async () => {
   refreshBtn.disabled = true;
   compareBtn.disabled = true;
   const freshByNo = {};
+  const prevByNo = {};
   let failures = 0;
 
   for (let i = 0; i < seats.length; i++) {
@@ -453,15 +489,18 @@ refreshBtn.addEventListener("click", async () => {
     statusEl.textContent = `Fetching… ${i + 1}/${seats.length} (${seat.constituency})`;
     try {
       freshByNo[seat.no] = await fetchWeatherLive(seat);
+      if (current.byNo[seat.no]) prevByNo[seat.no] = current.byNo[seat.no];
     } catch (err) {
       failures += 1;
       freshByNo[seat.no] = current.byNo[seat.no] || null;
+      // Kept the old reading, so keep its old "since last" too.
+      if (current.prevByNo && current.prevByNo[seat.no]) prevByNo[seat.no] = current.prevByNo[seat.no];
     }
     if (i < seats.length - 1) await sleep(REFRESH_DELAY_MS);
   }
 
   previous = current;
-  current = { generatedAt: Math.floor(Date.now() / 1000), byNo: freshByNo };
+  current = { generatedAt: Math.floor(Date.now() / 1000), byNo: freshByNo, prevByNo };
   saveRun(PREVIOUS_RUN_KEY, previous);
   saveRun(LAST_RUN_KEY, current);
 

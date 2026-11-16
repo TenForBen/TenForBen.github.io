@@ -105,11 +105,16 @@ same table/card mechanism as this page:
 - [Tamil Nadu](./assemblyWeather/tamilNaduAssembly/README.md): 234 seats, 2026 result.
 - [Chhattisgarh](./assemblyWeather/chhattisgarhAssembly/README.md): 90 seats, 2023 result.
 - [Jammu & Kashmir](./assemblyWeather/jammuKashmirAssembly/README.md): 90 seats, 2024 result.
+- [Karnataka](./assemblyWeather/karnatakaAssembly/README.md): 224 seats, 2023 result.
+- [Andhra Pradesh](./assemblyWeather/andhraPradeshAssembly/README.md): 175 seats, 2024 result.
+- [Telangana](./assemblyWeather/telanganaAssembly/README.md): 119 seats, 2023 result.
 
 The page script, styles and weather scraper are shared, in
 `assemblyWeather/shared/`. Each state folder holds only its `seats.json`,
 `weatherData.json` and a thin HTML page that sets `window.ASSEMBLY`
-(storage key and alliance colours).
+(storage key and alliance colours). The pages load the shared files as
+`assembly.js?v=N` / `assembly.css?v=N`: after changing either, bump `N`
+in every state's HTML so browsers don't keep running the old copy.
 
 To add another assembly: copy one state folder, replace its `seats.json`
 (same fields), edit the HTML's title, intro, source link and
