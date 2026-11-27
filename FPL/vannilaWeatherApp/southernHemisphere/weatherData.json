@@ -1,112 +1,112 @@
 {
-  "generatedAt": 1795725787,
+  "generatedAt": 1795758774,
   "byIso2": {
     "AO": {
-      "temp": 25.97,
+      "temp": 24.97,
       "description": "broken clouds",
       "timezone": 3600,
-      "sunrise": 1795667822,
-      "sunset": 1795713090,
-      "dayLengthSeconds": 45268
+      "sunrise": 1795754233,
+      "sunset": 1795799518,
+      "dayLengthSeconds": 45285
     },
     "AR": {
-      "temp": 23.8,
+      "temp": 18.91,
       "description": "clear sky",
       "timezone": -10800,
-      "sunrise": 1795682114,
-      "sunset": 1795733206,
-      "dayLengthSeconds": 51092
+      "sunrise": 1795768497,
+      "sunset": 1795819664,
+      "dayLengthSeconds": 51167
     },
     "AU": {
-      "temp": 17.99,
-      "description": "broken clouds",
+      "temp": 23.07,
+      "description": "overcast clouds",
       "timezone": 39600,
       "sunrise": 1795718605,
-      "sunset": 1795769927,
-      "dayLengthSeconds": 51322
+      "sunset": 1795769928,
+      "dayLengthSeconds": 51323
     },
     "BO": {
-      "temp": 17.19,
+      "temp": 12.44,
       "description": "overcast clouds",
       "timezone": -14400,
-      "sunrise": 1795685663,
-      "sunset": 1795732963,
-      "dayLengthSeconds": 47300
+      "sunrise": 1795772064,
+      "sunset": 1795819400,
+      "dayLengthSeconds": 47336
     },
     "BW": {
-      "temp": 23.48,
-      "description": "clear sky",
+      "temp": 23.8,
+      "description": "broken clouds",
       "timezone": 7200,
-      "sunrise": 1795663164,
-      "sunset": 1795711683,
-      "dayLengthSeconds": 48519
+      "sunrise": 1795749559,
+      "sunset": 1795798126,
+      "dayLengthSeconds": 48567
     },
     "BR": {
-      "temp": 26.79,
+      "temp": 20.79,
       "description": "broken clouds",
       "timezone": -10800,
-      "sunrise": 1795681826,
-      "sunset": 1795728456,
-      "dayLengthSeconds": 46630
+      "sunrise": 1795768230,
+      "sunset": 1795814890,
+      "dayLengthSeconds": 46660
     },
     "BI": {
-      "temp": 16.17,
-      "description": "overcast clouds",
+      "temp": 19.6,
+      "description": "light rain",
       "timezone": 7200,
-      "sunrise": 1795664333,
-      "sunset": 1795708590,
-      "dayLengthSeconds": 44257
+      "sunrise": 1795750749,
+      "sunset": 1795795012,
+      "dayLengthSeconds": 44263
     },
     "CL": {
-      "temp": 28.67,
+      "temp": 19.27,
       "description": "clear sky",
       "timezone": -10800,
-      "sunrise": 1795685228,
-      "sunset": 1795735993,
-      "dayLengthSeconds": 50765
+      "sunrise": 1795771612,
+      "sunset": 1795822448,
+      "dayLengthSeconds": 50836
     },
     "KM": {
-      "temp": 26.8,
+      "temp": 31.16,
       "description": "few clouds",
       "timezone": 10800,
-      "sunrise": 1795660359,
-      "sunset": 1795706174,
-      "dayLengthSeconds": 45815
+      "sunrise": 1795746767,
+      "sunset": 1795792604,
+      "dayLengthSeconds": 45837
     },
     "CD": {
-      "temp": 24.26,
-      "description": "light rain",
+      "temp": 23.26,
+      "description": "overcast clouds",
       "timezone": 3600,
-      "sunrise": 1795667759,
-      "sunset": 1795712204,
-      "dayLengthSeconds": 44445
+      "sunrise": 1795754174,
+      "sunset": 1795798627,
+      "dayLengthSeconds": 44453
     },
     "CG": {
-      "temp": 25.02,
-      "description": "thunderstorm with light rain",
+      "temp": 24.02,
+      "description": "scattered clouds",
       "timezone": 3600,
-      "sunrise": 1795667781,
-      "sunset": 1795712193,
-      "dayLengthSeconds": 44412
+      "sunrise": 1795754197,
+      "sunset": 1795798616,
+      "dayLengthSeconds": 44419
     },
     "TL": {
-      "temp": 27.68,
-      "description": "overcast clouds",
+      "temp": 31.17,
+      "description": "light rain",
       "timezone": 32400,
       "sunrise": 1795727311,
       "sunset": 1795772537,
       "dayLengthSeconds": 45226
     },
     "SZ": {
-      "temp": 16.51,
-      "description": "clear sky",
+      "temp": 24.47,
+      "description": "few clouds",
       "timezone": 7200,
-      "sunrise": 1795661717,
-      "sunset": 1795710627,
-      "dayLengthSeconds": 48910
+      "sunrise": 1795748110,
+      "sunset": 1795797072,
+      "dayLengthSeconds": 48962
     },
     "FJ": {
-      "temp": 25.71,
+      "temp": 26.71,
       "description": "light rain",
       "timezone": 43200,
       "sunrise": 1795713668,
@@ -114,7 +114,7 @@
       "dayLengthSeconds": 47124
     },
     "ID": {
-      "temp": 25.94,
+      "temp": 33.95,
       "description": "scattered clouds",
       "timezone": 25200,
       "sunrise": 1795732026,
@@ -122,39 +122,39 @@
       "dayLengthSeconds": 44782
     },
     "KE": {
-      "temp": 17.71,
-      "description": "shower rain",
-      "timezone": 10800,
-      "sunrise": 1795662875,
-      "sunset": 1795706739,
-      "dayLengthSeconds": 43864
-    },
-    "LS": {
-      "temp": 19.44,
-      "description": "clear sky",
-      "timezone": 7200,
-      "sunrise": 1795662225,
-      "sunset": 1795711872,
-      "dayLengthSeconds": 49647
-    },
-    "MG": {
-      "temp": 19.08,
+      "temp": 18.02,
       "description": "broken clouds",
       "timezone": 10800,
-      "sunrise": 1795658614,
-      "sunset": 1795705870,
-      "dayLengthSeconds": 47256
+      "sunrise": 1795749293,
+      "sunset": 1795793160,
+      "dayLengthSeconds": 43867
+    },
+    "LS": {
+      "temp": 20.97,
+      "description": "light rain",
+      "timezone": 7200,
+      "sunrise": 1795748614,
+      "sunset": 1795798322,
+      "dayLengthSeconds": 49708
+    },
+    "MG": {
+      "temp": 22.08,
+      "description": "scattered clouds",
+      "timezone": 10800,
+      "sunrise": 1795745015,
+      "sunset": 1795792307,
+      "dayLengthSeconds": 47292
     },
     "MW": {
-      "temp": 23.87,
-      "description": "scattered clouds",
+      "temp": 23.14,
+      "description": "few clouds",
       "timezone": 7200,
-      "sunrise": 1795662410,
-      "sunset": 1795708667,
-      "dayLengthSeconds": 46257
+      "sunrise": 1795748816,
+      "sunset": 1795795100,
+      "dayLengthSeconds": 46284
     },
     "MU": {
-      "temp": 23.01,
+      "temp": 29.12,
       "description": "clear sky",
       "timezone": 14400,
       "sunrise": 1795742480,
@@ -162,63 +162,63 @@
       "dayLengthSeconds": 47565
     },
     "MZ": {
-      "temp": 24.82,
-      "description": "broken clouds",
+      "temp": 27.04,
+      "description": "few clouds",
       "timezone": 7200,
-      "sunrise": 1795661412,
-      "sunset": 1795710242,
-      "dayLengthSeconds": 48830
+      "sunrise": 1795747805,
+      "sunset": 1795796687,
+      "dayLengthSeconds": 48882
     },
     "NA": {
-      "temp": 25.3,
+      "temp": 21.3,
       "description": "clear sky",
       "timezone": 7200,
-      "sunrise": 1795665523,
-      "sunset": 1795713576,
-      "dayLengthSeconds": 48053
+      "sunrise": 1795751920,
+      "sunset": 1795800017,
+      "dayLengthSeconds": 48097
     },
     "NZ": {
-      "temp": 15.86,
-      "description": "broken clouds",
+      "temp": 15.95,
+      "description": "overcast clouds",
       "timezone": 46800,
       "sunrise": 1795711474,
       "sunset": 1795764745,
       "dayLengthSeconds": 53271
     },
     "PG": {
-      "temp": 25.2,
-      "description": "broken clouds",
+      "temp": 27.8,
+      "description": "scattered clouds",
       "timezone": 36000,
       "sunrise": 1795722037,
       "sunset": 1795767431,
       "dayLengthSeconds": 45394
     },
     "PY": {
-      "temp": 30.86,
+      "temp": 24.78,
       "description": "light rain",
       "timezone": -10800,
-      "sunrise": 1795683129,
-      "sunset": 1795731806,
-      "dayLengthSeconds": 48677
+      "sunrise": 1795769523,
+      "sunset": 1795818251,
+      "dayLengthSeconds": 48728
     },
     "PE": {
-      "temp": 28.21,
-      "description": "clear sky",
+      "temp": 24.85,
+      "description": "broken clouds",
       "timezone": -18000,
-      "sunrise": 1795689196,
-      "sunset": 1795735085,
-      "dayLengthSeconds": 45889
+      "sunrise": 1795775604,
+      "sunset": 1795821516,
+      "dayLengthSeconds": 45912
     },
     "RW": {
-      "temp": 20.78,
-      "description": "light rain",
+      "temp": 19.36,
+      "description": "few clouds",
       "timezone": 7200,
-      "sunrise": 1795664438,
-      "sunset": 1795708422,
-      "dayLengthSeconds": 43984
+      "sunrise": 1795750855,
+      "sunset": 1795794843,
+      "dayLengthSeconds": 43988
     },
     "WS": {
-      "temp": 29.7,
+      "temp": 25.26,
       "description": "light rain",
       "timezone": 46800,
       "sunrise": 1795798157,
@@ -226,64 +226,64 @@
       "dayLengthSeconds": 46276
     },
     "SC": {
-      "temp": 26.94,
-      "description": "light intensity shower rain",
+      "temp": 28.94,
+      "description": "light rain",
       "timezone": 14400,
       "sunrise": 1795744512,
       "sunset": 1795788997,
       "dayLengthSeconds": 44485
     },
     "SB": {
-      "temp": 29,
-      "description": "clear sky",
+      "temp": 29.68,
+      "description": "scattered clouds",
       "timezone": 39600,
       "sunrise": 1795718974,
       "sunset": 1795764364,
       "dayLengthSeconds": 45390
     },
     "ZA": {
-      "temp": 18.7,
-      "description": "clear sky",
+      "temp": 22.89,
+      "description": "scattered clouds",
       "timezone": 7200,
-      "sunrise": 1795662480,
-      "sunset": 1795711259,
-      "dayLengthSeconds": 48779
+      "sunrise": 1795748874,
+      "sunset": 1795797704,
+      "dayLengthSeconds": 48830
     },
     "TZ": {
-      "temp": 23.94,
+      "temp": 25.15,
       "description": "broken clouds",
       "timezone": 10800,
-      "sunrise": 1795662682,
-      "sunset": 1795707446,
-      "dayLengthSeconds": 44764
+      "sunrise": 1795749095,
+      "sunset": 1795793871,
+      "dayLengthSeconds": 44776
     },
     "TO": {
       "temp": 26.18,
-      "description": "broken clouds",
+      "description": "few clouds",
       "timezone": 46800,
       "sunrise": 1795798223,
       "sunset": 1795846026,
       "dayLengthSeconds": 47803
     },
     "TV": {
-      "temp": 30.01,
-      "description": "broken clouds",
+      "temp": 32.01,
+      "description": "scattered clouds",
       "timezone": 43200,
       "sunrise": 1795714441,
       "sunset": 1795759657,
       "dayLengthSeconds": 45216
     },
     "UY": {
-      "temp": 19.62,
+      "temp": 14.5,
       "description": "clear sky",
       "timezone": -10800,
-      "sunrise": 1795681540,
-      "sunset": 1795732718,
-      "dayLengthSeconds": 51178
+      "sunrise": 1795767922,
+      "sunset": 1795819175,
+      "dayLengthSeconds": 51253
     },
     "VU": {
-      "temp": 25.9,
-      "description": "broken clouds",
+      "temp": 28.9,
+      "description": "scattered clouds",
       "timezone": 39600,
       "sunrise": 1795716138,
       "sunset": 1795763178,
@@ -293,17 +293,17 @@
       "temp": 21.26,
       "description": "clear sky",
       "timezone": 7200,
-      "sunrise": 1795663576,
-      "sunset": 1795710118,
-      "dayLengthSeconds": 46542
+      "sunrise": 1795749981,
+      "sunset": 1795796552,
+      "dayLengthSeconds": 46571
     },
     "ZW": {
-      "temp": 19.89,
+      "temp": 21.56,
       "description": "broken clouds",
       "timezone": 7200,
-      "sunrise": 1795662677,
-      "sunset": 1795709716,
-      "dayLengthSeconds": 47039
+      "sunrise": 1795749080,
+      "sunset": 1795796152,
+      "dayLengthSeconds": 47072
     }
   }
 }
